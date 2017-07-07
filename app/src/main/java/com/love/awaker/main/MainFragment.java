@@ -73,9 +73,8 @@ public class MainFragment extends Fragment implements OnItemClickListener<New> {
 
     @Override
     public void onItemClick(View view, int position, New bean) {
-        Toast.makeText(getContext(), "" + bean.title, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), position + " : " + bean.title, Toast.LENGTH_SHORT).show();
     }
-
 
     private class NewListCallBack extends BaseObservableList<New> {
 
@@ -90,7 +89,7 @@ public class MainFragment extends Fragment implements OnItemClickListener<New> {
 
         @Override
         public void onPropertyChanged(Observable sender, int propertyId) {
-            boolean isEmpty = ((ObservableBoolean)sender).get();
+            boolean isEmpty = ((ObservableBoolean) sender).get();
             binding.setIsEmpty(isEmpty);
         }
     }

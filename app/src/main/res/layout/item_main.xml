@@ -6,10 +6,19 @@
         <variable
             name="newItem"
             type="com.love.awaker.data.New" />
+
+        <variable
+            name="listener"
+            type="com.love.awaker.base.listener.OnItemClickListener"/>
+
+        <variable
+            name="holder"
+            type="com.love.awaker.main.MainAdapter.MainHolder"/>
     </data>
 
     <android.support.v7.widget.CardView
         android:id="@+id/new_card_view"
+        android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newItem)}"
         android:background="?android:attr/selectableItemBackground"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"

@@ -9,7 +9,6 @@ import com.love.awaker.R;
 import com.love.awaker.base.listener.OnItemClickListener;
 import com.love.awaker.data.New;
 import com.love.awaker.databinding.ItemMainBinding;
-import com.love.awaker.main.holder.MainHolder;
 
 import java.util.List;
 
@@ -35,16 +34,29 @@ public class MainAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemMainBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_main, parent, false);
-        return new MainHolder(binding, listener);
+        MainHolder mainHolder = new MainHolder(binding);
+        binding.setHolder(mainHolder);
+        binding.setListener(listener);
+        return mainHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((MainHolder) holder).bind(news.get(position));
+        ((MainHolder) holder).binding.setNewItem(news.get(position));
     }
 
     @Override
     public int getItemCount() {
         return news == null ? 0 : news.size();
+    }
+
+    public static class MainHolder extends RecyclerView.ViewHolder {
+
+        public ItemMainBinding binding;
+
+        public MainHolder(ItemMainBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
     }
 }

@@ -9,7 +9,7 @@ import android.view.View;
  * same frame. A click on one button disables all buttons for that frame.
  */
 
-public abstract class CustomOnClickListener implements View.OnClickListener {
+public abstract class DebouncingOnClickListener implements View.OnClickListener {
 
     private static boolean enabled = true;
 
