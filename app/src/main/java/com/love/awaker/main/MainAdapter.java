@@ -9,6 +9,7 @@ import com.love.awaker.R;
 import com.love.awaker.base.listener.OnItemClickListener;
 import com.love.awaker.data.New;
 import com.love.awaker.databinding.ItemMainBinding;
+import com.love.awaker.imageloader.ImageLoader;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class MainAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((MainHolder) holder).binding.setNewItem(news.get(position));
+        ((MainHolder) holder).bind(news.get(position));
     }
 
     @Override
@@ -57,6 +58,11 @@ public class MainAdapter extends RecyclerView.Adapter {
         public MainHolder(ItemMainBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+        }
+
+        public void bind(New bean) {
+            binding.setNewItem(bean);
+            ImageLoader.get().load(itemView.getContext(), bean.cover_url.ori, binding.iconIv);
         }
     }
 }

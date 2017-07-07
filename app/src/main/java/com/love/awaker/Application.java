@@ -1,5 +1,7 @@
 package com.love.awaker;
 
+import com.squareup.leakcanary.LeakCanary;
+
 /**
  * Created by ruzhan on 2017/7/6.
  */
@@ -15,5 +17,7 @@ public class Application extends android.app.Application {
   @Override public void onCreate() {
     super.onCreate();
     INSTANCE = this;
+
+    LeakCanary.install(this);
   }
 }

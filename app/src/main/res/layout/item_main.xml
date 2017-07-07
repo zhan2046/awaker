@@ -20,8 +20,6 @@
         android:id="@+id/new_card_view"
         android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newItem)}"
         android:background="?android:attr/selectableItemBackground"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="85dp">
 
@@ -36,8 +34,8 @@
             android:text="@{newItem.title}"
             android:textSize="16sp"
             android:textColor="@android:color/black"
-            android:paddingLeft="15dp"
-            android:layout_gravity="center"
+           android:layout_marginRight="50dp"
+            android:layout_gravity="right|center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </android.support.v7.widget.CardView>

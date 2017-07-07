@@ -35,6 +35,7 @@ android {
 dependencies {
     def supportLibraryVersion = rootProject.ext.supportLibraryVersion
     def retrofitVersion = '2.3.0'
+    def leakCanaryVersion = '1.5.1'
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -43,12 +44,23 @@ dependencies {
     compile "com.android.support:design:$supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
 
+    //retrofit
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     compile "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
+    //rx
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+
+    //glide
+    compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
+
+    //leakCanary
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }
