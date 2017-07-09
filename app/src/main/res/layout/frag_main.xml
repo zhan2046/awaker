@@ -7,8 +7,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="isEmpty"
-            type="boolean"/>
+            name="viewmodel"
+            type="com.love.awaker.main.MainViewModel"/>
     </data>
 
     <FrameLayout
@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:visibility="@{isEmpty ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewmodel.isEmpty ? View.VISIBLE : View.GONE}"
             android:gravity="center"
             android:textAlignment="center"
             android:text="empty"
@@ -26,12 +26,13 @@
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
-            android:visibility="@{isEmpty ? View.GONE : View.VISIBLE}"
+            android:visibility="@{viewmodel.isEmpty ? View.GONE : View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
+                app:news="@{viewmodel.news}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="LinearLayoutManager" />

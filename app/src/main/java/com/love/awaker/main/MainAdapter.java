@@ -1,16 +1,16 @@
 package com.love.awaker.main;
 
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import com.love.awaker.R;
 import com.love.awaker.base.listener.OnItemClickListener;
 import com.love.awaker.data.New;
 import com.love.awaker.databinding.ItemMainBinding;
 import com.love.awaker.imageloader.ImageLoader;
-
 import java.util.List;
 
 /**
@@ -26,9 +26,19 @@ public class MainAdapter extends RecyclerView.Adapter {
         this.listener = listener;
     }
 
+    @SuppressWarnings("unchecked")
+    @BindingAdapter("app:news")
+    public static void setNews(RecyclerView recyclerView, List<New> news) {
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if (adapter  instanceof MainAdapter) {
+            ((MainAdapter)adapter).setData(news);
+        }
+    }
+
     public void setData(List<New> news) {
         this.news = news;
         notifyDataSetChanged();
+        Log.i("news","setDataed...");
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 
+import android.util.Log;
 import com.love.awaker.data.New;
 import com.love.awaker.data.source.NewRepository;
 
@@ -45,6 +46,7 @@ public class MainViewModel extends BaseObservable {
 
                     news.clear();
                     news.addAll(httpResult.getData());
+                  Log.i("news","news size:" + news.size());
                 })
                 .subscribe());
     }
