@@ -5,7 +5,6 @@ import android.databinding.Observable;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,12 +21,10 @@ import com.future.awaker.R;
  * Copyright ©2017 by Teambition
  */
 
-public abstract class BaseListFragment<VB extends ViewDataBinding> extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseFragment<VB>
+        implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final int EMPTY_LAYOUT = -1;
-
-    protected VB binding;
-    protected BaseListViewModel baseListViewModel;
 
     protected SwipeRefreshLayout swipeRefresh;
     protected RecyclerView recyclerView;
@@ -41,13 +38,12 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends Fragm
     protected boolean isStopLoadMore;
     protected int page = 1;
 
-    private RunCallBack runCallBack;
-
     @SuppressWarnings("unchecked")
     protected <T> T findViewById(View view, int id) {
         return (T) view.findViewById(id);
     }
 
+    @Override
     protected int getLayout() {
         return R.layout.frag_base_list;
     }
@@ -56,19 +52,10 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends Fragm
         return EMPTY_LAYOUT;
     }
 
-    public void setBaseListViewModel(BaseListViewModel baseListViewModel) {
-        this.baseListViewModel = baseListViewModel;
-        runCallBack = new RunCallBack();
-        baseListViewModel.isRunning.addOnPropertyChangedCallback(runCallBack);
-    }
-
     protected abstract void initData();
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, getLayout(), container, false);
+    protected void onBindCreated() {
         View rootView = binding.getRoot();
         swipeRefresh = findViewById(rootView, R.id.swipe_refresh);
         containerFl = findViewById(rootView, R.id.container_fl);
@@ -88,8 +75,6 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends Fragm
                 }
             }
         });
-
-        return rootView;
     }
 
     @Override
@@ -103,9 +88,7 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends Fragm
 
     @Override
     public void onDestroyView() {
-        if (runCallBack != null) {
-            baseListViewModel.isRunning.removeOnPropertyChangedCallback(runCallBack);
-        }
+
         super.onDestroyView();
     }
 
@@ -145,8 +128,16 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends Fragm
         return false;
     }
 
+    protected BaseListViewModel getBaseListViewModel() {
+        if (baseViewModel instanceof BaseListViewModel) {
+            return ((BaseListViewModel)baseViewModel);
+        }
+        return null;
+    }
+
     @Override
     public void onRefresh() {
+        BaseListViewModel baseListViewModel = getBaseListViewModel();
         if (baseListViewModel == null ||
                 baseListViewModel.isRunning.get() ||
                 isStopRefresh) {
@@ -162,6 +153,7 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends Fragm
     }
 
     public void onLoadMore() {
+        BaseListViewModel baseListViewModel = getBaseListViewModel();
         if (baseListViewModel == null ||
                 baseListViewModel.isRunning.get() ||
                 baseListViewModel.isEmpty.get() ||
@@ -185,18 +177,17 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends Fragm
     }
 
     protected void fetchData() {
+        BaseListViewModel baseListViewModel = getBaseListViewModel();
         if (baseListViewModel != null) {
             baseListViewModel.fetchData(isRefresh, page);
         }
     }
 
-    private class RunCallBack extends Observable.OnPropertyChangedCallback {
-
-        @Override
-        public void onPropertyChanged(Observable sender, int propertyId) {
-            if (!baseListViewModel.isRunning.get()) {
-                setRefreshing(false);
-            }
+    @Override
+    protected void onRunChanged(Observable sender, int propertyId) {
+        BaseListViewModel baseListViewModel = getBaseListViewModel();
+        if (baseListViewModel != null && !baseListViewModel.isRunning.get()) {
+            setRefreshing(false);
         }
     }
 }

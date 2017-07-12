@@ -16,6 +16,7 @@ import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.New;
 import com.future.awaker.databinding.FragMainBinding;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,8 @@ public class MainFragment extends BaseListFragment<FragMainBinding> implements O
 
     @Override
     protected void initData() {
-        setBaseListViewModel(mainViewModel);
+        setViewModel(mainViewModel);
+
         binding.setViewmodel(mainViewModel);
 
         adapter = new MainAdapter(this);

@@ -11,7 +11,6 @@ import com.future.awaker.data.source.NewRepository;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by ruzhan on 2017/7/6.
@@ -22,17 +21,12 @@ public class MainViewModel extends BaseListViewModel {
     public ObservableList<New> news = new ObservableArrayList<>();
 
     private NewRepository newRepository;
-    private CompositeDisposable disposable = new CompositeDisposable();
 
     private String token;
     private int id;
 
     public MainViewModel(NewRepository newRepository) {
         this.newRepository = newRepository;
-    }
-
-    public void clear() {
-        disposable.clear();
     }
 
     public void setToken(String token, int id) {

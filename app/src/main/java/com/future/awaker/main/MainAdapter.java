@@ -15,6 +15,7 @@ import com.future.awaker.databinding.ItemMainBinding;
 import com.future.awaker.imageloader.ImageLoader;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Copyright ©2017 by Teambition
@@ -88,14 +89,16 @@ public class MainAdapter extends RecyclerView.Adapter {
         public boolean isItemsTheSame(int oldItemPosition, int newItemPosition) {
             New oldObj = oldData.get(oldItemPosition);
             New newObj = newData.get(newItemPosition);
-            return oldObj.id.equals(newObj.id) && oldObj.title.equals(newObj.title);
+            return Objects.equals(oldObj.id, newObj.id) &&
+                    Objects.equals(oldObj.title, newObj.title);
         }
 
         @Override
         public boolean isContentsTheSame(int oldItemPosition, int newItemPosition) {
             New oldObj = oldData.get(oldItemPosition);
             New newObj = newData.get(newItemPosition);
-            return oldObj.id.equals(newObj.id) && oldObj.title.equals(newObj.title);
+            return Objects.equals(oldObj.id, newObj.id) &&
+                    Objects.equals(oldObj.title, newObj.title);
         }
     }
 }

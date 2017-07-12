@@ -25,6 +25,10 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             app:layoutManager="LinearLayoutManager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <include
+            android:id="@+id/progressbar"
+            layout="@layout/progressbar"/>
     </FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
 </layout>
