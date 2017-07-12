@@ -1,22 +1,15 @@
-package com.future.awaker.main;
+package com.future.awaker.news;
 
 import android.databinding.BindingAdapter;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.New;
-import com.future.awaker.databinding.FragMainBinding;
-import com.pnikosis.materialishprogress.ProgressWheel;
+import com.future.awaker.databinding.FragNewBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,18 +18,18 @@ import java.util.List;
  * Created by ruzhan on 2017/7/6.
  */
 
-public class MainFragment extends BaseListFragment<FragMainBinding> implements OnItemClickListener<New> {
+public class NewFragment extends BaseListFragment<FragNewBinding> implements OnItemClickListener<New> {
 
-    private MainViewModel mainViewModel;
-    private MainAdapter adapter;
+    private NewViewModel newViewModel;
+    private NewAdapter adapter;
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static NewFragment newInstance() {
+        return new NewFragment();
     }
 
     @Override
     protected int getLayout() {
-        return R.layout.frag_main;
+        return R.layout.frag_new;
     }
 
     @Override
@@ -46,13 +39,13 @@ public class MainFragment extends BaseListFragment<FragMainBinding> implements O
 
     @Override
     protected void initData() {
-        setViewModel(mainViewModel);
+        setViewModel(newViewModel);
 
-        binding.setViewmodel(mainViewModel);
+        binding.setViewmodel(newViewModel);
 
-        adapter = new MainAdapter(this);
+        adapter = new NewAdapter(this);
         binding.recyclerView.setAdapter(adapter);
-        mainViewModel.setToken("f32b30c2a289bfca2c9857ffc5871ac8", 0);
+        newViewModel.setToken("f32b30c2a289bfca2c9857ffc5871ac8", 0);
     }
 
     @Override
@@ -65,13 +58,13 @@ public class MainFragment extends BaseListFragment<FragMainBinding> implements O
     @BindingAdapter({"news"})
     public static void setNews(RecyclerView recyclerView, List<New> news) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter instanceof MainAdapter) {
-            ((MainAdapter)adapter).setData(new ArrayList<>(news));
+        if (adapter instanceof NewAdapter) {
+            ((NewAdapter)adapter).setData(new ArrayList<>(news));
         }
     }
 
-    public void setMainViewModel(MainViewModel mainViewModel) {
-        this.mainViewModel = mainViewModel;
+    public void setNewViewModel(NewViewModel newViewModel) {
+        this.newViewModel = newViewModel;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.future.awaker.main;
+package com.future.awaker.news;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
@@ -16,7 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  * Created by ruzhan on 2017/7/6.
  */
 
-public class MainViewModel extends BaseListViewModel {
+public class NewViewModel extends BaseListViewModel {
 
     public ObservableList<New> news = new ObservableArrayList<>();
 
@@ -25,7 +25,7 @@ public class MainViewModel extends BaseListViewModel {
     private String token;
     private int id;
 
-    public MainViewModel(NewRepository newRepository) {
+    public NewViewModel(NewRepository newRepository) {
         this.newRepository = newRepository;
     }
 

@@ -1,58 +1,44 @@
 package com.future.awaker.main;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.bumptech.glide.Glide;
 import com.future.awaker.R;
-import com.future.awaker.base.ViewModelHolder;
-import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.databinding.ActivityMainBinding;
+import com.future.awaker.news.NewActivity;
+
+/**
+ * Created by ruzhan on 2017/7/12.
+ */
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String MAIN_VIEW_MODEL_TAG = "MAIN_VIEW_MODEL_TAG";
+  private static final long DELAY_MILLIS = 2500;
 
-    private MainFragment mainFragment;
-    private MainViewModel mainViewModel;
+  private ActivityMainBinding binding;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    requestWindowFeature(Window.FEATURE_NO_TITLE);
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if (mainFragment == null) {
-            mainFragment = MainFragment.newInstance();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.content_fl, mainFragment, MainFragment.class.getSimpleName())
-                    .commit();
-        }
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    Glide.with(this).load(R.mipmap.main_start_icon).into(binding.mainIv);
+    binding.mainTv.setText(R.string.launch_desc);
+    binding.mainIv.postDelayed(() -> {
+      NewActivity.launch(this);
+      finish();
+    }, DELAY_MILLIS);
+  }
 
-        mainViewModel = findOrCreateViewModel();
-        mainFragment.setMainViewModel(mainViewModel);
-    }
+  @Override
+  public void onBackPressed() {
 
-    @Override
-    protected void onDestroy() {
-        NewRepository.destroyInstance();
-
-        super.onDestroy();
-    }
-
-    private MainViewModel findOrCreateViewModel() {
-        @SuppressWarnings("unchecked")
-        ViewModelHolder<MainViewModel> retainedViewModel = (ViewModelHolder<MainViewModel>) getSupportFragmentManager()
-                .findFragmentByTag(MAIN_VIEW_MODEL_TAG);
-
-        if (retainedViewModel != null && retainedViewModel.getViewModel() != null) {
-            return retainedViewModel.getViewModel();
-        } else {
-            MainViewModel mainViewModel = new MainViewModel(NewRepository.get());
-            ViewModelHolder viewModelHolder = ViewModelHolder.createContainer(mainViewModel);
-
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(viewModelHolder, MAIN_VIEW_MODEL_TAG);
-            transaction.commit();
-            return mainViewModel;
-        }
-    }
+  }
 }

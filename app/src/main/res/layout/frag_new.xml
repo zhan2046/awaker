@@ -5,7 +5,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 <data>
     <variable
         name="viewmodel"
-        type="com.future.awaker.main.MainViewModel"/>
+        type="com.future.awaker.news.NewViewModel"/>
 </data>
 
 <android.support.v4.widget.SwipeRefreshLayout
