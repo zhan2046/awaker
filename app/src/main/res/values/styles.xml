@@ -1,11 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
+
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorAccent">@color/colorAccent</item>
+
+    <item name="android:textColorPrimary">@color/white</item>
+    <item name="android:windowBackground">@color/f5</item>
 
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
@@ -16,6 +20,73 @@
     <item name="android:windowBackground">@android:color/transparent</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:windowIsTranslucent">true</item>
+  </style>
+
+  <style name="Widget.Awaker.ToolBar" parent="">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">?attr/actionBarSize</item>
+    <item name="android:background">?attr/colorPrimary</item>
+    <item name="android:theme">@style/ThemeOverlay.Awaker.ActionBar</item>
+    <item name="popupTheme">@style/ThemeOverlay.MaterialSheetFab.ActionBar.Popup</item>
+    <item name="android:elevation" tools:ignore="NewApi">@dimen/toolbar_elevation</item>
+    <item name="layout_scrollFlags">scroll|enterAlways</item>
+  </style>
+
+  <style name="Widget.Awaker.TabLayout" parent="">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">?attr/actionBarSize</item>
+    <item name="android:background">?attr/colorPrimary</item>
+    <item name="android:theme">@style/ThemeOverlay.Awaker.ActionBar</item>
+    <item name="android:elevation" tools:ignore="NewApi">@dimen/toolbar_elevation</item>
+    <item name="tabMode">fixed</item>
+    <item name="tabGravity">fill</item>
+  </style>
+
+  <style name="Widget.Awaker.Fab" parent="">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">@dimen/fab_spacing</item>
+    <item name="android:layout_marginBottom">@dimen/fab_spacing</item>
+    <item name="android:layout_marginLeft">@dimen/fab_spacing</item>
+    <item name="android:layout_marginRight">@dimen/fab_spacing</item>
+    <item name="android:elevation" tools:ignore="NewApi">@dimen/fab_elevation</item>
+    <item name="android:src">@mipmap/ic_add_grey600_24dp</item>
+    <item name="fabSize">normal</item>
+    <item name="borderWidth">0dp</item>
+  </style>
+
+  <style name="ThemeOverlay.MaterialSheetFab.ActionBar.Popup" parent="ThemeOverlay.AppCompat.Light" />
+
+
+  <style name="ThemeOverlay.Awaker.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="android:textColorPrimary">@android:color/white</item>
+    <item name="colorControlNormal">@android:color/white</item>
+    <item name="colorControlHighlight">#8fff</item>
+    <item name="colorControlActivated">@color/colorAccent</item>
+  </style>
+
+  <style name="Widget.Awaker.Sheet" parent="">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">@dimen/sheet_spacing</item>
+    <item name="android:layout_marginBottom">@dimen/sheet_spacing</item>
+    <item name="android:layout_marginLeft">@dimen/sheet_spacing</item>
+    <item name="android:layout_marginRight">@dimen/sheet_spacing</item>
+    <item name="cardBackgroundColor">@color/white</item>
+    <item name="cardElevation">@dimen/fab_sheet_elevation</item>
+    <item name="cardMaxElevation">@dimen/fab_sheet_elevation</item>
+    <item name="contentPadding">-3dp</item>
+  </style>
+
+  <style name="TextAppearance.Awaker.Sheet.Item" parent="">
+    <item name="android:layout_width">@dimen/sheet_width</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:padding">@dimen/sheet_item_spacing</item>
+    <item name="android:background">?attr/selectableItemBackground</item>
+    <item name="android:clickable">true</item>
+    <item name="android:textSize">@dimen/sheet_item_textsize</item>
+    <item name="android:textColor">@color/text_black_87</item>
+    <item name="android:drawablePadding">@dimen/sheet_item_image_spacing</item>
   </style>
 
 </resources>

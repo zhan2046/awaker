@@ -24,9 +24,9 @@ public final class AnimatorUtils {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static Animator createRevealAnimator(View rootView, int x, int y, boolean reversed,
                                                 Animator.AnimatorListener listener) {
-        float hypot = (float) Math.hypot(rootView.getMeasuredHeight(), rootView.getMeasuredWidth());
-        float startRadius = reversed ? hypot : 0;
-        float endRadius = reversed ? 0 : hypot;
+        float finalRadius = (float) Math.hypot(rootView.getMeasuredHeight(), rootView.getMeasuredWidth()) / 2;
+        float startRadius = reversed ? finalRadius : 0;
+        float endRadius = reversed ? 0 : finalRadius;
 
         Animator animator = ViewAnimationUtils.createCircularReveal(rootView, x, y,
                 startRadius, endRadius);

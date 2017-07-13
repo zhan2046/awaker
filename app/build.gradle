@@ -60,6 +60,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
 
     compile 'com.pnikosis:materialish-progress:1.1'
+    compile 'com.gordonwong:material-sheet-fab:1.2.1'
 
     //leakCanary
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"

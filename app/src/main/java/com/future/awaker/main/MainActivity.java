@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.future.awaker.R;
 import com.future.awaker.databinding.ActivityMainBinding;
+import com.future.awaker.home.HomeActivity;
 import com.future.awaker.imageloader.ImageLoader;
 import com.future.awaker.news.NewActivity;
 
@@ -23,7 +24,7 @@ import com.future.awaker.news.NewActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final long DELAY_MILLIS = 2500;
+    private static final long DELAY_MILLIS = 0;
 
     private ActivityMainBinding binding;
 
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.mainIv.postDelayed(() -> {
-            NewActivity.launch(this);
+            HomeActivity.launch(this);
             finish();
         }, DELAY_MILLIS);
     }

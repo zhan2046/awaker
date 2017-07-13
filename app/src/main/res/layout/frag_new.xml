@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<data>
-    <variable
-        name="viewmodel"
-        type="com.future.awaker.news.NewViewModel"/>
-</data>
+    <data>
 
-<android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/swipe_refresh"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        <variable
+            name="viewmodel"
+            type="com.future.awaker.news.NewViewModel" />
+    </data>
 
-    <FrameLayout
-        android:id="@+id/container_fl"
-        android:background="@color/cardview_light_background"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            app:news="@{viewmodel.news}"
-            app:layoutManager="LinearLayoutManager"
+        <FrameLayout
+            android:id="@+id/container_fl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/f5">
 
-        <include
-            android:id="@+id/progressbar"
-            layout="@layout/progressbar"/>
-    </FrameLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                app:layoutManager="LinearLayoutManager"
+                app:news="@{viewmodel.news}" />
+
+            <include
+                android:id="@+id/progressbar"
+                layout="@layout/progressbar" />
+
+            <View
+                android:id="@+id/left_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent" />
+
+            <View
+                android:id="@+id/right_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary" />
+        </FrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
 </layout>

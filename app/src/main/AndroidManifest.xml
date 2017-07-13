@@ -32,6 +32,10 @@
             android:name=".news.NewActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".home.HomeActivity"
+            android:screenOrientation="portrait" />
+
 
     </application>
 </manifest>

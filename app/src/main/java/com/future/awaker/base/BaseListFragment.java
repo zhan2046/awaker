@@ -64,7 +64,7 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
         initEmptyView();
 
         swipeRefresh.setOnRefreshListener(this);
-        swipeRefresh.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        swipeRefresh.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
