@@ -1,7 +1,9 @@
 package com.future.awaker.imageloader;
 
-import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+
+import com.bumptech.glide.request.RequestListener;
 
 /**
  * Copyright ©2017 by Teambition
@@ -9,7 +11,9 @@ import android.widget.ImageView;
 
 public interface IImageLoader {
 
-    void load(Context context, String url, ImageView imageView);
+    void load(ImageView imageView, String url);
 
-    void loadThumb(Context context, String url, ImageView imageView);
+    void load(ImageView imageView, int resId, RequestListener<Drawable> listener);
+
+    void loadThumb(ImageView imageView, String url);
 }

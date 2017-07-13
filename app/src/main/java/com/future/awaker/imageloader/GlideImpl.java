@@ -1,11 +1,14 @@
 package com.future.awaker.imageloader;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
-import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 /**
  * Copyright ©2017 by Teambition
@@ -14,23 +17,49 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 public class GlideImpl implements IImageLoader {
 
     private static final int DEFAULT_DURATION_MS = 600;
+    private static final float SIZE_MULTIPLIER = 0.5f;
 
     private DrawableTransitionOptions normalTransitionOptions = new DrawableTransitionOptions()
             .crossFade(DEFAULT_DURATION_MS);
 
     @Override
-    public void load(Context context, String url, ImageView imageView) {
-        GlideApp.with(context)
+    public void load(ImageView imageView, String url) {
+        GlideApp.with(imageView.getContext())
                 .load(url)
                 .transition(normalTransitionOptions)
                 .into(imageView);
     }
 
     @Override
-    public void loadThumb(Context context, String url, ImageView imageView) {
-        GlideApp.with(context)
+    public void load(ImageView imageView, int resId, RequestListener<Drawable> listener) {
+        GlideApp.with(imageView.getContext())
+                .load(resId)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model,
+                                                Target<Drawable> target, boolean isFirstResource) {
+                        listener.onLoadFailed(e, model, target, isFirstResource);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model,
+                                                   Target<Drawable> target, DataSource dataSource,
+                                                   boolean isFirstResource) {
+                        listener.onResourceReady(resource, model, target, dataSource,
+                                isFirstResource);
+                        return false;
+                    }
+                })
+                .transition(normalTransitionOptions)
+                .into(imageView);
+    }
+
+    @Override
+    public void loadThumb(ImageView imageView, String url) {
+        GlideApp.with(imageView.getContext())
                 .load(url)
-                .thumbnail(0.5f)
+                .thumbnail(SIZE_MULTIPLIER)
                 .transition(normalTransitionOptions)
                 .into(imageView);
     }

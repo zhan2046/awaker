@@ -78,7 +78,8 @@ public class NewAdapter extends RecyclerView.Adapter {
 
         public void bind(New bean) {
             binding.setNewItem(bean);
-            ImageLoader.get().loadThumb(itemView.getContext(), bean.cover_url.ori, binding.iconIv);
+            String url = bean.cover_url == null ? "" : bean.cover_url.ori;
+            ImageLoader.get().loadThumb(binding.iconIv, url);
         }
     }
 
