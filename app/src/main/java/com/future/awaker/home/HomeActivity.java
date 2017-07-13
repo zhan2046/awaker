@@ -1,11 +1,14 @@
 package com.future.awaker.home;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -14,12 +17,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.future.awaker.R;
 import com.future.awaker.base.ViewModelHolder;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.ActivityHomeBinding;
 import com.future.awaker.news.NewViewModel;
+import com.future.awaker.util.AnimatorUtils;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 
@@ -99,6 +104,8 @@ public class HomeActivity extends AppCompatActivity {
         binding.viewpager.setAdapter(adapter);
 
         updateFab(binding.viewpager.getCurrentItem());
+        setupColor(binding.tabs.getSelectedTabPosition());
+
         binding.tabs.setupWithViewPager(binding.viewpager);
         binding.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -109,6 +116,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 updateFab(position);
+                //setupColor(position);
             }
 
             @Override
@@ -116,6 +124,59 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void setupColor(int position) {
+        binding.toolbar.post(() -> {
+            int centerX = 0;
+            int centerY = binding.appbar.getMeasuredHeight();
+            switch (position) {
+                case 0:
+                    centerX = binding.toolbar.getMeasuredWidth() / 4;
+                    binding.coordinator.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    binding.appbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    break;
+                case 1:
+                    centerX = binding.toolbar.getMeasuredWidth() / 4 * 3;
+                    binding.coordinator.setBackgroundColor(getResources().getColor(R.color.themePrimary));
+                    binding.appbar.setBackgroundColor(getResources().getColor(R.color.themePrimary));
+
+                    break;
+            }
+
+            Animator animator = AnimatorUtils.createRevealAnimator(binding.appbar, centerX, centerY,
+                    false, new AnimatorListenerAdapter() {
+
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            super.onAnimationStart(animation);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            //updateThemeColor(position);
+                        }
+                    });
+            animator.start();
+        });
+    }
+
+    public void updateThemeColor(int position) {
+        switch (position) {
+            case 0:
+                setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                binding.toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                binding.tabs.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+                break;
+            case 1:
+                setStatusBarColor(getResources().getColor(R.color.themePrimaryDark));
+                binding.toolbar.setBackgroundColor(getResources().getColor(R.color.themePrimary));
+                binding.tabs.setBackgroundColor(getResources().getColor(R.color.themePrimary));
+
+                break;
+        }
     }
 
     private void updateFab(int position) {

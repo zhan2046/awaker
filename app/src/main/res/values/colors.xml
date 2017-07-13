@@ -5,6 +5,10 @@
   <color name="colorPrimaryDark2">#FF006064</color>
   <color name="colorAccent">#FFFFEB3B</color>
 
+  <color name="themePrimary">#FFFD7044</color>
+  <color name="themePrimaryDark">#FFFD5044</color>
+  <color name="themePrimaryDark2">#FFFD3044</color>
+
   <color name="white">#FFFFFFFF</color>
   <color name="text_white_87">#deFFFFFF</color>
 

@@ -31,18 +31,6 @@
             <include
                 android:id="@+id/progressbar"
                 layout="@layout/progressbar" />
-
-            <View
-                android:id="@+id/left_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorAccent" />
-
-            <View
-                android:id="@+id/right_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary" />
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 

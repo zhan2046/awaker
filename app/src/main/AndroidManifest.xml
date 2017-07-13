@@ -33,6 +33,7 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:theme="@style/NoAnimTheme"
             android:name=".home.HomeActivity"
             android:screenOrientation="portrait" />
 
