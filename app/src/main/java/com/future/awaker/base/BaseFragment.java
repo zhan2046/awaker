@@ -28,6 +28,7 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
     protected BaseViewModel baseViewModel;
 
     private RunningCallback runningCallback;
+    private EmptyCallback emptyCallback = new EmptyCallback();
 
     protected abstract int getLayout();
 
@@ -49,12 +50,15 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
         if (runningCallback == null) {
             runningCallback = new RunningCallback();
         }
+        baseViewModel.isEmpty.addOnPropertyChangedCallback(emptyCallback);
         baseViewModel.isRunning.addOnPropertyChangedCallback(runningCallback);
     }
 
     @Override
     public void onDestroyView() {
         if (baseViewModel != null) {
+            baseViewModel.isEmpty.removeOnPropertyChangedCallback(emptyCallback);
+
             baseViewModel.isRunning.removeOnPropertyChangedCallback(runningCallback);
         }
 
@@ -111,6 +115,19 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
                 hideProgressBar();
             }
         }
+    }
+
+    private class EmptyCallback extends Observable.OnPropertyChangedCallback {
+
+        @Override
+        public void onPropertyChanged(Observable sender, int propertyId) {
+            onRunChanged(sender, propertyId);
+            emptyData(baseViewModel.isEmpty.get());
+        }
+    }
+
+    protected void emptyData(boolean isEmpty) {
+
     }
 }
 

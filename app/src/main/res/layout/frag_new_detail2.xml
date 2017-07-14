@@ -4,6 +4,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
@@ -68,18 +72,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <im.delight.android.webview.AdvancedWebView
-                        android:id="@+id/web_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
 
-                    <include
-                        android:id="@+id/progressbar"
-                        layout="@layout/progressbar" />
+
                 </FrameLayout>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
-
-
+    </FrameLayout>
 </layout>

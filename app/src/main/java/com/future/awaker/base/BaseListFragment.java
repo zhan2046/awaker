@@ -36,8 +36,6 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
     protected boolean isStopLoadMore;
     protected int page = 1;
 
-    private EmptyCallback emptyCallback = new EmptyCallback();
-
     @SuppressWarnings("unchecked")
     protected <T> T findViewById(View view, int id) {
         return (T) view.findViewById(id);
@@ -82,7 +80,7 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
         super.onViewCreated(view, savedInstanceState);
         initData();
 
-        baseViewModel.isEmpty.addOnPropertyChangedCallback(emptyCallback);
+
 
         //init data finish, end call refresh
         onRefresh();
@@ -90,7 +88,6 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
 
     @Override
     public void onDestroyView() {
-        baseViewModel.isEmpty.removeOnPropertyChangedCallback(emptyCallback);
         super.onDestroyView();
     }
 
@@ -193,14 +190,7 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
         }
     }
 
-    protected abstract void emptyData(boolean isEmpty);
 
-    private class EmptyCallback extends Observable.OnPropertyChangedCallback {
 
-        @Override
-        public void onPropertyChanged(Observable sender, int propertyId) {
-            onRunChanged(sender, propertyId);
-            emptyData(baseViewModel.isEmpty.get());
-        }
-    }
+
 }

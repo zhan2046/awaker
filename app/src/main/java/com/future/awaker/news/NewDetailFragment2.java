@@ -3,6 +3,7 @@ package com.future.awaker.news;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.Observable;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.future.awaker.Application;
@@ -20,6 +23,7 @@ import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.FragNewDetail2Binding;
 import com.future.awaker.imageloader.ImageLoader;
+import com.just.library.AgentWeb;
 
 import im.delight.android.webview.AdvancedWebView;
 
@@ -35,6 +39,8 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
 
     private NewDetailViewModel viewModel;
     private NewDetailBack newDetailBack = new NewDetailBack();
+    protected AgentWeb mAgentWeb;
+    private AdvancedWebView webView;
 
     public static NewDetailFragment2 newInstance(String newId) {
         Bundle args = new Bundle();
@@ -51,9 +57,40 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
 
     @Override
     protected void onCreateViewBind() {
-        binding.webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        binding.webView.addJavascriptInterface(new JavascriptInterface(getActivity()), "imagelistner");
-        binding.webView.setListener(getActivity(), new AdvancedWebView.Listener() {
+        binding.swipeRefresh.setOnRefreshListener(this);
+        binding.swipeRefresh.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        String newId = getArguments().getString(NEW_ID);
+        viewModel = new NewDetailViewModel(NewRepository.get());
+        viewModel.setNewId(newId);
+
+        setViewModel(viewModel);
+        viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
+
+        FrameLayout.LayoutParams lp =
+                new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        webView = new AdvancedWebView(getContext());
+
+        mAgentWeb = AgentWeb.with(this)//
+                .setAgentWebParent(binding.containerFl, lp)//
+                .closeDefaultIndicator()//
+                .setWebView(webView)
+                .setSecurityType(AgentWeb.SecurityType.strict)
+                .createAgentWeb()//
+                .ready()//
+                .go(null);
+
+        webView.setDesktopMode(false);
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.addJavascriptInterface(new JavascriptInterface(getActivity()), "imagelistner");
+        webView.setListener(getActivity(), new AdvancedWebView.Listener() {
             @Override
             public void onPageStarted(String url, Bitmap favicon) {
 
@@ -80,21 +117,13 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
             }
         });
 
-        binding.swipeRefresh.setOnRefreshListener(this);
-        binding.swipeRefresh.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        onRefresh();
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        String newId = getArguments().getString(NEW_ID);
-        viewModel = new NewDetailViewModel(NewRepository.get());
-        viewModel.setNewId(newId);
-
-        setViewModel(viewModel);
-        viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
-
-        onRefresh();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mAgentWeb.uploadFileResult(requestCode, resultCode, data);
     }
 
     protected void setRefreshing(boolean refresh) {
@@ -133,32 +162,45 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
             ImageLoader.get().loadThumb(binding.iconIv, headerUrl);
 
             String htmlData = newDetail.content.replace(IMG, IMG_WIDTH_AUTO);
-            binding.webView.loadHtml(htmlData);
-        }
+            webView.loadHtml(htmlData);        }
     }
 
     @SuppressLint("NewApi")
     @Override
     public void onResume() {
+        mAgentWeb.getWebLifeCycle().onResume();
         super.onResume();
-        binding.webView.onResume();
     }
 
     @SuppressLint("NewApi")
     @Override
     public void onPause() {
-        binding.webView.onPause();
+        mAgentWeb.getWebLifeCycle().onPause();
         super.onPause();
-
     }
 
     @SuppressLint("NewApi")
     @Override
     public void onDestroy() {
-        binding.webView.onDestroy();
+        mAgentWeb.getWebLifeCycle().onDestroy();
         viewModel.newDetail.removeOnPropertyChangedCallback(newDetailBack);
         super.onDestroy();
     }
+
+    private void addImageClickListener() {
+        // 这段js函数的功能就是，遍历所有的img几点，并添加onclick函数，函数的功能是在图片点击的时候调用本地java接口并传递url过去
+        webView.loadUrl("javascript:(function(){" +
+                "var objs = document.getElementsByTagName(\"img\"); " +
+                "for(var i=0;i<objs.length;i++)  " +
+                "{"
+                + "    objs[i].onclick=function()  " +
+                "    {  "
+                + "        window.imagelistner.openImage(this.src);  " +
+                "    }  " +
+                "}" +
+                "})()");
+    }
+
     public class JavascriptInterface {
 
         private Context context;
@@ -170,22 +212,8 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
 
         @android.webkit.JavascriptInterface
         public void openImage(String img) {
-            //ImageDetailActivity.launch(context, img);
+            ImageDetailActivity.launch(context, img);
         }
-    }
-
-    private void addImageClickListener() {
-        // 这段js函数的功能就是，遍历所有的img几点，并添加onclick函数，函数的功能是在图片点击的时候调用本地java接口并传递url过去
-        binding.webView.loadUrl("javascript:(function(){" +
-                "var objs = document.getElementsByTagName(\"img\"); " +
-                "for(var i=0;i<objs.length;i++)  " +
-                "{"
-                + "    objs[i].onclick=function()  " +
-                "    {  "
-                + "        window.imagelistner.openImage(this.src);  " +
-                "    }  " +
-                "}" +
-                "})()");
     }
 
 }
