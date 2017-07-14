@@ -35,6 +35,9 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
 
     private static final String IMG = "<img";
     private static final String IMG_WIDTH_AUTO = "<img style='max-width:100%;height:auto;'";
+
+    private static final String IFRAME = "<iframe";
+    private static final String IFRAME_AUTO = "<iframe style='max-width:100%;height:200;'";
     private static final String NEW_ID = "newId";
 
     private NewDetailViewModel viewModel;
@@ -162,6 +165,7 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
             ImageLoader.get().loadThumb(binding.iconIv, headerUrl);
 
             String htmlData = newDetail.content.replace(IMG, IMG_WIDTH_AUTO);
+            htmlData = htmlData.replace(IFRAME, IFRAME_AUTO);
             webView.loadHtml(htmlData);        }
     }
 
