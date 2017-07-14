@@ -12,7 +12,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -24,6 +26,8 @@ import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.FragNewDetail2Binding;
 import com.future.awaker.imageloader.ImageLoader;
 import com.just.library.AgentWeb;
+import com.just.library.AgentWebSettings;
+import com.just.library.WebDefaultSettingsManager;
 
 import im.delight.android.webview.AdvancedWebView;
 
@@ -85,6 +89,12 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
                 .setAgentWebParent(binding.containerFl, lp)//
                 .closeDefaultIndicator()//
                 .setWebView(webView)
+                .setWebSettings(getSettings())//
+                .setWebViewClient(new WebViewClient())
+                .setWebChromeClient(new WebChromeClient())
+                .setReceivedTitleCallback((view1, title) -> {
+
+                })
                 .setSecurityType(AgentWeb.SecurityType.strict)
                 .createAgentWeb()//
                 .ready()//
@@ -121,6 +131,10 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
         });
 
         onRefresh();
+    }
+
+    public AgentWebSettings getSettings() {
+        return WebDefaultSettingsManager.getInstance();
     }
 
     @Override
