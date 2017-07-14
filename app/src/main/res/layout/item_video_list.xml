@@ -27,8 +27,11 @@
         android:stateListAnimator="@drawable/lift_on_touch"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
-        card_view:cardCornerRadius="6dp"
+        card_view:cardCornerRadius="4dp"
         card_view:cardElevation="1dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         tools:targetApi="lollipop">
 
         <LinearLayout
