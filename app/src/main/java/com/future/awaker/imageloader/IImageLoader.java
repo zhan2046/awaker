@@ -13,6 +13,8 @@ public interface IImageLoader {
 
     void load(ImageView imageView, String url);
 
+    void load(ImageView imageView, String url, RequestListener<Drawable> listener);
+
     void load(ImageView imageView, int resId, RequestListener<Drawable> listener);
 
     void loadThumb(ImageView imageView, String url);

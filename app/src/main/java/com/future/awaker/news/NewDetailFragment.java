@@ -2,6 +2,8 @@ package com.future.awaker.news;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -60,6 +62,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> {
         if (adapter.getBodyHolder() != null) {
             adapter.getBodyHolder().getWebView().onResume();
         }
+        onRefresh();
     }
 
     @SuppressLint("NewApi")
@@ -98,4 +101,5 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> {
     public void onLoadMore() {
         // new detail not load more
     }
+
 }

@@ -31,6 +31,27 @@ public class GlideImpl implements IImageLoader {
     }
 
     @Override
+    public void load(ImageView imageView, String url, RequestListener<Drawable> listener) {
+        GlideApp.with(imageView.getContext())
+                .load(url)
+                .transition(normalTransitionOptions)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        listener.onLoadFailed(e, model, target, isFirstResource);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        listener.onResourceReady(resource, model, target, dataSource, isFirstResource);
+                        return false;
+                    }
+                })
+                .into(imageView);
+    }
+
+    @Override
     public void load(ImageView imageView, int resId, RequestListener<Drawable> listener) {
         GlideApp.with(imageView.getContext())
                 .load(resId)
