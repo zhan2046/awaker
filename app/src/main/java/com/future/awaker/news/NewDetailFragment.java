@@ -62,7 +62,6 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> {
         if (adapter.getBodyHolder() != null) {
             adapter.getBodyHolder().getWebView().onResume();
         }
-        onRefresh();
     }
 
     @SuppressLint("NewApi")
