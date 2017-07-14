@@ -8,15 +8,15 @@ import java.util.List;
 
 public class User {
 
-    private String avatar32;
-    private String avatar64;
-    private String avatar128;
-    private String avatar256;
-    private String avatar512;
-    private String uid;
-    private String nickname;
-    private String title;
-    private String score1;
-    private String real_nickname;
-    private List<RankLink> rank_link;
+    public String avatar32;
+    public String avatar64;
+    public String avatar128;
+    public String avatar256;
+    public String avatar512;
+    public String uid;
+    public String nickname;
+    public String title;
+    public String score1;
+    public String real_nickname;
+    public List<RankLink> rank_link;
 }

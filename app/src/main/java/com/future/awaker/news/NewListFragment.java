@@ -1,7 +1,6 @@
 package com.future.awaker.news;
 
 import android.databinding.BindingAdapter;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
@@ -75,6 +74,6 @@ public class NewListFragment extends BaseListFragment<FragNewBinding> implements
 
     @Override
     public void onItemClick(View view, int position, New bean) {
-        Toast.makeText(getContext(), position + " : " + bean.title, Toast.LENGTH_SHORT).show();
+        NewDetailActivity.launch(getContext(), bean.id);
     }
 }

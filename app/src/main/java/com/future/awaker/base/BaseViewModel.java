@@ -30,6 +30,13 @@ public class BaseViewModel extends BaseObservable {
         }
     }
 
+    protected void notifyEmpty(Object object) {
+        boolean emptyFlag = object == null;
+        if (emptyFlag != isEmpty.get()) {
+            isEmpty.set(emptyFlag);
+        }
+    }
+
     public void clear() {
         disposable.clear();
     }

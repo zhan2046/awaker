@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <WebView
+        android:id="@+id/body_web_view"
+        android:background="@color/f5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</layout>
