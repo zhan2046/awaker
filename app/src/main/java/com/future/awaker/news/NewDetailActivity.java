@@ -17,7 +17,7 @@ public class NewDetailActivity extends AppCompatActivity {
 
     private static final String NEW_ID = "newId";
 
-    private NewDetailFragment newDetailFragment;
+    private NewDetailFragment2 newDetailFragment;
 
     public static void launch(Context context, String newId) {
         Intent intent = new Intent(context, NewDetailActivity.class);
@@ -35,7 +35,7 @@ public class NewDetailActivity extends AppCompatActivity {
             finish();
         }
         if (newDetailFragment == null) {
-            newDetailFragment = NewDetailFragment.newInstance(newId);
+            newDetailFragment = NewDetailFragment2.newInstance(newId);
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.container_fl, newDetailFragment,

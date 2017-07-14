@@ -55,7 +55,7 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
     protected abstract void initData();
 
     @Override
-    protected void onBindCreated() {
+    protected void onCreateViewBind() {
         View rootView = binding.getRoot();
         swipeRefresh = findViewById(rootView, R.id.swipe_refresh);
         containerFl = findViewById(rootView, R.id.container_fl);

@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.future.awaker.base.listener.DebouncingOnClickListener;
-import com.pnikosis.materialishprogress.ProgressWheel;
 
 /**
  * Copyright ©2017 by Teambition
@@ -32,13 +31,13 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
 
     protected abstract int getLayout();
 
-    protected abstract void onBindCreated();
+    protected abstract void onCreateViewBind();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, getLayout(), container, false);
-        onBindCreated();
+        onCreateViewBind();
         return binding.getRoot();
     }
 
@@ -95,7 +94,7 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
     }
 
     protected void onRunChanged(Observable sender, int propertyId) {
-
+        // empty
     }
 
     private class RunningCallback extends Observable.OnPropertyChangedCallback {
