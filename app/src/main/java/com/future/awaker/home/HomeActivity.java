@@ -25,6 +25,7 @@ import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.ActivityHomeBinding;
 import com.future.awaker.news.NewViewModel;
 import com.future.awaker.util.AnimatorUtils;
+import com.future.awaker.util.ResUtils;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 
@@ -70,6 +71,13 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        NewRepository.destroyInstance();
+
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
@@ -96,7 +104,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupTabs() {
-        List<String> titles = Arrays.asList("资讯","视频精选");
+        List<String> titles = Arrays.asList(ResUtils.getString(R.string.news),
+                ResUtils.getString(R.string.video));
 
         newViewModel = findOrCreateViewModel();
         HomeAdapter adapter = new HomeAdapter(getSupportFragmentManager(), titles);
@@ -116,7 +125,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 updateFab(position);
-                //setupColor(position);
             }
 
             @Override
@@ -140,7 +148,6 @@ public class HomeActivity extends AppCompatActivity {
                     centerX = binding.toolbar.getMeasuredWidth() / 4 * 3;
                     binding.coordinator.setBackgroundColor(getResources().getColor(R.color.themePrimary));
                     binding.appbar.setBackgroundColor(getResources().getColor(R.color.themePrimary));
-
                     break;
             }
 

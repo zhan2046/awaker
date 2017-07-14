@@ -16,7 +16,6 @@ import com.future.awaker.R;
 import com.future.awaker.databinding.ActivityMainBinding;
 import com.future.awaker.home.HomeActivity;
 import com.future.awaker.imageloader.ImageLoader;
-import com.future.awaker.news.NewActivity;
 
 /**
  * Created by ruzhan on 2017/7/12.

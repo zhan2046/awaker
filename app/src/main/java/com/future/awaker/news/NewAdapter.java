@@ -83,7 +83,7 @@ public class NewAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private class NewDiffCallBack extends IDiffCallBack<New> {
+    private static class NewDiffCallBack extends IDiffCallBack<New> {
 
         @Override
         public boolean isItemsTheSame(int oldItemPosition, int newItemPosition) {

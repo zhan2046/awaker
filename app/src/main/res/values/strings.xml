@@ -1,4 +1,7 @@
 <resources>
   <string name="app_name">awaker</string>
   <string name="launch_desc">不只是讨论外星人</string>
+
+  <string name="news">资讯</string>
+  <string name="video">视频精选</string>
 </resources>
