@@ -80,21 +80,26 @@
 
                         <!-- Recording -->
                         <TextView
-                            android:id="@+id/fab_sheet_item_recording"
+                            android:id="@+id/fab_sheet_item_ufo"
                             style="@style/TextAppearance.Awaker.Sheet.Item"
-                            android:text="fab_sheet_item_recording" />
+                            android:text="@string/ufo_et" />
 
                         <!-- Reminder -->
                         <TextView
-                            android:id="@+id/fab_sheet_item_reminder"
+                            android:id="@+id/fab_sheet_item_theory"
                             style="@style/TextAppearance.Awaker.Sheet.Item"
-                            android:text="fab_sheet_item_reminder" />
+                            android:text="@string/conspiracy_theory" />
 
                         <!-- Photo -->
                         <TextView
-                            android:id="@+id/fab_sheet_item_photo"
+                            android:id="@+id/fab_sheet_item_spirit"
                             style="@style/TextAppearance.Awaker.Sheet.Item"
-                            android:text="fab_sheet_item_photo" />
+                            android:text="@string/spirit_awaker" />
+
+                        <TextView
+                            android:id="@+id/fab_sheet_item_free"
+                            style="@style/TextAppearance.Awaker.Sheet.Item"
+                            android:text="@string/free_energy" />
 
                         <!-- Note -->
                         <LinearLayout
@@ -103,9 +108,9 @@
                             android:background="@color/colorAccent">
 
                             <TextView
-                                android:id="@+id/fab_sheet_item_note"
+                                android:id="@+id/fab_sheet_item_normal"
                                 style="@style/TextAppearance.Awaker.Sheet.Item"
-                                android:text="fab_sheet_item_note" />
+                                android:text="@string/normal" />
                         </LinearLayout>
 
                     </LinearLayout>

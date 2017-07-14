@@ -4,4 +4,11 @@
 
   <string name="news">资讯</string>
   <string name="video">视频精选</string>
+
+  <string name="ufo_et">UFO与外星人</string>
+  <string name="conspiracy_theory">阴谋论</string>
+  <string name="spirit_awaker">灵性觉醒</string>
+  <string name="free_energy">自由能源</string>
+
+  <string name="normal">默认</string>
 </resources>

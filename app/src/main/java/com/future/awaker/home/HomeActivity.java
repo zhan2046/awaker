@@ -16,9 +16,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.future.awaker.R;
 import com.future.awaker.base.ViewModelHolder;
+import com.future.awaker.base.listener.DebouncingOnClickListener;
+import com.future.awaker.data.Video;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.ActivityHomeBinding;
 import com.future.awaker.news.NewViewModel;
@@ -44,6 +47,9 @@ public class HomeActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private MaterialSheetFab materialSheetFab;
     private int statusBarColor;
+
+    private HomeClickListener homeClickListener = new HomeClickListener();
+    private HomeAdapter homeAdapter;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
@@ -104,10 +110,10 @@ public class HomeActivity extends AppCompatActivity {
         List<String> titles = Arrays.asList(ResUtils.getString(R.string.news),
                 ResUtils.getString(R.string.video));
 
-        HomeAdapter adapter = new HomeAdapter(getSupportFragmentManager(), titles);
-        adapter.setNewViewModel(findOrCreateNewViewModel());
-        adapter.setVideoViewModel(findOrCreateVideoViewModel());
-        binding.viewpager.setAdapter(adapter);
+        homeAdapter = new HomeAdapter(getSupportFragmentManager(), titles);
+        homeAdapter.setNewViewModel(findOrCreateNewViewModel());
+        homeAdapter.setVideoViewModel(findOrCreateVideoViewModel());
+        binding.viewpager.setAdapter(homeAdapter);
 
         updateFab(binding.viewpager.getCurrentItem());
         setupColor(binding.tabs.getSelectedTabPosition());
@@ -186,10 +192,10 @@ public class HomeActivity extends AppCompatActivity {
     private void updateFab(int position) {
         switch (position) {
             case 0:
-                materialSheetFab.showFab();
+                materialSheetFab.hideSheetThenFab();
                 break;
             case 1:
-                materialSheetFab.hideSheetThenFab();
+                materialSheetFab.showFab();
                 break;
         }
     }
@@ -214,6 +220,12 @@ public class HomeActivity extends AppCompatActivity {
                 setStatusBarColor(statusBarColor);
             }
         });
+
+        binding.fabSheetItemUfo.setOnClickListener(homeClickListener);
+        binding.fabSheetItemTheory.setOnClickListener(homeClickListener);
+        binding.fabSheetItemSpirit.setOnClickListener(homeClickListener);
+        binding.fabSheetItemFree.setOnClickListener(homeClickListener);
+        binding.fabSheetItemNormal.setOnClickListener(homeClickListener);
     }
 
     private int getStatusBarColor() {
@@ -277,6 +289,36 @@ public class HomeActivity extends AppCompatActivity {
             transaction.add(viewModelHolder, VIDEO_VIEW_MODEL_TAG);
             transaction.commit();
             return viewModel;
+        }
+    }
+
+
+    private class HomeClickListener extends DebouncingOnClickListener {
+
+        @Override
+        public void doClick(View v) {
+            switch (v.getId()) {
+                case R.id.fab_sheet_item_ufo:
+                    homeAdapter.setCat(Video.UFO);
+                    materialSheetFab.hideSheet();
+                    break;
+                case R.id.fab_sheet_item_theory:
+                    homeAdapter.setCat(Video.THEORY);
+                    materialSheetFab.hideSheet();
+                    break;
+                case R.id.fab_sheet_item_spirit:
+                    homeAdapter.setCat(Video.SPIRIT);
+                    materialSheetFab.hideSheet();
+                    break;
+                case R.id.fab_sheet_item_free:
+                    homeAdapter.setCat(Video.FREE);
+                    materialSheetFab.hideSheet();
+                    break;
+                case R.id.fab_sheet_item_normal:
+                    homeAdapter.setCat(Video.NORMAL);
+                    materialSheetFab.hideSheet();
+                    break;
+            }
         }
     }
 }

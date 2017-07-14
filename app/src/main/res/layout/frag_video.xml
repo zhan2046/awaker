@@ -25,8 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
-                app:layoutManager="LinearLayoutManager"
-                app:videos="@{viewModel.videos}" />
+                app:layoutManager="LinearLayoutManager" />
 
             <include
                 android:id="@+id/progressbar"

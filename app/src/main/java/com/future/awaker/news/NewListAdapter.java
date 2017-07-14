@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.future.awaker.R;
@@ -29,6 +30,8 @@ public class NewListAdapter extends RecyclerView.Adapter {
     private OnItemClickListener<New> listener;
     private List<New> news;
     private NewDiffCallBack diffCallBack = new NewDiffCallBack();
+
+    private EmptyHolder emptyHolder;
 
     public NewListAdapter(OnItemClickListener<New> listener) {
         this.listener = listener;
@@ -62,7 +65,8 @@ public class NewListAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_LOADING) {
-            return new EmptyHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_load, parent, false));
+            emptyHolder = new EmptyHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_load, parent, false));
+            return emptyHolder;
 
         } else {
             ItemNewListBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
@@ -85,6 +89,10 @@ public class NewListAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return news == null ? 0 : news.size() + 1;
+    }
+
+    public void setEmpty(boolean isEmpty) {
+        emptyHolder.itemView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
     }
 
     public static class NewHolder extends RecyclerView.ViewHolder {

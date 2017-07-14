@@ -2,7 +2,6 @@ package com.future.awaker.video;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
-import android.text.TextUtils;
 
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.Video;
@@ -22,24 +21,22 @@ public class VideoViewModel extends BaseListViewModel {
 
     private NewRepository newRepository;
 
-    private String token;
-    private int cat;
+    private int cat = Video.NORMAL;
 
     public VideoViewModel(NewRepository newRepository) {
         this.newRepository = newRepository;
     }
 
-    public void setToken(String token, int cat) {
-        this.token = token;
+    public void setCat(int cat) {
         this.cat = cat;
     }
 
     @Override
     public void fetchData(boolean isRefresh, int page) {
-        if (TextUtils.isEmpty(token) || isRunning.get()) {
+        if (isRunning.get()) {
             return;
         }
-        disposable.add(newRepository.getSpecialList(token, page, cat)
+        disposable.add(newRepository.getSpecialList(TOKEN, page, cat)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -51,7 +48,9 @@ public class VideoViewModel extends BaseListViewModel {
                     if (isRefresh) {
                         videos.clear();
                     }
-                    videos.addAll(httpResult.getData());
+                    if (!isEmpty.get()) {
+                        videos.addAll(httpResult.getData());
+                    }
                 })
                 .subscribe());
     }

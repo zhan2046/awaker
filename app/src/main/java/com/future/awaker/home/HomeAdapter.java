@@ -22,6 +22,8 @@ public class HomeAdapter extends FragmentPagerAdapter {
     private NewViewModel newViewModel;
     private VideoViewModel videoViewModel;
 
+    private VideoListFragment videoListFragment;
+
     public HomeAdapter(FragmentManager fm, List<String> titles) {
         super(fm);
         this.titles = titles;
@@ -35,6 +37,12 @@ public class HomeAdapter extends FragmentPagerAdapter {
         videoViewModel = viewModel;
     }
 
+    public void setCat(int cat) {
+        if (videoListFragment != null) {
+            videoListFragment.setCat(cat);
+        }
+    }
+
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
@@ -45,7 +53,7 @@ public class HomeAdapter extends FragmentPagerAdapter {
                 fragment = newListFragment;
                 break;
             case 1:
-                VideoListFragment videoListFragment = VideoListFragment.newInstance();
+                videoListFragment = VideoListFragment.newInstance();
                 videoListFragment.setVideoViewModel(videoViewModel);
                 fragment = videoListFragment;
                 break;

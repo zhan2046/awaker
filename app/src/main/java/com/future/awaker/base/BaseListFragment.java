@@ -1,6 +1,5 @@
 package com.future.awaker.base;
 
-import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -37,6 +35,8 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
     protected boolean isStopRefresh;
     protected boolean isStopLoadMore;
     protected int page = 1;
+
+    private EmptyCallback emptyCallback = new EmptyCallback();
 
     @SuppressWarnings("unchecked")
     protected <T> T findViewById(View view, int id) {
@@ -82,13 +82,15 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
         super.onViewCreated(view, savedInstanceState);
         initData();
 
+        baseViewModel.isEmpty.addOnPropertyChangedCallback(emptyCallback);
+
         //init data finish, end call refresh
         onRefresh();
     }
 
     @Override
     public void onDestroyView() {
-
+        baseViewModel.isEmpty.removeOnPropertyChangedCallback(emptyCallback);
         super.onDestroyView();
     }
 
@@ -120,7 +122,7 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
             LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
             int lastPosition = manager.findLastCompletelyVisibleItemPosition();
             int adapterCount = adapter.getItemCount();
-            int refreshPosition = adapterCount - 3;
+            int refreshPosition = adapterCount - 1;
             return lastPosition > 0 && lastPosition >= refreshPosition &&
                     (newState == RecyclerView.SCROLL_STATE_IDLE ||
                             newState == RecyclerView.SCROLL_STATE_SETTLING);
@@ -130,7 +132,7 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
 
     protected BaseListViewModel getBaseListViewModel() {
         if (baseViewModel instanceof BaseListViewModel) {
-            return ((BaseListViewModel)baseViewModel);
+            return ((BaseListViewModel) baseViewModel);
         }
         return null;
     }
@@ -188,6 +190,17 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
         BaseListViewModel baseListViewModel = getBaseListViewModel();
         if (baseListViewModel != null && !baseListViewModel.isRunning.get()) {
             setRefreshing(false);
+        }
+    }
+
+    protected abstract void emptyData(boolean isEmpty);
+
+    private class EmptyCallback extends Observable.OnPropertyChangedCallback {
+
+        @Override
+        public void onPropertyChanged(Observable sender, int propertyId) {
+            onRunChanged(sender, propertyId);
+            emptyData(baseViewModel.isEmpty.get());
         }
     }
 }

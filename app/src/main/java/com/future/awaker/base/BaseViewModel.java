@@ -15,6 +15,8 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class BaseViewModel extends BaseObservable {
 
+    protected static final String TOKEN = "f32b30c2a289bfca2c9857ffc5871ac8";
+
     public ObservableField<Throwable> isError = new ObservableField<>();
     public ObservableBoolean isEmpty = new ObservableBoolean(false);
     public ObservableBoolean isRunning = new ObservableBoolean(false);

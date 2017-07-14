@@ -2,7 +2,6 @@ package com.future.awaker.news;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
-import android.text.TextUtils;
 
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.New;
@@ -19,27 +18,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class NewViewModel extends BaseListViewModel {
 
     public ObservableList<New> news = new ObservableArrayList<>();
-
     private NewRepository newRepository;
-
-    private String token;
-    private int id;
 
     public NewViewModel(NewRepository newRepository) {
         this.newRepository = newRepository;
     }
 
-    public void setToken(String token, int id) {
-        this.token = token;
-        this.id = id;
-    }
-
     @Override
     public void fetchData(boolean isRefresh, int page) {
-        if (TextUtils.isEmpty(token) || isRunning.get()) {
+        if (isRunning.get()) {
             return;
         }
-        disposable.add(newRepository.getNewList(token, page, id)
+        disposable.add(newRepository.getNewList(TOKEN, page, 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -51,7 +41,9 @@ public class NewViewModel extends BaseListViewModel {
                     if (isRefresh) {
                         news.clear();
                     }
-                    news.addAll(httpResult.getData());
+                    if (!isEmpty.get()) {
+                        news.addAll(httpResult.getData());
+                    }
                 })
                 .subscribe());
     }

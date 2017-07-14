@@ -1,6 +1,7 @@
 package com.future.awaker.news;
 
 import android.databinding.BindingAdapter;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
@@ -46,14 +47,17 @@ public class NewListFragment extends BaseListFragment<FragNewBinding> implements
         adapter = new NewListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-
-        newViewModel.setToken("f32b30c2a289bfca2c9857ffc5871ac8", 0);
     }
 
     @Override
     public void onDestroyView() {
 
         super.onDestroyView();
+    }
+
+    @Override
+    protected void emptyData(boolean isEmpty) {
+        adapter.setEmpty(isEmpty);
     }
 
 
