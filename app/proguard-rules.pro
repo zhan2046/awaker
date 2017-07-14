@@ -25,3 +25,6 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class io.codetail.animation.arcanimator.** { *; }
+
+-keep class * extends android.webkit.WebChromeClient { *; }
+-dontwarn im.delight.android.webview.**

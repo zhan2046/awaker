@@ -5,7 +5,7 @@
     xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <WebView
+    <im.delight.android.webview.AdvancedWebView
         android:id="@+id/body_web_view"
         android:background="@color/f5"
         android:layout_width="match_parent"

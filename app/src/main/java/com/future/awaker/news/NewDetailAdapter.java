@@ -3,14 +3,18 @@ package com.future.awaker.news;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import com.future.awaker.R;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.databinding.ItemNewDetailBodyBinding;
 import com.future.awaker.databinding.ItemNewDetailHeaderBinding;
 import com.future.awaker.imageloader.ImageLoader;
+
+import im.delight.android.webview.AdvancedWebView;
 
 /**
  * Copyright ©2017 by Teambition
@@ -19,13 +23,14 @@ import com.future.awaker.imageloader.ImageLoader;
 public class NewDetailAdapter extends RecyclerView.Adapter {
 
     // WebView图片适配
-    private static final String IMG = "img";
+    private static final String IMG = "<img";
     private static final String IMG_WIDTH_AUTO = "<img style='max-width:90%;height:auto;'";
 
     private static final int TYPE_HEADER = 1000;
     private static final int TYPE_BODY = 1001;
 
     private NewDetail newDetail;
+    private BodyHolder bodyHolder;
 
     public void setData(NewDetail newDetail) {
         if (newDetail == null) {
@@ -33,6 +38,10 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         }
         this.newDetail = newDetail;
         notifyDataSetChanged();
+    }
+
+    public BodyHolder getBodyHolder() {
+        return bodyHolder;
     }
 
     @Override
@@ -54,7 +63,7 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         } else {
             ItemNewDetailBodyBinding bodyBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                     R.layout.item_new_detail_body, parent, false);
-            BodyHolder bodyHolder = new BodyHolder(bodyBinding);
+            bodyHolder = new BodyHolder(bodyBinding);
 
             return bodyHolder;
         }
@@ -94,25 +103,29 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private static class BodyHolder extends RecyclerView.ViewHolder {
+    public static class BodyHolder extends RecyclerView.ViewHolder {
 
         private ItemNewDetailBodyBinding bodyBinding;
+        private AdvancedWebView webView;
 
         public BodyHolder(ItemNewDetailBodyBinding bodyBinding) {
             super(bodyBinding.getRoot());
             this.bodyBinding = bodyBinding;
+            webView = bodyBinding.bodyWebView;
+//
+//            webView.setOnTouchListener((v, ev) -> {
+//                ((WebView)v).requestDisallowInterceptTouchEvent(true);
+//                return false;
+//            });
+        }
 
-            WebSettings settings = bodyBinding.bodyWebView.getSettings();
-            settings.setJavaScriptEnabled(false);
-            settings.setSupportZoom(false);
-            settings.setBuiltInZoomControls(false);
-            settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-            settings.setDefaultFontSize(16);
+        public AdvancedWebView getWebView() {
+            return webView;
         }
 
         public void bind(NewDetail newDetail) {
             String htmlData = newDetail.content.replace(IMG, IMG_WIDTH_AUTO);
-            bodyBinding.bodyWebView.loadDataWithBaseURL(null, htmlData, "text/html", "utf-8", null);
+            webView.loadHtml(htmlData);
         }
     }
 }

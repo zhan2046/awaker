@@ -1,6 +1,7 @@
 package com.future.awaker.news;
 
 
+import android.annotation.SuppressLint;
 import android.databinding.BindingAdapter;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,8 @@ import com.future.awaker.databinding.FragNewDetailBinding;
 public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> {
 
     private static final String NEW_ID = "newId";
+
+    private NewDetailAdapter adapter;
 
     public static NewDetailFragment newInstance(String newId) {
         Bundle args = new Bundle();
@@ -46,8 +49,36 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> {
         setViewModel(newDetailViewModel);
         binding.setViewModel(newDetailViewModel);
 
-        NewDetailAdapter adapter = new NewDetailAdapter();
+        adapter = new NewDetailAdapter();
         recyclerView.setAdapter(adapter);
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adapter.getBodyHolder() != null) {
+            adapter.getBodyHolder().getWebView().onResume();
+        }
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    public void onPause() {
+        if (adapter.getBodyHolder() != null) {
+            adapter.getBodyHolder().getWebView().onPause();
+        }
+        super.onPause();
+
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    public void onDestroy() {
+        if (adapter.getBodyHolder() != null) {
+            adapter.getBodyHolder().getWebView().onDestroy();
+        }
+        super.onDestroy();
     }
 
     @BindingAdapter({"newDetail"})
