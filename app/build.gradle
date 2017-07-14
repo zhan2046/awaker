@@ -61,6 +61,7 @@ dependencies {
 
     compile 'com.pnikosis:materialish-progress:1.1'
     compile 'com.gordonwong:material-sheet-fab:1.2.1'
+    compile 'net.soulwolf.widget:ratiolayout:1.0.0'
 
     //leakCanary
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"

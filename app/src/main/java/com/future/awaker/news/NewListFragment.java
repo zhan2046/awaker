@@ -18,13 +18,13 @@ import java.util.List;
  * Created by ruzhan on 2017/7/6.
  */
 
-public class NewFragment extends BaseListFragment<FragNewBinding> implements OnItemClickListener<New> {
+public class NewListFragment extends BaseListFragment<FragNewBinding> implements OnItemClickListener<New> {
 
     private NewViewModel newViewModel;
-    private NewAdapter adapter;
+    private NewListAdapter adapter;
 
-    public static NewFragment newInstance() {
-        return new NewFragment();
+    public static NewListFragment newInstance() {
+        return new NewListFragment();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class NewFragment extends BaseListFragment<FragNewBinding> implements OnI
 
         binding.setViewmodel(newViewModel);
 
-        adapter = new NewAdapter(this);
+        adapter = new NewListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
@@ -60,8 +60,8 @@ public class NewFragment extends BaseListFragment<FragNewBinding> implements OnI
     @BindingAdapter({"news"})
     public static void setNews(RecyclerView recyclerView, List<New> news) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter instanceof NewAdapter) {
-            ((NewAdapter) adapter).setData(new ArrayList<>(news));
+        if (adapter instanceof NewListAdapter) {
+            ((NewListAdapter) adapter).setData(new ArrayList<>(news));
         }
     }
 

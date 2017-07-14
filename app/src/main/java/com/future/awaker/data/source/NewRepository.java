@@ -1,6 +1,7 @@
 package com.future.awaker.data.source;
 
 import com.future.awaker.data.New;
+import com.future.awaker.data.Video;
 import com.future.awaker.data.source.remote.NewRemoteDataSource;
 import com.future.awaker.network.HttpResult;
 import java.util.List;
@@ -38,6 +39,11 @@ public class NewRepository implements NewDataSource, LocalNewDataSource {
     @Override
     public Flowable<HttpResult<List<New>>> getNewList(String token, int page, int id) {
         return remoteDataSource.getNewList(token, page, id);
+    }
+
+    @Override
+    public Flowable<HttpResult<List<Video>>> getSpecialList(String token, int page, int cat) {
+        return remoteDataSource.getSpecialList(token, page, cat);
     }
 
     @Override

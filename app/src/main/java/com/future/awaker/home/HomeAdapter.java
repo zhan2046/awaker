@@ -4,8 +4,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.future.awaker.news.NewFragment;
+import com.future.awaker.data.Video;
+import com.future.awaker.news.NewListFragment;
 import com.future.awaker.news.NewViewModel;
+import com.future.awaker.video.VideoListFragment;
+import com.future.awaker.video.VideoViewModel;
 
 import java.util.List;
 
@@ -17,14 +20,19 @@ public class HomeAdapter extends FragmentPagerAdapter {
 
     private List<String> titles;
     private NewViewModel newViewModel;
+    private VideoViewModel videoViewModel;
 
     public HomeAdapter(FragmentManager fm, List<String> titles) {
         super(fm);
         this.titles = titles;
     }
 
-    public void setViewModel(NewViewModel viewModel) {
+    public void setNewViewModel(NewViewModel viewModel) {
         newViewModel = viewModel;
+    }
+
+    public void setVideoViewModel(VideoViewModel viewModel) {
+        videoViewModel = viewModel;
     }
 
     @Override
@@ -32,14 +40,14 @@ public class HomeAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                NewFragment newFragment = NewFragment.newInstance();
-                newFragment.setNewViewModel(newViewModel);
-                fragment = newFragment;
+                NewListFragment newListFragment = NewListFragment.newInstance();
+                newListFragment.setNewViewModel(newViewModel);
+                fragment = newListFragment;
                 break;
             case 1:
-                NewFragment newFragment2 = NewFragment.newInstance();
-                newFragment2.setNewViewModel(newViewModel);
-                fragment = newFragment2;
+                VideoListFragment videoListFragment = VideoListFragment.newInstance();
+                videoListFragment.setVideoViewModel(videoViewModel);
+                fragment = videoListFragment;
                 break;
         }
         return fragment;

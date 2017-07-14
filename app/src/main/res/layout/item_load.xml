@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:wheel="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<FrameLayout
+    android:id="@+id/progressbar_fl"
+    android:background="@color/f5"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <com.pnikosis.materialishprogress.ProgressWheel
+        android:id="@+id/progressbar"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        wheel:barColor="@color/colorPrimary"
+        wheel:progressIndeterminate="true"/>
+</FrameLayout>
+</layout>
+

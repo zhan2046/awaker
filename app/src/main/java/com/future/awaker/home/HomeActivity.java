@@ -8,7 +8,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -17,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.future.awaker.R;
 import com.future.awaker.base.ViewModelHolder;
@@ -26,6 +24,7 @@ import com.future.awaker.databinding.ActivityHomeBinding;
 import com.future.awaker.news.NewViewModel;
 import com.future.awaker.util.AnimatorUtils;
 import com.future.awaker.util.ResUtils;
+import com.future.awaker.video.VideoViewModel;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 
@@ -39,14 +38,12 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
     public static final String MAIN_VIEW_MODEL_TAG = "MAIN_VIEW_MODEL_TAG";
-
+    public static final String VIDEO_VIEW_MODEL_TAG = "VIDEO_VIEW_MODEL_TAG";
 
     private ActivityHomeBinding binding;
     private ActionBarDrawerToggle drawerToggle;
     private MaterialSheetFab materialSheetFab;
     private int statusBarColor;
-
-    private NewViewModel newViewModel;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
@@ -56,9 +53,9 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(R.string.app_name);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_home);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
+        setTitle(R.string.app_name);
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -107,9 +104,9 @@ public class HomeActivity extends AppCompatActivity {
         List<String> titles = Arrays.asList(ResUtils.getString(R.string.news),
                 ResUtils.getString(R.string.video));
 
-        newViewModel = findOrCreateViewModel();
         HomeAdapter adapter = new HomeAdapter(getSupportFragmentManager(), titles);
-        adapter.setViewModel(newViewModel);
+        adapter.setNewViewModel(findOrCreateNewViewModel());
+        adapter.setVideoViewModel(findOrCreateVideoViewModel());
         binding.viewpager.setAdapter(adapter);
 
         updateFab(binding.viewpager.getCurrentItem());
@@ -247,7 +244,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private NewViewModel findOrCreateViewModel() {
+    private NewViewModel findOrCreateNewViewModel() {
         @SuppressWarnings("unchecked")
         ViewModelHolder<NewViewModel> retainedViewModel = (ViewModelHolder<NewViewModel>) getSupportFragmentManager()
                 .findFragmentByTag(MAIN_VIEW_MODEL_TAG);
@@ -262,6 +259,24 @@ public class HomeActivity extends AppCompatActivity {
             transaction.add(viewModelHolder, MAIN_VIEW_MODEL_TAG);
             transaction.commit();
             return newViewModel;
+        }
+    }
+
+    private VideoViewModel findOrCreateVideoViewModel() {
+        @SuppressWarnings("unchecked")
+        ViewModelHolder<VideoViewModel> retainedViewModel = (ViewModelHolder<VideoViewModel>) getSupportFragmentManager()
+                .findFragmentByTag(VIDEO_VIEW_MODEL_TAG);
+
+        if (retainedViewModel != null && retainedViewModel.getViewModel() != null) {
+            return retainedViewModel.getViewModel();
+        } else {
+            VideoViewModel viewModel = new VideoViewModel(NewRepository.get());
+            ViewModelHolder viewModelHolder = ViewModelHolder.createContainer(viewModel);
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.add(viewModelHolder, VIDEO_VIEW_MODEL_TAG);
+            transaction.commit();
+            return viewModel;
         }
     }
 }
