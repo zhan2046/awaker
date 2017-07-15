@@ -62,7 +62,6 @@ dependencies {
     compile 'com.pnikosis:materialish-progress:1.1'
     compile 'com.gordonwong:material-sheet-fab:1.2.1'
     compile 'net.soulwolf.widget:ratiolayout:1.0.0'
-    compile 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
     compile 'com.just.agentweb:agentweb:1.2.5'
     compile 'org.jsoup:jsoup:1.10.3'

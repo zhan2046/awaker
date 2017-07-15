@@ -9,30 +9,40 @@
             type="com.future.awaker.news.NewDetailViewModel" />
     </data>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/container_fl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/f5">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.Awaker.ToolBar"
+            app:title="@{viewModel.title}"
+            app:titleTextAppearance="@style/Toolbar.TitleText" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/container_fl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                app:newDetail="@{viewModel.newDetail}"
-                app:layoutManager="LinearLayoutManager" />
+                android:background="@color/f5">
 
-            <include
-                android:id="@+id/progressbar"
-                layout="@layout/progressbar" />
-        </FrameLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    app:newDetail="@{viewModel.newDetail}"
+                    app:layoutManager="LinearLayoutManager" />
 
-
+                <include
+                    android:id="@+id/progressbar"
+                    layout="@layout/progressbar" />
+            </FrameLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
 </layout>

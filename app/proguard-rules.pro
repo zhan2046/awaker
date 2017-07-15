@@ -26,5 +26,9 @@
 
 -keep class io.codetail.animation.arcanimator.** { *; }
 
--keep class * extends android.webkit.WebChromeClient { *; }
--dontwarn im.delight.android.webview.**
+-keep class com.just.library.** {
+    *;
+}
+-dontwarn com.just.library.**
+
+-keepclassmembers class com.just.library.agentweb.AndroidInterface{ *; }

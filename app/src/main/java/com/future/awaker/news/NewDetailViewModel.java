@@ -15,10 +15,20 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class NewDetailViewModel extends BaseListViewModel {
 
     public ObservableField<NewDetail> newDetail = new ObservableField<>();
+
     private String newId;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
 
     public void setNewId(String newId) {
         this.newId = newId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
@@ -32,11 +42,11 @@ public class NewDetailViewModel extends BaseListViewModel {
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
                 .doOnNext(httpResult -> {
-                    NewDetail result = httpResult.getData();
-                    notifyEmpty(result);
+                    NewDetail newDetail = httpResult.getData();
+                    notifyEmpty(newDetail);
 
                     if (!isEmpty.get()) {
-                        newDetail.set(result);
+                        this.newDetail.set(newDetail);
                     }
                 })
                 .subscribe());

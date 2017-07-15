@@ -6,8 +6,10 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.future.awaker.data.New;
+import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.imageloader.ImageLoader;
+import com.future.awaker.news.NewDetailAdapter;
 import com.future.awaker.news.NewListAdapter;
 import com.future.awaker.video.SpecialListAdapter;
 
@@ -42,6 +44,14 @@ public final class AdapterDataBinding {
         }
     }
 
+    @BindingAdapter({"newDetail"})
+    public static void setNewDetail(RecyclerView recyclerView, NewDetail newDetail) {
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if (adapter instanceof NewDetailAdapter) {
+            ((NewDetailAdapter) adapter).setData(newDetail);
+        }
+    }
+
     @BindingAdapter({"specialDetail"})
     public static void setSpecialDetail(RecyclerView recyclerView,
                                         SpecialDetail specialDetail) {
@@ -50,7 +60,5 @@ public final class AdapterDataBinding {
             ((SpecialListAdapter)adapter).setSpecialDetail(specialDetail);
         }
     }
-
-
 
 }
