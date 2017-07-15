@@ -18,14 +18,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class VideoViewModel extends BaseListViewModel {
 
     public ObservableList<Special> specials = new ObservableArrayList<>();
-
-    private NewRepository newRepository;
-
     private int cat = Special.NORMAL;
-
-    public VideoViewModel(NewRepository newRepository) {
-        this.newRepository = newRepository;
-    }
 
     public void setCat(int cat) {
         this.cat = cat;
@@ -36,7 +29,7 @@ public class VideoViewModel extends BaseListViewModel {
         if (isRunning.get()) {
             return;
         }
-        disposable.add(newRepository.getSpecialList(TOKEN, page, cat)
+        disposable.add(NewRepository.get().getSpecialList(TOKEN, page, cat)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -54,6 +47,5 @@ public class VideoViewModel extends BaseListViewModel {
                 })
                 .subscribe());
     }
-
 
 }

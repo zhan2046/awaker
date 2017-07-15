@@ -42,7 +42,8 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                app:imageThumbUrl="@{newItem.cover_url.ori}"/>
 
             <TextView
                 android:id="@+id/title_tv"

@@ -15,13 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class NewDetailViewModel extends BaseListViewModel {
 
     public ObservableField<NewDetail> newDetail = new ObservableField<>();
-    private NewRepository newRepository;
-
     private String newId;
-
-    public NewDetailViewModel(NewRepository newRepository) {
-        this.newRepository = newRepository;
-    }
 
     public void setNewId(String newId) {
         this.newId = newId;
@@ -32,7 +26,7 @@ public class NewDetailViewModel extends BaseListViewModel {
         if (isRunning.get()) {
             return;
         }
-        disposable.add(newRepository.getNewDetail(TOKEN, newId)
+        disposable.add(NewRepository.get().getNewDetail(TOKEN, newId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -47,6 +41,5 @@ public class NewDetailViewModel extends BaseListViewModel {
                 })
                 .subscribe());
     }
-
 
 }

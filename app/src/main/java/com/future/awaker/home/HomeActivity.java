@@ -8,7 +8,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,15 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.future.awaker.R;
-import com.future.awaker.base.ViewModelHolder;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.ActivityHomeBinding;
-import com.future.awaker.news.NewViewModel;
 import com.future.awaker.util.AnimatorUtils;
 import com.future.awaker.util.ResUtils;
-import com.future.awaker.video.VideoViewModel;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 
@@ -39,9 +35,6 @@ import java.util.List;
  */
 
 public class HomeActivity extends AppCompatActivity {
-
-    public static final String MAIN_VIEW_MODEL_TAG = "MAIN_VIEW_MODEL_TAG";
-    public static final String VIDEO_VIEW_MODEL_TAG = "VIDEO_VIEW_MODEL_TAG";
 
     private ActivityHomeBinding binding;
     private ActionBarDrawerToggle drawerToggle;
@@ -76,7 +69,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         NewRepository.destroyInstance();
-
         super.onDestroy();
     }
 
@@ -111,8 +103,6 @@ public class HomeActivity extends AppCompatActivity {
                 ResUtils.getString(R.string.video));
 
         homeAdapter = new HomeAdapter(getSupportFragmentManager(), titles);
-        homeAdapter.setNewViewModel(findOrCreateNewViewModel());
-        homeAdapter.setVideoViewModel(findOrCreateVideoViewModel());
         binding.viewpager.setAdapter(homeAdapter);
 
         updateFab(binding.viewpager.getCurrentItem());
@@ -121,7 +111,8 @@ public class HomeActivity extends AppCompatActivity {
         binding.tabs.setupWithViewPager(binding.viewpager);
         binding.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
 
             }
 
@@ -255,43 +246,6 @@ public class HomeActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
-    private NewViewModel findOrCreateNewViewModel() {
-        @SuppressWarnings("unchecked")
-        ViewModelHolder<NewViewModel> retainedViewModel = (ViewModelHolder<NewViewModel>) getSupportFragmentManager()
-                .findFragmentByTag(MAIN_VIEW_MODEL_TAG);
-
-        if (retainedViewModel != null && retainedViewModel.getViewModel() != null) {
-            return retainedViewModel.getViewModel();
-        } else {
-            NewViewModel newViewModel = new NewViewModel(NewRepository.get());
-            ViewModelHolder viewModelHolder = ViewModelHolder.createContainer(newViewModel);
-
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(viewModelHolder, MAIN_VIEW_MODEL_TAG);
-            transaction.commit();
-            return newViewModel;
-        }
-    }
-
-    private VideoViewModel findOrCreateVideoViewModel() {
-        @SuppressWarnings("unchecked")
-        ViewModelHolder<VideoViewModel> retainedViewModel = (ViewModelHolder<VideoViewModel>) getSupportFragmentManager()
-                .findFragmentByTag(VIDEO_VIEW_MODEL_TAG);
-
-        if (retainedViewModel != null && retainedViewModel.getViewModel() != null) {
-            return retainedViewModel.getViewModel();
-        } else {
-            VideoViewModel viewModel = new VideoViewModel(NewRepository.get());
-            ViewModelHolder viewModelHolder = ViewModelHolder.createContainer(viewModel);
-
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(viewModelHolder, VIDEO_VIEW_MODEL_TAG);
-            transaction.commit();
-            return viewModel;
-        }
-    }
-
 
     private class HomeClickListener extends DebouncingOnClickListener {
 

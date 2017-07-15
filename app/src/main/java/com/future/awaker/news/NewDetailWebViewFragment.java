@@ -19,7 +19,6 @@ import com.future.awaker.R;
 import com.future.awaker.base.BaseFragment;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.NewEle;
-import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.FragNewDetail2Binding;
 import com.future.awaker.util.HtmlParser;
 import com.just.library.AgentWeb;
@@ -47,7 +46,7 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
     private static final String NEW_ID = "newId";
     private static final String NEW_TITLE = "newTitle";
 
-    private NewDetailViewModel viewModel;
+    private NewDetailViewModel viewModel = new NewDetailViewModel();
     private NewDetailBack newDetailBack = new NewDetailBack();
     protected AgentWeb mAgentWeb;
     private WebView webView;
@@ -75,7 +74,7 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
         super.onViewCreated(view, savedInstanceState);
         String newId = getArguments().getString(NEW_ID);
         String newTitle = getArguments().getString(NEW_TITLE);
-        viewModel = new NewDetailViewModel(NewRepository.get());
+
         viewModel.setNewId(newId);
 
         binding.toolbar.setTitle(newTitle);
@@ -84,6 +83,12 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
         setViewModel(viewModel);
         viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
 
+        initWebView();
+
+        onRefresh();
+    }
+
+    private void initWebView() {
         FrameLayout.LayoutParams lp =
                 new FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -108,7 +113,6 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
 
         setDesktopMode(false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        onRefresh();
     }
 
     public void setDesktopMode(final boolean enabled) {

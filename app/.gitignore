@@ -37,3 +37,5 @@ local.properties
 # other
 .svn
 readme.txt
+
+/keystore

@@ -13,7 +13,6 @@ import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.New;
 import com.future.awaker.databinding.ItemNewListBinding;
-import com.future.awaker.imageloader.ImageLoader;
 
 import java.util.List;
 import java.util.Objects;
@@ -106,8 +105,7 @@ public class NewListAdapter extends RecyclerView.Adapter {
 
         public void bind(New bean) {
             binding.setNewItem(bean);
-            String url = bean.cover_url == null ? "" : bean.cover_url.ori;
-            ImageLoader.get().loadThumb(binding.iconIv, url);
+            binding.executePendingBindings();
         }
     }
 

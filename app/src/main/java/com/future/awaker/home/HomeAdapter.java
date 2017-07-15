@@ -5,9 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.future.awaker.news.NewListFragment;
-import com.future.awaker.news.NewViewModel;
 import com.future.awaker.video.VideoListFragment;
-import com.future.awaker.video.VideoViewModel;
 
 import java.util.List;
 
@@ -18,22 +16,11 @@ import java.util.List;
 public class HomeAdapter extends FragmentPagerAdapter {
 
     private List<String> titles;
-    private NewViewModel newViewModel;
-    private VideoViewModel videoViewModel;
-
     private VideoListFragment videoListFragment;
 
     public HomeAdapter(FragmentManager fm, List<String> titles) {
         super(fm);
         this.titles = titles;
-    }
-
-    public void setNewViewModel(NewViewModel viewModel) {
-        newViewModel = viewModel;
-    }
-
-    public void setVideoViewModel(VideoViewModel viewModel) {
-        videoViewModel = viewModel;
     }
 
     public void setCat(int cat) {
@@ -47,13 +34,10 @@ public class HomeAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                NewListFragment newListFragment = NewListFragment.newInstance();
-                newListFragment.setNewViewModel(newViewModel);
-                fragment = newListFragment;
+                fragment = NewListFragment.newInstance();
                 break;
             case 1:
                 videoListFragment = VideoListFragment.newInstance();
-                videoListFragment.setVideoViewModel(videoViewModel);
                 fragment = videoListFragment;
                 break;
         }

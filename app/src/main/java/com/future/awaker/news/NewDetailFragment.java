@@ -2,8 +2,6 @@ package com.future.awaker.news;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.data.NewDetail;
-import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.FragNewDetailBinding;
 
 /**
@@ -45,7 +42,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> {
     @Override
     protected void initData() {
         String newId = getArguments().getString(NEW_ID);
-        NewDetailViewModel newDetailViewModel = new NewDetailViewModel(NewRepository.get());
+        NewDetailViewModel newDetailViewModel = new NewDetailViewModel();
         newDetailViewModel.setNewId(newId);
 
         setViewModel(newDetailViewModel);

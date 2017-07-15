@@ -20,7 +20,7 @@ import java.util.List;
 
 public class VideoListFragment extends BaseListFragment<FragVideoBinding> implements OnItemClickListener<Special> {
 
-    private VideoViewModel videoViewModel;
+    private VideoViewModel videoViewModel = new VideoViewModel();
     private VideoListAdapter adapter;
 
     private VideoListBack videoListBack = new VideoListBack();
@@ -47,24 +47,19 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding> implem
 
         adapter = new VideoListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-
         videoViewModel.specials.addOnListChangedCallback(videoListBack);
     }
 
     @Override
     public void onDestroyView() {
         videoViewModel.specials.removeOnListChangedCallback(videoListBack);
+        videoViewModel.clear();
         super.onDestroyView();
     }
 
     @Override
     protected void emptyData(boolean isEmpty) {
         adapter.setEmpty(isEmpty);
-    }
-
-    public void setVideoViewModel(VideoViewModel videoViewModel) {
-        this.videoViewModel = videoViewModel;
     }
 
     @Override

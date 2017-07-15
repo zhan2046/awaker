@@ -13,7 +13,6 @@ import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.Special;
 import com.future.awaker.databinding.ItemVideoListBinding;
-import com.future.awaker.imageloader.ImageLoader;
 
 import java.util.List;
 import java.util.Objects;
@@ -105,8 +104,7 @@ public class VideoListAdapter extends RecyclerView.Adapter {
 
         public void bind(Special bean) {
             binding.setSpecialItem(bean);
-            String url = bean.cover == null ? "" : bean.cover;
-            ImageLoader.get().loadThumb(binding.iconIv, url);
+            binding.executePendingBindings();
         }
     }
 

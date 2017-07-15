@@ -18,18 +18,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class NewViewModel extends BaseListViewModel {
 
     public ObservableList<New> news = new ObservableArrayList<>();
-    private NewRepository newRepository;
-
-    public NewViewModel(NewRepository newRepository) {
-        this.newRepository = newRepository;
-    }
 
     @Override
     public void fetchData(boolean isRefresh, int page) {
         if (isRunning.get()) {
             return;
         }
-        disposable.add(newRepository.getNewList(TOKEN, page, 0)
+        disposable.add(NewRepository.get().getNewList(TOKEN, page, 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -47,6 +42,4 @@ public class NewViewModel extends BaseListViewModel {
                 })
                 .subscribe());
     }
-
-
 }
