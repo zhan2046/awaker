@@ -66,6 +66,8 @@ dependencies {
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
     compile 'com.just.agentweb:agentweb:1.2.5'
 
+    compile 'org.jsoup:jsoup:1.10.3'
+
     //leakCanary
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"

@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.Observable;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -16,20 +15,25 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
-import com.future.awaker.Application;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseFragment;
 import com.future.awaker.data.NewDetail;
+import com.future.awaker.data.NewEle;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.FragNewDetail2Binding;
 import com.future.awaker.imageloader.ImageLoader;
+import com.future.awaker.util.HtmlParser;
+import com.future.awaker.widget.NestedScrollWebView;
 import com.just.library.AgentWeb;
 import com.just.library.AgentWebSettings;
 import com.just.library.WebDefaultSettingsManager;
 
-import im.delight.android.webview.AdvancedWebView;
+import java.util.List;
+
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Copyright ©2017 by Teambition
@@ -47,7 +51,7 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
     private NewDetailViewModel viewModel;
     private NewDetailBack newDetailBack = new NewDetailBack();
     protected AgentWeb mAgentWeb;
-    private AdvancedWebView webView;
+    private NestedScrollWebView webView;
 
     public static NewDetailFragment2 newInstance(String newId) {
         Bundle args = new Bundle();
@@ -81,9 +85,9 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
         FrameLayout.LayoutParams lp =
                 new FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                        1000);
 
-        webView = new AdvancedWebView(getContext());
+        webView = new NestedScrollWebView(getContext());
 
         mAgentWeb = AgentWeb.with(this)//
                 .setAgentWebParent(binding.containerFl, lp)//
@@ -100,38 +104,31 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
                 .ready()//
                 .go(null);
 
-        webView.setDesktopMode(false);
+        setDesktopMode(false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.addJavascriptInterface(new JavascriptInterface(getActivity()), "imagelistner");
-        webView.setListener(getActivity(), new AdvancedWebView.Listener() {
-            @Override
-            public void onPageStarted(String url, Bitmap favicon) {
-
-            }
-
-            @Override
-            public void onPageFinished(String url) {
-                addImageClickListener();
-            }
-
-            @Override
-            public void onPageError(int errorCode, String description, String failingUrl) {
-                Toast.makeText(Application.get(), "请检查您的网络设置", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDownloadRequested(String url, String suggestedFilename, String mimeType, long contentLength, String contentDisposition, String userAgent) {
-
-            }
-
-            @Override
-            public void onExternalPageRequest(String url) {
-
-            }
-        });
 
         onRefresh();
     }
+
+    public void setDesktopMode(final boolean enabled) {
+        WebSettings webSettings = webView.getSettings();
+
+        final String newUserAgent;
+        if (enabled) {
+            newUserAgent = webSettings.getUserAgentString().replace("Mobile", "eliboM").replace("Android", "diordnA");
+        }
+        else {
+            newUserAgent = webSettings.getUserAgentString().replace("eliboM", "Mobile").replace("diordnA", "Android");
+        }
+
+        webSettings.setUserAgentString(newUserAgent);
+        webSettings.setUseWideViewPort(enabled);
+        webSettings.setLoadWithOverviewMode(enabled);
+        webSettings.setSupportZoom(enabled);
+        webSettings.setBuiltInZoomControls(enabled);
+    }
+
 
     public AgentWebSettings getSettings() {
         return WebDefaultSettingsManager.getInstance();
@@ -180,7 +177,35 @@ public class NewDetailFragment2 extends BaseFragment<FragNewDetail2Binding> impl
 
             String htmlData = newDetail.content.replace(IMG, IMG_WIDTH_AUTO);
             htmlData = htmlData.replace(IFRAME, IFRAME_AUTO);
-            webView.loadHtml(htmlData);        }
+            String html = loadDataWithCSS(htmlData, "");
+            webView.loadData(html, "text/html; charset=UTF-8", null);
+
+            test(htmlData);
+        }
+    }
+
+    private void test(String html) {
+        io.reactivex.Observable.create((ObservableOnSubscribe<List<NewEle>>) e -> e.onNext(HtmlParser.htmlToList(html)))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::initNewEleList);
+    }
+
+    private void initNewEleList(List<NewEle> newEleList) {
+        if (newEleList == null) {
+            return;
+        }
+        
+    }
+
+    private String loadDataWithCSS(String loadData, String cssPath) {
+        //String header = "<html><head><link href=\"%s\" type=\"text/css\" rel=\"stylesheet\"/></head><body>";
+        String footer = "</body></html>";
+        StringBuilder sb = new StringBuilder();
+        //sb.append(String.format(header, cssPath));
+        sb.append(loadData);
+        sb.append(footer);
+        return sb.toString();
     }
 
     @SuppressLint("NewApi")
