@@ -11,7 +11,7 @@ import com.future.awaker.R;
 import com.future.awaker.base.EmptyHolder;
 import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
-import com.future.awaker.data.Video;
+import com.future.awaker.data.Special;
 import com.future.awaker.databinding.ItemVideoListBinding;
 import com.future.awaker.imageloader.ImageLoader;
 
@@ -27,27 +27,27 @@ public class VideoListAdapter extends RecyclerView.Adapter {
     private static final int TYPE_LOADING = 1000;
     private static final int TYPE_VIDEO = 1001;
 
-    private OnItemClickListener<Video> listener;
-    private List<Video> videos;
+    private OnItemClickListener<Special> listener;
+    private List<Special> specials;
     private VideoDiffCallBack diffCallBack = new VideoDiffCallBack();
     private EmptyHolder emptyHolder;
 
-    public VideoListAdapter(OnItemClickListener<Video> listener) {
+    public VideoListAdapter(OnItemClickListener<Special> listener) {
         this.listener = listener;
     }
 
-    public void setData(List<Video> list) {
+    public void setData(List<Special> list) {
         if (list == null || list.isEmpty()) {
             return;
         }
-        if (this.videos == null || this.videos.isEmpty()) {
-            this.videos = list;
+        if (this.specials == null || this.specials.isEmpty()) {
+            this.specials = list;
             notifyDataSetChanged();
 
         } else {
-            List<Video> oldVideos = this.videos;
-            this.videos = list;
-            diffCallBack.setData(oldVideos, list);
+            List<Special> oldSpecials = this.specials;
+            this.specials = list;
+            diffCallBack.setData(oldSpecials, list);
             DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
             diffResult.dispatchUpdatesTo(this);
         }
@@ -55,7 +55,7 @@ public class VideoListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == videos.size()) {
+        if (position == specials.size()) {
             return TYPE_LOADING;
         }
         return TYPE_VIDEO;
@@ -81,13 +81,13 @@ public class VideoListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         if (viewType == TYPE_VIDEO) {
-            ((VideoHolder) holder).bind(videos.get(position));
+            ((VideoHolder) holder).bind(specials.get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        return videos == null ? 0 : videos.size() + 1;
+        return specials == null ? 0 : specials.size() + 1;
     }
 
     public void setEmpty(boolean isEmpty) {
@@ -103,27 +103,27 @@ public class VideoListAdapter extends RecyclerView.Adapter {
             this.binding = binding;
         }
 
-        public void bind(Video bean) {
-            binding.setVideoItem(bean);
+        public void bind(Special bean) {
+            binding.setSpecialItem(bean);
             String url = bean.cover == null ? "" : bean.cover;
             ImageLoader.get().loadThumb(binding.iconIv, url);
         }
     }
 
-    private static class VideoDiffCallBack extends IDiffCallBack<Video> {
+    private static class VideoDiffCallBack extends IDiffCallBack<Special> {
 
         @Override
         public boolean isItemsTheSame(int oldItemPosition, int newItemPosition) {
-            Video oldObj = oldData.get(oldItemPosition);
-            Video newObj = newData.get(newItemPosition);
+            Special oldObj = oldData.get(oldItemPosition);
+            Special newObj = newData.get(newItemPosition);
             return Objects.equals(oldObj.id, newObj.id) &&
                     Objects.equals(oldObj.title, newObj.title);
         }
 
         @Override
         public boolean isContentsTheSame(int oldItemPosition, int newItemPosition) {
-            Video oldObj = oldData.get(oldItemPosition);
-            Video newObj = newData.get(newItemPosition);
+            Special oldObj = oldData.get(oldItemPosition);
+            Special newObj = newData.get(newItemPosition);
             return Objects.equals(oldObj.id, newObj.id) &&
                     Objects.equals(oldObj.title, newObj.title);
         }

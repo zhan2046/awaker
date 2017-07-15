@@ -4,7 +4,7 @@ package com.future.awaker.data;
  * Copyright ©2017 by Teambition
  */
 
-public class Video {
+public class Special {
 
     public static final int NORMAL = 0;
     public static final int UFO = 16;

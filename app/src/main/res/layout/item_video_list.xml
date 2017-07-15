@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="videoItem"
-            type="com.future.awaker.data.Video" />
+            name="specialItem"
+            type="com.future.awaker.data.Special" />
 
         <variable
             name="listener"
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackground"
-        android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), videoItem)}"
+        android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), specialItem)}"
         android:stateListAnimator="@drawable/lift_on_touch"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
@@ -43,10 +43,15 @@
                 android:id="@+id/icon_iv"
                 soulwolf:datumRatio="datumWidth"
                 soulwolf:widthRatio="1.0"
-                soulwolf:heightRatio="0.6"
+                soulwolf:heightRatio="0.5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop" />
+
+            <View
+                android:background="#eeeeee"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"/>
 
             <TextView
                 android:id="@+id/title_tv"
@@ -57,7 +62,7 @@
                 android:layout_margin="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{videoItem.title}"
+                android:text="@{specialItem.title}"
                 android:textColor="#FF383838"
                 android:textSize="14sp" />
         </LinearLayout>

@@ -4,7 +4,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
 import com.future.awaker.base.BaseListViewModel;
-import com.future.awaker.data.Video;
+import com.future.awaker.data.Special;
 import com.future.awaker.data.source.NewRepository;
 
 import java.util.List;
@@ -17,11 +17,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class VideoViewModel extends BaseListViewModel {
 
-    public ObservableList<Video> videos = new ObservableArrayList<>();
+    public ObservableList<Special> specials = new ObservableArrayList<>();
 
     private NewRepository newRepository;
 
-    private int cat = Video.NORMAL;
+    private int cat = Special.NORMAL;
 
     public VideoViewModel(NewRepository newRepository) {
         this.newRepository = newRepository;
@@ -42,14 +42,14 @@ public class VideoViewModel extends BaseListViewModel {
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
                 .doOnNext(httpResult -> {
-                    List<Video> newList = httpResult.getData();
+                    List<Special> newList = httpResult.getData();
                     notifyEmpty(newList);
 
                     if (isRefresh) {
-                        videos.clear();
+                        specials.clear();
                     }
                     if (!isEmpty.get()) {
-                        videos.addAll(httpResult.getData());
+                        specials.addAll(httpResult.getData());
                     }
                 })
                 .subscribe());

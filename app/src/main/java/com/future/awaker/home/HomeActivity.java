@@ -21,7 +21,7 @@ import android.view.View;
 import com.future.awaker.R;
 import com.future.awaker.base.ViewModelHolder;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
-import com.future.awaker.data.Video;
+import com.future.awaker.data.Special;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.ActivityHomeBinding;
 import com.future.awaker.news.NewViewModel;
@@ -299,23 +299,23 @@ public class HomeActivity extends AppCompatActivity {
         public void doClick(View v) {
             switch (v.getId()) {
                 case R.id.fab_sheet_item_ufo:
-                    homeAdapter.setCat(Video.UFO);
+                    homeAdapter.setCat(Special.UFO);
                     materialSheetFab.hideSheet();
                     break;
                 case R.id.fab_sheet_item_theory:
-                    homeAdapter.setCat(Video.THEORY);
+                    homeAdapter.setCat(Special.THEORY);
                     materialSheetFab.hideSheet();
                     break;
                 case R.id.fab_sheet_item_spirit:
-                    homeAdapter.setCat(Video.SPIRIT);
+                    homeAdapter.setCat(Special.SPIRIT);
                     materialSheetFab.hideSheet();
                     break;
                 case R.id.fab_sheet_item_free:
-                    homeAdapter.setCat(Video.FREE);
+                    homeAdapter.setCat(Special.FREE);
                     materialSheetFab.hideSheet();
                     break;
                 case R.id.fab_sheet_item_normal:
-                    homeAdapter.setCat(Video.NORMAL);
+                    homeAdapter.setCat(Special.NORMAL);
                     materialSheetFab.hideSheet();
                     break;
             }

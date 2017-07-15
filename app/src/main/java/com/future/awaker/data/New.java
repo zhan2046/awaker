@@ -30,4 +30,5 @@ public class New {
     public User user;
     public String category_title;
     public String category_color;
+    private CategoryName category_name;
 }

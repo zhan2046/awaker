@@ -2,7 +2,8 @@ package com.future.awaker.data.source.remote;
 
 import com.future.awaker.data.New;
 import com.future.awaker.data.NewDetail;
-import com.future.awaker.data.Video;
+import com.future.awaker.data.Special;
+import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.data.source.NewDataSource;
 import com.future.awaker.network.AwakerClient;
 import com.future.awaker.network.HttpResult;
@@ -25,7 +26,7 @@ public class NewRemoteDataSource implements NewDataSource {
     }
 
     @Override
-    public Flowable<HttpResult<List<Video>>> getSpecialList(String token, int page, int cat) {
+    public Flowable<HttpResult<List<Special>>> getSpecialList(String token, int page, int cat) {
         return AwakerClient.get().getSpecialList(token, page, cat)
                 .subscribeOn(Schedulers.io());
     }
@@ -33,6 +34,12 @@ public class NewRemoteDataSource implements NewDataSource {
     @Override
     public Flowable<HttpResult<NewDetail>> getNewDetail(String token, String newId) {
         return AwakerClient.get().getNewDetail(token, newId)
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Flowable<HttpResult<SpecialDetail>> getSpecialDetail(String token, String id) {
+        return AwakerClient.get().getSpecialDetail(token, id)
                 .subscribeOn(Schedulers.io());
     }
 }

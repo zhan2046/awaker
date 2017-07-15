@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.future.awaker.data.Video;
 import com.future.awaker.news.NewListFragment;
 import com.future.awaker.news.NewViewModel;
 import com.future.awaker.video.VideoListFragment;

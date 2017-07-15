@@ -78,7 +78,7 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
                 getActivity().finish();
             }
         });
-        
+
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
