@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="newEle"
+            type="com.future.awaker.data.NewEle"/>
+    </data>
+
+    <net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <net.soulwolf.widget.ratiolayout.widget.RatioImageView
+            soulwolf:datumRatio="datumWidth"
+            soulwolf:widthRatio="1.0"
+            soulwolf:heightRatio="0.5"
+            android:scaleType="centerCrop"
+            android:layout_margin="10dp"
+            android:background="#66666666"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout>
+
+
+</layout>
+

@@ -1,7 +1,6 @@
 package com.future.awaker.util;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.future.awaker.data.NewEle;
 
@@ -52,9 +51,6 @@ public final class HtmlParser {
                     newEleText.text = text;
                     newEleText.html = item.outerHtml();
                     newEleList.add(newEleText);
-
-                    Log.i("test",item.tagName() + " : " + text);
-                    Log.i("test",item.tagName() + " : " + item.outerHtml());
                 }
 
             } else if (NewEle.TAG_IFRAME.equals(tagName)) {

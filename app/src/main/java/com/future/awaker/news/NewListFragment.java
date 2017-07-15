@@ -55,6 +55,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
 
     @Override
     public void onItemClick(View view, int position, New bean) {
-        NewDetailActivity.launch(getContext(), bean.id, bean.title);
+        String url = bean.cover_url == null ? "" : bean.cover_url.ori;
+        NewDetailActivity.launch(getContext(), bean.id, bean.title, url);
     }
 }

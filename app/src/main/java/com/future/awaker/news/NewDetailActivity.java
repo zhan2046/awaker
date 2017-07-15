@@ -17,13 +17,15 @@ public class NewDetailActivity extends AppCompatActivity {
 
     private static final String NEW_ID = "newId";
     private static final String NEW_TITLE = "newTitle";
+    private static final String NEW_URL = "newUrl";
 
-    private NewDetailWebViewFragment newDetailFragment;
+    private NewDetailFragment newDetailFragment;
 
-    public static void launch(Context context, String newId, String title) {
+    public static void launch(Context context, String newId, String newTitle, String newUrl) {
         Intent intent = new Intent(context, NewDetailActivity.class);
         intent.putExtra(NEW_ID, newId);
-        intent.putExtra(NEW_TITLE, title);
+        intent.putExtra(NEW_TITLE, newTitle);
+        intent.putExtra(NEW_URL, newUrl);
         context.startActivity(intent);
     }
 
@@ -33,12 +35,13 @@ public class NewDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_detail);
 
         String newId = getIntent().getStringExtra(NEW_ID);
-        String titleId = getIntent().getStringExtra(NEW_TITLE);
+        String newTitle = getIntent().getStringExtra(NEW_TITLE);
+        String newUrl = getIntent().getStringExtra(NEW_URL);
         if (TextUtils.isEmpty(newId)) {
             finish();
         }
         if (newDetailFragment == null) {
-            newDetailFragment = NewDetailWebViewFragment.newInstance(newId, titleId);
+            newDetailFragment = NewDetailFragment.newInstance(newId, newTitle, newUrl);
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.container_fl, newDetailFragment,

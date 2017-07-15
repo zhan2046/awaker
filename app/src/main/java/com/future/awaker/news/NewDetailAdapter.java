@@ -1,10 +1,21 @@
 package com.future.awaker.news;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.future.awaker.data.NewDetail;
+import com.future.awaker.R;
+import com.future.awaker.data.Header;
 import com.future.awaker.data.NewEle;
+import com.future.awaker.databinding.ItemNewDetailHeaderBinding;
+import com.future.awaker.databinding.ItemNewDetailImgBinding;
+import com.future.awaker.databinding.ItemNewDetailTextBinding;
+import com.future.awaker.databinding.ItemNewDetailVideoBinding;
+import com.future.awaker.news.holder.NewDetailHeaderHolder;
+import com.future.awaker.news.holder.NewDetailImgHolder;
+import com.future.awaker.news.holder.NewDetailTextHolder;
+import com.future.awaker.news.holder.NewDetailVideoHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +32,23 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
     private static final int TYPE_VIDEO = 1003;
 
     private List<Object> dataList = new ArrayList<>();
+    private Header header;
 
-    public void setData(NewDetail newDetail) {
-        if (newDetail == null) {
-            return;
-        }
-        notifyDataSetChanged();
+    public NewDetailAdapter(Header header) {
+        this.header = header;
+        dataList.add(header);
     }
 
+    public void setData(List<NewEle> newEleList) {
+        if (newEleList == null) {
+            return;
+        }
+        dataList.clear();
+
+        dataList.add(header);
+        dataList.addAll(newEleList);
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -49,20 +69,28 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_TEXT) {
+            ItemNewDetailTextBinding binding = DataBindingUtil
+                    .inflate(LayoutInflater.from(parent.getContext()),
+                            R.layout.item_new_detail_text, parent, false);
+            return new NewDetailTextHolder(binding);
 
-            return null;
         } else if (viewType == TYPE_IMG) {
+            ItemNewDetailImgBinding binding = DataBindingUtil
+                    .inflate(LayoutInflater.from(parent.getContext()),
+                            R.layout.item_new_detail_img, parent, false);
+            return new NewDetailImgHolder(binding);
 
-
-            return null;
         } else if (viewType == TYPE_VIDEO) {
+            ItemNewDetailVideoBinding binding = DataBindingUtil
+                    .inflate(LayoutInflater.from(parent.getContext()),
+                            R.layout.item_new_detail_video, parent, false);
+            return new NewDetailVideoHolder(binding);
 
-
-            return null;
         } else {
-
-
-            return null;
+            ItemNewDetailHeaderBinding binding = DataBindingUtil
+                    .inflate(LayoutInflater.from(parent.getContext()),
+                            R.layout.item_new_detail_header, parent, false);
+            return new NewDetailHeaderHolder(binding);
         }
     }
 
@@ -70,18 +98,17 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         if (viewType == TYPE_TEXT) {
-
+            ((NewDetailTextHolder)holder).bind((NewEle) dataList.get(position));
 
         } else if (viewType == TYPE_IMG) {
-
+            ((NewDetailImgHolder)holder).bind((NewEle) dataList.get(position));
 
 
         } else if (viewType == TYPE_VIDEO) {
-
+            ((NewDetailVideoHolder)holder).bind((NewEle) dataList.get(position));
 
         } else {
-
-
+            ((NewDetailHeaderHolder)holder).bind((Header) dataList.get(position));
         }
     }
 

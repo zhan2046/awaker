@@ -4,6 +4,13 @@
     xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="header"
+            type="com.future.awaker.data.Header"/>
+    </data>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -12,7 +19,7 @@
         <net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout
             soulwolf:datumRatio="datumWidth"
             soulwolf:widthRatio="1.0"
-            soulwolf:heightRatio="0.56"
+            soulwolf:heightRatio="0.5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -20,36 +27,27 @@
                 android:id="@+id/icon_iv"
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:imageUrl="@{header.url}" />
 
         </net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="23sp"
+            android:textColor="#383838"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:text="@{header.title}"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/user_iv"
-                android:scaleType="centerCrop"
-                android:layout_margin="10dp"
-                android:layout_width="60dp"
-                android:layout_height="60dp" />
-
-            <TextView
-                android:id="@+id/user_tv"
-                android:layout_gravity="center_vertical"
-                android:textSize="14sp"
-                android:textColor="#383838"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
         <View
-            android:background="#A8A8A8"
+            android:background="#eeeeee"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
+            android:layout_height="0.3dp"/>
     </LinearLayout>
 </layout>
