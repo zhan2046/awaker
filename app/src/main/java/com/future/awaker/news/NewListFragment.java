@@ -74,6 +74,6 @@ public class NewListFragment extends BaseListFragment<FragNewBinding> implements
 
     @Override
     public void onItemClick(View view, int position, New bean) {
-        NewDetailActivity.launch(getContext(), bean.id);
+        NewDetailActivity.launch(getContext(), bean.id, bean.title);
     }
 }

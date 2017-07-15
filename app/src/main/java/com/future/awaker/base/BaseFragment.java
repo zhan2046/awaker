@@ -69,14 +69,16 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
         if (toolbar == null) {
             return;
         }
+
         AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
-                activity.onBackPressed();
+                getActivity().finish();
             }
         });
-        activity.setSupportActionBar(toolbar);
+        
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);

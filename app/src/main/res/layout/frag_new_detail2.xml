@@ -4,79 +4,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <!-- Toolbar -->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.Awaker.ToolBar" />
 
-        <android.support.v4.widget.NestedScrollView
-            android:scrollbars="vertical"
-            android:background="@android:color/white"
+        <FrameLayout
+            android:id="@+id/container_fl"
+            android:background="@color/f5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout
-                    soulwolf:datumRatio="datumWidth"
-                    soulwolf:widthRatio="1.0"
-                    soulwolf:heightRatio="0.56"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/icon_iv"
-                        android:scaleType="centerCrop"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/user_iv"
-                        android:scaleType="centerCrop"
-                        android:layout_margin="10dp"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp" />
-
-                    <TextView
-                        android:id="@+id/user_tv"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="14sp"
-                        android:textColor="#383838"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <View
-                    android:background="#A8A8A8"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"/>
-
-                <FrameLayout
-                    android:id="@+id/container_fl"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-
-                </FrameLayout>
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-    </FrameLayout>
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 </layout>
