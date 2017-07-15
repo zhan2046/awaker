@@ -26,7 +26,8 @@
                     <!-- Toolbar -->
                     <android.support.v7.widget.Toolbar
                         android:id="@+id/toolbar"
-                        style="@style/Widget.Awaker.ToolBar" />
+                        style="@style/Widget.Awaker.ToolBar"
+                        app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
                     <!-- Tabs -->
                     <android.support.design.widget.TabLayout

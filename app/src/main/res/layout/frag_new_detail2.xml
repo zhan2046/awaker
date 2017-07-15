@@ -13,8 +13,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Widget.Awaker.ToolBar"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            />
+            app:titleTextAppearance="@style/Toolbar.TitleText" />
 
         <FrameLayout
             android:id="@+id/container_fl"

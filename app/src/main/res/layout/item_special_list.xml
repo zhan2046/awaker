@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="newItem"
+            type="com.future.awaker.data.New" />
+
+        <variable
+            name="holder"
+            type="com.future.awaker.video.holder.SpecialListHolder" />
+
+        <variable
+            name="listener"
+            type="com.future.awaker.base.listener.OnItemClickListener" />
+    </data>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newItem)}"
+        android:stateListAnimator="@drawable/lift_on_touch"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        card_view:cardCornerRadius="6dp"
+        card_view:cardElevation="1dp"
+        tools:targetApi="lollipop">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_iv"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{newItem.cover}" />
+
+            <TextView
+                android:id="@+id/title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/icon_iv"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_toEndOf="@+id/icon_iv"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{newItem.title}"
+                android:textColor="#FF383838"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/icon_iv"
+                android:layout_marginBottom="3dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/icon_iv"
+                android:ellipsize="end"
+                android:maxEms="16"
+                android:maxLines="1"
+                android:textColor="#FF8A8A8A"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/icon_iv"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="3dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxEms="16"
+                android:maxLines="1"
+                android:text="@{newItem.comment}"
+                android:textColor="#FF8A8A8A"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</layout>
+

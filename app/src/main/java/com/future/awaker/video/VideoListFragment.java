@@ -69,7 +69,7 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding> implem
 
     @Override
     public void onItemClick(View view, int position, Special bean) {
-
+        SpecialListActivity.launch(getActivity(), bean.id, bean.title, bean.cover);
     }
 
     public void setCat(int cat) {
