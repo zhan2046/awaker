@@ -32,6 +32,10 @@
     <item name="layout_scrollFlags">scroll|enterAlways</item>
   </style>
 
+  <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <item name="android:textSize">16sp</item>
+  </style>
+
   <style name="Widget.Awaker.TabLayout" parent="">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">?attr/actionBarSize</item>
