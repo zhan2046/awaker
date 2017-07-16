@@ -157,7 +157,7 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
 
             String htmlData = newDetail.content.replace(IMG, IMG_WIDTH_AUTO);
             htmlData = htmlData.replace(IFRAME, IFRAME_AUTO);
-            String html = loadDataWith(htmlData);
+            String html = HtmlParser.loadDataWith(htmlData);
             webView.loadData(html, "text/html; charset=UTF-8", null);
         }
     }
@@ -174,16 +174,6 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
             return;
         }
 
-    }
-
-    private String loadDataWith(String loadData) {
-        String header = "<html><body>";
-        String footer = "</body></html>";
-        StringBuilder sb = new StringBuilder();
-        sb.append(header);
-        sb.append(loadData);
-        sb.append(footer);
-        return sb.toString();
     }
 
     @SuppressLint("NewApi")

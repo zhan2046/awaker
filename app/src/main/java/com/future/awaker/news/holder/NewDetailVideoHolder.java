@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.NewEle;
 import com.future.awaker.databinding.ItemNewDetailVideoBinding;
+import com.future.awaker.util.HtmlParser;
 import com.just.library.AgentWeb;
 import com.just.library.AgentWebSettings;
 import com.just.library.WebDefaultSettingsManager;
@@ -22,9 +23,8 @@ import com.just.library.WebDefaultSettingsManager;
 
 public class NewDetailVideoHolder extends RecyclerView.ViewHolder {
 
-    private static int webViewHeight = 200;
     private static final String IFRAME = "<iframe";
-    private static final String IFRAME_AUTO = "<iframe style='max-width:100%;height:"+ webViewHeight +";'";
+    private static final String IFRAME_AUTO = "<iframe style='max-width:100%;height:200;'";
 
     private ItemNewDetailVideoBinding binding;
     private  OnItemClickListener<NewEle> listener;
@@ -40,23 +40,12 @@ public class NewDetailVideoHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(NewEle bean) {
-        webViewHeight = binding.contentFl.getMeasuredHeight();
         String htmlData = bean.html.replace(IFRAME, IFRAME_AUTO);
-        String html = loadDataWith(htmlData);
+        String html = HtmlParser.loadDataWith(htmlData);
         webView.loadData(html, "text/html; charset=UTF-8", null);
 
         binding.setNewEle(bean);
         binding.executePendingBindings();
-    }
-
-    private String loadDataWith(String loadData) {
-        String header = "<html><body>";
-        String footer = "</body></html>";
-        StringBuilder sb = new StringBuilder();
-        sb.append(header);
-        sb.append(loadData);
-        sb.append(footer);
-        return sb.toString();
     }
 
     private void initWebView() {

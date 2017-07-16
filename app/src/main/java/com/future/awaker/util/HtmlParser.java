@@ -67,5 +67,13 @@ public final class HtmlParser {
         return newEleList;
     }
 
-
+    public static String loadDataWith(String loadData) {
+        String header = "<html><body>";
+        String footer = "</body></html>";
+        StringBuilder sb = new StringBuilder();
+        sb.append(header);
+        sb.append(loadData);
+        sb.append(footer);
+        return sb.toString();
+    }
 }
