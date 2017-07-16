@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.future.awaker.R;
+import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.Header;
 import com.future.awaker.data.NewEle;
 import com.future.awaker.databinding.ItemNewDetailHeaderBinding;
@@ -32,10 +33,12 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
     private static final int TYPE_VIDEO = 1003;
 
     private List<Object> dataList = new ArrayList<>();
+    private OnItemClickListener<NewEle> listener;
     private Header header;
 
-    public NewDetailAdapter(Header header) {
+    public NewDetailAdapter(Header header, OnItemClickListener<NewEle> listener) {
         this.header = header;
+        this.listener = listener;
         dataList.add(header);
     }
 
@@ -78,13 +81,19 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
             ItemNewDetailImgBinding binding = DataBindingUtil
                     .inflate(LayoutInflater.from(parent.getContext()),
                             R.layout.item_new_detail_img, parent, false);
-            return new NewDetailImgHolder(binding);
+            NewDetailImgHolder holder = new NewDetailImgHolder(binding);;
+            binding.setListener(listener);
+            binding.setHolder(holder);
+            return holder;
 
         } else if (viewType == TYPE_VIDEO) {
             ItemNewDetailVideoBinding binding = DataBindingUtil
                     .inflate(LayoutInflater.from(parent.getContext()),
                             R.layout.item_new_detail_video, parent, false);
-            return new NewDetailVideoHolder(binding);
+            NewDetailVideoHolder holder = new NewDetailVideoHolder(binding);
+            binding.setListener(listener);
+            binding.setHolder(holder);
+            return holder;
 
         } else {
             ItemNewDetailHeaderBinding binding = DataBindingUtil

@@ -4,9 +4,11 @@ package com.future.awaker.news;
 import android.databinding.Observable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
+import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.Header;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.NewEle;
@@ -23,7 +25,7 @@ import io.reactivex.schedulers.Schedulers;
  * Copyright ©2017 by Teambition
  */
 
-public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> {
+public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> implements OnItemClickListener<NewEle> {
 
     private static final String NEW_ID = "newId";
     private static final String NEW_TITLE = "newTitle";
@@ -71,7 +73,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> {
         header.title = newTitle;
         header.url = newUrl;
 
-        adapter = new NewDetailAdapter(header);
+        adapter = new NewDetailAdapter(header, this);
         recyclerView.setAdapter(adapter);
 
         viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
@@ -101,6 +103,17 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> {
     @Override
     public void onLoadMore() {
         // new detail not load more
+    }
+
+    @Override
+    public void onItemClick(View view, int position, NewEle bean) {
+        if (NewEle.TYPE_IMG == bean.type) {
+            String url = bean.imgUrl;
+            ImageDetailActivity.launch(getContext(), url);
+        } else if (NewEle.TYPE_VIDEO == bean.type) {
+            String url = bean.videoUrl;
+            ImageDetailActivity.launch(getContext(), url);
+        }
     }
 
     private class NewDetailBack extends Observable.OnPropertyChangedCallback {

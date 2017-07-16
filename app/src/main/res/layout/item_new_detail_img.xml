@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -10,22 +11,37 @@
         <variable
             name="newEle"
             type="com.future.awaker.data.NewEle"/>
+
+        <variable
+            name="listener"
+            type="com.future.awaker.base.listener.OnItemClickListener" />
+
+        <variable
+            name="holder"
+            type="com.future.awaker.news.holder.NewDetailImgHolder" />
     </data>
 
-    <FrameLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newEle)}"
+        android:stateListAnimator="@drawable/lift_on_touch"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        card_view:cardCornerRadius="1dp"
+        card_view:cardElevation="1dp"
+        tools:targetApi="lollipop">
 
         <net.soulwolf.widget.ratiolayout.widget.RatioImageView
             soulwolf:datumRatio="datumWidth"
             soulwolf:widthRatio="1.0"
-            soulwolf:heightRatio="0.5"
+            soulwolf:heightRatio="0.6"
             android:scaleType="centerCrop"
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:imageUrl="@{newEle.imgUrl}" />
-    </FrameLayout>
+    </android.support.v7.widget.CardView >
 
 
 </layout>

@@ -34,13 +34,15 @@
 
         <TextView
             android:id="@+id/title_tv"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_gravity="center_vertical"
             android:textSize="23sp"
             android:textColor="#383838"
-            android:maxLines="2"
             android:ellipsize="end"
-            android:gravity="center"
+            android:gravity="center_vertical|left"
             android:text="@{header.title}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
