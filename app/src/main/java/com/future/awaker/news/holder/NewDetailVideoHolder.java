@@ -41,7 +41,7 @@ public class NewDetailVideoHolder extends RecyclerView.ViewHolder {
 
     public void bind(NewEle bean) {
         String htmlData = bean.html.replace(IFRAME, IFRAME_AUTO);
-        String html = HtmlParser.loadDataWith(htmlData);
+        String html = HtmlParser.loadDataWithVideo(htmlData);
         webView.loadData(html, "text/html; charset=UTF-8", null);
 
         binding.setNewEle(bean);

@@ -8,6 +8,7 @@ import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.New;
 import com.future.awaker.databinding.FragSpecialListBinding;
+import com.future.awaker.news.NewDetailActivity;
 
 /**
  * Created by ruzhan on 2017/7/15.
@@ -18,6 +19,8 @@ public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding
     private static final String ID = "id";
     private static final String TITLE = "title";
     private static final String URL = "url";
+
+    private String url;
 
     public static SpecialListFragment newInstance(String id, String title, String url) {
         Bundle args = new Bundle();
@@ -38,7 +41,7 @@ public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding
     protected void initData() {
         String id = getArguments().getString(ID);
         String title = getArguments().getString(TITLE);
-        String url = getArguments().getString(URL);
+        url = getArguments().getString(URL);
 
         SpecialListViewModel viewModel = new SpecialListViewModel();
         viewModel.setParams(id, title, url);
@@ -54,6 +57,6 @@ public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding
 
     @Override
     public void onItemClick(View view, int position, New bean) {
-
+        NewDetailActivity.launch(getActivity(), bean.id, bean.title, url);
     }
 }

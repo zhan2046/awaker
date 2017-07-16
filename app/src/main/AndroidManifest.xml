@@ -47,5 +47,12 @@
         <activity
             android:name=".video.SpecialListActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:hardwareAccelerated="true"
+            android:configChanges="orientation|screenSize"
+            android:name=".video.VideoDetailActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

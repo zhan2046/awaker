@@ -76,4 +76,14 @@ public final class HtmlParser {
         sb.append(footer);
         return sb.toString();
     }
+
+    public static String loadDataWithVideo(String loadData) {
+        String header = "<html><body><div><p><center>";
+        String footer = "</center></p></div></body></html>";
+        StringBuilder sb = new StringBuilder();
+        sb.append(header);
+        sb.append(loadData);
+        sb.append(footer);
+        return sb.toString();
+    }
 }

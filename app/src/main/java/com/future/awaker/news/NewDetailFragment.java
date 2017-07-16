@@ -1,6 +1,7 @@
 package com.future.awaker.news;
 
 
+import android.annotation.SuppressLint;
 import android.databinding.Observable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.NewEle;
 import com.future.awaker.databinding.FragNewDetailBinding;
 import com.future.awaker.util.HtmlParser;
+import com.future.awaker.video.VideoDetailActivity;
 
 import java.util.List;
 
@@ -79,20 +81,23 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
         viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onResume() {
-        adapter.onResume();
+
         super.onResume();
 
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onPause() {
-        adapter.onPause();
+
         super.onPause();
 
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onDestroy() {
         adapter.onDestroy();
@@ -110,11 +115,12 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
     @Override
     public void onItemClick(View view, int position, NewEle bean) {
         if (NewEle.TYPE_IMG == bean.type) {
-            String url = bean.imgUrl;
-            ImageDetailActivity.launch(getContext(), url);
+            String imgUrl = bean.imgUrl;
+            ImageDetailActivity.launch(getContext(), imgUrl);
         } else if (NewEle.TYPE_VIDEO == bean.type) {
-            String url = bean.videoUrl;
-            ImageDetailActivity.launch(getContext(), url);
+
+            String videoUrl = bean.html;
+            VideoDetailActivity.launch(getActivity(), videoUrl);
         }
     }
 

@@ -1,12 +1,10 @@
-package com.future.awaker.news;
-
+package com.future.awaker.video;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -17,75 +15,55 @@ import android.widget.FrameLayout;
 
 import com.future.awaker.R;
 import com.future.awaker.base.BaseFragment;
-import com.future.awaker.data.NewDetail;
-import com.future.awaker.data.NewEle;
-import com.future.awaker.databinding.FragNewDetail2Binding;
+import com.future.awaker.databinding.FragVideoDetailBinding;
 import com.future.awaker.util.HtmlParser;
+import com.future.awaker.util.UiUtils;
 import com.just.library.AgentWeb;
 import com.just.library.AgentWebSettings;
 import com.just.library.WebDefaultSettingsManager;
 
-import java.util.List;
-
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
 /**
- * Copyright ©2017 by Teambition
+ * Created by ruzhan on 2017/7/16.
  */
 
-public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding> implements SwipeRefreshLayout.OnRefreshListener {
+public class VideoDetailFragment extends BaseFragment<FragVideoDetailBinding> {
 
-    private static final String IMG = "<img";
-    private static final String IMG_WIDTH_AUTO = "<img style='max-width:100%;height:auto;'";
-
+    private static final String VIDEO_HTML = "videoHtml";
     private static final String IFRAME = "<iframe";
-    private static final String IFRAME_AUTO = "<iframe style='max-width:100%;height:200;'";
+    private static final String IFRAME_AUTO = "<iframe style='max-width:100%;height:300;'";
 
-    private static final String NEW_ID = "newId";
-    private static final String NEW_TITLE = "newTitle";
-
-    private NewDetailViewModel viewModel = new NewDetailViewModel();
-    private NewDetailBack newDetailBack = new NewDetailBack();
     protected AgentWeb mAgentWeb;
     private WebView webView;
 
-    public static NewDetailWebViewFragment newInstance(String newId, String newTitle) {
+    public static VideoDetailFragment newInstance(String videoHtml) {
         Bundle args = new Bundle();
-        args.putString(NEW_ID, newId);
-        args.putString(NEW_TITLE, newTitle);
-        NewDetailWebViewFragment fragment = new NewDetailWebViewFragment();
+        args.putString(VIDEO_HTML, videoHtml);
+        VideoDetailFragment fragment = new VideoDetailFragment();
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     protected int getLayout() {
-        return R.layout.frag_new_detail2;
+        return R.layout.frag_video_detail;
     }
 
     @Override
     protected void onCreateViewBind() {
+        initWebView();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String newId = getArguments().getString(NEW_ID);
-        String newTitle = getArguments().getString(NEW_TITLE);
 
-        viewModel.setNewId(newId);
+        String videoHtml = getArguments().getString(VIDEO_HTML, "");
 
-        binding.toolbar.setTitle(newTitle);
-        setToolbar(binding.toolbar);
+        int height = UiUtils.getScreenHeight();
+        int width = UiUtils.getScreenWidth();
 
-        setViewModel(viewModel);
-        viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
-
-        initWebView();
-
-        onRefresh();
+        String htmlData = videoHtml.replace(IFRAME, IFRAME_AUTO);
+        String html = HtmlParser.loadDataWith(htmlData);
+        webView.loadData(html, "text/html; charset=UTF-8", null);
     }
 
     private void initWebView() {
@@ -95,9 +73,10 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
                         ViewGroup.LayoutParams.MATCH_PARENT);
 
         webView = new WebView(getContext());
+        webView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.black));
 
         mAgentWeb = AgentWeb.with(this)//
-                .setAgentWebParent(binding.containerFl, lp)//
+                .setAgentWebParent(binding.contentFl, lp)
                 .closeDefaultIndicator()//
                 .setWebView(webView)
                 .setWebSettings(getSettings())//
@@ -111,11 +90,11 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
                 .ready()//
                 .go(null);
 
-        setDesktopMode(false);
+        setDesktopMode(webView, false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
     }
 
-    public void setDesktopMode(final boolean enabled) {
+    public void setDesktopMode(WebView webView, final boolean enabled) {
         WebSettings webSettings = webView.getSettings();
 
         final String newUserAgent;
@@ -132,54 +111,20 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
         webSettings.setBuiltInZoomControls(enabled);
     }
 
-
-    public AgentWebSettings getSettings() {
-        return WebDefaultSettingsManager.getInstance();
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mAgentWeb.uploadFileResult(requestCode, resultCode, data);
     }
 
-
-    @Override
-    public void onRefresh() {
-        viewModel.fetchData(true, 1);
-    }
-
-    private class NewDetailBack extends Observable.OnPropertyChangedCallback {
-
-        @Override
-        public void onPropertyChanged(Observable sender, int propertyId) {
-            NewDetail newDetail = viewModel.newDetail.get();
-
-            String htmlData = newDetail.content.replace(IMG, IMG_WIDTH_AUTO);
-            htmlData = htmlData.replace(IFRAME, IFRAME_AUTO);
-            String html = HtmlParser.loadDataWithVideo(htmlData);
-            webView.loadData(html, "text/html; charset=UTF-8", null);
-        }
-    }
-
-    private void test(String html) {
-        io.reactivex.Observable.create((ObservableOnSubscribe<List<NewEle>>) e -> e.onNext(HtmlParser.htmlToList(html)))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::initNewEleList);
-    }
-
-    private void initNewEleList(List<NewEle> newEleList) {
-        if (newEleList == null) {
-            return;
-        }
-
+    public AgentWebSettings getSettings() {
+        return WebDefaultSettingsManager.getInstance();
     }
 
     @SuppressLint("NewApi")
     @Override
     public void onResume() {
-        mAgentWeb.getWebLifeCycle().onResume();
+        //mAgentWeb.getWebLifeCycle().onResume();
         super.onResume();
     }
 
@@ -193,9 +138,7 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
     @SuppressLint("NewApi")
     @Override
     public void onDestroy() {
-        mAgentWeb.getWebLifeCycle().onDestroy();
-        viewModel.newDetail.removeOnPropertyChangedCallback(newDetailBack);
+
         super.onDestroy();
     }
-
 }
