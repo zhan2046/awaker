@@ -81,19 +81,21 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
 
     @Override
     public void onResume() {
+        adapter.onResume();
         super.onResume();
 
     }
 
     @Override
     public void onPause() {
-
+        adapter.onPause();
         super.onPause();
 
     }
 
     @Override
     public void onDestroy() {
+        adapter.onDestroy();
         viewModel.newDetail.removeOnPropertyChangedCallback(newDetailBack);
 
         super.onDestroy();

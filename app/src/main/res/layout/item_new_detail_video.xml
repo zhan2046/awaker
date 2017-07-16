@@ -33,18 +33,30 @@
         card_view:cardElevation="1dp"
         tools:targetApi="lollipop">
 
-        <net.soulwolf.widget.ratiolayout.widget.RatioImageView
-            soulwolf:datumRatio="datumWidth"
-            soulwolf:widthRatio="1.0"
-            soulwolf:heightRatio="0.6"
-            android:scaleType="centerCrop"
-            android:layout_margin="10dp"
-            android:background="#66666666"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout
+                android:id="@+id/content_fl"
+                soulwolf:datumRatio="datumWidth"
+                soulwolf:widthRatio="1.0"
+                soulwolf:heightRatio="0.6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
+
 
     </android.support.v7.widget.CardView>
-
-
 </layout>
 

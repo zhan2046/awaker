@@ -36,6 +36,8 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
     private OnItemClickListener<NewEle> listener;
     private Header header;
 
+    private List<NewDetailVideoHolder> videoHolders = new ArrayList<>();
+
     public NewDetailAdapter(Header header, OnItemClickListener<NewEle> listener) {
         this.header = header;
         this.listener = listener;
@@ -90,9 +92,11 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
             ItemNewDetailVideoBinding binding = DataBindingUtil
                     .inflate(LayoutInflater.from(parent.getContext()),
                             R.layout.item_new_detail_video, parent, false);
-            NewDetailVideoHolder holder = new NewDetailVideoHolder(binding);
+            NewDetailVideoHolder holder = new NewDetailVideoHolder(binding, listener);
             binding.setListener(listener);
             binding.setHolder(holder);
+
+            videoHolders.add(holder);
             return holder;
 
         } else {
@@ -126,5 +130,39 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         return dataList == null ? 0 : dataList.size();
     }
 
+    public void onResume() {
+        for (NewDetailVideoHolder videoHolder : videoHolders) {
+            videoHolder.mAgentWeb.getWebLifeCycle().onResume();
+        }
+    }
 
+    public void onPause() {
+        for (NewDetailVideoHolder videoHolder : videoHolders) {
+            videoHolder.mAgentWeb.getWebLifeCycle().onPause();
+        }
+    }
+
+    public void onDestroy() {
+        for (NewDetailVideoHolder videoHolder : videoHolders) {
+            videoHolder.mAgentWeb.getWebLifeCycle().onDestroy();
+        }
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        if (holder instanceof NewDetailVideoHolder) {
+            NewDetailVideoHolder videoHolder = (NewDetailVideoHolder) holder;
+            videoHolder.mAgentWeb.getWebLifeCycle().onPause();
+        }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        if (holder instanceof NewDetailVideoHolder) {
+            NewDetailVideoHolder videoHolder = (NewDetailVideoHolder) holder;
+            videoHolder.mAgentWeb.getWebLifeCycle().onResume();
+        }
+    }
 }
