@@ -3,12 +3,13 @@ package com.future.awaker.video;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.future.awaker.R;
 import com.future.awaker.databinding.ActivityVideoDetailBinding;
@@ -31,11 +32,13 @@ public class VideoDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         ActivityVideoDetailBinding binding = DataBindingUtil
                 .setContentView(this, R.layout.activity_video_detail);
 
-        setStatusBarColor(Color.parseColor("#66808080"));
         String videoHtml = getIntent().getStringExtra(VIDEO_HTML);
         if (TextUtils.isEmpty(videoHtml)) {
             finish();

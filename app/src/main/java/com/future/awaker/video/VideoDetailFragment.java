@@ -30,7 +30,7 @@ public class VideoDetailFragment extends BaseFragment<FragVideoDetailBinding> {
 
     private static final String VIDEO_HTML = "videoHtml";
     private static final String IFRAME = "<iframe";
-    private static final String IFRAME_AUTO = "<iframe style='max-width:100%;height:300;'";
+    private static final String IFRAME_AUTO = "<iframe style='max-width:100%;height:350;'";
 
     protected AgentWeb mAgentWeb;
     private WebView webView;
