@@ -66,7 +66,7 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
     }
 
     @Override
-    protected void onCreateViewBind() {
+    protected void onCreateBindView() {
     }
 
     @Override
@@ -80,7 +80,6 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
         binding.toolbar.setTitle(newTitle);
         setToolbar(binding.toolbar);
 
-        setViewModel(viewModel);
         viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
 
         initWebView();
@@ -146,7 +145,7 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
 
     @Override
     public void onRefresh() {
-        viewModel.fetchData(true, 1);
+        viewModel.fetchData(true);
     }
 
     private class NewDetailBack extends Observable.OnPropertyChangedCallback {

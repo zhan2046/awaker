@@ -1,8 +1,6 @@
 package com.future.awaker.base;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.Observable;
-import android.databinding.ObservableBoolean;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,45 +22,23 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
 
     protected VB binding;
 
-    protected View progressBar;
-    protected BaseViewModel baseViewModel;
-
-    private RunningCallback runningCallback;
-    private EmptyCallback emptyCallback = new EmptyCallback();
+    @SuppressWarnings("unchecked")
+    protected <T> T findViewById(View view, int id) {
+        return (T) view.findViewById(id);
+    }
 
     protected abstract int getLayout();
 
-    protected abstract void onCreateViewBind();
+    protected void onCreateBindView() {
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, getLayout(), container, false);
-        onCreateViewBind();
+        onCreateBindView();
         return binding.getRoot();
-    }
-
-    public void setViewModel(BaseViewModel viewModel) {
-        if (viewModel == null) {
-            return;
-        }
-        baseViewModel = viewModel;
-        if (runningCallback == null) {
-            runningCallback = new RunningCallback();
-        }
-        baseViewModel.isEmpty.addOnPropertyChangedCallback(emptyCallback);
-        baseViewModel.isRunning.addOnPropertyChangedCallback(runningCallback);
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (baseViewModel != null) {
-            baseViewModel.isEmpty.removeOnPropertyChangedCallback(emptyCallback);
-
-            baseViewModel.isRunning.removeOnPropertyChangedCallback(runningCallback);
-        }
-
-        super.onDestroyView();
     }
 
     protected void setToolbar(Toolbar toolbar) {
@@ -75,7 +51,7 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
         toolbar.setNavigationOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
-                getActivity().finish();
+                getActivity().onBackPressed();
             }
         });
 
@@ -84,52 +60,6 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-    }
-
-
-    public void showProgressBar() {
-        if (progressBar != null && progressBar.getVisibility() != View.VISIBLE) {
-            progressBar.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void hideProgressBar() {
-        if (progressBar != null && progressBar.getVisibility() == View.VISIBLE) {
-            progressBar.setVisibility(View.GONE);
-        }
-    }
-
-    protected void onRunChanged(Observable sender, int propertyId) {
-        // empty
-    }
-
-    private class RunningCallback extends Observable.OnPropertyChangedCallback {
-
-        @Override
-        public void onPropertyChanged(Observable sender, int propertyId) {
-            onRunChanged(sender, propertyId);
-
-            ObservableBoolean isRunning = (ObservableBoolean) sender;
-            if (isRunning.get()) {
-                showProgressBar();
-
-            } else {
-                hideProgressBar();
-            }
-        }
-    }
-
-    private class EmptyCallback extends Observable.OnPropertyChangedCallback {
-
-        @Override
-        public void onPropertyChanged(Observable sender, int propertyId) {
-            onRunChanged(sender, propertyId);
-            emptyData(baseViewModel.isEmpty.get());
-        }
-    }
-
-    protected void emptyData(boolean isEmpty) {
-
     }
 }
 

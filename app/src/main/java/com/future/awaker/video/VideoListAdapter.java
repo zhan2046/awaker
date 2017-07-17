@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.future.awaker.R;
@@ -12,6 +11,7 @@ import com.future.awaker.base.EmptyHolder;
 import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.Special;
+import com.future.awaker.databinding.ItemLoadBinding;
 import com.future.awaker.databinding.ItemVideoListBinding;
 
 import java.util.List;
@@ -26,13 +26,18 @@ public class VideoListAdapter extends RecyclerView.Adapter {
     private static final int TYPE_LOADING = 1000;
     private static final int TYPE_VIDEO = 1001;
 
+    private VideoViewModel videoViewModel;
     private OnItemClickListener<Special> listener;
     private List<Special> specials;
     private VideoDiffCallBack diffCallBack = new VideoDiffCallBack();
-    private EmptyHolder emptyHolder;
 
-    public VideoListAdapter(OnItemClickListener<Special> listener) {
+    public VideoListAdapter(VideoViewModel videoViewModel, OnItemClickListener<Special> listener) {
+        this.videoViewModel = videoViewModel;
         this.listener = listener;
+    }
+
+    public VideoViewModel getVideoViewModel() {
+        return videoViewModel;
     }
 
     public void setData(List<Special> list) {
@@ -63,7 +68,10 @@ public class VideoListAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_LOADING) {
-            emptyHolder = new EmptyHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_load, parent, false));
+            ItemLoadBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                    R.layout.item_load, parent, false);
+            binding.setViewModel(videoViewModel);
+            EmptyHolder emptyHolder = new EmptyHolder(binding);
             return emptyHolder;
 
         } else {
@@ -87,10 +95,6 @@ public class VideoListAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return specials == null ? 0 : specials.size() + 1;
-    }
-
-    public void setEmpty(boolean isEmpty) {
-        emptyHolder.itemView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
     }
 
     public static class VideoHolder extends RecyclerView.ViewHolder {

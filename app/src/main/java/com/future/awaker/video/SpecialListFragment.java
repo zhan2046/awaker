@@ -46,7 +46,7 @@ public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding
 
         viewModel.setParams(id, title, url);
 
-        setViewModel(viewModel);
+        setListViewModel(viewModel);
         binding.setViewModel(viewModel);
 
         setToolbar(binding.toolbar);

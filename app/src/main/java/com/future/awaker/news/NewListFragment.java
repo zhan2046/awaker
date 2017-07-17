@@ -28,17 +28,12 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
     }
 
     @Override
-    protected int getEmptyLayout() {
-        return R.layout.layout_empty;
-    }
-
-    @Override
     protected void initData() {
-        setViewModel(newViewModel);
+        setListViewModel(newViewModel);
 
-        binding.setViewmodel(newViewModel);
+        binding.setViewModel(newViewModel);
 
-        adapter = new NewListAdapter(this);
+        adapter = new NewListAdapter(newViewModel, this);
         binding.recyclerView.setAdapter(adapter);
     }
 
@@ -46,11 +41,6 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
     public void onDestroyView() {
         newViewModel.clear();
         super.onDestroyView();
-    }
-
-    @Override
-    protected void emptyData(boolean isEmpty) {
-        adapter.setEmpty(isEmpty);
     }
 
     @Override

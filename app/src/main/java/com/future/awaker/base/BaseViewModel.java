@@ -1,6 +1,7 @@
 package com.future.awaker.base;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
@@ -23,14 +24,14 @@ public class BaseViewModel extends BaseObservable {
 
     protected CompositeDisposable disposable = new CompositeDisposable();
 
-    protected void notifyEmpty(List list) {
+    protected void checkEmpty(List list) {
         boolean emptyFlag = list == null || list.isEmpty();
         if (emptyFlag != isEmpty.get()) {
             isEmpty.set(emptyFlag);
         }
     }
 
-    protected void notifyEmpty(Object object) {
+    protected void checkEmpty(Object object) {
         boolean emptyFlag = object == null;
         if (emptyFlag != isEmpty.get()) {
             isEmpty.set(emptyFlag);
@@ -40,6 +41,4 @@ public class BaseViewModel extends BaseObservable {
     public void clear() {
         disposable.clear();
     }
-
-
 }

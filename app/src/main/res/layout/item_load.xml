@@ -3,8 +3,18 @@
     xmlns:wheel="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.future.awaker.base.BaseViewModel"/>
+    </data>
+
 <FrameLayout
     android:id="@+id/progressbar_fl"
+    android:visibility="@{viewModel.isEmpty ? View.INVISIBLE : View.VISIBLE}"
     android:background="@color/f5"
     android:orientation="vertical"
     android:layout_width="match_parent"

@@ -59,10 +59,7 @@ public class SpecialListViewModel extends BaseListViewModel {
     }
 
     @Override
-    public void fetchData(boolean isRefresh, int page) {
-        if (isRunning.get()) {
-            return;
-        }
+    public void refreshData(boolean refresh) {
         disposable.add(NewRepository.get()
                 .getSpecialDetail(TOKEN, id)
                 .observeOn(AndroidSchedulers.mainThread())

@@ -40,11 +40,9 @@ public class NewDetailViewModel extends BaseListViewModel {
         this.url = url;
     }
 
+
     @Override
-    public void fetchData(boolean isRefresh, int page) {
-        if (isRunning.get()) {
-            return;
-        }
+    public void refreshData(boolean refresh) {
         disposable.add(NewRepository.get().getNewDetail(TOKEN, newId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
@@ -52,7 +50,7 @@ public class NewDetailViewModel extends BaseListViewModel {
                 .doOnTerminate(() -> isRunning.set(false))
                 .doOnNext(httpResult -> {
                     NewDetail newDetail = httpResult.getData();
-                    notifyEmpty(newDetail);
+                    checkEmpty(newDetail);
 
                     if (!isEmpty.get()) {
                         this.newDetail.set(newDetail);
@@ -60,5 +58,4 @@ public class NewDetailViewModel extends BaseListViewModel {
                 })
                 .subscribe());
     }
-
 }

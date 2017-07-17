@@ -48,7 +48,7 @@ public class VideoDetailFragment extends BaseFragment<FragVideoDetailBinding> {
     }
 
     @Override
-    protected void onCreateViewBind() {
+    protected void onCreateBindView() {
         initWebView();
     }
 

@@ -1,5 +1,6 @@
 package com.future.awaker.base;
 
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -9,7 +10,7 @@ import android.view.View;
 
 public class EmptyHolder extends RecyclerView.ViewHolder {
 
-    public EmptyHolder(View itemView) {
-        super(itemView);
+    public EmptyHolder(ViewDataBinding binding) {
+        super(binding.getRoot());
     }
 }

@@ -53,11 +53,6 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
     }
 
     @Override
-    protected int getEmptyLayout() {
-        return R.layout.layout_empty;
-    }
-
-    @Override
     protected void initData() {
         String newId = getArguments().getString(NEW_ID);
         String newTitle = getArguments().getString(NEW_TITLE);
@@ -68,7 +63,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
         viewModel.setNewId(newId);
         viewModel.setTitle(newTitle);
 
-        setViewModel(viewModel);
+        setListViewModel(viewModel);
         binding.setViewModel(viewModel);
 
         Header header = new Header();
@@ -142,9 +137,9 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
                 List<NewEle> newEleList = HtmlParser.htmlToList(realHtml);
                 e.onNext(newEleList);
             })
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(newEleList -> adapter.setData(newEleList));
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(newEleList -> adapter.setData(newEleList));
         }
     }
 }

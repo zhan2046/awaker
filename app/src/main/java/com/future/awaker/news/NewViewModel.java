@@ -20,10 +20,7 @@ public class NewViewModel extends BaseListViewModel {
     public ObservableList<New> news = new ObservableArrayList<>();
 
     @Override
-    public void fetchData(boolean isRefresh, int page) {
-        if (isRunning.get()) {
-            return;
-        }
+    public void refreshData(boolean refresh) {
         disposable.add(NewRepository.get().getNewList(TOKEN, page, 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
@@ -31,7 +28,7 @@ public class NewViewModel extends BaseListViewModel {
                 .doOnTerminate(() -> isRunning.set(false))
                 .doOnNext(httpResult -> {
                     List<New> newList = httpResult.getData();
-                    notifyEmpty(newList);
+                    checkEmpty(newList);
 
                     if (isRefresh) {
                         news.clear();

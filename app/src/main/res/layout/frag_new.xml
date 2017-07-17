@@ -5,12 +5,13 @@
     <data>
 
         <variable
-            name="viewmodel"
+            name="viewModel"
             type="com.future.awaker.news.NewViewModel" />
     </data>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
+        app:refreshing="@{viewModel.refreshing}"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -26,7 +27,7 @@
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager"
-                app:news="@{viewmodel.news}" />
+                app:news="@{viewModel.news}" />
 
             <include
                 android:id="@+id/progressbar"

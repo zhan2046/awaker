@@ -2,6 +2,8 @@ package com.future.awaker.video;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.Special;
@@ -24,11 +26,15 @@ public class VideoViewModel extends BaseListViewModel {
         this.cat = cat;
     }
 
-    @Override
-    public void fetchData(boolean isRefresh, int page) {
-        if (isRunning.get()) {
-            return;
+    public void scrollToTop(RecyclerView recyclerView) {
+        if (isRefresh) {
+            LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            manager.scrollToPosition(0);
         }
+    }
+
+    @Override
+    public void refreshData(boolean refresh) {
         disposable.add(NewRepository.get().getSpecialList(TOKEN, page, cat)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
@@ -36,7 +42,7 @@ public class VideoViewModel extends BaseListViewModel {
                 .doOnTerminate(() -> isRunning.set(false))
                 .doOnNext(httpResult -> {
                     List<Special> newList = httpResult.getData();
-                    notifyEmpty(newList);
+                    checkEmpty(newList);
 
                     if (isRefresh) {
                         specials.clear();
@@ -47,5 +53,4 @@ public class VideoViewModel extends BaseListViewModel {
                 })
                 .subscribe());
     }
-
 }
