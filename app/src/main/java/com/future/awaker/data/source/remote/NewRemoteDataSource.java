@@ -10,7 +10,7 @@ import com.future.awaker.network.HttpResult;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -20,25 +20,25 @@ import io.reactivex.schedulers.Schedulers;
 public class NewRemoteDataSource implements NewDataSource {
 
     @Override
-    public Flowable<HttpResult<List<New>>> getNewList(String token, int page, int id) {
+    public Observable<HttpResult<List<New>>> getNewList(String token, int page, int id) {
         return AwakerClient.get().getNewList(token, page, id)
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
-    public Flowable<HttpResult<List<Special>>> getSpecialList(String token, int page, int cat) {
+    public Observable<HttpResult<List<Special>>> getSpecialList(String token, int page, int cat) {
         return AwakerClient.get().getSpecialList(token, page, cat)
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
-    public Flowable<HttpResult<NewDetail>> getNewDetail(String token, String newId) {
+    public Observable<HttpResult<NewDetail>> getNewDetail(String token, String newId) {
         return AwakerClient.get().getNewDetail(token, newId)
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
-    public Flowable<HttpResult<SpecialDetail>> getSpecialDetail(String token, String id) {
+    public Observable<HttpResult<SpecialDetail>> getSpecialDetail(String token, String id) {
         return AwakerClient.get().getSpecialDetail(token, id)
                 .subscribeOn(Schedulers.io());
     }

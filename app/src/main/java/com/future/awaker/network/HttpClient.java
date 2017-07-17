@@ -25,9 +25,7 @@ public class HttpClient {
     }
 
     private HttpClient() {
-        okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .build();
+        okHttpClient = new OkHttpClient.Builder().build();
     }
 
     public static OkHttpClient getHttpClient() {

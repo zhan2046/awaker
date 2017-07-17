@@ -20,6 +20,9 @@ public final class HtmlParser {
 
     private HtmlParser() {}
 
+    /**
+     * not run in main thread, need new thread
+     */
     public static List<NewEle> htmlToList(String html) {
         if (TextUtils.isEmpty(html)) {
             return null;

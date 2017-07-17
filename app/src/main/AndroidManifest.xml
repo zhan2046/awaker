@@ -36,8 +36,8 @@
 
         <activity
             android:name=".news.NewDetailActivity"
-            android:hardwareAccelerated="true"
             android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
 
         <activity
@@ -49,10 +49,10 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:hardwareAccelerated="true"
-            android:configChanges="orientation|screenSize"
             android:name=".video.VideoDetailActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="landscape" />
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoAnimTheme" />
     </application>
 </manifest>

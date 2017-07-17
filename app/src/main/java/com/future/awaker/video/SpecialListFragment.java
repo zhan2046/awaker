@@ -20,6 +20,7 @@ public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding
     private static final String TITLE = "title";
     private static final String URL = "url";
 
+    private SpecialListViewModel viewModel = new SpecialListViewModel();
     private String url;
 
     public static SpecialListFragment newInstance(String id, String title, String url) {
@@ -43,7 +44,6 @@ public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding
         String title = getArguments().getString(TITLE);
         url = getArguments().getString(URL);
 
-        SpecialListViewModel viewModel = new SpecialListViewModel();
         viewModel.setParams(id, title, url);
 
         setViewModel(viewModel);
@@ -53,6 +53,12 @@ public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding
 
         SpecialListAdapter adapter = new SpecialListAdapter(viewModel, this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDestroy() {
+        viewModel.clear();
+        super.onDestroy();
     }
 
     @Override

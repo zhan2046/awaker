@@ -6,6 +6,7 @@ import com.future.awaker.network.HttpResult;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 /**
  * Copyright ©2017 by Teambition
@@ -13,7 +14,7 @@ import io.reactivex.Flowable;
 
 public interface LocalNewDataSource {
 
-    Flowable<HttpResult<List<New>>> getNewList(String token, int page, int id);
+    Observable<HttpResult<List<New>>> getNewList(String token, int page, int id);
 
     void deleteNewList();
 

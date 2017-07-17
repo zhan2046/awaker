@@ -10,6 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class AwakerClient {
 
+    private static final String HOST = "http://www.awaker.cn/api/";
+
     private static AwakerApi api;
 
     private AwakerClient() {}
@@ -18,7 +20,7 @@ public final class AwakerClient {
         if(api == null) {
             synchronized (AwakerClient.class) {
                 if (api == null) {
-                    Retrofit client = new Retrofit.Builder().baseUrl("http://www.awaker.cn/api/")
+                    Retrofit client = new Retrofit.Builder().baseUrl(HOST)
                             .client(HttpClient.getHttpClient())
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -18,7 +18,7 @@ import java.util.List;
  * Created by ruzhan on 2017/7/15.
  */
 
-public final class AdapterDataBinding {
+public final class DataBindingAdapter {
 
     @BindingAdapter({"imageUrl"})
     public static void loadImage(ImageView iv, String imageUrl) {

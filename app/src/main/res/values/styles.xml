@@ -15,12 +15,6 @@
     <item name="windowNoTitle">true</item>
   </style>
 
-  <style name="NoAnimFullTheme" parent="AppTheme">
-    <item name="android:windowAnimationStyle">@null</item>
-    <item name="android:colorBackgroundCacheHint">@null</item>
-    <item name="android:windowIsTranslucent">true</item>
-  </style>
-
   <style name="NoAnimTheme" parent="AppTheme">
     <item name="android:windowAnimationStyle">@null</item>
     <item name="android:windowBackground">@android:color/transparent</item>

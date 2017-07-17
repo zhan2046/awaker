@@ -7,8 +7,7 @@ import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.network.HttpResult;
 
 import java.util.List;
-
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 /**
  * Copyright ©2017 by Teambition
@@ -16,11 +15,11 @@ import io.reactivex.Flowable;
 
 public interface NewDataSource {
 
-    Flowable<HttpResult<List<New>>> getNewList(String token, int page, int id);
+    Observable<HttpResult<List<New>>> getNewList(String token, int page, int id);
 
-    Flowable<HttpResult<List<Special>>> getSpecialList(String token, int page, int cat);
+    Observable<HttpResult<List<Special>>> getSpecialList(String token, int page, int cat);
 
-    Flowable<HttpResult<NewDetail>> getNewDetail(String token, String newId);
+    Observable<HttpResult<NewDetail>> getNewDetail(String token, String newId);
 
-    Flowable<HttpResult<SpecialDetail>> getSpecialDetail(String token, String id);
+    Observable<HttpResult<SpecialDetail>> getSpecialDetail(String token, String id);
 }

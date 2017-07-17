@@ -102,7 +102,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
     public void onDestroy() {
         adapter.onDestroy();
         viewModel.newDetail.removeOnPropertyChangedCallback(newDetailBack);
-
+        viewModel.clear();
         super.onDestroy();
     }
 

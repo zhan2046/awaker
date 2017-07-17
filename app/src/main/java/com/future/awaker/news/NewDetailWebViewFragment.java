@@ -195,6 +195,7 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
     public void onDestroy() {
         mAgentWeb.getWebLifeCycle().onDestroy();
         viewModel.newDetail.removeOnPropertyChangedCallback(newDetailBack);
+        viewModel.clear();
         super.onDestroy();
     }
 
