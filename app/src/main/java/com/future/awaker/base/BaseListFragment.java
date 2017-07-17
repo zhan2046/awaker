@@ -83,7 +83,7 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
             return;
         }
         if (isStopRefresh) {
-            listViewModel.setRefreshing(false);
+            listViewModel.refreshing.set(false);
             return;
         }
         listViewModel.fetchData(true);

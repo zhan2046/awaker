@@ -28,10 +28,6 @@
                 android:scrollbars="vertical"
                 app:specials="@{viewModel.specials}"
                 app:layoutManager="LinearLayoutManager" />
-
-            <include
-                android:id="@+id/progressbar"
-                layout="@layout/progressbar" />
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 

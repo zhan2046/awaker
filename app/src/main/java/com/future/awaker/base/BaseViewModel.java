@@ -6,6 +6,8 @@ import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
+import com.future.awaker.BR;
+
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;

@@ -38,10 +38,6 @@
                     android:layout_height="match_parent"
                     android:scrollbars="vertical"
                     app:layoutManager="LinearLayoutManager" />
-
-                <include
-                    android:id="@+id/progressbar"
-                    layout="@layout/progressbar" />
             </FrameLayout>
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
