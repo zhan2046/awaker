@@ -18,4 +18,6 @@ public interface IImageLoader {
     void load(ImageView imageView, int resId, RequestListener<Drawable> listener);
 
     void loadThumb(ImageView imageView, String url);
+
+    void loadCropCircle(ImageView imageView, String url);
 }

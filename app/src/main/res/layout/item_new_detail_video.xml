@@ -58,7 +58,8 @@
                 android:layout_height="0.3dp"/>
 
             <TextView
-                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
                 android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newEle)}"
                 android:gravity="center"
                 android:textSize="14sp"

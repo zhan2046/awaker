@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -87,6 +89,17 @@ public class GlideImpl implements IImageLoader {
                 .transition(normalTransitionOptions)
                 .placeholder(R.drawable.image_mark)
                 .error(R.drawable.image_mark)
+                .into(imageView);
+    }
+
+    @Override
+    public void loadCropCircle(ImageView imageView, String url) {
+        GlideApp.with(imageView.getContext())
+                .load(url)
+                .transition(normalTransitionOptions)
+                .transform(new MultiTransformation<>(new CircleCrop()))
+                .placeholder(R.drawable.image_circle_mark)
+                .error(R.drawable.image_circle_mark)
                 .into(imageView);
     }
 }

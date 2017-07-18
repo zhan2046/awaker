@@ -28,7 +28,7 @@
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:imageUrl="@{header.url}" />
+                app:imageThumbUrl="@{header.url}" />
 
         </net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout>
 
@@ -39,7 +39,7 @@
             android:layout_height="72dp">
 
             <ImageView
-                app:imageUrl="@{header.userUrl}"
+                app:imageCropCircleUrl="@{header.userUrl}"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:layout_width="52dp"
