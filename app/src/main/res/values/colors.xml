@@ -10,10 +10,15 @@
   <color name="themePrimaryDark2">#FFFD3044</color>
 
   <color name="white">#FFFFFFFF</color>
+  <color name="white12">#1FFFFFFF</color>
   <color name="text_white_87">#deFFFFFF</color>
 
+  <color name="black">#FF000000</color>
   <color name="black40">#88000000</color>
+  <color name="black12">#1F000000</color>
   <color name="text_black_87">#de000000</color>
 
   <color name="f5">#FFF5F5F5</color>
+
+  <color name="image_mark">#FFE0E0E0</color>
 </resources>

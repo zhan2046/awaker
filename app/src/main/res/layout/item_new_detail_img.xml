@@ -24,20 +24,25 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:foreground="?attr/selectableItemBackground"
         android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newEle)}"
         android:stateListAnimator="@drawable/lift_on_touch"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         card_view:cardCornerRadius="1dp"
-        card_view:cardElevation="1dp"
+        card_view:cardElevation="8dp"
         tools:targetApi="lollipop">
 
         <net.soulwolf.widget.ratiolayout.widget.RatioImageView
             soulwolf:datumRatio="datumWidth"
-            soulwolf:widthRatio="1.0"
-            soulwolf:heightRatio="0.6"
+            soulwolf:widthRatio="16"
+            soulwolf:heightRatio="9"
             android:scaleType="centerCrop"
+            android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:imageUrl="@{newEle.imgUrl}" />

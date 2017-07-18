@@ -13,8 +13,6 @@ import com.future.awaker.base.listener.DebouncingOnClickListener;
 
 public class BaseActivity extends AppCompatActivity {
 
-
-
     protected void setToolbar(Toolbar toolbar) {
         if (toolbar == null) {
             return;

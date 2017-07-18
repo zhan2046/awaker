@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.future.awaker.R;
 
 /**
  * Copyright ©2017 by Teambition
@@ -27,6 +28,8 @@ public class GlideImpl implements IImageLoader {
         GlideApp.with(imageView.getContext())
                 .load(url)
                 .transition(normalTransitionOptions)
+                .placeholder(R.drawable.image_mark)
+                .error(R.drawable.image_mark)
                 .into(imageView);
     }
 
@@ -82,6 +85,8 @@ public class GlideImpl implements IImageLoader {
                 .load(url)
                 .thumbnail(SIZE_MULTIPLIER)
                 .transition(normalTransitionOptions)
+                .placeholder(R.drawable.image_mark)
+                .error(R.drawable.image_mark)
                 .into(imageView);
     }
 }

@@ -52,7 +52,6 @@
             android:name=".video.VideoDetailActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
-            android:screenOrientation="landscape"
-            android:theme="@style/NoAnimTheme" />
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

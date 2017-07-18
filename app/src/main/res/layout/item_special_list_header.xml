@@ -19,8 +19,8 @@
 
         <net.soulwolf.widget.ratiolayout.widget.RatioImageView
             soulwolf:datumRatio="datumWidth"
-            soulwolf:widthRatio="1.0"
-            soulwolf:heightRatio="0.5"
+            soulwolf:widthRatio="16"
+            soulwolf:heightRatio="9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
@@ -48,7 +48,7 @@
 
         <View
             android:layout_marginTop="10dp"
-            android:background="#eeeeee"
+            android:background="@color/black12"
             android:layout_width="match_parent"
             android:layout_height="0.3dp"/>
     </LinearLayout>

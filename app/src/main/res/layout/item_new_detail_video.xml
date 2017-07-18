@@ -24,29 +24,31 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:foreground="?attr/selectableItemBackground"
         android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newEle)}"
         android:stateListAnimator="@drawable/lift_on_touch"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         card_view:cardCornerRadius="1dp"
-        card_view:cardElevation="1dp"
+        card_view:cardElevation="8dp"
         tools:targetApi="lollipop">
 
         <LinearLayout
+            android:background="@android:color/white"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
-
             <net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout
                 android:id="@+id/content_fl"
+                android:layout_marginTop="16dp"
                 soulwolf:datumRatio="datumWidth"
-                soulwolf:widthRatio="1.0"
-                soulwolf:heightRatio="0.6"
+                soulwolf:widthRatio="16"
+                soulwolf:heightRatio="9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -55,26 +57,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.3dp"/>
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <TextView
                 android:foreground="?attr/selectableItemBackground"
                 android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newEle)}"
-                android:stateListAnimator="@drawable/lift_on_touch"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true"
-                card_view:cardCornerRadius="1dp"
-                card_view:cardElevation="1dp"
-                tools:targetApi="lollipop">
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:textColor="#383838"
-                    android:text="@string/full_player"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp" />
-                </android.support.v7.widget.CardView>
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/full_player"
+                android:layout_width="match_parent"
+                android:layout_height="45dp" />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

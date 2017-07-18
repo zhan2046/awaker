@@ -13,6 +13,7 @@ import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.Header;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.NewEle;
+import com.future.awaker.data.User;
 import com.future.awaker.databinding.FragNewDetailBinding;
 import com.future.awaker.util.HtmlParser;
 import com.future.awaker.video.VideoDetailActivity;
@@ -36,6 +37,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
     private NewDetailViewModel viewModel = new NewDetailViewModel();
     private NewDetailBack newDetailBack = new NewDetailBack();
     private NewDetailAdapter adapter;
+    private Header header = new Header();
 
     public static NewDetailFragment newInstance(String newId, String newTitle, String newUrl) {
         Bundle args = new Bundle();
@@ -66,7 +68,6 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
         setListViewModel(viewModel);
         binding.setViewModel(viewModel);
 
-        Header header = new Header();
         header.title = newTitle;
         header.url = newUrl;
 
@@ -127,6 +128,14 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
             if (newDetail == null) {
                 return;
             }
+
+            User user = newDetail.user;
+            if (user != null) {
+                header.userName = user.nickname;
+                header.userUrl = user.avatar128;
+            }
+            header.createTime = newDetail.create_time;
+
             String html = newDetail.content;
             if (TextUtils.isEmpty(html)) {
                 return;

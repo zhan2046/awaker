@@ -71,8 +71,7 @@ public class VideoListAdapter extends RecyclerView.Adapter {
             ItemLoadBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                     R.layout.item_load, parent, false);
             binding.setViewModel(videoViewModel);
-            EmptyHolder emptyHolder = new EmptyHolder(binding);
-            return emptyHolder;
+            return new EmptyHolder(binding);
 
         } else {
             ItemVideoListBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),

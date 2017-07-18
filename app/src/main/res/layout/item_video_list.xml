@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -28,40 +28,40 @@
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="1dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        card_view:cardElevation="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         tools:targetApi="lollipop">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <net.soulwolf.widget.ratiolayout.widget.RatioImageView
                 android:id="@+id/icon_iv"
-                soulwolf:datumRatio="datumWidth"
-                soulwolf:widthRatio="1.0"
-                soulwolf:heightRatio="0.5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                app:imageThumbUrl="@{specialItem.cover}" />
+                app:imageThumbUrl="@{specialItem.cover}"
+                soulwolf:datumRatio="datumWidth"
+                soulwolf:heightRatio="9"
+                soulwolf:widthRatio="16" />
 
             <View
-                android:background="#eeeeee"
                 android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
+                android:layout_height="0.3dp"
+                android:background="@color/black12" />
 
             <TextView
                 android:id="@+id/title_tv"
-                android:layout_gravity="center"
-                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:ellipsize="end"
+                android:gravity="center"
                 android:maxLines="1"
                 android:text="@{specialItem.title}"
                 android:textColor="#FF383838"

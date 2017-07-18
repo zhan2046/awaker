@@ -24,10 +24,8 @@
         android:foreground="?attr/selectableItemBackground"
         android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newItem)}"
         android:stateListAnimator="@drawable/lift_on_touch"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true"
-        card_view:cardCornerRadius="6dp"
-        card_view:cardElevation="1dp"
+        card_view:cardCornerRadius="0dp"
+        card_view:cardElevation="0dp"
         tools:targetApi="lollipop">
 
         <RelativeLayout
@@ -39,9 +37,9 @@
                 android:layout_width="90dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:scaleType="centerCrop"
                 app:imageThumbUrl="@{newItem.cover_url.ori}"/>
 
@@ -50,9 +48,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/icon_iv"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:layout_toEndOf="@+id/icon_iv"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -64,8 +62,8 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/icon_iv"
-                android:layout_marginBottom="3dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginStart="16dp"
                 android:layout_toEndOf="@+id/icon_iv"
                 android:ellipsize="end"
                 android:maxEms="16"
@@ -79,8 +77,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/icon_iv"
                 android:layout_alignParentEnd="true"
-                android:layout_marginBottom="3dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="16dp"
                 android:ellipsize="end"
                 android:maxEms="16"
                 android:maxLines="1"
@@ -88,5 +86,11 @@
                 android:textColor="#FF8A8A8A"
                 android:textSize="12sp" />
         </RelativeLayout>
+
+        <View
+            android:layout_gravity="bottom"
+            android:background="@color/black12"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"/>
     </android.support.v7.widget.CardView>
 </layout>
