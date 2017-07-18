@@ -28,6 +28,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             wheel:barColor="@color/colorPrimary"
+            wheel:barWidth="1.5dp"
             wheel:progressIndeterminate="true"/>
 
         <TextView
