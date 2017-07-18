@@ -28,7 +28,13 @@
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:imageThumbUrl="@{header.url}" />
+                app:imageUrl="@{header.url}" />
+
+            <ImageView
+                android:src="@drawable/img_mask"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout>
 
@@ -67,7 +73,7 @@
                     android:layout_marginTop="8dp"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:textColor="#383838"
+                    android:textColor="#5e5e5e"
                     android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

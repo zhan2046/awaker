@@ -41,8 +41,8 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".news.ImageDetailActivity"
-            android:screenOrientation="portrait" />
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:name=".news.ImageDetailActivity" />
 
         <activity
             android:name=".video.SpecialListActivity"
@@ -50,7 +50,7 @@
 
         <activity
             android:name=".video.VideoDetailActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:hardwareAccelerated="true"
             android:screenOrientation="landscape" />
     </application>

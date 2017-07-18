@@ -38,15 +38,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <net.soulwolf.widget.ratiolayout.widget.RatioImageView
-                android:id="@+id/icon_iv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                app:imageThumbUrl="@{specialItem.cover}"
+            <net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout
                 soulwolf:datumRatio="datumWidth"
+                soulwolf:widthRatio="16"
                 soulwolf:heightRatio="9"
-                soulwolf:widthRatio="16" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:imageThumbUrl="@{specialItem.cover}" />
+
+                <ImageView
+                    android:src="@drawable/img_mask"
+                    android:scaleType="fitXY"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout>
 
             <View
                 android:layout_width="match_parent"

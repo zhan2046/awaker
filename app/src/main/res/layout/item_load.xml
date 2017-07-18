@@ -13,20 +13,31 @@
     </data>
 
 <FrameLayout
-    android:id="@+id/progressbar_fl"
-    android:visibility="@{viewModel.isEmpty ? View.INVISIBLE : View.VISIBLE}"
     android:background="@color/f5"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="60dp">
 
-    <com.pnikosis.materialishprogress.ProgressWheel
-        android:id="@+id/progressbar"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+    <LinearLayout
         android:layout_gravity="center"
-        wheel:barColor="@color/colorPrimary"
-        wheel:progressIndeterminate="true"/>
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.pnikosis.materialishprogress.ProgressWheel
+            android:visibility="@{viewModel.isEmpty ? View.GONE : View.VISIBLE}"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            wheel:barColor="@color/colorPrimary"
+            wheel:progressIndeterminate="true"/>
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.isEmpty ? @string/loaded_desc : @string/loading_desc}"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+    </LinearLayout>
 </FrameLayout>
 </layout>
 

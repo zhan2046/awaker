@@ -12,10 +12,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.future.awaker.R;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
@@ -36,10 +38,14 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private static final int BACK_TIME = 2000;
+
     private ActivityHomeBinding binding;
     private ActionBarDrawerToggle drawerToggle;
     private MaterialSheetFab materialSheetFab;
+
     private int statusBarColor;
+    private long firstTime = 0;
 
     private HomeClickListener homeClickListener = new HomeClickListener();
     private HomeAdapter homeAdapter;
@@ -275,4 +281,20 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        long secondTime = System.currentTimeMillis();
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (secondTime - firstTime < BACK_TIME) {
+                System.exit(0);
+            } else {
+                Toast.makeText(HomeActivity.this, R.string.exit_app, Toast.LENGTH_SHORT).show();
+                firstTime = System.currentTimeMillis();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
