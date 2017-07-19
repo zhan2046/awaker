@@ -6,10 +6,15 @@ import android.databinding.ObservableList;
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.New;
 import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.network.EmptyConsumer;
+import com.future.awaker.network.ErrorConsumer;
+import com.future.awaker.network.HttpResult;
 
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by ruzhan on 2017/7/6.
@@ -37,6 +42,6 @@ public class NewViewModel extends BaseListViewModel {
                         news.addAll(httpResult.getData());
                     }
                 })
-                .subscribe());
+                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 }

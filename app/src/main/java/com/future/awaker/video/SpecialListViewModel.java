@@ -5,6 +5,8 @@ import android.databinding.Bindable;
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.network.EmptyConsumer;
+import com.future.awaker.network.ErrorConsumer;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -70,6 +72,6 @@ public class SpecialListViewModel extends BaseListViewModel {
                     SpecialDetail specialDetail = result.getData();
                     setSpecialDetail(specialDetail);
                 })
-                .subscribe());
+                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 }

@@ -5,6 +5,8 @@ import android.databinding.ObservableField;
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.network.EmptyConsumer;
+import com.future.awaker.network.ErrorConsumer;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -56,6 +58,6 @@ public class NewDetailViewModel extends BaseListViewModel {
                         this.newDetail.set(newDetail);
                     }
                 })
-                .subscribe());
+                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 }

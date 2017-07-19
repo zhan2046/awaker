@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.network.EmptyConsumer;
+import com.future.awaker.network.ErrorConsumer;
 
 import java.util.List;
 
@@ -51,6 +53,6 @@ public class VideoViewModel extends BaseListViewModel {
                         specials.addAll(httpResult.getData());
                     }
                 })
-                .subscribe());
+                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 }

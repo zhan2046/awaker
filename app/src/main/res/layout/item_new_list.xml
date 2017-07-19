@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackground"
+        android:background="@color/white"
         android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newItem)}"
         android:stateListAnimator="@drawable/lift_on_touch"
         card_view:cardCornerRadius="0dp"

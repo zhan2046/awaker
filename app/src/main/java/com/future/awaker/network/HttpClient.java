@@ -1,7 +1,6 @@
 package com.future.awaker.network;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Copyright ©2017 by Teambition
