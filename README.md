@@ -12,6 +12,7 @@ Screenshots
 ![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker3.png)
 ![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker4.png)
 ![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker5.png)
+![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker6.png)
 
 
 
