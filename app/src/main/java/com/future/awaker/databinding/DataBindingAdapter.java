@@ -1,12 +1,11 @@
 package com.future.awaker.databinding;
 
 import android.databinding.BindingAdapter;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.future.awaker.data.New;
+import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.imageloader.ImageLoader;
@@ -45,7 +44,7 @@ public final class DataBindingAdapter {
     }
 
     @BindingAdapter({"news"})
-    public static void setNews(RecyclerView recyclerView, List<New> news) {
+    public static void setNews(RecyclerView recyclerView, List<News> news) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter instanceof NewListAdapter) {
             ((NewListAdapter) adapter).setData(new ArrayList<>(news));

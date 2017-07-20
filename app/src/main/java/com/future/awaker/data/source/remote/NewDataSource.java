@@ -1,6 +1,6 @@
-package com.future.awaker.data.source;
+package com.future.awaker.data.source.remote;
 
-import com.future.awaker.data.New;
+import com.future.awaker.data.News;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
@@ -16,7 +16,7 @@ import io.reactivex.Flowable;
 
 public interface NewDataSource {
 
-    Flowable<HttpResult<List<New>>> getNewList(String token, int page, int id);
+    Flowable<HttpResult<List<News>>> getNewList(String token, int page, int id);
 
     Flowable<HttpResult<List<Special>>> getSpecialList(String token, int page, int cat);
 

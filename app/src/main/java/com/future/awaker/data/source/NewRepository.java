@@ -1,9 +1,13 @@
 package com.future.awaker.data.source;
 
-import com.future.awaker.data.New;
+import com.future.awaker.data.News;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
+import com.future.awaker.data.source.callback.NewCallBack;
+import com.future.awaker.data.source.local.LocalNewDataSource;
+import com.future.awaker.data.source.local.LocalNewDataSourceImpl;
+import com.future.awaker.data.source.remote.NewDataSource;
 import com.future.awaker.data.source.remote.NewRemoteDataSource;
 import com.future.awaker.network.HttpResult;
 
@@ -20,9 +24,11 @@ public class NewRepository implements NewDataSource, LocalNewDataSource {
     private static NewRepository INSTANCE;
 
     private NewDataSource remoteDataSource;
+    private LocalNewDataSource localNewDataSource;
 
     private NewRepository() {
         remoteDataSource = new NewRemoteDataSource();
+        localNewDataSource = new LocalNewDataSourceImpl();
     }
 
     public static NewRepository get() {
@@ -40,8 +46,9 @@ public class NewRepository implements NewDataSource, LocalNewDataSource {
         INSTANCE = null;
     }
 
+
     @Override
-    public Flowable<HttpResult<List<New>>> getNewList(String token, int page, int id) {
+    public Flowable<HttpResult<List<News>>> getNewList(String token, int page, int id) {
         return remoteDataSource.getNewList(token, page, id);
     }
 
@@ -61,12 +68,17 @@ public class NewRepository implements NewDataSource, LocalNewDataSource {
     }
 
     @Override
-    public void deleteNewList() {
-
+    public void getLocalNewList(NewCallBack newCallBack) {
+        localNewDataSource.getLocalNewList(newCallBack);
     }
 
     @Override
-    public void updateNewList(List<New> news) {
+    public void deleteLocalNewList() {
+        localNewDataSource.deleteLocalNewList();
+    }
 
+    @Override
+    public void updateLocalNewList(List<News> newsList) {
+        localNewDataSource.updateLocalNewList(newsList);
     }
 }

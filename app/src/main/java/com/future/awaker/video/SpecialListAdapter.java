@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.future.awaker.R;
 import com.future.awaker.base.listener.OnItemClickListener;
-import com.future.awaker.data.New;
+import com.future.awaker.data.News;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.databinding.ItemSpecialListBinding;
 import com.future.awaker.databinding.ItemSpecialListHeaderBinding;
@@ -29,11 +29,11 @@ public class SpecialListAdapter extends RecyclerView.Adapter {
     private static final int TYPE_ITEM = 1001;
 
     private SpecialListViewModel viewModel;
-    private OnItemClickListener<New> listener;
+    private OnItemClickListener<News> listener;
     public List<Object> dataList = new ArrayList<>();
 
     public SpecialListAdapter(SpecialListViewModel viewModel,
-                              OnItemClickListener<New> listener) {
+                              OnItemClickListener<News> listener) {
         this.viewModel = viewModel;
         this.listener = listener;
     }
@@ -81,7 +81,7 @@ public class SpecialListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         if (viewType == TYPE_ITEM) {
-            ((SpecialListHolder) holder).bind((New) dataList.get(position));
+            ((SpecialListHolder) holder).bind((News) dataList.get(position));
         }
     }
 

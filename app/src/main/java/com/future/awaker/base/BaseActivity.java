@@ -13,6 +13,11 @@ import com.future.awaker.base.listener.DebouncingOnClickListener;
 
 public class BaseActivity extends AppCompatActivity {
 
+    @SuppressWarnings("unchecked")
+    protected <T> T findViewById(View view, int id) {
+        return (T) view.findViewById(id);
+    }
+
     protected void setToolbar(Toolbar toolbar) {
         if (toolbar == null) {
             return;

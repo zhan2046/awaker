@@ -1,6 +1,6 @@
 package com.future.awaker.network;
 
-import com.future.awaker.data.New;
+import com.future.awaker.data.News;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
@@ -23,8 +23,8 @@ public interface AwakerApi {
 
     @FormUrlEncoded
     @POST("news/getNewsAll")
-    Flowable<HttpResult<List<New>>> getNewList(@Field("access_token") String token,
-                                                 @Field("page") int page, @Field("id") int id);
+    Flowable<HttpResult<List<News>>> getNewList(@Field("access_token") String token,
+                                                @Field("page") int page, @Field("id") int id);
 
     @FormUrlEncoded
     @POST("news/getNewsDetail/id/{newId}")

@@ -193,6 +193,9 @@ public class HomeActivity extends AppCompatActivity {
                 materialSheetFab.hideSheetThenFab();
                 break;
             case 1:
+                materialSheetFab.hideSheetThenFab();
+                break;
+            case 2:
                 materialSheetFab.showFab();
                 break;
         }

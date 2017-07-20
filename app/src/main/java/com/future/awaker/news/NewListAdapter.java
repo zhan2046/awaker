@@ -10,7 +10,7 @@ import com.future.awaker.R;
 import com.future.awaker.base.EmptyHolder;
 import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
-import com.future.awaker.data.New;
+import com.future.awaker.data.News;
 import com.future.awaker.databinding.ItemLoadBinding;
 import com.future.awaker.databinding.ItemNewListBinding;
 
@@ -27,16 +27,16 @@ public class NewListAdapter extends RecyclerView.Adapter {
     private static final int TYPE_NEW = 1001;
 
     private NewViewModel viewModel;
-    private OnItemClickListener<New> listener;
-    private List<New> news;
+    private OnItemClickListener<News> listener;
+    private List<News> news;
     private NewDiffCallBack diffCallBack = new NewDiffCallBack();
 
-    public NewListAdapter(NewViewModel viewModel, OnItemClickListener<New> listener) {
+    public NewListAdapter(NewViewModel viewModel, OnItemClickListener<News> listener) {
         this.viewModel = viewModel;
         this.listener = listener;
     }
 
-    public void setData(List<New> news) {
+    public void setData(List<News> news) {
         if (news == null || news.isEmpty()) {
             return;
         }
@@ -45,9 +45,9 @@ public class NewListAdapter extends RecyclerView.Adapter {
             notifyDataSetChanged();
 
         } else {
-            List<New> oldNews = this.news;
+            List<News> oldNewses = this.news;
             this.news = news;
-            diffCallBack.setData(oldNews, news);
+            diffCallBack.setData(oldNewses, news);
             DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
             diffResult.dispatchUpdatesTo(this);
         }
@@ -102,28 +102,28 @@ public class NewListAdapter extends RecyclerView.Adapter {
             this.binding = binding;
         }
 
-        public void bind(New bean) {
-            binding.setNewItem(bean);
+        public void bind(News bean) {
+            binding.setNewsItem(bean);
             binding.executePendingBindings();
         }
     }
 
-    private static class NewDiffCallBack extends IDiffCallBack<New> {
+    private static class NewDiffCallBack extends IDiffCallBack<News> {
 
         @Override
         public boolean isItemsTheSame(int oldItemPosition, int newItemPosition) {
-            New oldObj = oldData.get(oldItemPosition);
-            New newObj = newData.get(newItemPosition);
-            return Objects.equals(oldObj.id, newObj.id) &&
-                    Objects.equals(oldObj.title, newObj.title);
+            News oldObj = oldData.get(oldItemPosition);
+            News newsObj = newData.get(newItemPosition);
+            return Objects.equals(oldObj.id, newsObj.id) &&
+                    Objects.equals(oldObj.title, newsObj.title);
         }
 
         @Override
         public boolean isContentsTheSame(int oldItemPosition, int newItemPosition) {
-            New oldObj = oldData.get(oldItemPosition);
-            New newObj = newData.get(newItemPosition);
-            return Objects.equals(oldObj.id, newObj.id) &&
-                    Objects.equals(oldObj.title, newObj.title);
+            News oldObj = oldData.get(oldItemPosition);
+            News newsObj = newData.get(newItemPosition);
+            return Objects.equals(oldObj.id, newsObj.id) &&
+                    Objects.equals(oldObj.title, newsObj.title);
         }
     }
 }

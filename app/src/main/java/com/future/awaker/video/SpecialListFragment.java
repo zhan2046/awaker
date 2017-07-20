@@ -6,7 +6,7 @@ import android.view.View;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
-import com.future.awaker.data.New;
+import com.future.awaker.data.News;
 import com.future.awaker.databinding.FragSpecialListBinding;
 import com.future.awaker.news.NewDetailActivity;
 
@@ -14,7 +14,7 @@ import com.future.awaker.news.NewDetailActivity;
  * Created by ruzhan on 2017/7/15.
  */
 
-public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding> implements OnItemClickListener<New> {
+public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding> implements OnItemClickListener<News> {
 
     private static final String ID = "id";
     private static final String TITLE = "title";
@@ -62,7 +62,7 @@ public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding
     }
 
     @Override
-    public void onItemClick(View view, int position, New bean) {
+    public void onItemClick(View view, int position, News bean) {
         NewDetailActivity.launch(getActivity(), bean.id, bean.title, url);
     }
 }

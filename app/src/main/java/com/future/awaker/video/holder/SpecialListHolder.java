@@ -2,7 +2,7 @@ package com.future.awaker.video.holder;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.future.awaker.data.New;
+import com.future.awaker.data.News;
 import com.future.awaker.databinding.ItemSpecialListBinding;
 
 /**
@@ -18,8 +18,8 @@ public class SpecialListHolder extends RecyclerView.ViewHolder {
         this.binding = binding;
     }
 
-    public void bind(New bean) {
-        binding.setNewItem(bean);
+    public void bind(News bean) {
+        binding.setNewsItem(bean);
         binding.executePendingBindings();
     }
 }

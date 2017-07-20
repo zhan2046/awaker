@@ -2,7 +2,6 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
@@ -12,7 +11,7 @@
             type="com.future.awaker.data.HomeItem"/>
     </data>
 
-    <com.future.awaker.widget.RatioCardView
+    <com.future.awaker.widget.RatioCardView  xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/root_card"
         soulwolf:datumRatio="datumWidth"
         soulwolf:widthRatio="1"

@@ -1,10 +1,9 @@
 package com.future.awaker.data.source.remote;
 
-import com.future.awaker.data.New;
+import com.future.awaker.data.News;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
-import com.future.awaker.data.source.NewDataSource;
 import com.future.awaker.network.AwakerClient;
 import com.future.awaker.network.HttpResult;
 
@@ -20,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 public class NewRemoteDataSource implements NewDataSource {
 
     @Override
-    public Flowable<HttpResult<List<New>>> getNewList(String token, int page, int id) {
+    public Flowable<HttpResult<List<News>>> getNewList(String token, int page, int id) {
         return AwakerClient.get().getNewList(token, page, id)
                 .subscribeOn(Schedulers.io());
     }

@@ -6,7 +6,7 @@ import android.view.View;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
-import com.future.awaker.data.New;
+import com.future.awaker.data.News;
 import com.future.awaker.databinding.FragNewBinding;
 
 /**
@@ -14,7 +14,7 @@ import com.future.awaker.databinding.FragNewBinding;
  */
 
 public class NewListFragment extends BaseListFragment<FragNewBinding>
-        implements OnItemClickListener<New> {
+        implements OnItemClickListener<News> {
 
     private static final String NEW_ID = "newId";
 
@@ -53,7 +53,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
     }
 
     @Override
-    public void onItemClick(View view, int position, New bean) {
+    public void onItemClick(View view, int position, News bean) {
         String url = bean.cover_url == null ? "" : bean.cover_url.ori;
         NewDetailActivity.launch(getContext(), bean.id, bean.title, url);
     }

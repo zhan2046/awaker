@@ -12,5 +12,5 @@ public class SpecialDetail {
     public String title;
     public String content;
     public String cover;
-    public List<New> newslist;
+    public List<News> newslist;
 }
