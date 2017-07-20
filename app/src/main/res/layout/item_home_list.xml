@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="bean"
+            type="com.future.awaker.data.HomeItem"/>
+    </data>
+
+    <com.future.awaker.widget.RatioCardView
+        android:id="@+id/root_card"
+        soulwolf:datumRatio="datumWidth"
+        soulwolf:widthRatio="1"
+        soulwolf:heightRatio="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        android:background="@color/white"
+        android:stateListAnimator="@drawable/lift_on_touch"
+        card_view:cardCornerRadius="0dp"
+        card_view:cardElevation="0dp"
+        tools:targetApi="lollipop">
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center_horizontal"
+                app:ImageResource="@{bean.imgRes}"
+                android:scaleType="centerCrop"
+                android:layout_width="22dp"
+                android:layout_height="22dp" />
+
+            <TextView
+                android:layout_marginTop="8dp"
+                android:text="@{bean.title}"
+                android:textSize="11sp"
+                android:textColor="#383838"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </com.future.awaker.widget.RatioCardView>
+</layout>

@@ -105,7 +105,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupTabs() {
-        List<String> titles = Arrays.asList(ResUtils.getString(R.string.news),
+        List<String> titles = Arrays.asList(ResUtils.getString(R.string.home),
+                ResUtils.getString(R.string.news),
                 ResUtils.getString(R.string.video));
 
         homeAdapter = new HomeAdapter(getSupportFragmentManager(), titles);

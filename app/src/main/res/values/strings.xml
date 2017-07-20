@@ -2,6 +2,7 @@
   <string name="app_name">awaker</string>
   <string name="launch_desc">不只是讨论外星人</string>
 
+  <string name="home">首页</string>
   <string name="news">资讯</string>
   <string name="video">视频精选</string>
 
@@ -15,4 +16,21 @@
   <string name="exit_app">再按一次退出程序</string>
   <string name="loading_desc">正在加载</string>
   <string name="loaded_desc">没有更多了</string>
+
+  <string name="all_info">全部资讯</string>
+  <string name="nice_massage">精彩吐槽</string>
+  <string name="week_hot">一周热读</string>
+  <string name="week_hot_massage">一周热评</string>
+  <string name="ufo_and_et">ufo与外星人</string>
+  <string name="un_one">未解之谜</string>
+  <string name="mai_tian">麦田圈</string>
+  <string name="error_thing">异常事件</string>
+  <string name="yin_mou">阴谋论</string>
+  <string name="gong_ji">共济会</string>
+  <string name="ji_yin">反转基因</string>
+  <string name="awaker_spirit">灵性觉醒</string>
+  <string name="ke_xue">科学探索</string>
+  <string name="free_neng_yuan">自由能源</string>
+  <string name="guan_jian">关键时刻</string>
+  <string name="other">其它</string>
 </resources>

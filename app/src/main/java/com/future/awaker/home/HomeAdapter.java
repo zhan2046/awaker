@@ -34,9 +34,12 @@ public class HomeAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = NewListFragment.newInstance();
+                fragment = HomeListFragment.newInstance();
                 break;
             case 1:
+                fragment = NewListFragment.newInstance();
+                break;
+            case 2:
                 videoListFragment = VideoListFragment.newInstance();
                 fragment = videoListFragment;
                 break;
