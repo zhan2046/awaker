@@ -1,4 +1,4 @@
-package com.future.awaker.data.realm;
+package com.future.awaker.data;
 
 import com.future.awaker.data.News;
 
@@ -9,7 +9,7 @@ import io.realm.RealmObject;
  * Copyright ©2017 by Teambition
  */
 
-public class NewBean extends RealmObject {
+public class NewListRealm extends RealmObject {
 
     private static final int ID = 0;
 

@@ -68,17 +68,17 @@ public class NewRepository implements NewDataSource, LocalNewDataSource {
     }
 
     @Override
-    public void getLocalNewList(NewCallBack newCallBack) {
-        localNewDataSource.getLocalNewList(newCallBack);
+    public void getLocalNewList(int newId, NewCallBack newCallBack) {
+        localNewDataSource.getLocalNewList(newId, newCallBack);
     }
 
     @Override
-    public void deleteLocalNewList() {
-        localNewDataSource.deleteLocalNewList();
+    public void deleteLocalNewList(int newId) {
+        localNewDataSource.deleteLocalNewList(newId);
     }
 
     @Override
-    public void updateLocalNewList(List<News> newsList) {
-        localNewDataSource.updateLocalNewList(newsList);
+    public void updateLocalNewList(int newId, List<News> newsList) {
+        localNewDataSource.updateLocalNewList(newId, newsList);
     }
 }

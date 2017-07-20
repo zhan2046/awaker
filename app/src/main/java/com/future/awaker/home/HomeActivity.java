@@ -189,13 +189,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private void updateFab(int position) {
         switch (position) {
-            case 0:
+            case HomeAdapter.HOME:
                 materialSheetFab.hideSheetThenFab();
                 break;
-            case 1:
+            case HomeAdapter.NEW:
                 materialSheetFab.hideSheetThenFab();
                 break;
-            case 2:
+            case HomeAdapter.VIDEO:
                 materialSheetFab.showFab();
                 break;
         }

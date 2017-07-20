@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface LocalNewDataSource {
 
-    void getLocalNewList(NewCallBack newCallBack);
+    void getLocalNewList(int newId, NewCallBack newCallBack);
 
-    void deleteLocalNewList();
+    void deleteLocalNewList(int newId);
 
-    void updateLocalNewList(List<News> newsList);
+    void updateLocalNewList(int newId, List<News> newsList);
 }

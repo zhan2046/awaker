@@ -5,8 +5,8 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.future.awaker.Application;
+import com.future.awaker.data.NewListRealm;
 import com.future.awaker.data.News;
-import com.future.awaker.data.realm.NewBean;
 import com.future.awaker.data.source.callback.NewCallBack;
 
 import java.lang.ref.WeakReference;
@@ -38,15 +38,17 @@ public class LocalNewDataSourceImpl implements LocalNewDataSource {
     }
 
     @Override
-    public void getLocalNewList(NewCallBack newCallBack) {
+    public void getLocalNewList(int newId, NewCallBack newCallBack) {
         WeakReference<NewCallBack> callBackRef = new WeakReference<>(newCallBack);
-        realmInstance.where(NewBean.class).findAllAsync().addChangeListener((newBeen, changeSet) -> {
+        realmInstance.where(NewListRealm.class)
+                .equalTo("id", newId).findAllAsync()
+                .addChangeListener((newBeen, changeSet) -> {
             if (newBeen.isLoaded() && !newBeen.isEmpty()) {
-                NewBean newBean = newBeen.get(0);
+                NewListRealm newListRealm = newBeen.get(0);
                 NewCallBack callBack = callBackRef.get();
-                if (newBean != null && callBack != null) {
+                if (newListRealm != null && callBack != null) {
                     handler.post(() ->
-                            callBack.onNewListSuc(newBean.getNewsList()));
+                            callBack.onNewListSuc(newListRealm.getNewsList()));
                     Log.i("getLocalNewList", "ok !!!");
                 }
             }
@@ -54,8 +56,10 @@ public class LocalNewDataSourceImpl implements LocalNewDataSource {
     }
 
     @Override
-    public void deleteLocalNewList() {
-        realmInstance.where(NewBean.class).findAllAsync()
+    public void deleteLocalNewList(int newId) {
+        realmInstance.where(NewListRealm.class)
+                .equalTo("id", newId)
+                .findAllAsync()
                 .addChangeListener((newBeen, changeSet) -> {
                     if (newBeen.isLoaded()) {
                         newBeen.deleteAllFromRealm();
@@ -64,12 +68,12 @@ public class LocalNewDataSourceImpl implements LocalNewDataSource {
     }
 
     @Override
-    public void updateLocalNewList(List<News> newsList) {
+    public void updateLocalNewList(int newId, List<News> newsList) {
         realmInstance.executeTransactionAsync(realm -> {
-            NewBean newBean = realm.createObject(NewBean.class);
+            NewListRealm newListRealm = realm.createObject(NewListRealm.class);
             RealmList<News> list = new RealmList<>();
             list.addAll(newsList);
-            newBean.setNewsList(list);
+            newListRealm.setNewsList(list);
 
         }, () -> {
             Log.i("updateLocalNewList", "ok !!!");

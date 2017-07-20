@@ -29,7 +29,7 @@ public class NewViewModel extends BaseListViewModel {
 
     @Override
     public void refreshData(boolean refresh) {
-        getLocalNewList();
+        getLocalNewList(newId);
         getRemoteNewList();
     }
 
@@ -46,8 +46,8 @@ public class NewViewModel extends BaseListViewModel {
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 
-    private void getLocalNewList() {
-        NewRepository.get().getLocalNewList(new NewCallBack() {
+    private void getLocalNewList(int newId) {
+        NewRepository.get().getLocalNewList(newId, new NewCallBack() {
             @Override
             public void onNewListSuc(List<News> newsList) {
                 setNewList(newsList);

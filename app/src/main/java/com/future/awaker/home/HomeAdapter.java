@@ -15,6 +15,10 @@ import java.util.List;
 
 public class HomeAdapter extends FragmentPagerAdapter {
 
+    public static final int HOME = 0;
+    public static final int NEW = 1;
+    public static final int VIDEO = 2;
+
     private List<String> titles;
     private VideoListFragment videoListFragment;
 
@@ -33,13 +37,13 @@ public class HomeAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
         switch (position) {
-            case 0:
+            case HOME:
                 fragment = HomeListFragment.newInstance();
                 break;
-            case 1:
+            case NEW:
                 fragment = NewListFragment.newInstance(0);
                 break;
-            case 2:
+            case VIDEO:
                 videoListFragment = VideoListFragment.newInstance();
                 fragment = videoListFragment;
                 break;
