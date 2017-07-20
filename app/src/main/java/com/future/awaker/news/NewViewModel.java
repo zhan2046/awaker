@@ -22,11 +22,16 @@ import io.reactivex.functions.Consumer;
 
 public class NewViewModel extends BaseListViewModel {
 
+    private int newId;
     public ObservableList<New> news = new ObservableArrayList<>();
+
+    public NewViewModel(int newId) {
+        this.newId = newId;
+    }
 
     @Override
     public void refreshData(boolean refresh) {
-        disposable.add(NewRepository.get().getNewList(TOKEN, page, 0)
+        disposable.add(NewRepository.get().getNewList(TOKEN, page, newId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))

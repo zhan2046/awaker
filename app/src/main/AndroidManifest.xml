@@ -35,6 +35,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".news.NewListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".news.NewDetailActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"

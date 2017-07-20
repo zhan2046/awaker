@@ -1,5 +1,6 @@
 package com.future.awaker.news;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.future.awaker.R;
@@ -15,11 +16,17 @@ import com.future.awaker.databinding.FragNewBinding;
 public class NewListFragment extends BaseListFragment<FragNewBinding>
         implements OnItemClickListener<New> {
 
-    private NewViewModel newViewModel = new NewViewModel();
+    private static final String NEW_ID = "newId";
+
+    private NewViewModel newViewModel;
     private NewListAdapter adapter;
 
-    public static NewListFragment newInstance() {
-        return new NewListFragment();
+    public static NewListFragment newInstance(int newId) {
+        Bundle args = new Bundle();
+        args.putInt(NEW_ID, newId);
+        NewListFragment fragment = new NewListFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -29,6 +36,8 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
 
     @Override
     protected void initData() {
+        int newId = getArguments().getInt(NEW_ID, 0);
+        newViewModel = new NewViewModel(newId);
         setListViewModel(newViewModel);
 
         binding.setViewModel(newViewModel);

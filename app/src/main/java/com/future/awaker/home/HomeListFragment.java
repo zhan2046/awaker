@@ -10,6 +10,7 @@ import com.future.awaker.base.BaseFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.HomeItem;
 import com.future.awaker.databinding.FragHomeListBinding;
+import com.future.awaker.news.NewListActivity;
 
 /**
  * Copyright ©2017 by Teambition
@@ -48,6 +49,11 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding> implemen
 
     @Override
     public void onItemClick(View view, int position, HomeItem bean) {
+        if (bean.id >= 0) {
+            NewListActivity.launch(getActivity(), bean.id, bean.title);
 
+        } else {
+
+        }
     }
 }
