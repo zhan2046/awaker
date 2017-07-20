@@ -115,6 +115,8 @@ public class HomeActivity extends AppCompatActivity {
         updateFab(binding.viewpager.getCurrentItem());
         setupColor(binding.tabs.getSelectedTabPosition());
 
+        binding.viewpager.setCurrentItem(HomeAdapter.NEW, false);
+
         binding.tabs.setupWithViewPager(binding.viewpager);
         binding.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
