@@ -15,7 +15,6 @@ import io.reactivex.Flowable;
 import io.reactivex.FlowableOnSubscribe;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
-import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
@@ -27,24 +26,12 @@ import io.realm.RealmResults;
 public final class RealmManager {
 
     private static final String TAG = RealmManager.class.getSimpleName();
-    private static final String AWAKER_DB = "awakerDB";
-    private static final int VERSION_CODE = 0;
-
-    private Realm realmInstance;
-
-
-    public RealmManager() {
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                .name(AWAKER_DB)
-                .schemaVersion(VERSION_CODE)
-                .build();
-        realmInstance = Realm.getInstance(config);
-    }
 
     @SuppressWarnings("unchecked")
     public Flowable<RealmResults> getRealmItems(Class clazz,
                                                 Map<String, String> map) {
         return Flowable.create(emitter -> {
+            Realm realmInstance = Realm.getDefaultInstance();
             RealmQuery query = realmInstance.where(clazz);
             if (map != null) {
                 for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -74,9 +61,9 @@ public final class RealmManager {
             newsPageRealm.setId(newId);
             newsPageRealm.setNewsList(realmList);
 
-            realmInstance.executeTransaction(realm -> {
-                realm.copyToRealmOrUpdate(newsPageRealm);
-            });
+            Realm realmInstance = Realm.getDefaultInstance();
+            realmInstance.executeTransactionAsync(realm ->
+                    realm.copyToRealmOrUpdate(newsPageRealm));
         }, BackpressureStrategy.LATEST)
                 .doOnError(throwable -> LogUtils.showLog(TAG,
                         "doOnError: " + throwable.toString()))
@@ -85,6 +72,7 @@ public final class RealmManager {
 
     @SuppressWarnings("unchecked")
     public void deleteLocalNewList(String newId) {
+        Realm realmInstance = Realm.getDefaultInstance();
         RealmResults results = realmInstance.where(NewsPageRealm.class)
                 .equalTo(NewsPageRealm.ID, newId)
                 .findAllAsync();
@@ -102,6 +90,6 @@ public final class RealmManager {
     }
 
     public void close() {
-        realmInstance.close();
+        Realm.getDefaultInstance().close();
     }
 }

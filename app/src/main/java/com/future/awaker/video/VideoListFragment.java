@@ -15,7 +15,7 @@ import com.future.awaker.databinding.FragVideoBinding;
 
 public class VideoListFragment extends BaseListFragment<FragVideoBinding> implements OnItemClickListener<Special> {
 
-    private VideoViewModel videoViewModel = new VideoViewModel();
+    private VideoViewModel videoViewModel;
     private VideoListAdapter adapter;
 
     public static VideoListFragment newInstance() {
@@ -29,6 +29,7 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding> implem
 
     @Override
     protected void initData() {
+        videoViewModel = new VideoViewModel();
         setListViewModel(videoViewModel);
 
         binding.setViewModel(videoViewModel);
