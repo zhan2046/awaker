@@ -1,14 +1,10 @@
-package com.future.awaker.data.source.repository;
+package com.future.awaker.data.source;
 
 import com.future.awaker.data.BannerItem;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
-import com.future.awaker.data.source.local.ILocalNewDataSource;
-import com.future.awaker.data.source.local.LocalNewDataSource;
-import com.future.awaker.data.source.remote.INewDataSource;
-import com.future.awaker.data.source.remote.RemoteNewDataSource;
 import com.future.awaker.network.HttpResult;
 
 import java.util.HashMap;
@@ -21,16 +17,14 @@ import io.realm.RealmResults;
  * Copyright ©2017 by Teambition
  */
 
-public class NewRepository implements INewDataSource, ILocalNewDataSource {
+public final class NewRepository {
 
     private static NewRepository INSTANCE;
 
-    private INewDataSource remoteDataSource;
-    private ILocalNewDataSource localNewDataSource;
+    private RemoteNewDataSource remoteDataSource = new RemoteNewDataSource();
+    private LocalNewDataSource localNewDataSource = new LocalNewDataSource();
 
     private NewRepository() {
-        remoteDataSource = new RemoteNewDataSource();
-        localNewDataSource = new LocalNewDataSource();
     }
 
     public static NewRepository get() {
@@ -49,47 +43,61 @@ public class NewRepository implements INewDataSource, ILocalNewDataSource {
     }
 
 
-    @Override
+    ///////////////////////
+    // remote
+    ///////////////////////
+
+
     public Flowable<HttpResult<List<BannerItem>>> getBanner(String token, String advType) {
         return remoteDataSource.getBanner(token, advType);
     }
 
-    @Override
     public Flowable<HttpResult<List<News>>> getNewList(String token, int page, int id) {
         return remoteDataSource.getNewList(token, page, id);
     }
 
-    @Override
     public Flowable<HttpResult<List<Special>>> getSpecialList(String token, int page, int cat) {
         return remoteDataSource.getSpecialList(token, page, cat);
     }
 
-    @Override
     public Flowable<HttpResult<NewDetail>> getNewDetail(String token, String newId) {
         return remoteDataSource.getNewDetail(token, newId);
     }
 
-    @Override
     public Flowable<HttpResult<SpecialDetail>> getSpecialDetail(String token, String id) {
         return remoteDataSource.getSpecialDetail(token, id);
     }
 
-    @Override
+
+    ///////////////////////
+    // local
+    ///////////////////////
+
+
     public Flowable<RealmResults> getLocalNewList(HashMap<String, String> map) {
         return localNewDataSource.getLocalNewList(map);
     }
 
-    @Override
-    public void deleteLocalNewList(String newId) {
-        localNewDataSource.deleteLocalNewList(newId);
+    public Flowable<RealmResults> getLocalSpecialList(HashMap<String, String> map) {
+        return localNewDataSource.getLocalSpecialList(map);
     }
 
-    @Override
     public void updateLocalNewList(String newId, List<News> newsList) {
         localNewDataSource.updateLocalNewList(newId, newsList);
     }
 
-    @Override
+    public void updateLocalSpecialList(String cat, List<Special> specialList) {
+        localNewDataSource.updateLocalSpecialList(cat, specialList);
+    }
+
+    public void deleteLocalNewList(String newId) {
+        localNewDataSource.deleteLocalNewList(newId);
+    }
+
+    public void deleteLocalSpecialList(String cat) {
+        localNewDataSource.deleteLocalSpecialList(cat);
+    }
+
     public void close() {
         localNewDataSource.close();
     }

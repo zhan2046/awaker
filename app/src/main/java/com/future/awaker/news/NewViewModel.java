@@ -7,7 +7,7 @@ import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.News;
 import com.future.awaker.data.realm.NewsPageRealm;
 import com.future.awaker.data.realm.NewsRealm;
-import com.future.awaker.data.source.repository.NewRepository;
+import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.util.LogUtils;
@@ -54,6 +54,14 @@ public class NewViewModel extends BaseListViewModel {
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 
+    private void getLocalNewList() {
+        disposable.add(NewRepository.get().getLocalNewList(map)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
+                .doOnNext(this::setLocalNewList)
+                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+    }
+
     private void setRemoteNewList(List<News> newsList) {
         checkEmpty(newsList);
         if (!isEmpty.get()) {
@@ -63,14 +71,6 @@ public class NewViewModel extends BaseListViewModel {
             }
             setNewList(newsList);
         }
-    }
-
-    private void getLocalNewList() {
-        disposable.add(NewRepository.get().getLocalNewList(map)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
-                .doOnNext(this::setLocalNewList)
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 
     private void setLocalNewList(RealmResults realmResults) {

@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.future.awaker.R;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.data.Special;
-import com.future.awaker.data.source.repository.NewRepository;
+import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.ActivityHomeBinding;
 import com.future.awaker.util.AnimatorUtils;
 import com.future.awaker.util.ResUtils;

@@ -7,7 +7,7 @@ import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.News;
-import com.future.awaker.data.source.repository.NewRepository;
+import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.FragNewBinding;
 
 /**

@@ -1,14 +1,12 @@
 package com.future.awaker.home;
 
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
 import com.future.awaker.R;
 import com.future.awaker.base.BaseViewModel;
-import com.future.awaker.data.Banner;
 import com.future.awaker.data.BannerItem;
-import com.future.awaker.data.source.repository.NewRepository;
+import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.util.ResUtils;
