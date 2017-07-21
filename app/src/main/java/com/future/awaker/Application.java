@@ -2,6 +2,8 @@ package com.future.awaker;
 
 import com.squareup.leakcanary.LeakCanary;
 
+import io.realm.Realm;
+
 /**
  * Created by ruzhan on 2017/7/6.
  */
@@ -19,5 +21,7 @@ public class Application extends android.app.Application {
     INSTANCE = this;
 
     LeakCanary.install(this);
+
+    Realm.init(this);
   }
 }

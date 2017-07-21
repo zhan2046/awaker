@@ -4,16 +4,18 @@ import com.future.awaker.data.News;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
-import com.future.awaker.data.source.callback.NewCallBack;
 import com.future.awaker.data.source.local.LocalNewDataSource;
 import com.future.awaker.data.source.local.LocalNewDataSourceImpl;
 import com.future.awaker.data.source.remote.NewDataSource;
 import com.future.awaker.data.source.remote.NewRemoteDataSource;
 import com.future.awaker.network.HttpResult;
 
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.realm.RealmModel;
+import io.realm.RealmResults;
 
 /**
  * Copyright ©2017 by Teambition
@@ -68,17 +70,17 @@ public class NewRepository implements NewDataSource, LocalNewDataSource {
     }
 
     @Override
-    public void getLocalNewList(int newId, NewCallBack newCallBack) {
-        localNewDataSource.getLocalNewList(newId, newCallBack);
+    public <T extends RealmModel> Flowable<RealmResults<T>> getLocalNewList(HashMap<String, String> map) {
+        return localNewDataSource.getLocalNewList(map);
     }
 
     @Override
-    public void deleteLocalNewList(int newId) {
+    public void deleteLocalNewList(String newId) {
         localNewDataSource.deleteLocalNewList(newId);
     }
 
     @Override
-    public void updateLocalNewList(int newId, List<News> newsList) {
+    public void updateLocalNewList(String newId, List<News> newsList) {
         localNewDataSource.updateLocalNewList(newId, newsList);
     }
 }
