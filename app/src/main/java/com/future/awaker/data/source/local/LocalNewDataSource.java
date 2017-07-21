@@ -1,23 +1,39 @@
 package com.future.awaker.data.source.local;
 
 import com.future.awaker.data.News;
+import com.future.awaker.data.realm.NewsPageRealm;
 
 import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.realm.RealmModel;
 import io.realm.RealmResults;
 
 /**
  * Copyright ©2017 by Teambition
  */
 
-public interface LocalNewDataSource {
+public class LocalNewDataSource implements ILocalNewDataSource {
 
-    <T extends RealmModel> Flowable<RealmResults<T>> getLocalNewList(HashMap<String, String> map);
+    private RealmManager realmManager = new RealmManager();
 
-    void deleteLocalNewList(String newId);
+    @Override
+    public Flowable<RealmResults> getLocalNewList(HashMap<String, String> map) {
+        return Flowable.defer(() -> realmManager.getRealmItems(NewsPageRealm.class, map));
+    }
 
-    void updateLocalNewList(String newId, List<News> newsList);
+    @Override
+    public void deleteLocalNewList(String newId) {
+        realmManager.deleteLocalNewList(newId);
+    }
+
+    @Override
+    public void updateLocalNewList(String newId, List<News> newsList) {
+        realmManager.updateLocalNewList(newId, newsList);
+    }
+
+    @Override
+    public void close() {
+        realmManager.close();
+    }
 }

@@ -15,6 +15,8 @@ import io.realm.annotations.PrimaryKey;
 
 public class NewsPageRealm extends RealmObject {
 
+    public static final String ID = "id";
+
     @PrimaryKey
     private String id;
     private RealmList<NewsRealm> newsList;

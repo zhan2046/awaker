@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
  * Copyright ©2017 by Teambition
  */
 
-public class NewRemoteDataSource implements NewDataSource {
+public class RemoteNewDataSource implements INewDataSource {
 
     @Override
     public Flowable<HttpResult<List<News>>> getNewList(String token, int page, int id) {

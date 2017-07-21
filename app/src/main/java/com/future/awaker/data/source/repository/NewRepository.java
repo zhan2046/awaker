@@ -1,36 +1,35 @@
-package com.future.awaker.data.source;
+package com.future.awaker.data.source.repository;
 
-import com.future.awaker.data.News;
 import com.future.awaker.data.NewDetail;
+import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
+import com.future.awaker.data.source.local.ILocalNewDataSource;
 import com.future.awaker.data.source.local.LocalNewDataSource;
-import com.future.awaker.data.source.local.LocalNewDataSourceImpl;
-import com.future.awaker.data.source.remote.NewDataSource;
-import com.future.awaker.data.source.remote.NewRemoteDataSource;
+import com.future.awaker.data.source.remote.INewDataSource;
+import com.future.awaker.data.source.remote.RemoteNewDataSource;
 import com.future.awaker.network.HttpResult;
 
 import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.realm.RealmModel;
 import io.realm.RealmResults;
 
 /**
  * Copyright ©2017 by Teambition
  */
 
-public class NewRepository implements NewDataSource, LocalNewDataSource {
+public class NewRepository implements INewDataSource, ILocalNewDataSource {
 
     private static NewRepository INSTANCE;
 
-    private NewDataSource remoteDataSource;
-    private LocalNewDataSource localNewDataSource;
+    private INewDataSource remoteDataSource;
+    private ILocalNewDataSource localNewDataSource;
 
     private NewRepository() {
-        remoteDataSource = new NewRemoteDataSource();
-        localNewDataSource = new LocalNewDataSourceImpl();
+        remoteDataSource = new RemoteNewDataSource();
+        localNewDataSource = new LocalNewDataSource();
     }
 
     public static NewRepository get() {
@@ -70,7 +69,7 @@ public class NewRepository implements NewDataSource, LocalNewDataSource {
     }
 
     @Override
-    public <T extends RealmModel> Flowable<RealmResults<T>> getLocalNewList(HashMap<String, String> map) {
+    public Flowable<RealmResults> getLocalNewList(HashMap<String, String> map) {
         return localNewDataSource.getLocalNewList(map);
     }
 
@@ -82,5 +81,10 @@ public class NewRepository implements NewDataSource, LocalNewDataSource {
     @Override
     public void updateLocalNewList(String newId, List<News> newsList) {
         localNewDataSource.updateLocalNewList(newId, newsList);
+    }
+
+    @Override
+    public void close() {
+        localNewDataSource.close();
     }
 }

@@ -14,7 +14,7 @@ import io.reactivex.Flowable;
  * Copyright ©2017 by Teambition
  */
 
-public interface NewDataSource {
+public interface INewDataSource {
 
     Flowable<HttpResult<List<News>>> getNewList(String token, int page, int id);
 

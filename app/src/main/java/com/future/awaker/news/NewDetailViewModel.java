@@ -4,7 +4,7 @@ import android.databinding.ObservableField;
 
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.NewDetail;
-import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.data.source.repository.NewRepository;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 
