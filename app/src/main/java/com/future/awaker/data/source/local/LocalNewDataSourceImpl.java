@@ -42,7 +42,7 @@ public class LocalNewDataSourceImpl implements LocalNewDataSource {
 
     @Override
     public <T extends RealmModel> Flowable<RealmResults<T>> getLocalNewList(HashMap<String, String> map) {
-        return RealmHelper.getRealmItems(NewsPageRealm.class, map);
+        return Flowable.defer(() -> RealmHelper.getRealmItems(NewsPageRealm.class, map));
     }
 
     @Override
