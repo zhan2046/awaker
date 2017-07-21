@@ -1,5 +1,6 @@
 package com.future.awaker.data.source.remote;
 
+import com.future.awaker.data.BannerItem;
 import com.future.awaker.data.News;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.Special;
@@ -17,6 +18,12 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class RemoteNewDataSource implements INewDataSource {
+
+    @Override
+    public Flowable<HttpResult<List<BannerItem>>> getBanner(String token, String advType) {
+        return AwakerClient.get().getBanner(token, advType)
+                .subscribeOn(Schedulers.io());
+    }
 
     @Override
     public Flowable<HttpResult<List<News>>> getNewList(String token, int page, int id) {

@@ -5,9 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.future.awaker.data.Banner;
+import com.future.awaker.data.BannerItem;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
+import com.future.awaker.home.HomeListAdapter;
 import com.future.awaker.imageloader.ImageLoader;
 import com.future.awaker.news.NewListAdapter;
 import com.future.awaker.video.SpecialListAdapter;
@@ -48,6 +51,16 @@ public final class DataBindingAdapter {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter instanceof NewListAdapter) {
             ((NewListAdapter) adapter).setData(new ArrayList<>(news));
+        }
+    }
+
+    @BindingAdapter({"homeBanner"})
+    public static void setHomeBanner(RecyclerView recyclerView, List<BannerItem> itemList) {
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if (adapter instanceof HomeListAdapter) {
+            Banner banner = new Banner();
+            banner.list = itemList;
+            ((HomeListAdapter) adapter).setBanner(banner);
         }
     }
 

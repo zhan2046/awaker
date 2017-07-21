@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout
+        soulwolf:datumRatio="datumWidth"
+        soulwolf:widthRatio="2"
+        soulwolf:heightRatio="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.future.awaker.widget.banner.RZLoopViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout>
+</layout>

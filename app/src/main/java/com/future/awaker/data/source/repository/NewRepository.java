@@ -1,5 +1,6 @@
 package com.future.awaker.data.source.repository;
 
+import com.future.awaker.data.BannerItem;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
@@ -47,6 +48,11 @@ public class NewRepository implements INewDataSource, ILocalNewDataSource {
         INSTANCE = null;
     }
 
+
+    @Override
+    public Flowable<HttpResult<List<BannerItem>>> getBanner(String token, String advType) {
+        return remoteDataSource.getBanner(token, advType);
+    }
 
     @Override
     public Flowable<HttpResult<List<News>>> getNewList(String token, int page, int id) {

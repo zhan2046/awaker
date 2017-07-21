@@ -18,6 +18,7 @@ import com.future.awaker.news.NewListActivity;
 
 public class HomeListFragment extends BaseFragment<FragHomeListBinding> implements OnItemClickListener<HomeItem> {
 
+    private HomeViewModel homeViewModel;
     private HomeListAdapter adapter;
 
     public static HomeListFragment newInstance() {
@@ -32,6 +33,8 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding> implemen
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        homeViewModel = new HomeViewModel();
+        binding.setViewModel(homeViewModel);
 
         adapter = new HomeListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
@@ -45,6 +48,14 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding> implemen
         });
         binding.recyclerView.setLayoutManager(manager);
         adapter.setData();
+
+        homeViewModel.getBanner();
+    }
+
+    @Override
+    public void onDestroy() {
+        homeViewModel.clear();
+        super.onDestroy();
     }
 
     @Override

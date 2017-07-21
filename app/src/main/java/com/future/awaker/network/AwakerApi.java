@@ -1,5 +1,6 @@
 package com.future.awaker.network;
 
+import com.future.awaker.data.BannerItem;
 import com.future.awaker.data.News;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.Special;
@@ -18,6 +19,11 @@ import retrofit2.http.Path;
  */
 
 public interface AwakerApi {
+
+    @FormUrlEncoded
+    @POST("news/getAdv")
+    Flowable<HttpResult<List<BannerItem>>> getBanner(@Field("access_token") String token,
+                                                     @Field("adv_type") String advType);
 
     // new
 
