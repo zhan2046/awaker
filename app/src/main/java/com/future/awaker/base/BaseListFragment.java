@@ -60,7 +60,6 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
         super.onViewCreated(view, savedInstanceState);
 
         initData();
-        onRefresh();
     }
 
     private boolean isLoadMore(RecyclerView recyclerView, int newState) {

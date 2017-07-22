@@ -75,6 +75,8 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
         recyclerView.setAdapter(adapter);
 
         viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
+
+        onRefresh();
     }
 
     @SuppressLint("NewApi")

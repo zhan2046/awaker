@@ -20,6 +20,8 @@ public class HomeAdapter extends FragmentPagerAdapter {
     public static final int VIDEO = 2;
 
     private List<String> titles;
+    private HomeListFragment homeListFragment;
+    private NewListFragment newListFragment;
     private VideoListFragment videoListFragment;
 
     public HomeAdapter(FragmentManager fm, List<String> titles) {
@@ -33,15 +35,33 @@ public class HomeAdapter extends FragmentPagerAdapter {
         }
     }
 
+    public Fragment getCurrentFrag(int position) {
+        Fragment fragment = null;
+        switch (position) {
+            case HOME:
+                fragment = homeListFragment;
+                break;
+            case NEW:
+                fragment = newListFragment;
+                break;
+            case VIDEO:
+                fragment = videoListFragment;
+                break;
+        }
+        return fragment;
+    }
+
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
         switch (position) {
             case HOME:
-                fragment = HomeListFragment.newInstance();
+                homeListFragment = HomeListFragment.newInstance();
+                fragment = homeListFragment;
                 break;
             case NEW:
-                fragment = NewListFragment.newInstance(0);
+                newListFragment = NewListFragment.newInstance(0);
+                fragment = newListFragment;
                 break;
             case VIDEO:
                 videoListFragment = VideoListFragment.newInstance();

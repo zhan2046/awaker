@@ -6,14 +6,17 @@ import android.view.View;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
+import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.Special;
 import com.future.awaker.databinding.FragVideoBinding;
+import com.future.awaker.util.LogUtils;
 
 /**
  * Copyright ©2017 by Teambition
  */
 
-public class VideoListFragment extends BaseListFragment<FragVideoBinding> implements OnItemClickListener<Special> {
+public class VideoListFragment extends BaseListFragment<FragVideoBinding>
+        implements OnItemClickListener<Special>, onPageSelectedListener {
 
     private VideoViewModel videoViewModel;
     private VideoListAdapter adapter;
@@ -51,6 +54,12 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding> implem
 
     public void setCat(int cat) {
         videoViewModel.setCat(cat);
+        onRefresh();
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        LogUtils.d("VideoListFragment onPageSelected");
         onRefresh();
     }
 }

@@ -58,7 +58,10 @@ public class NewViewModel extends BaseListViewModel {
         disposable.add(NewRepository.get().getLocalNewList(map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
-                .doOnNext(this::setLocalNewList)
+                .doOnNext(realmResults -> {
+                    LogUtils.d("getLocalNewList" + realmResults.size());
+                    setLocalNewList(realmResults);
+                })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 

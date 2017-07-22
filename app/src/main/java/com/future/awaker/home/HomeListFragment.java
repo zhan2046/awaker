@@ -8,15 +8,18 @@ import android.view.View;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
+import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.HomeItem;
 import com.future.awaker.databinding.FragHomeListBinding;
 import com.future.awaker.news.NewListActivity;
+import com.future.awaker.util.LogUtils;
 
 /**
  * Copyright ©2017 by Teambition
  */
 
-public class HomeListFragment extends BaseFragment<FragHomeListBinding> implements OnItemClickListener<HomeItem> {
+public class HomeListFragment extends BaseFragment<FragHomeListBinding>
+        implements OnItemClickListener<HomeItem>, onPageSelectedListener {
 
     private HomeViewModel homeViewModel;
     private HomeListAdapter adapter;
@@ -48,8 +51,6 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding> implemen
         });
         binding.recyclerView.setLayoutManager(manager);
         adapter.setData();
-
-        homeViewModel.getBanner();
     }
 
     @Override
@@ -65,6 +66,14 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding> implemen
 
         } else {
 
+        }
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        LogUtils.d("HomeListFragment onPageSelected");
+        if (homeViewModel != null) {
+            homeViewModel.getBanner();
         }
     }
 }

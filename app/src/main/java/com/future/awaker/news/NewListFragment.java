@@ -6,16 +6,18 @@ import android.view.View;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
+import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.News;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.FragNewBinding;
+import com.future.awaker.util.LogUtils;
 
 /**
  * Created by ruzhan on 2017/7/6.
  */
 
 public class NewListFragment extends BaseListFragment<FragNewBinding>
-        implements OnItemClickListener<News> {
+        implements OnItemClickListener<News>, onPageSelectedListener {
 
     private static final String NEW_ID = "newId";
 
@@ -45,6 +47,8 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
 
         adapter = new NewListAdapter(newViewModel, this);
         binding.recyclerView.setAdapter(adapter);
+
+        onRefresh();
     }
 
     @Override
@@ -58,5 +62,11 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
     public void onItemClick(View view, int position, News bean) {
         String url = bean.cover_url == null ? "" : bean.cover_url.ori;
         NewDetailActivity.launch(getContext(), bean.id, bean.title, url);
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        LogUtils.d("NewListFragment onPageSelected");
+        onRefresh();
     }
 }

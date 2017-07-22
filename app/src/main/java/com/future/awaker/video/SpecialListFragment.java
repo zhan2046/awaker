@@ -53,6 +53,8 @@ public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding
 
         SpecialListAdapter adapter = new SpecialListAdapter(viewModel, this);
         recyclerView.setAdapter(adapter);
+
+        onRefresh();
     }
 
     @Override

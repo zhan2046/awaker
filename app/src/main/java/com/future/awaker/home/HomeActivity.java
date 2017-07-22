@@ -8,6 +8,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.future.awaker.R;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
+import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.ActivityHomeBinding;
@@ -114,11 +116,11 @@ public class HomeActivity extends AppCompatActivity {
         binding.viewpager.setOffscreenPageLimit(titles.size());
 
         updateFab(binding.viewpager.getCurrentItem());
-        setupColor(binding.tabs.getSelectedTabPosition());
 
-        binding.viewpager.setCurrentItem(HomeAdapter.NEW, false);
+        //setupColor(binding.tabs.getSelectedTabPosition());
 
         binding.tabs.setupWithViewPager(binding.viewpager);
+
         binding.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset,
@@ -129,6 +131,14 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 updateFab(position);
+
+                binding.toolbar.postDelayed(() -> {
+                    Fragment fragment = homeAdapter.getCurrentFrag(position);
+                    if (fragment instanceof onPageSelectedListener) {
+                        ((onPageSelectedListener)fragment).onPageSelected(position);
+                    }
+                }, 300);
+
             }
 
             @Override
@@ -136,6 +146,12 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
+        binding.toolbar.post(() -> {
+                    if (binding.viewpager != null) {
+                        binding.viewpager.setCurrentItem(HomeAdapter.NEW, false);
+                    }
+                });
     }
 
     private void setupColor(int position) {

@@ -12,6 +12,7 @@ import com.future.awaker.data.realm.SpecialRealm;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
+import com.future.awaker.util.LogUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,8 @@ import io.realm.RealmResults;
  */
 
 public class VideoViewModel extends BaseListViewModel {
+
+    private static final String TAG = VideoViewModel.class.getSimpleName();
 
     public ObservableList<Special> specials = new ObservableArrayList<>();
     private int cat = Special.NORMAL;
@@ -69,7 +72,11 @@ public class VideoViewModel extends BaseListViewModel {
     private void getLocalSpecialList() {
         disposable.add(NewRepository.get().getLocalSpecialList(map)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(this::setLocalNewList)
+                .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
+                .doOnNext(realmResults -> {
+                    LogUtils.d("getLocalSpecialList" + realmResults.size());
+                    setLocalNewList(realmResults);
+                })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 
