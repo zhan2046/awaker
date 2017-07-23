@@ -44,16 +44,16 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="60dp"
+                    android:layout_width="100dp"
+                    android:layout_height="65dp"
                     android:scaleType="centerCrop"
                     app:imageThumbUrl="@{newsItem.cover}" />
 
                 <ImageView
                     android:src="@drawable/img_mask"
                     android:scaleType="fitXY"
-                    android:layout_width="90dp"
-                    android:layout_height="60dp" />
+                    android:layout_width="100dp"
+                    android:layout_height="65dp" />
             </FrameLayout>
 
 

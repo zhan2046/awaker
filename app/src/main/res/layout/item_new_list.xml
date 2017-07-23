@@ -43,26 +43,25 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="60dp"
+                    android:layout_width="100dp"
+                    android:layout_height="65dp"
                     android:scaleType="centerCrop"
                     app:imageThumbUrl="@{newsItem.cover_url.ori}"/>
 
                 <ImageView
                     android:src="@drawable/img_mask"
                     android:scaleType="fitXY"
-                    android:layout_width="90dp"
-                    android:layout_height="60dp" />
+                    android:layout_width="100dp"
+                    android:layout_height="65dp" />
             </FrameLayout>
 
             <TextView
                 android:id="@+id/title_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/icon_fl"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="20dp"
                 android:layout_toEndOf="@+id/icon_fl"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -74,9 +73,9 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_alignBottom="@+id/icon_fl"
+                android:layout_marginBottom="4dp"
                 android:layout_toEndOf="@+id/icon_fl"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/title_tv"
                 android:ellipsize="end"
                 android:maxEms="16"
                 android:maxLines="1"
@@ -85,16 +84,16 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:layout_below="@+id/title_tv"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="8dp"
+                android:layout_alignBottom="@+id/icon_fl"
+                android:layout_marginBottom="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
                 android:maxEms="16"
                 android:maxLines="1"
-                android:text="@{newsItem.comment}"
+                android:text="@{newsItem.comment, default=123}"
                 android:textColor="#FF8A8A8A"
                 android:textSize="12sp" />
         </RelativeLayout>

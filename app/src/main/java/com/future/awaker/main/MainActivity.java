@@ -23,7 +23,7 @@ import com.future.awaker.imageloader.ImageLoader;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final long DELAY_MILLIS = 2500;
+    private static final long DELAY_MILLIS = 2000;
 
     private ActivityMainBinding binding;
 

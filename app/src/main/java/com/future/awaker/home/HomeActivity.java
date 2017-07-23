@@ -114,12 +114,9 @@ public class HomeActivity extends AppCompatActivity {
         homeAdapter = new HomeAdapter(getSupportFragmentManager(), titles);
         binding.viewpager.setAdapter(homeAdapter);
         binding.viewpager.setOffscreenPageLimit(titles.size());
-
-        updateFab(binding.viewpager.getCurrentItem());
-
-        //setupColor(binding.tabs.getSelectedTabPosition());
-
         binding.tabs.setupWithViewPager(binding.viewpager);
+
+        materialSheetFab.hideSheetThenFab();
 
         binding.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

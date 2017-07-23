@@ -26,22 +26,22 @@ public class HomeItem {
 
     public static List<HomeItem> getList() {
         List<HomeItem> list = new ArrayList<>();
-        list.add(new HomeItem(0, R.mipmap.news, ResUtils.getString(R.string.all_info)));
-        list.add(new HomeItem(-1, R.mipmap.comment, ResUtils.getString(R.string.nice_massage)));
-        list.add(new HomeItem(-1, R.mipmap.view, ResUtils.getString(R.string.week_hot)));
-        list.add(new HomeItem(-1, R.mipmap.hot, ResUtils.getString(R.string.week_hot_massage)));
-        list.add(new HomeItem(1, R.mipmap.alien, ResUtils.getString(R.string.ufo_and_et)));
-        list.add(new HomeItem(408, R.mipmap.ufo, ResUtils.getString(R.string.un_one)));
-        list.add(new HomeItem(4, R.mipmap.cc, ResUtils.getString(R.string.mai_tian)));
-        list.add(new HomeItem(13, R.mipmap.zai, ResUtils.getString(R.string.error_thing)));
-        list.add(new HomeItem(5, R.mipmap.cp, ResUtils.getString(R.string.yin_mou)));
-        list.add(new HomeItem(320, R.mipmap.freemason, ResUtils.getString(R.string.gong_ji)));
-        list.add(new HomeItem(153, R.mipmap.gmo, ResUtils.getString(R.string.ji_yin)));
-        list.add(new HomeItem(409, R.mipmap.xin, ResUtils.getString(R.string.awaker_spirit)));
-        list.add(new HomeItem(6, R.mipmap.kexue, ResUtils.getString(R.string.ke_xue)));
-        list.add(new HomeItem(27, R.mipmap.en, ResUtils.getString(R.string.free_neng_yuan)));
-        list.add(new HomeItem(10, R.mipmap.video, ResUtils.getString(R.string.guan_jian)));
-        list.add(new HomeItem(7, R.mipmap.other, ResUtils.getString(R.string.other)));
+        list.add(new HomeItem(0, R.drawable.ic_allinfo, ResUtils.getString(R.string.all_info)));
+        list.add(new HomeItem(-1, R.drawable.ic_jingcaitucao, ResUtils.getString(R.string.nice_massage)));
+        list.add(new HomeItem(-1, R.drawable.ic_yizhouredu, ResUtils.getString(R.string.week_hot)));
+        list.add(new HomeItem(-1, R.drawable.ic_yizhourepin, ResUtils.getString(R.string.week_hot_massage)));
+        list.add(new HomeItem(1, R.drawable.ic_ufoet, ResUtils.getString(R.string.ufo_and_et)));
+        list.add(new HomeItem(408, R.drawable.ic_weijiezhimi, ResUtils.getString(R.string.un_one)));
+        list.add(new HomeItem(4, R.drawable.ic_maitian, ResUtils.getString(R.string.mai_tian)));
+        list.add(new HomeItem(13, R.drawable.ic_yichangshijian, ResUtils.getString(R.string.error_thing)));
+        list.add(new HomeItem(5, R.drawable.ic_yinmou, ResUtils.getString(R.string.yin_mou)));
+        list.add(new HomeItem(320, R.drawable.ic_gongjihui, ResUtils.getString(R.string.gong_ji)));
+        list.add(new HomeItem(153, R.drawable.ic_zhuanjiyin, ResUtils.getString(R.string.ji_yin)));
+        list.add(new HomeItem(409, R.drawable.ic_lingxingjuexing, ResUtils.getString(R.string.awaker_spirit)));
+        list.add(new HomeItem(6, R.drawable.ic_kexuetanshuo, ResUtils.getString(R.string.ke_xue)));
+        list.add(new HomeItem(27, R.drawable.ic_ziyounengyuan, ResUtils.getString(R.string.free_neng_yuan)));
+        list.add(new HomeItem(10, R.drawable.ic_guanjianshike, ResUtils.getString(R.string.guan_jian)));
+        list.add(new HomeItem(7, R.drawable.ic_qita, ResUtils.getString(R.string.other)));
         return list;
      }
 }

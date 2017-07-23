@@ -20,6 +20,7 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding>
 
     private VideoViewModel videoViewModel;
     private VideoListAdapter adapter;
+    private boolean isFirst;
 
     public static VideoListFragment newInstance() {
         return new VideoListFragment();
@@ -60,6 +61,9 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding>
     @Override
     public void onPageSelected(int position) {
         LogUtils.d("VideoListFragment onPageSelected");
-        onRefresh();
+        if (!isFirst) {
+            onRefresh();
+            isFirst = true;
+        }
     }
 }

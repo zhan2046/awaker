@@ -11,7 +11,8 @@
             type="com.future.awaker.data.HomeItem"/>
     </data>
 
-    <com.future.awaker.widget.RatioCardView  xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <com.future.awaker.widget.RatioCardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/root_card"
         soulwolf:datumRatio="datumWidth"
         soulwolf:widthRatio="1"
@@ -32,17 +33,16 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_marginTop="8dp"
                 android:layout_gravity="center_horizontal"
                 app:ImageResource="@{bean.imgRes}"
                 android:scaleType="centerCrop"
-                android:layout_width="22dp"
-                android:layout_height="22dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:text="@{bean.title}"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textColor="#383838"
                 android:maxLines="1"
                 android:ellipsize="end"

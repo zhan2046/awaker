@@ -23,6 +23,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
 
     private NewViewModel newViewModel;
     private NewListAdapter adapter;
+    private boolean isFirst;
 
     public static NewListFragment newInstance(int newId) {
         Bundle args = new Bundle();
@@ -67,6 +68,9 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
     @Override
     public void onPageSelected(int position) {
         LogUtils.d("NewListFragment onPageSelected");
-        onRefresh();
+        if (!isFirst) {
+            onRefresh();
+            isFirst = true;
+        }
     }
 }

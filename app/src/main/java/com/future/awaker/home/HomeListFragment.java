@@ -23,6 +23,7 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding>
 
     private HomeViewModel homeViewModel;
     private HomeListAdapter adapter;
+    private boolean isFirst;
 
     public static HomeListFragment newInstance() {
         return new HomeListFragment();
@@ -72,8 +73,9 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding>
     @Override
     public void onPageSelected(int position) {
         LogUtils.d("HomeListFragment onPageSelected");
-        if (homeViewModel != null) {
+        if (homeViewModel != null && !isFirst) {
             homeViewModel.getBanner();
+            isFirst = true;
         }
     }
 }
