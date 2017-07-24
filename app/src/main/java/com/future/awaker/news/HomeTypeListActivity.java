@@ -24,6 +24,7 @@ public class HomeTypeListActivity extends BaseActivity {
     private NewListFragment newListFragment;
     private HotReadNewsFragment hotReadNewsFragment;
     private HotNewsFragment hotNewsFragment;
+    private NiceCommentFragment niceCommentFragment;
     private ActivityNewListBinding binding;
 
     public static void launch(Context context, int newId, String title) {
@@ -46,6 +47,11 @@ public class HomeTypeListActivity extends BaseActivity {
 
         switch (newId) {
             case HomeItem.NICE_COMMENT:
+                if (niceCommentFragment == null) {
+                    niceCommentFragment = NiceCommentFragment.newInstance();
+                }
+                showFragment(niceCommentFragment,
+                        NiceCommentFragment.class.getSimpleName());
 
                 break;
             case HomeItem.WEEK_NEW_READ:

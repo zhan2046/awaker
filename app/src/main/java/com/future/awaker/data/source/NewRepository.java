@@ -86,6 +86,10 @@ public final class NewRepository {
         return remoteDataSource.getHotNewsAll(token, page, id);
     }
 
+    public Flowable<HttpResult<List<Comment>>> getHotComment(String token) {
+        return remoteDataSource.getHotComment(token);
+    }
+
     ///////////////////////
     // local
     ///////////////////////

@@ -9,6 +9,7 @@ import com.future.awaker.data.Comment;
 import com.future.awaker.data.User;
 import com.future.awaker.databinding.ItemNewDetailCommentBinding;
 import com.future.awaker.imageloader.ImageLoader;
+import com.future.awaker.util.ResUtils;
 
 /**
  * Created by ruzhan on 2017/7/15.
@@ -30,7 +31,10 @@ public class NewDetailCommentHolder extends RecyclerView.ViewHolder {
 
         User user = bean.user;
         if (user != null) {
-            binding.nameTv.setText(user.real_nickname);
+            String userName = TextUtils.isEmpty(user.real_nickname) ?
+                    ResUtils.getString(R.string.comment_guest) : user.real_nickname;
+            binding.nameTv.setText(userName);
+
             boolean isGuest = "0".equals(bean.uid);
             binding.nameTv.setTextColor(isGuest ?
                     Color.parseColor("#FF383838") : Color.parseColor("#FFEC6A5C"));

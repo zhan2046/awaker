@@ -65,4 +65,9 @@ public class RemoteNewDataSource {
         return AwakerClient.get().getHotNewsAll(token, page, id)
                 .subscribeOn(Schedulers.io());
     }
+
+    public Flowable<HttpResult<List<Comment>>> getHotComment(String token) {
+        return AwakerClient.get().getHotComment(token)
+                .subscribeOn(Schedulers.io());
+    }
 }

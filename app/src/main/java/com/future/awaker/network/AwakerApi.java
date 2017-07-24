@@ -60,6 +60,11 @@ public interface AwakerApi {
     Flowable<HttpResult<List<Comment>>> getNewsComments(@Field("access_token") String token,
                                                         @Path("newId") String newId,
                                                         @Field("page") int page);
+
+    @FormUrlEncoded
+    @POST("news/hotComment")
+    Flowable<HttpResult<List<Comment>>> getHotComment(@Field("access_token") String token);
+
     // video
 
     @FormUrlEncoded

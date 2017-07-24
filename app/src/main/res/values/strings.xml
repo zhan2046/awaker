@@ -20,7 +20,7 @@
   <string name="loaded_desc">没有更多了</string>
 
   <string name="all_info">全部资讯</string>
-  <string name="nice_massage">精彩吐槽</string>
+  <string name="nice_massage">热门吐槽</string>
   <string name="week_hot">一周热读</string>
   <string name="week_hot_massage">一周热评</string>
   <string name="ufo_and_et">ufo与外星人</string>
@@ -36,6 +36,7 @@
   <string name="guan_jian">关键时刻</string>
   <string name="other">其它</string>
 
+  <string name="comment_guest">觉醒访客</string>
   <string name="up_comment_title">热门评论</string>
   <string name="up_comment_more">更多评论</string>
   <string name="up_comment_click_more">查看更多评论</string>

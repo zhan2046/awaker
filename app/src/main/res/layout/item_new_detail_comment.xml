@@ -55,7 +55,6 @@
             android:lineSpacingExtra="8dp"
             android:layout_toEndOf="@+id/icon_iv"
             android:ellipsize="end"
-            android:maxLines="10"
             android:textColor="#383838"
             android:textSize="14sp" />
 

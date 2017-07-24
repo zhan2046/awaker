@@ -118,7 +118,8 @@ public class VideoListAdapter extends RecyclerView.Adapter {
             Special oldObj = oldData.get(oldItemPosition);
             Special newObj = newData.get(newItemPosition);
             return Objects.equals(oldObj.id, newObj.id) &&
-                    Objects.equals(oldObj.title, newObj.title);
+                    Objects.equals(oldObj.title, newObj.title) &&
+                    Objects.equals(oldObj.cover, newObj.cover);
         }
 
         @Override
@@ -126,7 +127,8 @@ public class VideoListAdapter extends RecyclerView.Adapter {
             Special oldObj = oldData.get(oldItemPosition);
             Special newObj = newData.get(newItemPosition);
             return Objects.equals(oldObj.id, newObj.id) &&
-                    Objects.equals(oldObj.title, newObj.title);
+                    Objects.equals(oldObj.title, newObj.title) &&
+                    Objects.equals(oldObj.cover, newObj.cover);
         }
     }
 }

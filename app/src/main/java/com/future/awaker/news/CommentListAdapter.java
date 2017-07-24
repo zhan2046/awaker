@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.future.awaker.R;
+import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.base.EmptyHolder;
 import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.data.Comment;
@@ -14,7 +15,6 @@ import com.future.awaker.databinding.ItemLoadBinding;
 import com.future.awaker.databinding.ItemNewDetailCommentBinding;
 import com.future.awaker.news.holder.NewDetailCommentHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,10 +28,10 @@ public class CommentListAdapter extends RecyclerView.Adapter {
     private static final int TYPE_ITEM = 1001;
 
     private List<Comment> commentList;
-    private CommentViewModel viewModel;
+    private BaseListViewModel viewModel;
     private CommentDiffCallBack diffCallBack = new CommentDiffCallBack();
 
-    public CommentListAdapter(CommentViewModel viewModel) {
+    public CommentListAdapter(BaseListViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
