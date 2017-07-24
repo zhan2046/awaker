@@ -28,12 +28,16 @@ public class NewDetailViewModel extends BaseListViewModel {
     private String title;
     private String url;
 
-    public String getTitle() {
-        return title;
+    public String getNewId() {
+        return newId;
     }
 
     public void setNewId(String newId) {
         this.newId = newId;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
@@ -47,7 +51,6 @@ public class NewDetailViewModel extends BaseListViewModel {
     public void setUrl(String url) {
         this.url = url;
     }
-
 
     @Override
     public void refreshData(boolean refresh) {
@@ -69,9 +72,12 @@ public class NewDetailViewModel extends BaseListViewModel {
 
     public void getHotCommentList() {
         disposable.add(NewRepository.get().getUpNewsComments(TOKEN, newId)
-                .doOnError(throwable -> {})
-                .doOnSubscribe(disposable -> {})
-                .doOnTerminate(() -> {})
+                .doOnError(throwable -> {
+                })
+                .doOnSubscribe(disposable -> {
+                })
+                .doOnTerminate(() -> {
+                })
                 .doOnNext(result -> {
                     List<Comment> commentList = result.getData();
                     if (commentList != null && !commentList.isEmpty()) {

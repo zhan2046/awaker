@@ -174,6 +174,7 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
             ItemNewDetailHeaderBinding binding = DataBindingUtil
                     .inflate(LayoutInflater.from(parent.getContext()),
                             R.layout.item_new_detail_header, parent, false);
+            binding.setHeader(header);
             return new NewDetailHeaderHolder(binding);
         }
         return null;

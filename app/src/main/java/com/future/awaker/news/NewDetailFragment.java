@@ -6,7 +6,6 @@ import android.databinding.Observable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
@@ -38,8 +37,8 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
 
     private NewDetailViewModel viewModel = new NewDetailViewModel();
     private NewDetailBack newDetailBack = new NewDetailBack();
-    private NewDetailAdapter adapter;
     private Header header = new Header();
+    private NewDetailAdapter adapter;
     private String newId;
 
     public static NewDetailFragment newInstance(String newId, String newTitle, String newUrl) {
@@ -67,12 +66,13 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
 
         viewModel.setNewId(newId);
         viewModel.setTitle(newTitle);
-
-        setListViewModel(viewModel);
-        binding.setViewModel(viewModel);
+        viewModel.setUrl(newUrl);
 
         header.title = newTitle;
         header.url = newUrl;
+
+        setListViewModel(viewModel);
+        binding.setViewModel(viewModel);
 
         adapter = new NewDetailAdapter(header, this);
         recyclerView.setAdapter(adapter);
@@ -143,6 +143,10 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
             if (user != null) {
                 header.userName = user.nickname;
                 header.userUrl = user.avatar128;
+            }
+            header.title = newDetail.title;
+            if (newDetail.cover_url != null) {
+                header.url = newDetail.cover_url.ori;
             }
             header.createTime = newDetail.create_time;
 
