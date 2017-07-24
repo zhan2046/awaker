@@ -57,5 +57,9 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:hardwareAccelerated="true"
             android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".news.CommentListActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

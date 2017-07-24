@@ -36,9 +36,9 @@
             <FrameLayout
                 android:id="@+id/icon_fl"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/icon_fl"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_alignBottom="@+id/icon_fl"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="2dp"
                 android:layout_toEndOf="@+id/icon_fl"
                 android:ellipsize="end"
                 android:maxEms="16"
@@ -84,16 +84,16 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/comment_tv"
                 android:layout_alignParentEnd="true"
                 android:layout_alignBottom="@+id/icon_fl"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
                 android:maxEms="16"
                 android:maxLines="1"
-                android:text="@{newsItem.comment, default=123}"
                 android:textColor="#FF8A8A8A"
                 android:textSize="12sp" />
         </RelativeLayout>

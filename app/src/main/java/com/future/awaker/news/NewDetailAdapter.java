@@ -68,7 +68,7 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
 
         dataList.add(header);
         dataList.addAll(newEleList);
-        if (commentList != null) {
+        if (commentList != null && !commentList.isEmpty()) {
             dataList.add(COMMENT_TITLE);
             dataList.addAll(commentList);
             dataList.add(COMMENT_MORE);
@@ -84,12 +84,13 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         commentList = list;
 
         dataList.add(header);
-        if (newEleList != null) {
+        if (newEleList != null && !newEleList.isEmpty()) {
             dataList.addAll(newEleList);
+
+            dataList.add(COMMENT_TITLE);
+            dataList.addAll(commentList);
+            dataList.add(COMMENT_MORE);
         }
-        dataList.add(COMMENT_TITLE);
-        dataList.addAll(commentList);
-        dataList.add(COMMENT_MORE);
         notifyDataSetChanged();
     }
 

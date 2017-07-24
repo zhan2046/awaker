@@ -10,12 +10,12 @@
         android:foreground="?attr/selectableItemBackground"
         android:background="@color/f5"
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="50dp">
 
         <TextView
-            android:textSize="15sp"
-            android:textColor="#AA383838"
-            android:text="@string/up_comment_more"
+            android:textSize="14sp"
+            android:textColor="#99383838"
+            android:text="@string/up_comment_click_more"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

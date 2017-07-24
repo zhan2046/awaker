@@ -38,4 +38,7 @@
 
   <string name="up_comment_title">热门评论</string>
   <string name="up_comment_more">更多评论</string>
+  <string name="up_comment_click_more">查看更多评论</string>
+  <string name="comment_count">%1$s 跟帖</string>
+
 </resources>

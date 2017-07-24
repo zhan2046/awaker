@@ -46,7 +46,7 @@ public interface AwakerApi {
                                                           @Path("newId") String newId);
 
     @FormUrlEncoded
-    @POST("api/news/getNewsComments/id/{newId}")
+    @POST("news/getNewsComments/id/{newId}")
     Flowable<HttpResult<List<Comment>>> getNewsComments(@Field("access_token") String token,
                                                         @Path("newId") String newId,
                                                         @Field("page") int page);

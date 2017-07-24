@@ -40,6 +40,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
     private NewDetailBack newDetailBack = new NewDetailBack();
     private NewDetailAdapter adapter;
     private Header header = new Header();
+    private String newId;
 
     public static NewDetailFragment newInstance(String newId, String newTitle, String newUrl) {
         Bundle args = new Bundle();
@@ -58,7 +59,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
 
     @Override
     protected void initData() {
-        String newId = getArguments().getString(NEW_ID);
+        newId = getArguments().getString(NEW_ID);
         String newTitle = getArguments().getString(NEW_TITLE);
         String newUrl = getArguments().getString(NEW_URL);
 
@@ -125,7 +126,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
                 VideoDetailActivity.launch(getActivity(), videoUrl);
             }
         } else { // comment more
-            Toast.makeText(getActivity(), "more", Toast.LENGTH_SHORT).show();
+            CommentListActivity.launch(getActivity(), newId);
         }
     }
 

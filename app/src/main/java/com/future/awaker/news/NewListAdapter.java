@@ -103,6 +103,11 @@ public class NewListAdapter extends RecyclerView.Adapter {
         }
 
         public void bind(News bean) {
+            String commentStr = String.format(itemView.getResources()
+                    .getString(R.string.comment_count), bean.comment);
+            binding.commentTv.setText(commentStr);
+
+
             binding.setNewsItem(bean);
             binding.executePendingBindings();
         }

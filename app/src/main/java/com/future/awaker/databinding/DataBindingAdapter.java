@@ -13,6 +13,7 @@ import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.home.HomeListAdapter;
 import com.future.awaker.imageloader.ImageLoader;
+import com.future.awaker.news.CommentListAdapter;
 import com.future.awaker.news.NewDetailAdapter;
 import com.future.awaker.news.NewListAdapter;
 import com.future.awaker.video.SpecialListAdapter;
@@ -61,7 +62,7 @@ public final class DataBindingAdapter {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter instanceof HomeListAdapter) {
             Banner banner = new Banner();
-            banner.list = itemList;
+            banner.list = new ArrayList<>(itemList);
             ((HomeListAdapter) adapter).setBanner(banner);
         }
     }
@@ -81,16 +82,25 @@ public final class DataBindingAdapter {
                                         SpecialDetail specialDetail) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter instanceof SpecialListAdapter) {
-            ((SpecialListAdapter)adapter).setSpecialDetail(specialDetail);
+            ((SpecialListAdapter) adapter).setSpecialDetail(specialDetail);
         }
     }
 
     @BindingAdapter({"comments"})
     public static void setComments(RecyclerView recyclerView,
-                                        List<Comment> commentList) {
+                                   List<Comment> commentList) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter instanceof NewDetailAdapter) {
-            ((NewDetailAdapter)adapter).setCommentList(commentList);
+            ((NewDetailAdapter) adapter).setCommentList(new ArrayList<>(commentList));
+        }
+    }
+
+    @BindingAdapter({"commentList"})
+    public static void setCommentList(RecyclerView recyclerView,
+                                      List<Comment> commentList) {
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if (adapter instanceof CommentListAdapter) {
+            ((CommentListAdapter) adapter).setData(new ArrayList<>(commentList));
         }
     }
 
