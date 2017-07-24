@@ -6,6 +6,7 @@ import android.databinding.Observable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
@@ -114,13 +115,17 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
 
     @Override
     public void onItemClick(View view, int position, NewEle bean) {
-        if (NewEle.TYPE_IMG == bean.type) {
-            String imgUrl = bean.imgUrl;
-            ImageDetailActivity.launch(getContext(), imgUrl);
-        } else if (NewEle.TYPE_VIDEO == bean.type) {
+        if (bean != null) {
+            if (NewEle.TYPE_IMG == bean.type) {
+                String imgUrl = bean.imgUrl;
+                ImageDetailActivity.launch(getContext(), imgUrl);
+            } else if (NewEle.TYPE_VIDEO == bean.type) {
 
-            String videoUrl = bean.html;
-            VideoDetailActivity.launch(getActivity(), videoUrl);
+                String videoUrl = bean.html;
+                VideoDetailActivity.launch(getActivity(), videoUrl);
+            }
+        } else { // comment more
+            Toast.makeText(getActivity(), "more", Toast.LENGTH_SHORT).show();
         }
     }
 
