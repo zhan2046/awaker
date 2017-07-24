@@ -2,6 +2,7 @@ package com.future.awaker.news.holder;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import com.future.awaker.R;
 import com.future.awaker.data.Comment;
@@ -25,7 +26,7 @@ public class NewDetailCommentHolder extends RecyclerView.ViewHolder {
     public void bind(Comment bean) {
         binding.contentTv.setText(bean.content);
         binding.timeTv.setText(bean.create_time);
-        binding.areaTv.setText("( "+ bean.area + " )");
+        binding.areaTv.setText("( " + bean.area + " )");
 
         User user = bean.user;
         if (user != null) {
@@ -39,6 +40,12 @@ public class NewDetailCommentHolder extends RecyclerView.ViewHolder {
             } else {
                 ImageLoader.get().loadCropCircle(binding.iconIv, user.avatar64);
             }
+        }
+
+        if (!TextUtils.isEmpty(bean.sina_name) && !TextUtils.isEmpty(bean.sina_avatar)) {
+            binding.nameTv.setText(bean.sina_name);
+            binding.nameTv.setTextColor(Color.parseColor("#FF60C5BA"));
+            ImageLoader.get().loadCropCircle(binding.iconIv, bean.sina_avatar);
         }
     }
 }

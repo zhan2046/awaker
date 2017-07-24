@@ -1,7 +1,6 @@
 package com.future.awaker.data;
 
 
-
 public class Comment {
 
     public String id;
@@ -22,6 +21,6 @@ public class Comment {
     public String sina_name;
     public String sina_avatar;
     public String sina_url;
-    public int level;
     public User user;
+    public CommentTitle newstitle;
 }
