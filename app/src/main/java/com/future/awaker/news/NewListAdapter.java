@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.future.awaker.R;
+import com.future.awaker.base.BaseViewModel;
 import com.future.awaker.base.EmptyHolder;
 import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
@@ -26,12 +27,12 @@ public class NewListAdapter extends RecyclerView.Adapter {
     private static final int TYPE_LOADING = 1000;
     private static final int TYPE_NEW = 1001;
 
-    private NewViewModel viewModel;
+    private BaseViewModel viewModel;
     private OnItemClickListener<News> listener;
     private List<News> news;
     private NewDiffCallBack diffCallBack = new NewDiffCallBack();
 
-    public NewListAdapter(NewViewModel viewModel, OnItemClickListener<News> listener) {
+    public NewListAdapter(BaseViewModel viewModel, OnItemClickListener<News> listener) {
         this.viewModel = viewModel;
         this.listener = listener;
     }
@@ -67,8 +68,7 @@ public class NewListAdapter extends RecyclerView.Adapter {
             ItemLoadBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                     R.layout.item_load, parent, false);
             binding.setViewModel(viewModel);
-            EmptyHolder emptyHolder = new EmptyHolder(binding);
-            return emptyHolder;
+            return new EmptyHolder(binding);
 
         } else {
             ItemNewListBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),

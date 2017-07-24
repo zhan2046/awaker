@@ -12,6 +12,10 @@ import java.util.List;
 
 public class HomeItem {
 
+    public static final int NICE_COMMENT = -1000;
+    public static final int WEEK_NEW_READ = -1001;
+    public static final int WEEK_NEW_COMMENT = -1002;
+
     public int id;
     public int imgRes;
     public String title;
@@ -27,9 +31,9 @@ public class HomeItem {
     public static List<HomeItem> getList() {
         List<HomeItem> list = new ArrayList<>();
         list.add(new HomeItem(0, R.drawable.ic_allinfo, ResUtils.getString(R.string.all_info)));
-        list.add(new HomeItem(-1, R.drawable.ic_jingcaitucao, ResUtils.getString(R.string.nice_massage)));
-        list.add(new HomeItem(-1, R.drawable.ic_yizhouredu, ResUtils.getString(R.string.week_hot)));
-        list.add(new HomeItem(-1, R.drawable.ic_yizhourepin, ResUtils.getString(R.string.week_hot_massage)));
+        list.add(new HomeItem(NICE_COMMENT, R.drawable.ic_jingcaitucao, ResUtils.getString(R.string.nice_massage)));
+        list.add(new HomeItem(WEEK_NEW_READ, R.drawable.ic_yizhouredu, ResUtils.getString(R.string.week_hot)));
+        list.add(new HomeItem(WEEK_NEW_COMMENT, R.drawable.ic_yizhourepin, ResUtils.getString(R.string.week_hot_massage)));
         list.add(new HomeItem(1, R.drawable.ic_ufoet, ResUtils.getString(R.string.ufo_and_et)));
         list.add(new HomeItem(408, R.drawable.ic_weijiezhimi, ResUtils.getString(R.string.un_one)));
         list.add(new HomeItem(4, R.drawable.ic_maitian, ResUtils.getString(R.string.mai_tian)));

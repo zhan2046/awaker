@@ -35,7 +35,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".news.NewListActivity"
+            android:name=".news.HomeTypeListActivity"
             android:screenOrientation="portrait" />
 
         <activity

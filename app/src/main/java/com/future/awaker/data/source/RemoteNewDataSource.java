@@ -55,4 +55,14 @@ public class RemoteNewDataSource {
         return AwakerClient.get().getNewsComments(token, newId, page)
                 .subscribeOn(Schedulers.io());
     }
+
+    public Flowable<HttpResult<List<News>>> getHotviewNewsAll(String token, int page, int id) {
+        return AwakerClient.get().getHotviewNewsAll(token, page, id)
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Flowable<HttpResult<List<News>>> getHotNewsAll(String token, int page, int id) {
+        return AwakerClient.get().getHotNewsAll(token, page, id)
+                .subscribeOn(Schedulers.io());
+    }
 }

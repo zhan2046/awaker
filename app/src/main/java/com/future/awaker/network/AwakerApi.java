@@ -38,6 +38,16 @@ public interface AwakerApi {
     Flowable<HttpResult<NewDetail>> getNewDetail(@Field("access_token") String token,
                                                    @Path("newId") String newId);
 
+    @FormUrlEncoded
+    @POST("news/getHotviewNewsAll")
+    Flowable<HttpResult<List<News>>> getHotviewNewsAll(@Field("access_token") String token,
+                                                @Field("page") int page, @Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("news/getHotNewsAll")
+    Flowable<HttpResult<List<News>>> getHotNewsAll(@Field("access_token") String token,
+                                                       @Field("page") int page, @Field("id") int id);
+
     // comment
 
     @FormUrlEncoded
