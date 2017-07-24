@@ -1,6 +1,7 @@
 package com.future.awaker.data.source;
 
 import com.future.awaker.data.BannerItem;
+import com.future.awaker.data.Comment;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
@@ -68,6 +69,14 @@ public final class NewRepository {
         return remoteDataSource.getSpecialDetail(token, id);
     }
 
+    public Flowable<HttpResult<List<Comment>>> getUpNewsComments(String token, String newId) {
+        return remoteDataSource.getUpNewsComments(token, newId);
+    }
+
+    public Flowable<HttpResult<List<Comment>>> getNewsComments(String token, String newId,
+                                                               int page) {
+        return remoteDataSource.getNewsComments(token, newId, page);
+    }
 
     ///////////////////////
     // local

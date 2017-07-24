@@ -28,7 +28,8 @@ import io.reactivex.schedulers.Schedulers;
  * Copyright ©2017 by Teambition
  */
 
-public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> implements OnItemClickListener<NewEle> {
+public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
+        implements OnItemClickListener<NewEle> {
 
     private static final String NEW_ID = "newId";
     private static final String NEW_TITLE = "newTitle";
@@ -77,6 +78,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding> im
         viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
 
         onRefresh();
+        viewModel.getHotCommentList();
     }
 
     @SuppressLint("NewApi")

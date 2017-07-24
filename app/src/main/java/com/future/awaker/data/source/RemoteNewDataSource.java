@@ -1,6 +1,7 @@
 package com.future.awaker.data.source;
 
 import com.future.awaker.data.BannerItem;
+import com.future.awaker.data.Comment;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
@@ -41,6 +42,17 @@ public class RemoteNewDataSource {
 
     public Flowable<HttpResult<SpecialDetail>> getSpecialDetail(String token, String id) {
         return AwakerClient.get().getSpecialDetail(token, id)
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Flowable<HttpResult<List<Comment>>> getUpNewsComments(String token, String newId) {
+        return AwakerClient.get().getUpNewsComments(token, newId)
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Flowable<HttpResult<List<Comment>>> getNewsComments(String token, String newId,
+                                                               int page) {
+        return AwakerClient.get().getNewsComments(token, newId, page)
                 .subscribeOn(Schedulers.io());
     }
 }

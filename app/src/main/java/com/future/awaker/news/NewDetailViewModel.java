@@ -1,12 +1,17 @@
 package com.future.awaker.news;
 
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
+import android.databinding.ObservableList;
 
 import com.future.awaker.base.BaseListViewModel;
+import com.future.awaker.data.Comment;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
+
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -17,6 +22,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class NewDetailViewModel extends BaseListViewModel {
 
     public ObservableField<NewDetail> newDetail = new ObservableField<>();
+    public ObservableList<Comment> comments = new ObservableArrayList<>();
 
     private String newId;
     private String title;
@@ -56,6 +62,21 @@ public class NewDetailViewModel extends BaseListViewModel {
 
                     if (!isEmpty.get()) {
                         this.newDetail.set(newDetail);
+                    }
+                })
+                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+    }
+
+    public void getHotCommentList() {
+        disposable.add(NewRepository.get().getUpNewsComments(TOKEN, newId)
+                .doOnError(throwable -> {})
+                .doOnSubscribe(disposable -> {})
+                .doOnTerminate(() -> {})
+                .doOnNext(result -> {
+                    List<Comment> commentList = result.getData();
+                    if (commentList != null && !commentList.isEmpty()) {
+                        comments.clear();
+                        comments.addAll(commentList);
                     }
                 })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));

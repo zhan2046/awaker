@@ -8,7 +8,7 @@
     <net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout
         soulwolf:datumRatio="datumWidth"
         soulwolf:widthRatio="10"
-        soulwolf:heightRatio="4"
+        soulwolf:heightRatio="4.3"
         android:background="@color/image_mark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

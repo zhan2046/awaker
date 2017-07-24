@@ -26,19 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/container_fl"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="vertical"
-                    app:layoutManager="LinearLayoutManager" />
-            </FrameLayout>
+                app:comments="@{viewModel.comments}"
+                android:scrollbars="vertical"
+                app:layoutManager="LinearLayoutManager" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 </layout>

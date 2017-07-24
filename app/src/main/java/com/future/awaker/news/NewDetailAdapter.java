@@ -6,13 +6,18 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.future.awaker.R;
+import com.future.awaker.base.EmptyHolder;
 import com.future.awaker.base.listener.OnItemClickListener;
+import com.future.awaker.data.Comment;
 import com.future.awaker.data.Header;
 import com.future.awaker.data.NewEle;
+import com.future.awaker.databinding.ItemNewDetailCommentBinding;
+import com.future.awaker.databinding.ItemNewDetailCommentTitleBinding;
 import com.future.awaker.databinding.ItemNewDetailHeaderBinding;
 import com.future.awaker.databinding.ItemNewDetailImgBinding;
 import com.future.awaker.databinding.ItemNewDetailTextBinding;
 import com.future.awaker.databinding.ItemNewDetailVideoBinding;
+import com.future.awaker.news.holder.NewDetailCommentHolder;
 import com.future.awaker.news.holder.NewDetailHeaderHolder;
 import com.future.awaker.news.holder.NewDetailImgHolder;
 import com.future.awaker.news.holder.NewDetailTextHolder;
@@ -27,14 +32,20 @@ import java.util.List;
 
 public class NewDetailAdapter extends RecyclerView.Adapter {
 
+    private static final String COMMENT_TITLE = "commentTitle";
+
     private static final int TYPE_HEADER = 1000;
     private static final int TYPE_TEXT = 1001;
     private static final int TYPE_IMG = 1002;
     private static final int TYPE_VIDEO = 1003;
+    private static final int TYPE_COMMENT_TITLE = 1004;
+    private static final int TYPE_COMMENT_ITEM = 1005;
 
     private List<Object> dataList = new ArrayList<>();
     private OnItemClickListener<NewEle> listener;
     private Header header;
+    private List<NewEle> newEleList;
+    private List<Comment> commentList;
 
     private List<NewDetailVideoHolder> videoHolders = new ArrayList<>();
 
@@ -44,14 +55,35 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         dataList.add(header);
     }
 
-    public void setData(List<NewEle> newEleList) {
-        if (newEleList == null) {
+    public void setData(List<NewEle> list) {
+        if (list == null) {
             return;
         }
         dataList.clear();
+        newEleList = list;
 
         dataList.add(header);
         dataList.addAll(newEleList);
+        if (commentList != null) {
+            dataList.add(COMMENT_TITLE);
+            dataList.addAll(commentList);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void setCommentList(List<Comment> list) {
+        if (list == null) {
+            return;
+        }
+        dataList.clear();
+        commentList = list;
+
+        dataList.add(header);
+        if (newEleList != null) {
+            dataList.addAll(newEleList);
+        }
+        dataList.add(COMMENT_TITLE);
+        dataList.addAll(commentList);
         notifyDataSetChanged();
     }
 
@@ -67,8 +99,15 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
             } else if (NewEle.TYPE_VIDEO == newEle.type) {
                 return TYPE_VIDEO;
             }
+        } else if (object instanceof String) {
+            return TYPE_COMMENT_TITLE;
+
+        } else if (object instanceof Comment) {
+            return TYPE_COMMENT_ITEM;
+        } else if (object instanceof Header) {
+            return TYPE_HEADER;
         }
-        return TYPE_HEADER;
+        return -1;
     }
 
     @Override
@@ -99,12 +138,25 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
             videoHolders.add(holder);
             return holder;
 
-        } else {
+        } else if (viewType == TYPE_COMMENT_TITLE) {
+            ItemNewDetailCommentTitleBinding binding = DataBindingUtil
+                    .inflate(LayoutInflater.from(parent.getContext()),
+                            R.layout.item_new_detail_comment_title, parent, false);
+            return  new EmptyHolder(binding);
+
+        } else if (viewType == TYPE_COMMENT_ITEM) {
+            ItemNewDetailCommentBinding binding = DataBindingUtil
+                    .inflate(LayoutInflater.from(parent.getContext()),
+                            R.layout.item_new_detail_comment, parent, false);
+            return new NewDetailCommentHolder(binding);
+
+        } else if (viewType == TYPE_HEADER){
             ItemNewDetailHeaderBinding binding = DataBindingUtil
                     .inflate(LayoutInflater.from(parent.getContext()),
                             R.layout.item_new_detail_header, parent, false);
             return new NewDetailHeaderHolder(binding);
         }
+        return null;
     }
 
     @Override
@@ -116,11 +168,12 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         } else if (viewType == TYPE_IMG) {
             ((NewDetailImgHolder)holder).bind((NewEle) dataList.get(position));
 
-
         } else if (viewType == TYPE_VIDEO) {
             ((NewDetailVideoHolder)holder).bind((NewEle) dataList.get(position));
 
-        } else {
+        } else if (viewType == TYPE_COMMENT_ITEM) {
+            ((NewDetailCommentHolder)holder).bind((Comment) dataList.get(position));
+        }else if (viewType == TYPE_HEADER){
             ((NewDetailHeaderHolder)holder).bind((Header) dataList.get(position));
         }
     }
@@ -150,7 +203,6 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
-        super.onViewDetachedFromWindow(holder);
         if (holder instanceof NewDetailVideoHolder) {
             NewDetailVideoHolder videoHolder = (NewDetailVideoHolder) holder;
             videoHolder.mAgentWeb.getWebLifeCycle().onPause();
@@ -159,7 +211,6 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
         if (holder instanceof NewDetailVideoHolder) {
             NewDetailVideoHolder videoHolder = (NewDetailVideoHolder) holder;
             videoHolder.mAgentWeb.getWebLifeCycle().onResume();

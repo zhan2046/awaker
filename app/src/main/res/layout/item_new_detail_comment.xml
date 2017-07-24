@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="comment"
+            type="com.future.awaker.data.Comment" />
+    </data>
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_iv"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:scaleType="centerCrop"
+            app:imageCropCircleUrl="@{comment.user.avatar64}" />
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/icon_iv"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{comment.user.real_nickname}"
+            android:textColor="#383838"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_tv"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="8dp"
+            android:layout_toEndOf="@+id/icon_iv"
+            android:ellipsize="end"
+            android:maxLines="10"
+            android:text="@{comment.content}"
+            android:textColor="#383838"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/content_tv"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/icon_iv"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{comment.create_time}"
+            android:textColor="#80383838"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/icon_iv"
+            android:layout_below="@+id/time_tv"
+            android:background="@color/black12"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"/>
+    </RelativeLayout>
+</layout>

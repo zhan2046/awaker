@@ -7,11 +7,13 @@ import android.widget.ImageView;
 
 import com.future.awaker.data.Banner;
 import com.future.awaker.data.BannerItem;
+import com.future.awaker.data.Comment;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.home.HomeListAdapter;
 import com.future.awaker.imageloader.ImageLoader;
+import com.future.awaker.news.NewDetailAdapter;
 import com.future.awaker.news.NewListAdapter;
 import com.future.awaker.video.SpecialListAdapter;
 import com.future.awaker.video.VideoListAdapter;
@@ -80,6 +82,15 @@ public final class DataBindingAdapter {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter instanceof SpecialListAdapter) {
             ((SpecialListAdapter)adapter).setSpecialDetail(specialDetail);
+        }
+    }
+
+    @BindingAdapter({"comments"})
+    public static void setComments(RecyclerView recyclerView,
+                                        List<Comment> commentList) {
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if (adapter instanceof NewDetailAdapter) {
+            ((NewDetailAdapter)adapter).setCommentList(commentList);
         }
     }
 

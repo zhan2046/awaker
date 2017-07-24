@@ -1,6 +1,7 @@
 package com.future.awaker.network;
 
 import com.future.awaker.data.BannerItem;
+import com.future.awaker.data.Comment;
 import com.future.awaker.data.News;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.Special;
@@ -37,7 +38,19 @@ public interface AwakerApi {
     Flowable<HttpResult<NewDetail>> getNewDetail(@Field("access_token") String token,
                                                    @Path("newId") String newId);
 
-    //video
+    // comment
+
+    @FormUrlEncoded
+    @POST("news/getupNewsComments/id/{newId}")
+    Flowable<HttpResult<List<Comment>>> getUpNewsComments(@Field("access_token") String token,
+                                                          @Path("newId") String newId);
+
+    @FormUrlEncoded
+    @POST("api/news/getNewsComments/id/{newId}")
+    Flowable<HttpResult<List<Comment>>> getNewsComments(@Field("access_token") String token,
+                                                        @Path("newId") String newId,
+                                                        @Field("page") int page);
+    // video
 
     @FormUrlEncoded
     @POST("special/getSpecialList")
