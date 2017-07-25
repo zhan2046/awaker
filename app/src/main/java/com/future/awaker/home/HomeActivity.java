@@ -56,6 +56,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private HomeClickListener homeClickListener = new HomeClickListener();
     private HomeAdapter homeAdapter;
+    private Intent versionIntent;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
@@ -88,14 +89,17 @@ public class HomeActivity extends AppCompatActivity {
                 .setDownloadAPKPath(getCacheDir().getAbsolutePath())
                 .setRequestMethod(HttpRequestMethod.GET)
                 .setRequestUrl(Fir.VERSION_URL);
-        Intent intent = new Intent(this, FirService.class);
-        intent.putExtra(FirService.VERSION_PARAMS_KEY, versionParams);
-        startService(intent);
+        versionIntent = new Intent(this, FirService.class);
+        versionIntent.putExtra(FirService.VERSION_PARAMS_KEY, versionParams);
+        startService(versionIntent);
     }
 
     @Override
     protected void onDestroy() {
         NewRepository.destroyInstance();
+        if (BuildConfig.BUILD_TYPE.equals("release") && versionIntent != null) {
+            stopService(versionIntent);
+        }
         super.onDestroy();
     }
 
