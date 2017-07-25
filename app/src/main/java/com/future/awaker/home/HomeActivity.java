@@ -20,12 +20,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.allenliu.versionchecklib.HttpRequestMethod;
+import com.allenliu.versionchecklib.VersionParams;
 import com.future.awaker.R;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.ActivityHomeBinding;
+import com.future.awaker.fir.Fir;
+import com.future.awaker.fir.FirService;
 import com.future.awaker.util.AnimatorUtils;
 import com.future.awaker.util.ResUtils;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
@@ -72,6 +76,17 @@ public class HomeActivity extends AppCompatActivity {
 
         setupFab();
         setupTabs();
+
+        checkVersionUpdate();
+    }
+
+    private void checkVersionUpdate() {
+        VersionParams versionParams = new VersionParams()
+                .setRequestMethod(HttpRequestMethod.GET)
+                .setRequestUrl(Fir.VERSION_URL);
+        Intent intent = new Intent(this, FirService.class);
+        intent.putExtra(FirService.VERSION_PARAMS_KEY, versionParams);
+        startService(intent);
     }
 
     @Override

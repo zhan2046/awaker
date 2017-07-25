@@ -61,5 +61,9 @@
         <activity
             android:name=".news.CommentListActivity"
             android:screenOrientation="portrait" />
+
+        <service android:name=".fir.FirService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 </manifest>

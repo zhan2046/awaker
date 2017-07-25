@@ -2,7 +2,30 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 
+def gitVersionCode() {
+    def cmd = 'git rev-list HEAD --first-parent --count'
+    cmd.execute().text.trim().toInteger()
+}
+
+def gitVersionTag() {
+    def cmd = 'git describe --tags'
+    def version = cmd.execute().text.trim()
+
+    def pattern = "-(\\d+)-g"
+    def matcher = version =~ pattern
+
+    if (matcher) {
+        version = version.substring(0, matcher.start()) + "." + matcher[0][1]
+    } else {
+        version = version + ".0"
+    }
+
+    return version
+}
+
+
 android {
+
     signingConfigs {
         config {
             keyAlias rootProject.keyAlias
@@ -11,42 +34,52 @@ android {
             storePassword rootProject.storePassword
         }
     }
+
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+
     defaultConfig {
         applicationId "com.future.awaker"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 
-        versionCode rootProject.appVersionCode
-        versionName "1.0.2"
-
+        versionCode 1
+        versionName "1.0"
     }
+
     buildTypes {
+
+        debug {
+            // 为了不和 release 版本冲突
+            applicationIdSuffix ".debug"
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
-
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
-        }
     }
+
     dataBinding {
         enabled = true
     }
+
     lintOptions {
         abortOnError false
     }
+
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
 
     applicationVariants.all { variant ->
+        if (variant.buildType.name.equals('release')) {
+            variant.mergedFlavor.versionCode = gitVersionCode()
+            variant.mergedFlavor.versionName = gitVersionTag()
+        }
+
         variant.outputs.each { output ->
             def fileName = output.outputFile.name;
             fileName = fileName.replace("app", "awaker-${variant.versionName}-${variant.versionCode}")
@@ -94,4 +127,6 @@ dependencies {
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
     compile 'com.just.agentweb:agentweb:1.2.5'
     compile 'org.jsoup:jsoup:1.10.3'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
+    compile 'com.allenliu.versionchecklib:library:1.0.7'
 }

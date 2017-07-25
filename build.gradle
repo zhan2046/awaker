@@ -26,9 +26,6 @@ task clean(type: Delete) {
 }
 
 ext {
-  def nowCal = Calendar.instance
-  appVersionCode = nowCal[Calendar.YEAR] * 10000 + (nowCal[Calendar.MONTH] + 1) * 100 + nowCal[Calendar.DATE]
-
   // Sdk and tools
   minSdkVersion = 19
   targetSdkVersion = 25

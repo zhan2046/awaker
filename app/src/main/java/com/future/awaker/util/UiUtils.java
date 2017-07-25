@@ -1,7 +1,7 @@
 package com.future.awaker.util;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Build;
 import android.view.Display;
@@ -15,19 +15,24 @@ import com.future.awaker.Application;
 
 public final class UiUtils {
 
-    private UiUtils() {}
+    private UiUtils() {
+    }
 
     public static Context getContext() {
         return Application.get();
     }
 
-    /** dip转换px */
+    /**
+     * dip转换px
+     */
     public static int dip2px(int dip) {
         final float scale = getContext().getResources().getDisplayMetrics().density;
         return (int) (dip * scale + 0.5f);
     }
 
-    /** pxz转换dip */
+    /**
+     * pxz转换dip
+     */
     public static int px2dip(int px) {
         final float scale = getContext().getResources().getDisplayMetrics().density;
         return (int) (px / scale + 0.5f);
@@ -55,5 +60,15 @@ public final class UiUtils {
         } else {
             return display.getWidth();
         }
+    }
+
+    public static int getVersionCode(Context context) {
+        if (context != null) {
+            try {
+                return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
+            } catch (PackageManager.NameNotFoundException ignored) {
+            }
+        }
+        return 0;
     }
 }
