@@ -86,7 +86,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void checkVersionUpdate() {
         VersionParams versionParams = new VersionParams()
-                .setDownloadAPKPath(getCacheDir().getAbsolutePath())
                 .setRequestMethod(HttpRequestMethod.GET)
                 .setRequestUrl(Fir.VERSION_URL);
         versionIntent = new Intent(this, FirService.class);
