@@ -80,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
         setupTabs();
 
         if (BuildConfig.BUILD_TYPE.equals("release")) {
-            checkVersionUpdate();
+            //checkVersionUpdate();
         }
     }
 
