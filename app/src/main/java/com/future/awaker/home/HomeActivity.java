@@ -34,6 +34,7 @@ import com.future.awaker.util.AnimatorUtils;
 import com.future.awaker.util.ResUtils;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
+import com.lzy.okgo.model.HttpHeaders;
 
 import java.util.Arrays;
 import java.util.List;
@@ -82,6 +83,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void checkVersionUpdate() {
         VersionParams versionParams = new VersionParams()
+                .setDownloadAPKPath(getCacheDir().getAbsolutePath())
                 .setRequestMethod(HttpRequestMethod.GET)
                 .setRequestUrl(Fir.VERSION_URL);
         Intent intent = new Intent(this, FirService.class);
