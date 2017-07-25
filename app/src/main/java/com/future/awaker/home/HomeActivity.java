@@ -97,7 +97,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         NewRepository.destroyInstance();
-        if (BuildConfig.BUILD_TYPE.equals("release") && versionIntent != null) {
+        if (versionIntent != null) {
             stopService(versionIntent);
         }
         super.onDestroy();

@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.allenliu.versionchecklib.AVersionService;
 import com.future.awaker.R;
 import com.future.awaker.util.GsonTools;
-import com.future.awaker.util.ResUtils;
 import com.future.awaker.util.UiUtils;
 
 /**
@@ -33,6 +32,9 @@ public class FirService extends AVersionService {
                     firBean.versionShort);
             service.showVersionDialog(firBean.installUrl, title,
                     firBean.changelog);
+
+        } else {
+            stopSelf();
         }
     }
 }
