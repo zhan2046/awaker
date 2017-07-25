@@ -3,9 +3,13 @@ package com.future.awaker.util;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.future.awaker.Application;
 
@@ -70,5 +74,12 @@ public final class UiUtils {
             }
         }
         return 0;
+    }
+
+    public static void setTint(Context context, int DrawableRes, int tintColor, ImageView imageView) {
+        Drawable up = ContextCompat.getDrawable(context, DrawableRes);
+        Drawable drawableUp = DrawableCompat.wrap(up);
+        DrawableCompat.setTint(drawableUp, ContextCompat.getColor(context, tintColor));
+        imageView.setImageDrawable(drawableUp);
     }
 }

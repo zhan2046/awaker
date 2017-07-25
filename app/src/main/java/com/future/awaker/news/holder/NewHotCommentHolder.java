@@ -14,6 +14,7 @@ import com.future.awaker.databinding.ItemNewDetailCommentBinding;
 import com.future.awaker.databinding.ItemNewHotCommentBinding;
 import com.future.awaker.imageloader.ImageLoader;
 import com.future.awaker.util.ResUtils;
+import com.future.awaker.util.UiUtils;
 
 /**
  * Created by ruzhan on 2017/7/15.
@@ -24,18 +25,35 @@ public class NewHotCommentHolder extends RecyclerView.ViewHolder {
     private ItemNewHotCommentBinding binding;
     private OnItemClickListener<Comment> listener;
     private Comment comment;
+    private boolean isSelect;
 
     public NewHotCommentHolder(ItemNewHotCommentBinding binding,
                                OnItemClickListener<Comment> listener) {
         super(binding.getRoot());
         this.binding = binding;
         this.listener = listener;
+
+        UiUtils.setTint(itemView.getContext(), R.mipmap.zan, R.color.grey_zan,
+                binding.zanIv);
+
         binding.rootCard.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
                 if (listener != null) {
                     listener.onItemClick(v, getAdapterPosition(), comment);
                 }
+            }
+        });
+
+        binding.zanLl.setOnClickListener(new DebouncingOnClickListener() {
+            @Override
+            public void doClick(View v) {
+                isSelect = !isSelect;
+                int color = isSelect ? R.color.blue_zan : R.color.grey_zan;
+                UiUtils.setTint(itemView.getContext(), R.mipmap.zan, color, binding.zanIv);
+                int up = Integer.valueOf(comment.up);
+                int newUp = isSelect ? (up + 1) : up;
+                binding.zanTv.setText(String.valueOf(newUp));
             }
         });
     }
@@ -46,6 +64,7 @@ public class NewHotCommentHolder extends RecyclerView.ViewHolder {
         String newTitle = bean.newstitle == null ? "" : bean.newstitle.title;
         binding.newTitleTv.setText("@" + newTitle);
         binding.areaTv.setText("( " + bean.area + " )");
+        binding.zanTv.setText(bean.up);
 
         User user = bean.user;
         if (user != null) {

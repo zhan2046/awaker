@@ -12,6 +12,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.future.awaker.BuildConfig;
 import com.future.awaker.R;
 import com.future.awaker.databinding.ActivityMainBinding;
 import com.future.awaker.home.HomeActivity;
@@ -23,7 +24,7 @@ import com.future.awaker.imageloader.ImageLoader;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final long DELAY_MILLIS = 2500;
+    private static long DELAY_MILLIS;
 
     private ActivityMainBinding binding;
 
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        DELAY_MILLIS = BuildConfig.BUILD_TYPE.equals("release") ? 2500 : 0;
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 

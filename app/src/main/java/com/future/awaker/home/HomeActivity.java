@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.allenliu.versionchecklib.HttpRequestMethod;
 import com.allenliu.versionchecklib.VersionParams;
+import com.future.awaker.BuildConfig;
 import com.future.awaker.R;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
@@ -34,7 +35,6 @@ import com.future.awaker.util.AnimatorUtils;
 import com.future.awaker.util.ResUtils;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
-import com.lzy.okgo.model.HttpHeaders;
 
 import java.util.Arrays;
 import java.util.List;
@@ -78,7 +78,9 @@ public class HomeActivity extends AppCompatActivity {
         setupFab();
         setupTabs();
 
-        checkVersionUpdate();
+        if (BuildConfig.BUILD_TYPE.equals("release")) {
+            checkVersionUpdate();
+        }
     }
 
     private void checkVersionUpdate() {
@@ -149,7 +151,7 @@ public class HomeActivity extends AppCompatActivity {
                 binding.toolbar.postDelayed(() -> {
                     Fragment fragment = homeAdapter.getCurrentFrag(position);
                     if (fragment instanceof onPageSelectedListener) {
-                        ((onPageSelectedListener)fragment).onPageSelected(position);
+                        ((onPageSelectedListener) fragment).onPageSelected(position);
                     }
                 }, 300);
 
@@ -162,10 +164,10 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         binding.toolbar.post(() -> {
-                    if (binding.viewpager != null) {
-                        binding.viewpager.setCurrentItem(HomeAdapter.NEW, false);
-                    }
-                });
+            if (binding.viewpager != null) {
+                binding.viewpager.setCurrentItem(HomeAdapter.NEW, false);
+            }
+        });
     }
 
     private void setupColor(int position) {
