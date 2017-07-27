@@ -25,8 +25,9 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                app:layoutManager="LinearLayoutManager"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:clipToPadding="false"
                 app:news="@{viewModel.news}" />
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>

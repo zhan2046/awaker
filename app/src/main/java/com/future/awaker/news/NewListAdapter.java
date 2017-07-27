@@ -14,6 +14,7 @@ import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.News;
 import com.future.awaker.databinding.ItemLoadBinding;
 import com.future.awaker.databinding.ItemNewListBinding;
+import com.future.awaker.databinding.ItemNewListGridBinding;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +25,6 @@ import java.util.Objects;
 
 public class NewListAdapter extends RecyclerView.Adapter {
 
-    private static final int TYPE_LOADING = 1000;
     private static final int TYPE_NEW = 1001;
 
     private BaseViewModel viewModel;
@@ -56,28 +56,17 @@ public class NewListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == news.size()) {
-            return TYPE_LOADING;
-        }
         return TYPE_NEW;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_LOADING) {
-            ItemLoadBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                    R.layout.item_load, parent, false);
-            binding.setViewModel(viewModel);
-            return new EmptyHolder(binding);
-
-        } else {
-            ItemNewListBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                    R.layout.item_new_list, parent, false);
-            NewHolder newHolder = new NewHolder(binding);
-            binding.setHolder(newHolder);
-            binding.setListener(listener);
-            return newHolder;
-        }
+        ItemNewListGridBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.item_new_list_grid, parent, false);
+        NewHolder newHolder = new NewHolder(binding);
+        binding.setHolder(newHolder);
+        binding.setListener(listener);
+        return newHolder;
     }
 
     @Override
@@ -90,14 +79,14 @@ public class NewListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return news == null ? 0 : news.size() + 1;
+        return news == null ? 0 : news.size();
     }
 
     public static class NewHolder extends RecyclerView.ViewHolder {
 
-        public ItemNewListBinding binding;
+        public ItemNewListGridBinding binding;
 
-        public NewHolder(ItemNewListBinding binding) {
+        public NewHolder(ItemNewListGridBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -107,6 +96,7 @@ public class NewListAdapter extends RecyclerView.Adapter {
                     .getString(R.string.comment_count), bean.comment);
             binding.commentTv.setText(commentStr);
 
+            
 
             binding.setNewsItem(bean);
             binding.executePendingBindings();

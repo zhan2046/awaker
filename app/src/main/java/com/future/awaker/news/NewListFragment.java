@@ -1,6 +1,8 @@
 package com.future.awaker.news;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.future.awaker.R;
@@ -48,6 +50,9 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
 
         adapter = new NewListAdapter(newViewModel, this);
         binding.recyclerView.setAdapter(adapter);
+
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
+                StaggeredGridLayoutManager.VERTICAL));
 
         onRefresh();
     }

@@ -1,5 +1,6 @@
 package com.future.awaker.news;
 
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.future.awaker.R;
@@ -36,6 +37,8 @@ public class HotReadNewsFragment extends BaseListFragment<FragNewHotReadBinding>
 
         adapter = new NewListAdapter(viewModel, this);
         binding.recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
+                StaggeredGridLayoutManager.VERTICAL));
 
         onRefresh();
     }
