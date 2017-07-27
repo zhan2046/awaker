@@ -2,6 +2,9 @@ package com.future.awaker.base;
 
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableList;
+
+import java.util.List;
 
 /**
  * Copyright ©2017 by Teambition
@@ -47,6 +50,19 @@ public abstract class BaseListViewModel extends BaseViewModel {
         isRefresh = refresh;
         if (isRefresh) { // 网络请求开始显示下拉刷新
             refreshing.set(true);
+        }
+    }
+
+    protected <T> void setDataList(List<T> list, ObservableList<T> observableList) {
+        if (observableList == null) {
+            return;
+        }
+        checkEmpty(list);
+        if (!isEmpty.get()) {
+            if (isRefresh) {
+                observableList.clear();
+            }
+            observableList.addAll(list);
         }
     }
 

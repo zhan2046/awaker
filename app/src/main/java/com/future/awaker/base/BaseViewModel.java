@@ -3,7 +3,9 @@ package com.future.awaker.base;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+
 import java.util.List;
+
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -31,6 +33,16 @@ public class BaseViewModel extends BaseObservable {
         boolean emptyFlag = object == null;
         if (emptyFlag != isEmpty.get()) {
             isEmpty.set(emptyFlag);
+        }
+    }
+
+    protected <T> void setDataObject(T object, ObservableField<T> field) {
+        if (field == null) {
+            return;
+        }
+        checkEmpty(object);
+        if (!isEmpty.get()) {
+            field.set(object);
         }
     }
 

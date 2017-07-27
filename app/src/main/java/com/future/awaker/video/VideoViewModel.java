@@ -73,6 +73,8 @@ public class VideoViewModel extends BaseListViewModel {
         disposable.add(NewRepository.get().getLocalSpecialList(map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
+                .doOnSubscribe(disposable -> isRunning.set(true))
+                .doOnTerminate(() -> isRunning.set(false))
                 .doOnNext(realmResults -> {
                     LogUtils.d("getLocalSpecialList" + realmResults.size());
                     setLocalNewList(realmResults);
@@ -87,7 +89,7 @@ public class VideoViewModel extends BaseListViewModel {
                 // save to local
                 NewRepository.get().updateLocalSpecialList(String.valueOf(cat), specialList);
             }
-            setSpecialList(specialList);
+            setDataList(specialList, specials);
         }
     }
 
@@ -100,17 +102,7 @@ public class VideoViewModel extends BaseListViewModel {
         if (specials.isEmpty()) {   // data is empty, network not back
             RealmList<SpecialRealm> realmList = specialPageRealm.getSpecialList();
             List<Special> specialList = SpecialPageRealm.getSpecialList(realmList);
-            setSpecialList(specialList);
-        }
-    }
-
-    private void setSpecialList(List<Special> specialList) {
-        checkEmpty(specialList);
-        if (isRefresh) {
-            specials.clear();
-        }
-        if (!isEmpty.get()) {
-            specials.addAll(specialList);
+            setDataList(specialList, specials);
         }
     }
 }

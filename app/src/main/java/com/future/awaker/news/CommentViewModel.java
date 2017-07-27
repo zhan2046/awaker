@@ -9,8 +9,6 @@ import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 
-import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
@@ -33,16 +31,7 @@ public class CommentViewModel extends BaseListViewModel {
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(result -> {
-                    List<Comment> commentList = result.getData();
-                    checkEmpty(commentList);
-                    if (!isEmpty.get()) {
-                        if (isRefresh) {
-                            comments.clear();
-                        }
-                        comments.addAll(commentList);
-                    }
-                })
+                .doOnNext(result -> setDataList(result.getData(), comments))
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 }

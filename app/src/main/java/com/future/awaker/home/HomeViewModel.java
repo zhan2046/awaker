@@ -58,6 +58,8 @@ public class HomeViewModel extends BaseViewModel {
         disposable.add(NewRepository.get().getLocalBanner(map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
+                .doOnSubscribe(disposable -> isRunning.set(true))
+                .doOnTerminate(() -> isRunning.set(false))
                 .doOnNext(realmResults -> {
                     LogUtils.d("getLocalBanner" + realmResults.size());
                     setLocalBanner(realmResults);
