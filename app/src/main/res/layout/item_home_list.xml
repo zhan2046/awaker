@@ -22,8 +22,9 @@
         android:foreground="?attr/selectableItemBackground"
         android:background="@color/white"
         android:stateListAnimator="@drawable/lift_on_touch"
-        card_view:cardCornerRadius="0dp"
-        card_view:cardElevation="0dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="2dp"
+        android:layout_margin="4dp"
         tools:targetApi="lollipop">
 
         <LinearLayout
@@ -40,7 +41,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:text="@{bean.title}"
                 android:textSize="12sp"
                 android:textColor="#383838"

@@ -43,7 +43,7 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding>
         adapter = new HomeListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
 
-        GridLayoutManager manager = new GridLayoutManager(getActivity(), 4);
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

@@ -102,7 +102,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         int spanSize = 1;
         int viewType = getItemViewType(position);
         if (viewType == TYPE_BANNER) {
-            spanSize = 4;
+            spanSize = 3;
         }
         return spanSize;
     }

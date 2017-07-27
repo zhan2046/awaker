@@ -25,7 +25,9 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="vertical"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:clipToPadding="false"
                 app:specials="@{viewModel.specials}"
                 app:layoutManager="LinearLayoutManager" />
         </FrameLayout>

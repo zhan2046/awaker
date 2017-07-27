@@ -25,12 +25,9 @@
         android:foreground="?attr/selectableItemBackground"
         android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), specialItem)}"
         android:stateListAnimator="@drawable/lift_on_touch"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="2dp"
+        android:layout_margin="4dp"
         tools:targetApi="lollipop">
 
         <LinearLayout
