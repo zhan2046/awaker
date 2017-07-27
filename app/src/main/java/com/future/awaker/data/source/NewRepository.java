@@ -107,6 +107,10 @@ public final class NewRepository {
         return localNewDataSource.getLocalBanner(map);
     }
 
+    public Flowable<RealmResults> getLocalNewDetail(HashMap<String, String> map) {
+        return localNewDataSource.getLocalNewDetail(map);
+    }
+
     public void updateLocalNewList(String newId, List<News> newsList) {
         localNewDataSource.updateLocalNewList(newId, newsList);
     }
@@ -119,6 +123,10 @@ public final class NewRepository {
         localNewDataSource.updateLocalBanner(id, bannerItemList);
     }
 
+    public void updateLocalNewDetail(NewDetail newDetail) {
+        localNewDataSource.updateLocalNewDetail(newDetail);
+    }
+
     public void deleteLocalNewList(String newId) {
         localNewDataSource.deleteLocalNewList(newId);
     }
@@ -129,6 +137,10 @@ public final class NewRepository {
 
     public void deleteLocalBanner(String id) {
         localNewDataSource.deleteLocalBanner(id);
+    }
+
+    public void deleteLocalNewDetail(String id) {
+        localNewDataSource.deleteLocalNewDetail(id);
     }
 
     public void close() {

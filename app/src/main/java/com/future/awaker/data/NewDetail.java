@@ -6,7 +6,6 @@ package com.future.awaker.data;
 
 public class NewDetail {
 
-
     public String id;
     public String uid;
     public String title;

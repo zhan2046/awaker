@@ -1,10 +1,12 @@
 package com.future.awaker.data.source;
 
 import com.future.awaker.data.BannerItem;
+import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.realm.BannerItemRealm;
 import com.future.awaker.data.realm.BannerRealm;
+import com.future.awaker.data.realm.NewDetailRealm;
 import com.future.awaker.data.realm.NewsPageRealm;
 import com.future.awaker.data.realm.NewsRealm;
 import com.future.awaker.data.realm.SpecialPageRealm;
@@ -110,6 +112,18 @@ public final class RealmManager {
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
+    public void updateLocalNewDetail(NewDetail newDetail) {
+        Flowable.create((FlowableOnSubscribe<List<News>>) e -> {
+            NewDetailRealm newDetailRealm = NewDetailRealm.setNewDetail(newDetail);
+            Realm realmInstance = Realm.getDefaultInstance();
+            realmInstance.executeTransactionAsync(realm ->
+                    realm.copyToRealmOrUpdate(newDetailRealm));
+        }, BackpressureStrategy.LATEST)
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "doOnError: " + throwable.toString()))
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
+    }
+
     @SuppressWarnings("unchecked")
     public void deleteLocalNewList(String newId) {
         Realm realmInstance = Realm.getDefaultInstance();
@@ -153,6 +167,25 @@ public final class RealmManager {
         Realm realmInstance = Realm.getDefaultInstance();
         RealmResults results = realmInstance.where(BannerRealm.class)
                 .equalTo(BannerRealm.ID, id)
+                .findAllAsync();
+        RealmChangeListener<RealmResults> listener
+                = new RealmChangeListener<RealmResults>() {
+            @Override
+            public void onChange(RealmResults realmResults) {
+                if (realmResults.isLoaded()) {
+                    realmResults.deleteAllFromRealm();
+                    realmResults.removeChangeListener(this);
+                }
+            }
+        };
+        results.addChangeListener(listener);
+    }
+
+    @SuppressWarnings("unchecked")
+    public void deleteLocalNewDetail(String id) {
+        Realm realmInstance = Realm.getDefaultInstance();
+        RealmResults results = realmInstance.where(NewDetailRealm.class)
+                .equalTo(NewDetailRealm.ID, id)
                 .findAllAsync();
         RealmChangeListener<RealmResults> listener
                 = new RealmChangeListener<RealmResults>() {
