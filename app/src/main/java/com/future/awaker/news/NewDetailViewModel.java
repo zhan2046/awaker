@@ -70,8 +70,9 @@ public class NewDetailViewModel extends BaseListViewModel {
 
 
     }
+
     private void getLocalNewDetail() {
-        disposable.add(NewRepository.get().getLocalNewDetail(map)
+        disposable.add(NewRepository.get().getLocalRealm(NewDetailRealm.class, map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -109,7 +110,8 @@ public class NewDetailViewModel extends BaseListViewModel {
         if (!isEmpty.get()) {
             if (isRefresh) {
                 // save to local
-                NewRepository.get().updateLocalNewDetail(newDetailItem);
+                NewDetailRealm newDetailRealm = NewDetailRealm.setNewDetail(newDetailItem);
+                NewRepository.get().updateLocalRealm(newDetailRealm);
             }
             setDataObject(newDetailItem, newDetail);
         }
@@ -117,9 +119,12 @@ public class NewDetailViewModel extends BaseListViewModel {
 
     public void getHotCommentList() {
         disposable.add(NewRepository.get().getUpNewsComments(TOKEN, newId)
-                .doOnError(throwable -> {})
-                .doOnSubscribe(disposable -> {})
-                .doOnTerminate(() -> {})
+                .doOnError(throwable -> {
+                })
+                .doOnSubscribe(disposable -> {
+                })
+                .doOnTerminate(() -> {
+                })
                 .doOnNext(result -> {
                     List<Comment> commentList = result.getData();
                     if (commentList != null && !commentList.isEmpty()) {

@@ -1,16 +1,6 @@
 package com.future.awaker.data.source;
 
-import com.future.awaker.data.BannerItem;
-import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
-import com.future.awaker.data.Special;
-import com.future.awaker.data.realm.BannerItemRealm;
-import com.future.awaker.data.realm.BannerRealm;
-import com.future.awaker.data.realm.NewDetailRealm;
-import com.future.awaker.data.realm.NewsPageRealm;
-import com.future.awaker.data.realm.NewsRealm;
-import com.future.awaker.data.realm.SpecialPageRealm;
-import com.future.awaker.data.realm.SpecialRealm;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.util.LogUtils;
@@ -23,7 +13,7 @@ import io.reactivex.Flowable;
 import io.reactivex.FlowableOnSubscribe;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
-import io.realm.RealmList;
+import io.realm.RealmModel;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
@@ -61,63 +51,14 @@ public final class RealmManager {
         }, BackpressureStrategy.LATEST);
     }
 
-    public void updateLocalNewList(String newId, List<News> newsList) {
+    public void updateLocalRealm(RealmModel realmModel) {
+        if (realmModel == null) {
+            return;
+        }
         Flowable.create((FlowableOnSubscribe<List<News>>) e -> {
-            NewsPageRealm newsPageRealm = new NewsPageRealm();
-            RealmList<NewsRealm> realmList =
-                    NewsPageRealm.getNewsRealmList(newsList);
-            newsPageRealm.setId(newId);
-            newsPageRealm.setNewsList(realmList);
-
             Realm realmInstance = Realm.getDefaultInstance();
             realmInstance.executeTransactionAsync(realm ->
-                    realm.copyToRealmOrUpdate(newsPageRealm));
-        }, BackpressureStrategy.LATEST)
-                .doOnError(throwable -> LogUtils.showLog(TAG,
-                        "doOnError: " + throwable.toString()))
-                .subscribe(new EmptyConsumer(), new ErrorConsumer());
-    }
-
-    public void updateLocalSpecialList(String cat, List<Special> specialList) {
-        Flowable.create((FlowableOnSubscribe<List<News>>) e -> {
-            SpecialPageRealm specialPageRealm = new SpecialPageRealm();
-            RealmList<SpecialRealm> realmList =
-                    SpecialPageRealm.getSpecialRealmList(specialList);
-            specialPageRealm.setCat(cat);
-            specialPageRealm.setSpecialList(realmList);
-
-            Realm realmInstance = Realm.getDefaultInstance();
-            realmInstance.executeTransactionAsync(realm ->
-                    realm.copyToRealmOrUpdate(specialPageRealm));
-        }, BackpressureStrategy.LATEST)
-                .doOnError(throwable -> LogUtils.showLog(TAG,
-                        "doOnError: " + throwable.toString()))
-                .subscribe(new EmptyConsumer(), new ErrorConsumer());
-    }
-
-    public void updateLocalBanner(String id, List<BannerItem> bannerItemList) {
-        Flowable.create((FlowableOnSubscribe<List<News>>) e -> {
-            BannerRealm bannerRealm = new BannerRealm();
-            RealmList<BannerItemRealm> realmList =
-                    BannerRealm.getBannerItemRealmList(bannerItemList);
-            bannerRealm.setId(id);
-            bannerRealm.setBannerItemList(realmList);
-
-            Realm realmInstance = Realm.getDefaultInstance();
-            realmInstance.executeTransactionAsync(realm ->
-                    realm.copyToRealmOrUpdate(bannerRealm));
-        }, BackpressureStrategy.LATEST)
-                .doOnError(throwable -> LogUtils.showLog(TAG,
-                        "doOnError: " + throwable.toString()))
-                .subscribe(new EmptyConsumer(), new ErrorConsumer());
-    }
-
-    public void updateLocalNewDetail(NewDetail newDetail) {
-        Flowable.create((FlowableOnSubscribe<List<News>>) e -> {
-            NewDetailRealm newDetailRealm = NewDetailRealm.setNewDetail(newDetail);
-            Realm realmInstance = Realm.getDefaultInstance();
-            realmInstance.executeTransactionAsync(realm ->
-                    realm.copyToRealmOrUpdate(newDetailRealm));
+                    realm.copyToRealmOrUpdate(realmModel));
         }, BackpressureStrategy.LATEST)
                 .doOnError(throwable -> LogUtils.showLog(TAG,
                         "doOnError: " + throwable.toString()))
@@ -125,68 +66,16 @@ public final class RealmManager {
     }
 
     @SuppressWarnings("unchecked")
-    public void deleteLocalNewList(String newId) {
+    public void deleteLocalRealm(Class clazz, Map<String, String> map) {
         Realm realmInstance = Realm.getDefaultInstance();
-        RealmResults results = realmInstance.where(NewsPageRealm.class)
-                .equalTo(NewsPageRealm.ID, newId)
-                .findAllAsync();
-        RealmChangeListener<RealmResults> listener
-                = new RealmChangeListener<RealmResults>() {
-            @Override
-            public void onChange(RealmResults realmResults) {
-                if (realmResults.isLoaded()) {
-                    realmResults.deleteAllFromRealm();
-                    realmResults.removeChangeListener(this);
-                }
+        RealmQuery realmQuery = realmInstance.where(clazz);
+
+        if (map != null) {
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                realmQuery.equalTo(entry.getKey(), entry.getValue());
             }
-        };
-        results.addChangeListener(listener);
-    }
-
-    @SuppressWarnings("unchecked")
-    public void deleteLocalSpecialList(String cat) {
-        Realm realmInstance = Realm.getDefaultInstance();
-        RealmResults results = realmInstance.where(SpecialPageRealm.class)
-                .equalTo(SpecialPageRealm.CAT, cat)
-                .findAllAsync();
-        RealmChangeListener<RealmResults> listener
-                = new RealmChangeListener<RealmResults>() {
-            @Override
-            public void onChange(RealmResults realmResults) {
-                if (realmResults.isLoaded()) {
-                    realmResults.deleteAllFromRealm();
-                    realmResults.removeChangeListener(this);
-                }
-            }
-        };
-        results.addChangeListener(listener);
-    }
-
-    @SuppressWarnings("unchecked")
-    public void deleteLocalBanner(String id) {
-        Realm realmInstance = Realm.getDefaultInstance();
-        RealmResults results = realmInstance.where(BannerRealm.class)
-                .equalTo(BannerRealm.ID, id)
-                .findAllAsync();
-        RealmChangeListener<RealmResults> listener
-                = new RealmChangeListener<RealmResults>() {
-            @Override
-            public void onChange(RealmResults realmResults) {
-                if (realmResults.isLoaded()) {
-                    realmResults.deleteAllFromRealm();
-                    realmResults.removeChangeListener(this);
-                }
-            }
-        };
-        results.addChangeListener(listener);
-    }
-
-    @SuppressWarnings("unchecked")
-    public void deleteLocalNewDetail(String id) {
-        Realm realmInstance = Realm.getDefaultInstance();
-        RealmResults results = realmInstance.where(NewDetailRealm.class)
-                .equalTo(NewDetailRealm.ID, id)
-                .findAllAsync();
+        }
+        RealmResults results = realmQuery.findAllAsync();
         RealmChangeListener<RealmResults> listener
                 = new RealmChangeListener<RealmResults>() {
             @Override

@@ -29,7 +29,7 @@ public class HomeViewModel extends BaseViewModel {
 
     private static final String TAG = HomeViewModel.class.getSimpleName();
 
-    private String advType	= ResUtils.getString(R.string.adv_type);
+    private String advType = ResUtils.getString(R.string.adv_type);
     public ObservableList<BannerItem> bannerItems = new ObservableArrayList<>();
     private HashMap<String, String> map = new HashMap<>();
 
@@ -55,7 +55,7 @@ public class HomeViewModel extends BaseViewModel {
     }
 
     private void getLocalBanner() {
-        disposable.add(NewRepository.get().getLocalBanner(map)
+        disposable.add(NewRepository.get().getLocalRealm(BannerRealm.class, map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -71,7 +71,12 @@ public class HomeViewModel extends BaseViewModel {
         checkEmpty(bannerItemList);
         if (!isEmpty.get()) {
             // save to local
-            NewRepository.get().updateLocalBanner(BannerRealm.ID_VALUE, bannerItemList);
+            BannerRealm bannerRealm = new BannerRealm();
+            RealmList<BannerItemRealm> realmList =
+                    BannerRealm.getBannerItemRealmList(bannerItemList);
+            bannerRealm.setId(BannerRealm.ID_VALUE);
+            bannerRealm.setBannerItemList(realmList);
+            NewRepository.get().updateLocalRealm(bannerRealm);
             setBanner(bannerItemList);
         }
 

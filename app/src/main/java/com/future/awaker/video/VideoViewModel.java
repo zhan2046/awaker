@@ -70,7 +70,7 @@ public class VideoViewModel extends BaseListViewModel {
     }
 
     private void getLocalSpecialList() {
-        disposable.add(NewRepository.get().getLocalSpecialList(map)
+        disposable.add(NewRepository.get().getLocalRealm(SpecialPageRealm.class, map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -87,7 +87,12 @@ public class VideoViewModel extends BaseListViewModel {
         if (!isEmpty.get()) {
             if (isRefresh) {
                 // save to local
-                NewRepository.get().updateLocalSpecialList(String.valueOf(cat), specialList);
+                SpecialPageRealm specialPageRealm = new SpecialPageRealm();
+                RealmList<SpecialRealm> realmList =
+                        SpecialPageRealm.getSpecialRealmList(specialList);
+                specialPageRealm.setCat(String.valueOf(cat));
+                specialPageRealm.setSpecialList(realmList);
+                NewRepository.get().updateLocalRealm(specialPageRealm);
             }
             setDataList(specialList, specials);
         }

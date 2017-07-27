@@ -55,7 +55,7 @@ public class NewViewModel extends BaseListViewModel {
     }
 
     private void getLocalNewList() {
-        disposable.add(NewRepository.get().getLocalNewList(map)
+        disposable.add(NewRepository.get().getLocalRealm(NewsPageRealm.class, map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -72,7 +72,12 @@ public class NewViewModel extends BaseListViewModel {
         if (!isEmpty.get()) {
             if (isRefresh) {
                 // save to local
-                NewRepository.get().updateLocalNewList(String.valueOf(newId), newsList);
+                NewsPageRealm newsPageRealm = new NewsPageRealm();
+                RealmList<NewsRealm> realmList =
+                        NewsPageRealm.getNewsRealmList(newsList);
+                newsPageRealm.setId(String.valueOf(newId));
+                newsPageRealm.setNewsList(realmList);
+                NewRepository.get().updateLocalRealm(newsPageRealm);
             }
             setDataList(newsList, news);
         }

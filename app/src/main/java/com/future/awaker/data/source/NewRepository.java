@@ -10,8 +10,10 @@ import com.future.awaker.network.HttpResult;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Flowable;
+import io.realm.RealmModel;
 import io.realm.RealmResults;
 
 /**
@@ -95,52 +97,16 @@ public final class NewRepository {
     ///////////////////////
 
 
-    public Flowable<RealmResults> getLocalNewList(HashMap<String, String> map) {
-        return localNewDataSource.getLocalNewList(map);
+    public Flowable<RealmResults> getLocalRealm(Class clazz, HashMap<String, String> map) {
+        return localNewDataSource.getLocalRealm(clazz, map);
     }
 
-    public Flowable<RealmResults> getLocalSpecialList(HashMap<String, String> map) {
-        return localNewDataSource.getLocalSpecialList(map);
+    public void updateLocalRealm(RealmModel realmModel) {
+        localNewDataSource.updateLocalRealm(realmModel);
     }
 
-    public Flowable<RealmResults> getLocalBanner(HashMap<String, String> map) {
-        return localNewDataSource.getLocalBanner(map);
-    }
-
-    public Flowable<RealmResults> getLocalNewDetail(HashMap<String, String> map) {
-        return localNewDataSource.getLocalNewDetail(map);
-    }
-
-    public void updateLocalNewList(String newId, List<News> newsList) {
-        localNewDataSource.updateLocalNewList(newId, newsList);
-    }
-
-    public void updateLocalSpecialList(String cat, List<Special> specialList) {
-        localNewDataSource.updateLocalSpecialList(cat, specialList);
-    }
-
-    public void updateLocalBanner(String id, List<BannerItem> bannerItemList) {
-        localNewDataSource.updateLocalBanner(id, bannerItemList);
-    }
-
-    public void updateLocalNewDetail(NewDetail newDetail) {
-        localNewDataSource.updateLocalNewDetail(newDetail);
-    }
-
-    public void deleteLocalNewList(String newId) {
-        localNewDataSource.deleteLocalNewList(newId);
-    }
-
-    public void deleteLocalSpecialList(String cat) {
-        localNewDataSource.deleteLocalSpecialList(cat);
-    }
-
-    public void deleteLocalBanner(String id) {
-        localNewDataSource.deleteLocalBanner(id);
-    }
-
-    public void deleteLocalNewDetail(String id) {
-        localNewDataSource.deleteLocalNewDetail(id);
+    public void deleteLocalRealm(Class clazz, Map<String, String> map) {
+        localNewDataSource.deleteLocalRealm(clazz, map);
     }
 
     public void close() {
