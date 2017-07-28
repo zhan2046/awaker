@@ -1,7 +1,6 @@
 package com.future.awaker.data.realm;
 
 import com.future.awaker.data.Comment;
-import com.future.awaker.data.News;
 
 import java.util.ArrayList;
 import java.util.List;

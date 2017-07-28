@@ -2,7 +2,6 @@ package com.future.awaker.base;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 /**
  * Copyright ©2017 by Teambition

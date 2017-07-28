@@ -10,7 +10,6 @@ import android.view.View;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
-import com.future.awaker.data.Header;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.NewEle;
 import com.future.awaker.data.User;

@@ -14,7 +14,6 @@ import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.Comment;
 import com.future.awaker.databinding.ItemLoadBinding;
 import com.future.awaker.databinding.ItemNewHotCommentBinding;
-import com.future.awaker.news.holder.NewDetailCommentHolder;
 import com.future.awaker.news.holder.NewHotCommentHolder;
 
 import java.util.List;

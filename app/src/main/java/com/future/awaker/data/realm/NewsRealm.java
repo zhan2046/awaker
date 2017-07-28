@@ -3,7 +3,6 @@ package com.future.awaker.data.realm;
 import com.future.awaker.data.News;
 
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 /**
  * Copyright ©2017 by Teambition

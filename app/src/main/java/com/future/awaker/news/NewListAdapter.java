@@ -8,12 +8,9 @@ import android.view.ViewGroup;
 
 import com.future.awaker.R;
 import com.future.awaker.base.BaseViewModel;
-import com.future.awaker.base.EmptyHolder;
 import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.News;
-import com.future.awaker.databinding.ItemLoadBinding;
-import com.future.awaker.databinding.ItemNewListBinding;
 import com.future.awaker.databinding.ItemNewListGridBinding;
 
 import java.util.List;

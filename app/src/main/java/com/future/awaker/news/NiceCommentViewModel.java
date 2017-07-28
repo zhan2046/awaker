@@ -5,7 +5,6 @@ import android.databinding.ObservableList;
 
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.Comment;
-import com.future.awaker.data.News;
 import com.future.awaker.data.realm.CommentPageRealm;
 import com.future.awaker.data.realm.CommentRealm;
 import com.future.awaker.data.source.NewRepository;

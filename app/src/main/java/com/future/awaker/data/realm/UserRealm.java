@@ -2,6 +2,7 @@ package com.future.awaker.data.realm;
 
 
 import com.future.awaker.data.User;
+
 import io.realm.RealmObject;
 
 /**

@@ -2,8 +2,6 @@ package com.future.awaker.data.realm;
 
 import com.future.awaker.data.SpecialDetail;
 
-import java.util.List;
-
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

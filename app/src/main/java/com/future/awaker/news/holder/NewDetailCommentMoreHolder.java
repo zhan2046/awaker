@@ -7,7 +7,6 @@ import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.NewEle;
 import com.future.awaker.databinding.ItemNewDetailCommentMoreBinding;
-import com.future.awaker.databinding.ItemNewDetailTextBinding;
 
 /**
  * Created by ruzhan on 2017/7/15.

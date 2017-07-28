@@ -10,7 +10,6 @@ import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.Comment;
 import com.future.awaker.data.User;
-import com.future.awaker.databinding.ItemNewDetailCommentBinding;
 import com.future.awaker.databinding.ItemNewHotCommentBinding;
 import com.future.awaker.imageloader.ImageLoader;
 import com.future.awaker.util.ResUtils;

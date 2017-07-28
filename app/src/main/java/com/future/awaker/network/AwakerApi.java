@@ -2,8 +2,8 @@ package com.future.awaker.network;
 
 import com.future.awaker.data.BannerItem;
 import com.future.awaker.data.Comment;
-import com.future.awaker.data.News;
 import com.future.awaker.data.NewDetail;
+import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
 
