@@ -13,6 +13,7 @@ import java.util.List;
 public abstract class BaseListViewModel extends BaseViewModel {
 
     protected static final int NORMAL_PAGE = 1;
+    protected static final int PAGE_SIZE = 10;
 
     protected int page;
     protected boolean isRefresh;
@@ -63,6 +64,9 @@ public abstract class BaseListViewModel extends BaseViewModel {
                 observableList.clear();
             }
             observableList.addAll(list);
+        }
+        if (list != null && list.size() < PAGE_SIZE) {
+            isEmpty.set(true);
         }
     }
 
