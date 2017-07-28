@@ -46,6 +46,7 @@ public class NewDetailVideoHolder extends RecyclerView.ViewHolder {
 
         binding.setNewEle(bean);
         binding.executePendingBindings();
+        binding.contentFl.requestFocus();
     }
 
     private void initWebView() {
