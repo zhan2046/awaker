@@ -46,4 +46,20 @@ public class CommentHotRealm extends RealmObject {
         }
         return newsList;
     }
+
+    public String getComment_hot_id() {
+        return comment_hot_id;
+    }
+
+    public void setComment_hot_id(String comment_hot_id) {
+        this.comment_hot_id = comment_hot_id;
+    }
+
+    public RealmList<CommentRealm> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(RealmList<CommentRealm> commentList) {
+        this.commentList = commentList;
+    }
 }

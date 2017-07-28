@@ -7,6 +7,8 @@ import android.databinding.ObservableList;
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.Comment;
 import com.future.awaker.data.NewDetail;
+import com.future.awaker.data.realm.CommentHotRealm;
+import com.future.awaker.data.realm.CommentRealm;
 import com.future.awaker.data.realm.NewDetailRealm;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.network.EmptyConsumer;
@@ -17,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 /**
@@ -34,6 +37,8 @@ public class NewDetailViewModel extends BaseListViewModel {
     private String title;
     private String url;
     private HashMap<String, String> map = new HashMap<>();
+    private HashMap<String, String> commentMap = new HashMap<>();
+
 
     public String getNewId() {
         return newId;
@@ -42,6 +47,7 @@ public class NewDetailViewModel extends BaseListViewModel {
     public void setNewId(String newId) {
         this.newId = newId;
         map.put(NewDetailRealm.ID, newId + NewDetailRealm.DETAIL);
+        commentMap.put(CommentHotRealm.ID, newId + CommentHotRealm.COMMENT_HOT);
     }
 
     public String getTitle() {
@@ -123,23 +129,45 @@ public class NewDetailViewModel extends BaseListViewModel {
 
     public void getRemoteHotCommentList() {
         disposable.add(NewRepository.get().getUpNewsComments(TOKEN, newId)
-                .doOnError(throwable -> {
-                })
-                .doOnSubscribe(disposable -> {
-                })
-                .doOnTerminate(() -> {
-                })
-                .doOnNext(result -> {
-                    List<Comment> commentList = result.getData();
-                    if (commentList != null && !commentList.isEmpty()) {
-                        comments.clear();
-                        comments.addAll(commentList);
-                    }
+                .doOnError(throwable -> LogUtils.showLog(TAG, "remote doOnError: " + throwable.toString()))
+                .doOnNext(result -> setRemoteHotCommentList(result.getData()))
+                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+    }
+
+    private void setRemoteHotCommentList(List<Comment> commentList) {
+        if (commentList != null && !commentList.isEmpty()) {
+            comments.clear();
+            comments.addAll(commentList);
+
+            CommentHotRealm commentHotRealm = new CommentHotRealm();
+            commentHotRealm.setComment_hot_id(newId + CommentHotRealm.COMMENT_HOT);
+            RealmList<CommentRealm> realms = CommentHotRealm.getRealmList(commentList);
+            commentHotRealm.setCommentList(realms);
+            NewRepository.get().updateLocalRealm(commentHotRealm);
+        }
+    }
+
+    public void getLocalHotCommentList() {
+        disposable.add(NewRepository.get().getLocalRealm(CommentHotRealm.class, commentMap)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
+                .doOnNext(realmResults -> {
+                    LogUtils.d("getLocalNewList" + realmResults.size());
+                    setLocalHotCommentList(realmResults);
                 })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 
-    public void getLocalHotCommentList() {
-
+    private void setLocalHotCommentList(RealmResults realmResults) {
+        if (realmResults == null || realmResults.isEmpty()) {
+            return;
+        }
+        CommentHotRealm commentHotRealm = (CommentHotRealm) realmResults.get(0);
+        if (comments.isEmpty()) {   // data is empty, network not back
+            RealmList<CommentRealm> commentRealms = commentHotRealm.getCommentList();
+            List<Comment> commentList = CommentHotRealm.getList(commentRealms);
+            comments.clear();
+            comments.addAll(commentList);
+        }
     }
 }
