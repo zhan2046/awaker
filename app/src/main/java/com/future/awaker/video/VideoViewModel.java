@@ -85,16 +85,15 @@ public class VideoViewModel extends BaseListViewModel {
     private void setRemoteSpecialList(List<Special> specialList) {
         checkEmpty(specialList);
         if (!isEmpty.get()) {
-            if (isRefresh) {
-                // save to local
-                SpecialPageRealm specialPageRealm = new SpecialPageRealm();
-                RealmList<SpecialRealm> realmList =
-                        SpecialPageRealm.getSpecialRealmList(specialList);
-                specialPageRealm.setCat(String.valueOf(cat));
-                specialPageRealm.setSpecialList(realmList);
-                NewRepository.get().updateLocalRealm(specialPageRealm);
-            }
             setDataList(specialList, specials);
+
+            // save to local
+            SpecialPageRealm specialPageRealm = new SpecialPageRealm();
+            RealmList<SpecialRealm> realmList =
+                    SpecialPageRealm.getSpecialRealmList(specials);
+            specialPageRealm.setCat(String.valueOf(cat));
+            specialPageRealm.setSpecialList(realmList);
+            NewRepository.get().updateLocalRealm(specialPageRealm);
         }
     }
 
