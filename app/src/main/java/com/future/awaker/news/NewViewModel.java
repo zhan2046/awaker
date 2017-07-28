@@ -76,7 +76,7 @@ public class NewViewModel extends BaseListViewModel {
             NewsPageRealm newsPageRealm = new NewsPageRealm();
             RealmList<NewsRealm> realmList =
                     NewsPageRealm.getNewsRealmList(news);
-            newsPageRealm.setId(String.valueOf(newId));
+            newsPageRealm.setNews_page_id(String.valueOf(newId));
             newsPageRealm.setNewsList(realmList);
             NewRepository.get().updateLocalRealm(newsPageRealm);
         }

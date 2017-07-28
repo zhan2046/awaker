@@ -60,7 +60,7 @@ public class HotReadViewModel extends BaseListViewModel {
                 news.clear();
 
                 NewsPageRealm newsPageRealm = new NewsPageRealm();
-                newsPageRealm.setId(ID_VALUE);
+                newsPageRealm.setNews_page_id(ID_VALUE);
                 RealmList<NewsRealm> realmList = NewsPageRealm.getNewsRealmList(newsList);
                 newsPageRealm.setNewsList(realmList);
                 NewRepository.get().updateLocalRealm(newsPageRealm);

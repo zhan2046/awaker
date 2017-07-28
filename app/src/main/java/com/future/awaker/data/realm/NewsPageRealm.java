@@ -15,10 +15,10 @@ import io.realm.annotations.PrimaryKey;
 
 public class NewsPageRealm extends RealmObject {
 
-    public static final String ID = "id";
+    public static final String ID = "news_page_id";
 
     @PrimaryKey
-    private String id;
+    private String news_page_id;
     private RealmList<NewsRealm> newsList;
 
     public static List<News> getNewsList(RealmList<NewsRealm> list) {
@@ -45,12 +45,12 @@ public class NewsPageRealm extends RealmObject {
         return newsList;
     }
 
-    public String getId() {
-        return id;
+    public String getNews_page_id() {
+        return news_page_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setNews_page_id(String news_page_id) {
+        this.news_page_id = news_page_id;
     }
 
     public RealmList<NewsRealm> getNewsList() {
