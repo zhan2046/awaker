@@ -51,16 +51,16 @@ public class CommentViewModel extends BaseListViewModel {
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(result -> setRemoteHotCommentList(result.getData()))
+                .doOnNext(result -> setRemoteCommentList(result.getData()))
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 
-    private void setRemoteHotCommentList(List<Comment> commentList) {
+    private void setRemoteCommentList(List<Comment> commentList) {
         setDataList(commentList, comments);
         if (!isEmpty.get()) {
             CommentPageRealm commentPageRealm = new CommentPageRealm();
             commentPageRealm.setComment_page_id(newId + CommentPageRealm.COMMENT_PAGE);
-            RealmList<CommentRealm> realms = CommentPageRealm.getRealmList(commentList);
+            RealmList<CommentRealm> realms = CommentPageRealm.getRealmList(comments);
             commentPageRealm.setCommentList(realms);
             NewRepository.get().updateLocalRealm(commentPageRealm);
         }
