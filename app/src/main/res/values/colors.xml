@@ -23,6 +23,7 @@
   <color name="f5">#FFF5F5F5</color>
 
   <color name="image_mark">#FFE0E0E0</color>
+  <drawable name="divider_color">#FFD9D9D9</drawable>
 
   <color name="blue_zan">#FF3BB9FF</color>
   <color name="grey_zan">#FFB6B6B4</color>
