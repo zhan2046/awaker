@@ -76,10 +76,10 @@
     <item name="android:layout_marginBottom">@dimen/sheet_spacing</item>
     <item name="android:layout_marginLeft">@dimen/sheet_spacing</item>
     <item name="android:layout_marginRight">@dimen/sheet_spacing</item>
-    <item name="cardBackgroundColor">@color/white</item>
-    <item name="cardElevation">@dimen/fab_sheet_elevation</item>
-    <item name="cardMaxElevation">@dimen/fab_sheet_elevation</item>
-    <item name="contentPadding">-3dp</item>
+    <item name="cardBackgroundColor"  tools:ignore="NewApi">@color/white</item>
+    <item name="cardElevation"  tools:ignore="NewApi">@dimen/fab_sheet_elevation</item>
+    <item name="cardMaxElevation"  tools:ignore="NewApi">@dimen/fab_sheet_elevation</item>
+    <item name="contentPadding"  tools:ignore="NewApi">-3dp</item>
   </style>
 
   <style name="TextAppearance.Awaker.Sheet.Item" parent="">
