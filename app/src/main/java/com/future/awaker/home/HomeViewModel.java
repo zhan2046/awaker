@@ -74,7 +74,7 @@ public class HomeViewModel extends BaseViewModel {
             BannerRealm bannerRealm = new BannerRealm();
             RealmList<BannerItemRealm> realmList =
                     BannerRealm.getBannerItemRealmList(bannerItemList);
-            bannerRealm.setId(BannerRealm.ID_VALUE);
+            bannerRealm.setBanner_id(BannerRealm.ID_VALUE);
             bannerRealm.setBannerItemList(realmList);
             NewRepository.get().updateLocalRealm(bannerRealm);
             setBanner(bannerItemList);

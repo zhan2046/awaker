@@ -11,7 +11,6 @@ import io.realm.annotations.PrimaryKey;
 
 public class NewsRealm extends RealmObject {
 
-    @PrimaryKey
     public String id;
     public String uid;
     public String title;

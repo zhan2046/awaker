@@ -15,11 +15,11 @@ import io.realm.annotations.PrimaryKey;
 
 public class BannerRealm extends RealmObject {
 
-    public static final String ID = "id";
+    public static final String ID = "banner_id";
     public static final String ID_VALUE = "0";
 
     @PrimaryKey
-    public String id = "0";
+    public String banner_id = "0";
     public RealmList<BannerItemRealm> bannerItemList;
 
     public static List<BannerItem> getBannerItemList(RealmList<BannerItemRealm> itemRealmList) {
@@ -54,11 +54,11 @@ public class BannerRealm extends RealmObject {
         this.bannerItemList = bannerItemList;
     }
 
-    public String getId() {
-        return id;
+    public String getBanner_id() {
+        return banner_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setBanner_id(String banner_id) {
+        this.banner_id = banner_id;
     }
 }
