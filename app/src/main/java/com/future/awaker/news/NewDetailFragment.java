@@ -37,7 +37,6 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
 
     private NewDetailViewModel viewModel = new NewDetailViewModel();
     private NewDetailBack newDetailBack = new NewDetailBack();
-    private Header header = new Header();
     private NewDetailAdapter adapter;
     private String newId;
 
@@ -68,13 +67,10 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
         viewModel.setTitle(newTitle);
         viewModel.setUrl(newUrl);
 
-        header.title = newTitle;
-        header.url = newUrl;
-
         setListViewModel(viewModel);
         binding.setViewModel(viewModel);
 
-        adapter = new NewDetailAdapter(header, this);
+        adapter = new NewDetailAdapter(viewModel.header, this);
         recyclerView.setAdapter(adapter);
 
         viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
@@ -141,10 +137,14 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
 
             User user = newDetail.user;
             if (user != null) {
-                header.userName = user.nickname;
-                header.userUrl = user.avatar128;
+                viewModel.header.userName = user.nickname;
+                viewModel.header.userUrl = user.avatar128;
             }
-            header.createTime = newDetail.create_time;
+            viewModel.header.title = newDetail.title;
+            if (newDetail.cover_url != null) {
+                viewModel.header.url = newDetail.cover_url.ori;
+            }
+            viewModel.header.createTime = newDetail.create_time;
 
             String html = newDetail.content;
             if (TextUtils.isEmpty(html)) {
@@ -158,7 +158,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
             })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(newEleList -> adapter.setData(newEleList, header));
+                    .subscribe(newEleList -> adapter.setData(newEleList, viewModel.header));
         }
     }
 }

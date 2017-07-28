@@ -65,8 +65,9 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         }
         dataList.clear();
         newEleList = list;
+        this.header = header;
 
-        dataList.add(header);
+        dataList.add(this.header);
         dataList.addAll(newEleList);
         if (commentList != null && !commentList.isEmpty()) {
             dataList.add(COMMENT_TITLE);
@@ -173,7 +174,6 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
             ItemNewDetailHeaderBinding binding = DataBindingUtil
                     .inflate(LayoutInflater.from(parent.getContext()),
                             R.layout.item_new_detail_header, parent, false);
-            binding.setHeader(header);
             return new NewDetailHeaderHolder(binding);
         }
         return null;

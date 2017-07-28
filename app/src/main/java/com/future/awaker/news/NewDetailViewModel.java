@@ -6,6 +6,7 @@ import android.databinding.ObservableList;
 
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.Comment;
+import com.future.awaker.data.Header;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.realm.CommentHotRealm;
 import com.future.awaker.data.realm.CommentRealm;
@@ -32,10 +33,9 @@ public class NewDetailViewModel extends BaseListViewModel {
 
     public ObservableField<NewDetail> newDetail = new ObservableField<>();
     public ObservableList<Comment> comments = new ObservableArrayList<>();
+    public Header header = new Header();
 
     private String newId;
-    private String title;
-    private String url;
     private HashMap<String, String> map = new HashMap<>();
     private HashMap<String, String> commentMap = new HashMap<>();
 
@@ -51,19 +51,19 @@ public class NewDetailViewModel extends BaseListViewModel {
     }
 
     public String getTitle() {
-        return title;
+        return header.title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.header.title = title;
     }
 
     public String getUrl() {
-        return url;
+        return header.url;
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        this.header.url = url;
     }
 
     @Override
