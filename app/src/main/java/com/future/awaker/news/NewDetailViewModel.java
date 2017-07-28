@@ -27,7 +27,6 @@ public class NewDetailViewModel extends BaseListViewModel {
 
     private static final String TAG = NewDetailViewModel.class.getSimpleName();
 
-
     public ObservableField<NewDetail> newDetail = new ObservableField<>();
     public ObservableList<Comment> comments = new ObservableArrayList<>();
 
@@ -118,6 +117,11 @@ public class NewDetailViewModel extends BaseListViewModel {
     }
 
     public void getHotCommentList() {
+        getLocalHotCommentList();
+        getRemoteHotCommentList();
+    }
+
+    public void getRemoteHotCommentList() {
         disposable.add(NewRepository.get().getUpNewsComments(TOKEN, newId)
                 .doOnError(throwable -> {
                 })
@@ -133,5 +137,9 @@ public class NewDetailViewModel extends BaseListViewModel {
                     }
                 })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+    }
+
+    public void getLocalHotCommentList() {
+
     }
 }
