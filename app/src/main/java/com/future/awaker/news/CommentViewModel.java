@@ -71,7 +71,7 @@ public class CommentViewModel extends BaseListViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnNext(realmResults -> {
-                    LogUtils.d("getLocalNewList" + realmResults.size());
+                    LogUtils.d("getLocalCommentList" + realmResults.size());
                     setLocalCommentList(realmResults);
                 })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));

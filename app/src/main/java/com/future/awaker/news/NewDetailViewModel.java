@@ -83,7 +83,7 @@ public class NewDetailViewModel extends BaseListViewModel {
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
                 .doOnNext(realmResults -> {
-                    LogUtils.d("getLocalNewList" + realmResults.size());
+                    LogUtils.d("getLocalNewDetail" + realmResults.size());
                     setLocalNewDetail(realmResults);
                 })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
@@ -152,7 +152,7 @@ public class NewDetailViewModel extends BaseListViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnNext(realmResults -> {
-                    LogUtils.d("getLocalNewList" + realmResults.size());
+                    LogUtils.d("getLocalHotCommentList" + realmResults.size());
                     setLocalHotCommentList(realmResults);
                 })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));

@@ -5,10 +5,13 @@ import android.databinding.ObservableList;
 
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.Comment;
+import com.future.awaker.data.News;
+import com.future.awaker.data.realm.CommentPageRealm;
 import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,7 +22,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class NiceCommentViewModel extends BaseListViewModel {
 
+    public static final String NICE_COMMENT = "nice_comment";
+
     public ObservableList<Comment> comments = new ObservableArrayList<>();
+    private HashMap<String, String> map = new HashMap<>();
+
+    public NiceCommentViewModel() {
+        map.put(CommentPageRealm.ID, NICE_COMMENT);
+    }
 
     @Override
     public void refreshData(boolean refresh) {
@@ -40,5 +50,13 @@ public class NiceCommentViewModel extends BaseListViewModel {
                     }
                 })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+    }
+
+    private void getRemoteHotComment() {
+
+    }
+
+    private void getLocalHotComment() {
+
     }
 }
