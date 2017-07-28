@@ -59,7 +59,7 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         dataList.add(header);
     }
 
-    public void setData(List<NewEle> list) {
+    public void setData(List<NewEle> list,Header header) {
         if (list == null) {
             return;
         }
@@ -135,7 +135,6 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
                     .inflate(LayoutInflater.from(parent.getContext()),
                             R.layout.item_new_detail_img, parent, false);
             NewDetailImgHolder holder = new NewDetailImgHolder(binding);
-            ;
             binding.setListener(listener);
             binding.setHolder(holder);
             return holder;

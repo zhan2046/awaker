@@ -144,10 +144,6 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
                 header.userName = user.nickname;
                 header.userUrl = user.avatar128;
             }
-            header.title = newDetail.title;
-            if (newDetail.cover_url != null) {
-                header.url = newDetail.cover_url.ori;
-            }
             header.createTime = newDetail.create_time;
 
             String html = newDetail.content;
@@ -162,7 +158,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
             })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(newEleList -> adapter.setData(newEleList));
+                    .subscribe(newEleList -> adapter.setData(newEleList, header));
         }
     }
 }
