@@ -54,7 +54,7 @@ public class BaseViewModel extends BaseObservable {
         if (field == null || isEmpty == null) {
             return;
         }
-        checkEmpty(object);
+        checkEmpty(isEmpty, object);
         if (!isEmpty.get()) {
             field.set(object);
         }
@@ -70,7 +70,7 @@ public class BaseViewModel extends BaseObservable {
         if (observableList == null || isEmpty == null) {
             return;
         }
-        checkEmpty(list);
+        checkEmpty(isEmpty, list);
         if (!isEmpty.get()) {
             observableList.clear();
             observableList.addAll(list);
