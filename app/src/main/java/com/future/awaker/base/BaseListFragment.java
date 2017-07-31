@@ -38,6 +38,7 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
 
     public void setListViewModel(BaseListViewModel viewModel) {
         listViewModel = viewModel;
+        addRunStatusChangeCallBack(listViewModel);
     }
 
     @Override
@@ -119,5 +120,13 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
             return;
         }
         listViewModel.fetchData(false);
+    }
+
+    @Override
+    protected void runStatusChange() {
+        if (listViewModel != null &&
+                !listViewModel.isRunning.get()) { // 网络请求结束隐藏下拉刷新
+            listViewModel.refreshing.set(false);
+        }
     }
 }

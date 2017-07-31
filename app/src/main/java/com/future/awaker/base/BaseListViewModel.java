@@ -1,6 +1,5 @@
 package com.future.awaker.base;
 
-import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 
@@ -17,14 +16,7 @@ public abstract class BaseListViewModel extends BaseViewModel {
 
     protected int page;
     protected boolean isRefresh;
-
     public ObservableBoolean refreshing = new ObservableBoolean(false); // 提供给下拉刷新
-
-    private RunCallBack runCallBack = new RunCallBack();
-
-    public BaseListViewModel() {
-        isRunning.addOnPropertyChangedCallback(runCallBack);
-    }
 
     public abstract void refreshData(boolean refresh);
 
@@ -67,22 +59,6 @@ public abstract class BaseListViewModel extends BaseViewModel {
         }
         if (list != null && list.size() < PAGE_SIZE) {
             isEmpty.set(true);
-        }
-    }
-
-    @Override
-    public void clear() {
-        isRunning.removeOnPropertyChangedCallback(runCallBack);
-        super.clear();
-    }
-
-    private class RunCallBack extends OnPropertyChangedCallback {
-
-        @Override
-        public void onPropertyChanged(Observable sender, int propertyId) {
-            if (!isRunning.get()) { // 网络请求结束隐藏下拉刷新
-                refreshing.set(false);
-            }
         }
     }
 }
