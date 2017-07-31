@@ -111,14 +111,12 @@ public class NewDetailViewModel extends BaseListViewModel {
     }
 
     private void setRemoteNewDetail(NewDetail newDetailItem) {
-        checkEmpty(newDetailItem);
+        setDataObject(newDetailItem, newDetail);
+
         if (!isEmpty.get()) {
-            if (isRefresh) {
-                // save to local
-                NewDetailRealm newDetailRealm = NewDetailRealm.setNewDetail(newDetailItem);
-                NewRepository.get().updateLocalRealm(newDetailRealm);
-            }
-            setDataObject(newDetailItem, newDetail);
+            // save to local
+            NewDetailRealm newDetailRealm = NewDetailRealm.setNewDetail(newDetailItem);
+            NewRepository.get().updateLocalRealm(newDetailRealm);
         }
     }
 

@@ -57,6 +57,7 @@ public class CommentViewModel extends BaseListViewModel {
 
     private void setRemoteCommentList(List<Comment> commentList) {
         setDataList(commentList, comments);
+
         if (!isEmpty.get()) {
             CommentPageRealm commentPageRealm = new CommentPageRealm();
             commentPageRealm.setComment_page_id(newId + CommentPageRealm.COMMENT_PAGE);

@@ -46,14 +46,9 @@ public abstract class BaseListViewModel extends BaseViewModel {
         }
     }
 
+    @Override
     protected <T> void setDataList(List<T> list, ObservableList<T> observableList) {
-        setDataList(isEmpty, list, observableList, isRefresh, PAGE_SIZE);
-    }
-
-    protected <T> void setDataList(ObservableBoolean isEmpty, List<T> list,
-                                   ObservableList<T> observableList,
-                                   boolean isRefresh, int pageSize) {
-        if (observableList == null || isEmpty == null) {
+        if (observableList == null) {
             return;
         }
         checkEmpty(list);
@@ -62,9 +57,10 @@ public abstract class BaseListViewModel extends BaseViewModel {
                 observableList.clear();
             }
             observableList.addAll(list);
-        }
-        if (list != null && list.size() < pageSize) {
-            isEmpty.set(true);
+
+            if (list.size() < PAGE_SIZE) {
+                isEmpty.set(true);
+            }
         }
     }
 }

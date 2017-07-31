@@ -60,6 +60,11 @@ public class BaseViewModel extends BaseObservable {
         }
     }
 
+    protected <T> void setDataList(List<T> list,
+                                   ObservableList<T> observableList) {
+        setDataList(isEmpty, list, observableList);
+    }
+
     protected <T> void setDataList(ObservableBoolean isEmpty, List<T> list,
                                    ObservableList<T> observableList) {
         if (observableList == null || isEmpty == null) {

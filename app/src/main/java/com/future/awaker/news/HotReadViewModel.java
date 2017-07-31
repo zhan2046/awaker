@@ -54,19 +54,18 @@ public class HotReadViewModel extends BaseListViewModel {
     }
 
     private void setRemoteHotViewNewsAll(List<News> newsList) {
-        checkEmpty(newsList);
+        setDataList(newsList, news);
+
         if (!isEmpty.get()) {
             if (isRefresh) {
-                news.clear();
-
                 NewsPageRealm newsPageRealm = new NewsPageRealm();
                 newsPageRealm.setNews_page_id(ID_VALUE);
-                RealmList<NewsRealm> realmList = NewsPageRealm.getNewsRealmList(newsList);
+                RealmList<NewsRealm> realmList = NewsPageRealm.getNewsRealmList(news);
                 newsPageRealm.setNewsList(realmList);
                 NewRepository.get().updateLocalRealm(newsPageRealm);
             }
 
-            news.addAll(newsList);
+            // only one page
             isEmpty.set(true);
         }
     }

@@ -77,7 +77,7 @@ public class HomeViewModel extends BaseViewModel {
             bannerRealm.setBanner_id(BannerRealm.ID_VALUE);
             bannerRealm.setBannerItemList(realmList);
             NewRepository.get().updateLocalRealm(bannerRealm);
-            setBanner(bannerItemList);
+            setDataList(bannerItemList, bannerItems);
         }
 
     }
@@ -91,15 +91,7 @@ public class HomeViewModel extends BaseViewModel {
         if (bannerItems.isEmpty()) {   // data is empty, network not back
             RealmList<BannerItemRealm> realmList = bannerRealm.getBannerItemList();
             List<BannerItem> bannerItemList = BannerRealm.getBannerItemList(realmList);
-            setBanner(bannerItemList);
+            setDataList(bannerItemList, bannerItems);
         }
     }
-
-    private void setBanner(List<BannerItem> bannerItemList) {
-        checkEmpty(bannerItemList);
-        if (!isEmpty.get()) {
-            bannerItems.addAll(bannerItemList);
-        }
-    }
-
 }

@@ -68,10 +68,9 @@ public class NewViewModel extends BaseListViewModel {
     }
 
     private void setRemoteNewList(List<News> newsList) {
-        checkEmpty(newsList);
-        if (!isEmpty.get()) {
-            setDataList(newsList, news);
+        setDataList(newsList, news);
 
+        if (!isEmpty.get()) {
             // save to local
             NewsPageRealm newsPageRealm = new NewsPageRealm();
             RealmList<NewsRealm> realmList =
