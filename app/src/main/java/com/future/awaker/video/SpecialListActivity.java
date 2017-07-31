@@ -2,7 +2,6 @@ package com.future.awaker.video;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -15,13 +14,12 @@ import com.future.awaker.databinding.ActivitySpecialListBinding;
  * Created by ruzhan on 2017/7/15.
  */
 
-public class SpecialListActivity extends BaseActivity {
+public class SpecialListActivity extends BaseActivity<ActivitySpecialListBinding> {
 
     private static final String ID = "id";
     private static final String TITLE = "title";
     private static final String URL = "url";
 
-    private ActivitySpecialListBinding binding;
     private SpecialListFragment specialListFragment;
 
     public static void launch(Context context, String id, String title, String url) {
@@ -33,9 +31,13 @@ public class SpecialListActivity extends BaseActivity {
     }
 
     @Override
+    protected int getLayout() {
+        return R.layout.activity_special_list;
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_special_list);
 
         String id = getIntent().getStringExtra(ID);
         String title = getIntent().getStringExtra(TITLE);

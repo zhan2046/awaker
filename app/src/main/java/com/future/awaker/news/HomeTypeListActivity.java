@@ -2,7 +2,6 @@ package com.future.awaker.news;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +15,7 @@ import com.future.awaker.databinding.ActivityNewListBinding;
  * Copyright ©2017 by Teambition
  */
 
-public class HomeTypeListActivity extends BaseActivity {
+public class HomeTypeListActivity extends BaseActivity<ActivityNewListBinding> {
 
     private static final String NEW_ID = "newId";
     private static final String NEW_TITLE = "newTitle";
@@ -25,7 +24,6 @@ public class HomeTypeListActivity extends BaseActivity {
     private HotReadNewsFragment hotReadNewsFragment;
     private HotNewsFragment hotNewsFragment;
     private NiceCommentFragment niceCommentFragment;
-    private ActivityNewListBinding binding;
 
     public static void launch(Context context, int newId, String title) {
         Intent intent = new Intent(context, HomeTypeListActivity.class);
@@ -35,9 +33,13 @@ public class HomeTypeListActivity extends BaseActivity {
     }
 
     @Override
+    protected int getLayout() {
+        return R.layout.activity_new_list;
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_new_list);
 
         int newId = getIntent().getIntExtra(NEW_ID, 0);
         String newTitle = getIntent().getStringExtra(NEW_TITLE);

@@ -16,7 +16,7 @@ import com.future.awaker.R;
  * Copyright ©2017 by Teambition
  */
 
-public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseFragment<VB>
+public class BaseListFragment<VB extends ViewDataBinding> extends BaseFragment<VB>
         implements SwipeRefreshLayout.OnRefreshListener {
 
     protected SwipeRefreshLayout swipeRefresh;
@@ -33,8 +33,9 @@ public abstract class BaseListFragment<VB extends ViewDataBinding> extends BaseF
         return R.layout.frag_base_list;
     }
 
-    protected abstract void initData();
+    protected void initData() {
 
+    }
 
     public void setListViewModel(BaseListViewModel viewModel) {
         listViewModel = viewModel;
