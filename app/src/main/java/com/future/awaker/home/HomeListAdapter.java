@@ -86,9 +86,9 @@ public class HomeListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         if (viewType == TYPE_BANNER) {
-            ((HomeBannerHolder)holder).bind((Banner) dataList.get(position));
+            ((HomeBannerHolder) holder).bind((Banner) dataList.get(position));
         } else if (viewType == TYPE_ITEM) {
-            ((HomeListHolder)holder).bind((HomeItem) dataList.get(position));
+            ((HomeListHolder) holder).bind((HomeItem) dataList.get(position));
         }
     }
 

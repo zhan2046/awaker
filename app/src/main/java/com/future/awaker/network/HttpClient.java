@@ -15,7 +15,7 @@ public class HttpClient {
     public static HttpClient get() {
         if (httpClient == null) {
             synchronized (HttpClient.class) {
-                if(httpClient == null) {
+                if (httpClient == null) {
                     httpClient = new HttpClient();
                 }
             }

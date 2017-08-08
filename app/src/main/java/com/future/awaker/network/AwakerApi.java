@@ -36,17 +36,17 @@ public interface AwakerApi {
     @FormUrlEncoded
     @POST("news/getNewsDetail/id/{newId}")
     Flowable<HttpResult<NewDetail>> getNewDetail(@Field("access_token") String token,
-                                                   @Path("newId") String newId);
+                                                 @Path("newId") String newId);
 
     @FormUrlEncoded
     @POST("news/getHotviewNewsAll")
     Flowable<HttpResult<List<News>>> getHotviewNewsAll(@Field("access_token") String token,
-                                                @Field("page") int page, @Field("id") int id);
+                                                       @Field("page") int page, @Field("id") int id);
 
     @FormUrlEncoded
     @POST("news/getHotNewsAll")
     Flowable<HttpResult<List<News>>> getHotNewsAll(@Field("access_token") String token,
-                                                       @Field("page") int page, @Field("id") int id);
+                                                   @Field("page") int page, @Field("id") int id);
 
     // comment
 
@@ -70,7 +70,7 @@ public interface AwakerApi {
     @FormUrlEncoded
     @POST("special/getSpecialList")
     Flowable<HttpResult<List<Special>>> getSpecialList(@Field("access_token") String token,
-                                                         @Field("page") int page, @Field("cat") int cat);
+                                                       @Field("page") int page, @Field("cat") int cat);
 
     @FormUrlEncoded
     @POST("special/getSpecialDetail/id/{id}")

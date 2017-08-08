@@ -20,7 +20,8 @@ public class HomeItem {
     public int imgRes;
     public String title;
 
-    public HomeItem() {}
+    public HomeItem() {
+    }
 
     public HomeItem(int id, int imgRes, String title) {
         this.id = id;
@@ -47,5 +48,5 @@ public class HomeItem {
         list.add(new HomeItem(10, R.drawable.ic_guanjianshike, ResUtils.getString(R.string.guan_jian)));
         list.add(new HomeItem(7, R.drawable.ic_qita, ResUtils.getString(R.string.other)));
         return list;
-     }
+    }
 }

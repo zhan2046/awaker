@@ -42,6 +42,7 @@ public class VideoDetailFragment extends BaseFragment<FragVideoDetailBinding> {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     protected int getLayout() {
         return R.layout.frag_video_detail;

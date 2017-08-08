@@ -18,7 +18,8 @@ import java.util.List;
 
 public final class HtmlParser {
 
-    private HtmlParser() {}
+    private HtmlParser() {
+    }
 
     /**
      * not run in main thread, need new thread

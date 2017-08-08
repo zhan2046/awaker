@@ -11,51 +11,52 @@ import android.view.MotionEvent;
 
 public class BannerImageView extends AppCompatImageView {
 
-  private OnBannerClickListener mOnBannerClickListener;
+    private OnBannerClickListener mOnBannerClickListener;
 
-  public BannerImageView(Context context) {
-    super(context);
-  }
-
-  public BannerImageView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-  }
-
-  public BannerImageView(Context context, AttributeSet attrs, int defStyleAttr) {
-    super(context, attrs, defStyleAttr);
-  }
-
-  public interface OnBannerClickListener {
-
-    void actionDown();
-
-    void actionUp();
-  }
-
-  public void setOnBannerClickListener(OnBannerClickListener listener) {
-    mOnBannerClickListener = listener;
-  }
-
-  @Override public boolean onTouchEvent(MotionEvent event) {
-
-    if(event.getAction() == MotionEvent.ACTION_DOWN ||
-        event.getAction() == MotionEvent.ACTION_CANCEL){
-
-      //loop view pager stop task
-      if(mOnBannerClickListener != null) {
-        mOnBannerClickListener.actionDown();
-      }
+    public BannerImageView(Context context) {
+        super(context);
     }
 
-    if(event.getAction() == MotionEvent.ACTION_UP){
-
-      //loop view pager start task
-      if(mOnBannerClickListener != null) {
-        mOnBannerClickListener.actionUp();
-      }
+    public BannerImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    return super.onTouchEvent(event);
-  }
+    public BannerImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    public interface OnBannerClickListener {
+
+        void actionDown();
+
+        void actionUp();
+    }
+
+    public void setOnBannerClickListener(OnBannerClickListener listener) {
+        mOnBannerClickListener = listener;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN ||
+                event.getAction() == MotionEvent.ACTION_CANCEL) {
+
+            //loop view pager stop task
+            if (mOnBannerClickListener != null) {
+                mOnBannerClickListener.actionDown();
+            }
+        }
+
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+
+            //loop view pager start task
+            if (mOnBannerClickListener != null) {
+                mOnBannerClickListener.actionUp();
+            }
+        }
+
+        return super.onTouchEvent(event);
+    }
 }
 

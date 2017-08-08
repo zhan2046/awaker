@@ -13,7 +13,7 @@ import com.future.awaker.databinding.FragNiceCommentBinding;
  */
 
 public class NiceCommentFragment extends BaseListFragment<FragNiceCommentBinding>
-implements OnItemClickListener<Comment> {
+        implements OnItemClickListener<Comment> {
 
     private NiceCommentViewModel viewModel = new NiceCommentViewModel();
 

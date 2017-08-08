@@ -18,23 +18,27 @@ public abstract class IDiffCallBack<T> extends DiffUtil.Callback {
         this.newData = newData;
     }
 
-    @Override public int getOldListSize() {
+    @Override
+    public int getOldListSize() {
         return oldData == null ? 0 : oldData.size();
     }
 
-    @Override public int getNewListSize() {
+    @Override
+    public int getNewListSize() {
         return newData == null ? 0 : newData.size();
     }
 
     public abstract boolean isItemsTheSame(int oldItemPosition, int newItemPosition);
 
-    @Override public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+    @Override
+    public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
         return isItemsTheSame(oldItemPosition, newItemPosition);
     }
 
     public abstract boolean isContentsTheSame(int oldItemPosition, int newItemPosition);
 
-    @Override public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+    @Override
+    public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
         return isContentsTheSame(oldItemPosition, newItemPosition);
     }
 }

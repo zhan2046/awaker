@@ -9,20 +9,29 @@
             type="com.future.awaker.news.NewDetailViewModel" />
     </data>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:background="@color/f5"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/Widget.Awaker.ToolBar"
-            app:title="@{viewModel.title}"
-            app:titleTextAppearance="@style/Toolbar.TitleText" />
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Widget.Awaker.ToolBar"
+                app:title="@{viewModel.title}"
+                app:titleTextAppearance="@style/Toolbar.TitleText" />
+        </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             app:refreshing="@{viewModel.refreshing}"
+            android:layout_below="@+id/appbar"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -31,9 +40,11 @@
                 android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:comments="@{viewModel.comments}"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager" />
         </android.support.v4.widget.SwipeRefreshLayout>
-    </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

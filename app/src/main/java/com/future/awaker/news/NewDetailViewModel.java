@@ -121,7 +121,9 @@ public class NewDetailViewModel extends BaseListViewModel {
     }
 
     public void getHotCommentList() {
-        getLocalHotCommentList();
+        if (comments.isEmpty()) {
+            getLocalHotCommentList();
+        }
         getRemoteHotCommentList();
     }
 

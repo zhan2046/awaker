@@ -11,26 +11,27 @@ import io.realm.RealmConfiguration;
 
 public class Application extends android.app.Application {
 
-  private static final String AWAKER_DB = "awakerDB";
-  private static final int VERSION_CODE = 0;
+    private static final String AWAKER_DB = "awakerDB";
+    private static final int VERSION_CODE = 0;
 
-  private static Application INSTANCE;
+    private static Application INSTANCE;
 
-  public static Application get() {
-    return INSTANCE;
-  }
+    public static Application get() {
+        return INSTANCE;
+    }
 
-  @Override public void onCreate() {
-    super.onCreate();
-    INSTANCE = this;
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        INSTANCE = this;
 
-    LeakCanary.install(this);
+        LeakCanary.install(this);
 
-    Realm.init(this);
-    RealmConfiguration config = new RealmConfiguration.Builder()
-            .name(AWAKER_DB)
-            .schemaVersion(VERSION_CODE)
-            .build();
-    Realm.setDefaultConfiguration(config);
-  }
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name(AWAKER_DB)
+                .schemaVersion(VERSION_CODE)
+                .build();
+        Realm.setDefaultConfiguration(config);
+    }
 }

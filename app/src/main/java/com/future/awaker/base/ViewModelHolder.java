@@ -12,7 +12,8 @@ public class ViewModelHolder<VM> extends Fragment {
 
     private VM viewModel;
 
-    public ViewModelHolder() {}
+    public ViewModelHolder() {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

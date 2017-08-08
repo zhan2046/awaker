@@ -94,7 +94,6 @@ public class NewListAdapter extends RecyclerView.Adapter {
             binding.commentTv.setText(commentStr);
 
 
-
             binding.setNewsItem(bean);
             binding.executePendingBindings();
         }

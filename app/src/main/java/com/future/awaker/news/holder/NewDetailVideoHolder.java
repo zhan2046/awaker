@@ -27,7 +27,7 @@ public class NewDetailVideoHolder extends RecyclerView.ViewHolder {
     private static final String IFRAME_AUTO = "<iframe style='max-width:100%;height:200;'";
 
     private ItemNewDetailVideoBinding binding;
-    private  OnItemClickListener<NewEle> listener;
+    private OnItemClickListener<NewEle> listener;
     public AgentWeb mAgentWeb;
     public WebView webView;
 

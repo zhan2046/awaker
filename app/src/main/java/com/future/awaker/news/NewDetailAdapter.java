@@ -59,7 +59,7 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         dataList.add(header);
     }
 
-    public void setData(List<NewEle> list,Header header) {
+    public void setData(List<NewEle> list, Header header) {
         if (list == null) {
             return;
         }

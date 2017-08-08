@@ -14,10 +14,11 @@ public final class AwakerClient {
 
     private static AwakerApi api;
 
-    private AwakerClient() {}
+    private AwakerClient() {
+    }
 
     public static AwakerApi get() {
-        if(api == null) {
+        if (api == null) {
             synchronized (AwakerClient.class) {
                 if (api == null) {
                     Retrofit client = new Retrofit.Builder().baseUrl(HOST)
