@@ -1,6 +1,7 @@
 package com.future.awaker.video;
 
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.future.awaker.R;
@@ -9,6 +10,7 @@ import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.Special;
 import com.future.awaker.databinding.FragVideoBinding;
+import com.future.awaker.home.HomeActivity;
 import com.future.awaker.util.LogUtils;
 
 /**
@@ -40,6 +42,28 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding>
 
         adapter = new VideoListAdapter(videoViewModel, this);
         binding.recyclerView.setAdapter(adapter);
+
+        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    onScrolledDown();
+                } else {
+                    onScrolledUp();
+                }
+            }
+        });
+    }
+
+    private void onScrolledDown() {
+        HomeActivity activity = (HomeActivity) getActivity();
+        activity.showFab(false);
+    }
+
+    private void onScrolledUp() {
+        HomeActivity activity = (HomeActivity) getActivity();
+        activity.showFab(true);
     }
 
     @Override

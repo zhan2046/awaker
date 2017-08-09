@@ -239,6 +239,14 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public void showFab(boolean isShow) {
+        if (isShow) {
+            materialSheetFab.showFab();
+        } else {
+            materialSheetFab.hideSheetThenFab();
+        }
+    }
+
     private void setupFab() {
         int sheetColor = getResources().getColor(R.color.white);
         int fabColor = getResources().getColor(R.color.colorAccent);
