@@ -6,6 +6,7 @@ import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
+import com.future.awaker.network.AwakerApi;
 import com.future.awaker.network.AwakerClient;
 import com.future.awaker.network.HttpResult;
 
@@ -20,46 +21,52 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RemoteDataSourceImpl implements IRemoteDataSource {
 
+    private AwakerApi awakerApi;
+
+    public RemoteDataSourceImpl(AwakerApi awakerApi) {
+        this.awakerApi = awakerApi;
+    }
+
     @Override
     public Flowable<HttpResult<List<BannerItem>>> getBanner(String token, String advType) {
-        return AwakerClient.get().getBanner(token, advType)
+        return awakerApi.getBanner(token, advType)
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
     public Flowable<HttpResult<List<News>>> getNewList(String token, int page, int id) {
-        return AwakerClient.get().getNewList(token, page, id)
+        return awakerApi.getNewList(token, page, id)
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
     public Flowable<HttpResult<List<Special>>> getSpecialList(String token, int page, int cat) {
-        return AwakerClient.get().getSpecialList(token, page, cat)
+        return awakerApi.getSpecialList(token, page, cat)
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
     public Flowable<HttpResult<NewDetail>> getNewDetail(String token, String newId) {
-        return AwakerClient.get().getNewDetail(token, newId)
+        return awakerApi.getNewDetail(token, newId)
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
     public Flowable<HttpResult<SpecialDetail>> getSpecialDetail(String token, String id) {
-        return AwakerClient.get().getSpecialDetail(token, id)
+        return awakerApi.getSpecialDetail(token, id)
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
     public Flowable<HttpResult<List<Comment>>> getUpNewsComments(String token, String newId) {
-        return AwakerClient.get().getUpNewsComments(token, newId)
+        return awakerApi.getUpNewsComments(token, newId)
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
     public Flowable<HttpResult<List<Comment>>> getNewsComments(String token, String newId,
                                                                int page) {
-        return AwakerClient.get().getNewsComments(token, newId, page)
+        return awakerApi.getNewsComments(token, newId, page)
                 .subscribeOn(Schedulers.io());
     }
 

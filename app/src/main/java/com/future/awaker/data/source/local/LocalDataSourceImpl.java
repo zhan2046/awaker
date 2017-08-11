@@ -15,7 +15,11 @@ import io.realm.RealmResults;
 
 public class LocalDataSourceImpl implements ILocalDataSource {
 
-    private RealmManager realmManager = new RealmManager();
+    private RealmManager realmManager;
+
+    public LocalDataSourceImpl(RealmManager realmManager) {
+        this.realmManager = realmManager;
+    }
 
     @Override
     public Flowable<RealmResults> getLocalRealm(Class clazz, HashMap<String, String> map) {
