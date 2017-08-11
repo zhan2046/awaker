@@ -66,6 +66,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
         setTitle(R.string.app_name);
