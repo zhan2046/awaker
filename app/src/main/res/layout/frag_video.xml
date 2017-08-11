@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.future.awaker.video.VideoViewModel" />
+            type="com.future.awaker.video.viewmodel.VideoViewModel" />
     </data>
 
     <android.support.v4.widget.SwipeRefreshLayout

@@ -35,7 +35,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".news.HomeTypeListActivity"
+            android:name=".news.activity.HomeTypeListActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -46,20 +46,20 @@
 
         <activity
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:name=".news.ImageDetailActivity" />
+            android:name=".news.activity.ImageDetailActivity" />
 
         <activity
             android:name=".video.SpecialListActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".video.VideoDetailActivity"
+            android:name=".video.activity.VideoDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:hardwareAccelerated="true"
             android:screenOrientation="landscape" />
 
         <activity
-            android:name=".news.CommentListActivity"
+            android:name=".news.activity.CommentListActivity"
             android:screenOrientation="portrait" />
 
         <service android:name=".fir.FirService"

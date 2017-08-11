@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.future.awaker.news.NiceCommentViewModel" />
+            type="com.future.awaker.news.viewmodel.NiceCommentViewModel" />
     </data>
 
     <android.support.v4.widget.SwipeRefreshLayout

@@ -30,6 +30,7 @@ import com.future.awaker.data.Special;
 import com.future.awaker.databinding.ActivityHomeBinding;
 import com.future.awaker.fir.Fir;
 import com.future.awaker.fir.FirService;
+import com.future.awaker.home.adapter.HomeAdapter;
 import com.future.awaker.util.AnimatorUtils;
 import com.future.awaker.util.ResUtils;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
@@ -65,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
         setTitle(R.string.app_name);

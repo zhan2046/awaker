@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.future.awaker.video.SpecialListViewModel" />
+            type="com.future.awaker.video.viewmodel.SpecialListViewModel" />
 
     </data>
 

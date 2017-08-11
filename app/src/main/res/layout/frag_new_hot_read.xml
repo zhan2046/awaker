@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.future.awaker.news.HotReadViewModel" />
+            type="com.future.awaker.news.viewmodel.HotReadViewModel" />
     </data>
 
     <android.support.v4.widget.SwipeRefreshLayout

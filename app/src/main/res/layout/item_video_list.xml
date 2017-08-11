@@ -16,7 +16,7 @@
 
         <variable
             name="holder"
-            type="com.future.awaker.video.VideoListAdapter.VideoHolder" />
+            type="com.future.awaker.video.adapter.VideoListAdapter.VideoHolder" />
     </data>
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"

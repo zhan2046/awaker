@@ -18,7 +18,7 @@
 
         <variable
             name="holder"
-            type="com.future.awaker.news.holder.NewDetailImgHolder" />
+            type="com.future.awaker.news.adapter.holder.NewDetailImgHolder" />
     </data>
 
     <android.support.v7.widget.CardView

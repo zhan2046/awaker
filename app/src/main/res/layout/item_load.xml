@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.future.awaker.base.BaseViewModel"/>
+            type="com.future.awaker.base.viewmodel.BaseViewModel"/>
     </data>
 
 <FrameLayout

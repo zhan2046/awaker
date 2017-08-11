@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.future.awaker.news.NewDetailViewModel" />
+            type="com.future.awaker.news.viewmodel.NewDetailViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout

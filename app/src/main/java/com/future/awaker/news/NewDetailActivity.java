@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.future.awaker.R;
+import com.future.awaker.news.fragment.NewDetailFragment;
 
 /**
  * Copyright ©2017 by Teambition

@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.future.awaker.base.listener.DebouncingOnClickListener;
+import com.future.awaker.base.viewmodel.BaseViewModel;
 
 /**
  * Created by ruzhan on 2017/7/15.

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseActivity;
 import com.future.awaker.databinding.ActivitySpecialListBinding;
+import com.future.awaker.video.fragment.SpecialListFragment;
 
 /**
  * Created by ruzhan on 2017/7/15.

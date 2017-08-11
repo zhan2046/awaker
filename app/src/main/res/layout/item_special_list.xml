@@ -13,7 +13,7 @@
 
         <variable
             name="holder"
-            type="com.future.awaker.video.holder.SpecialListHolder" />
+            type="com.future.awaker.video.adapter.holder.SpecialListHolder" />
 
         <variable
             name="listener"

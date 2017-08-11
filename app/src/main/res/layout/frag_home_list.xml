@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.future.awaker.home.HomeViewModel"/>
+            type="com.future.awaker.home.viewmodel.HomeViewModel"/>
     </data>
 
     <android.support.v7.widget.RecyclerView

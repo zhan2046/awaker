@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.future.awaker.base.listener.DebouncingOnClickListener;
+import com.future.awaker.base.viewmodel.BaseViewModel;
 
 /**
  * Copyright ©2017 by Teambition
