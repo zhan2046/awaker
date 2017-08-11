@@ -12,6 +12,7 @@
   <color name="white">#FFFFFFFF</color>
   <color name="white12">#1FFFFFFF</color>
   <color name="text_white_87">#deFFFFFF</color>
+  <color name="text_white_50">#80FFFFFF</color>
 
   <color name="black">#FF000000</color>
   <color name="black40">#88000000</color>
