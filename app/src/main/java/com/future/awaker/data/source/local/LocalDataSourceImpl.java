@@ -13,13 +13,13 @@ import io.realm.RealmResults;
  * Copyright ©2017 by Teambition
  */
 
-public class LocalNewDataSourceImpl implements ILocalNewDataSource {
+public class LocalDataSourceImpl implements ILocalDataSource {
 
     private RealmManager realmManager = new RealmManager();
 
     @Override
     public Flowable<RealmResults> getLocalRealm(Class clazz, HashMap<String, String> map) {
-        return Flowable.defer(() -> realmManager.getRealmItems(clazz, map));
+        return realmManager.getRealmItems(clazz, map);
     }
 
     @Override

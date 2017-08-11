@@ -28,7 +28,8 @@ public final class RealmManager {
     @SuppressWarnings("unchecked")
     public Flowable<RealmResults> getRealmItems(Class clazz,
                                                 Map<String, String> map) {
-        return Flowable.create(emitter -> {
+        Flowable<RealmResults> realmResultsFlowable =
+                Flowable.create(emitter -> {
             Realm realmInstance = Realm.getDefaultInstance();
             RealmQuery query = realmInstance.where(clazz);
             if (map != null) {
@@ -49,6 +50,7 @@ public final class RealmManager {
                     };
             results.addChangeListener(listener);
         }, BackpressureStrategy.LATEST);
+        return Flowable.defer(() -> realmResultsFlowable);
     }
 
     public void updateLocalRealm(RealmModel realmModel) {

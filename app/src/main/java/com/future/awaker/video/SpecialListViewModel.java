@@ -5,7 +5,8 @@ import android.databinding.Bindable;
 import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.data.realm.SpecialDetailRealm;
-import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.data.source.AwakerRepository;
+import com.future.awaker.data.source.AwakerRepositoryImpl;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.util.LogUtils;
@@ -79,7 +80,7 @@ public class SpecialListViewModel extends BaseListViewModel {
     }
 
     private void getRemoteSpecialDetail() {
-        disposable.add(NewRepository.get()
+        disposable.add(AwakerRepository.get()
                 .getSpecialDetail(TOKEN, id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
@@ -95,14 +96,14 @@ public class SpecialListViewModel extends BaseListViewModel {
             if (isRefresh) {
                 // save to local
                 SpecialDetailRealm newDetailRealm = SpecialDetailRealm.setSpecialDetail(specialDetail);
-                NewRepository.get().updateLocalRealm(newDetailRealm);
+                AwakerRepository.get().updateLocalRealm(newDetailRealm);
             }
             setSpecialDetail(specialDetail);
         }
     }
 
     private void getLocalSpecialDetail() {
-        disposable.add(NewRepository.get().getLocalRealm(SpecialDetailRealm.class, map)
+        disposable.add(AwakerRepository.get().getLocalRealm(SpecialDetailRealm.class, map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnNext(realmResults -> {

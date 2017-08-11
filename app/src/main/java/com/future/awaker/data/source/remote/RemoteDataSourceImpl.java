@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  * Copyright ©2017 by Teambition
  */
 
-public class RemoteNewDataSourceImpl implements IRemoteNewDataSource {
+public class RemoteDataSourceImpl implements IRemoteDataSource {
 
     @Override
     public Flowable<HttpResult<List<BannerItem>>> getBanner(String token, String advType) {

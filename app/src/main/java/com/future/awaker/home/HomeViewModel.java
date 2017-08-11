@@ -8,7 +8,7 @@ import com.future.awaker.base.BaseViewModel;
 import com.future.awaker.data.BannerItem;
 import com.future.awaker.data.realm.BannerItemRealm;
 import com.future.awaker.data.realm.BannerRealm;
-import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.data.source.AwakerRepository;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.util.LogUtils;
@@ -45,7 +45,7 @@ public class HomeViewModel extends BaseViewModel {
     }
 
     private void getRemoteBanner() {
-        disposable.add(NewRepository.get().getBanner(TOKEN, advType)
+        disposable.add(AwakerRepository.get().getBanner(TOKEN, advType)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -55,7 +55,7 @@ public class HomeViewModel extends BaseViewModel {
     }
 
     private void getLocalBanner() {
-        disposable.add(NewRepository.get().getLocalRealm(BannerRealm.class, map)
+        disposable.add(AwakerRepository.get().getLocalRealm(BannerRealm.class, map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -76,7 +76,7 @@ public class HomeViewModel extends BaseViewModel {
                     BannerRealm.getBannerItemRealmList(bannerItemList);
             bannerRealm.setBanner_id(BannerRealm.ID_VALUE);
             bannerRealm.setBannerItemList(realmList);
-            NewRepository.get().updateLocalRealm(bannerRealm);
+            AwakerRepository.get().updateLocalRealm(bannerRealm);
             setDataList(bannerItemList, bannerItems);
         }
 

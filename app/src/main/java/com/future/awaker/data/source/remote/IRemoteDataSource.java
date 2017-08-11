@@ -16,7 +16,7 @@ import io.reactivex.Flowable;
  * Copyright ©2017 by Teambition
  */
 
-public interface IRemoteNewDataSource {
+public interface IRemoteDataSource {
 
     Flowable<HttpResult<List<BannerItem>>> getBanner(String token, String advType);
 

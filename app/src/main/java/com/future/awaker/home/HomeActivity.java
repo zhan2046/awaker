@@ -27,7 +27,6 @@ import com.future.awaker.R;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.Special;
-import com.future.awaker.data.source.NewRepository;
 import com.future.awaker.databinding.ActivityHomeBinding;
 import com.future.awaker.fir.Fir;
 import com.future.awaker.fir.FirService;
@@ -96,7 +95,6 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        NewRepository.destroyInstance();
         super.onDestroy();
     }
 

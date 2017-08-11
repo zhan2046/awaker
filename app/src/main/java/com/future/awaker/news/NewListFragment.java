@@ -9,7 +9,7 @@ import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.News;
-import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.data.source.AwakerRepository;
 import com.future.awaker.databinding.FragNewBinding;
 import com.future.awaker.util.LogUtils;
 
@@ -59,7 +59,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
     @Override
     public void onDestroyView() {
         newViewModel.clear();
-        NewRepository.get().close();
+        AwakerRepository.get().close();
         super.onDestroyView();
     }
 

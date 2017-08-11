@@ -7,7 +7,7 @@ import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.News;
 import com.future.awaker.data.realm.NewsPageRealm;
 import com.future.awaker.data.realm.NewsRealm;
-import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.data.source.AwakerRepository;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.util.LogUtils;
@@ -45,7 +45,7 @@ public class NewViewModel extends BaseListViewModel {
     }
 
     private void getRemoteNewList() {
-        disposable.add(NewRepository.get().getNewList(TOKEN, page, newId)
+        disposable.add(AwakerRepository.get().getNewList(TOKEN, page, newId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -55,7 +55,7 @@ public class NewViewModel extends BaseListViewModel {
     }
 
     private void getLocalNewList() {
-        disposable.add(NewRepository.get().getLocalRealm(NewsPageRealm.class, map)
+        disposable.add(AwakerRepository.get().getLocalRealm(NewsPageRealm.class, map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -77,7 +77,7 @@ public class NewViewModel extends BaseListViewModel {
                     NewsPageRealm.getNewsRealmList(news);
             newsPageRealm.setNews_page_id(String.valueOf(newId));
             newsPageRealm.setNewsList(realmList);
-            NewRepository.get().updateLocalRealm(newsPageRealm);
+            AwakerRepository.get().updateLocalRealm(newsPageRealm);
         }
     }
 

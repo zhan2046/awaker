@@ -11,7 +11,7 @@ import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.realm.CommentHotRealm;
 import com.future.awaker.data.realm.CommentRealm;
 import com.future.awaker.data.realm.NewDetailRealm;
-import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.data.source.AwakerRepository;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.util.LogUtils;
@@ -77,7 +77,7 @@ public class NewDetailViewModel extends BaseListViewModel {
     }
 
     private void getLocalNewDetail() {
-        disposable.add(NewRepository.get().getLocalRealm(NewDetailRealm.class, map)
+        disposable.add(AwakerRepository.get().getLocalRealm(NewDetailRealm.class, map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -101,7 +101,7 @@ public class NewDetailViewModel extends BaseListViewModel {
     }
 
     private void getRemoteNewDetail() {
-        disposable.add(NewRepository.get().getNewDetail(TOKEN, newId)
+        disposable.add(AwakerRepository.get().getNewDetail(TOKEN, newId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -116,7 +116,7 @@ public class NewDetailViewModel extends BaseListViewModel {
         if (!isEmpty.get()) {
             // save to local
             NewDetailRealm newDetailRealm = NewDetailRealm.setNewDetail(newDetailItem);
-            NewRepository.get().updateLocalRealm(newDetailRealm);
+            AwakerRepository.get().updateLocalRealm(newDetailRealm);
         }
     }
 
@@ -128,7 +128,7 @@ public class NewDetailViewModel extends BaseListViewModel {
     }
 
     public void getRemoteHotCommentList() {
-        disposable.add(NewRepository.get().getUpNewsComments(TOKEN, newId)
+        disposable.add(AwakerRepository.get().getUpNewsComments(TOKEN, newId)
                 .doOnError(throwable -> LogUtils.showLog(TAG, "remote doOnError: " + throwable.toString()))
                 .doOnNext(result -> setRemoteHotCommentList(result.getData()))
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
@@ -143,12 +143,12 @@ public class NewDetailViewModel extends BaseListViewModel {
             commentHotRealm.setComment_hot_id(newId + CommentHotRealm.COMMENT_HOT);
             RealmList<CommentRealm> realms = CommentHotRealm.getRealmList(commentList);
             commentHotRealm.setCommentList(realms);
-            NewRepository.get().updateLocalRealm(commentHotRealm);
+            AwakerRepository.get().updateLocalRealm(commentHotRealm);
         }
     }
 
     public void getLocalHotCommentList() {
-        disposable.add(NewRepository.get().getLocalRealm(CommentHotRealm.class, commentMap)
+        disposable.add(AwakerRepository.get().getLocalRealm(CommentHotRealm.class, commentMap)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnNext(realmResults -> {

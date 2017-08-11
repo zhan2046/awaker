@@ -11,7 +11,7 @@ import io.realm.RealmResults;
  * Copyright ©2017 by Teambition
  */
 
-public interface ILocalNewDataSource {
+public interface ILocalDataSource {
 
     Flowable<RealmResults> getLocalRealm(Class clazz, HashMap<String, String> map);
 

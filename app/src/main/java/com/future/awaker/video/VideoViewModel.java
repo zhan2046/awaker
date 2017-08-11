@@ -9,7 +9,8 @@ import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.realm.SpecialPageRealm;
 import com.future.awaker.data.realm.SpecialRealm;
-import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.data.source.AwakerRepository;
+import com.future.awaker.data.source.AwakerRepositoryImpl;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.util.LogUtils;
@@ -60,7 +61,7 @@ public class VideoViewModel extends BaseListViewModel {
     }
 
     private void getRemoteSpecialList() {
-        disposable.add(NewRepository.get().getSpecialList(TOKEN, page, cat)
+        disposable.add(AwakerRepository.get().getSpecialList(TOKEN, page, cat)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -70,7 +71,7 @@ public class VideoViewModel extends BaseListViewModel {
     }
 
     private void getLocalSpecialList() {
-        disposable.add(NewRepository.get().getLocalRealm(SpecialPageRealm.class, map)
+        disposable.add(AwakerRepository.get().getLocalRealm(SpecialPageRealm.class, map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -92,7 +93,7 @@ public class VideoViewModel extends BaseListViewModel {
                     SpecialPageRealm.getSpecialRealmList(specials);
             specialPageRealm.setCat(String.valueOf(cat));
             specialPageRealm.setSpecialList(realmList);
-            NewRepository.get().updateLocalRealm(specialPageRealm);
+            AwakerRepository.get().updateLocalRealm(specialPageRealm);
         }
     }
 

@@ -7,7 +7,7 @@ import com.future.awaker.base.BaseListViewModel;
 import com.future.awaker.data.Comment;
 import com.future.awaker.data.realm.CommentPageRealm;
 import com.future.awaker.data.realm.CommentRealm;
-import com.future.awaker.data.source.NewRepository;
+import com.future.awaker.data.source.AwakerRepository;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.util.LogUtils;
@@ -46,7 +46,7 @@ public class CommentViewModel extends BaseListViewModel {
     }
 
     private void getRemoteCommentList() {
-        disposable.add(NewRepository.get().getNewsComments(TOKEN, newId, page)
+        disposable.add(AwakerRepository.get().getNewsComments(TOKEN, newId, page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
@@ -63,12 +63,12 @@ public class CommentViewModel extends BaseListViewModel {
             commentPageRealm.setComment_page_id(newId + CommentPageRealm.COMMENT_PAGE);
             RealmList<CommentRealm> realms = CommentPageRealm.getRealmList(comments);
             commentPageRealm.setCommentList(realms);
-            NewRepository.get().updateLocalRealm(commentPageRealm);
+            AwakerRepository.get().updateLocalRealm(commentPageRealm);
         }
     }
 
     private void getLocalCommentList() {
-        disposable.add(NewRepository.get().getLocalRealm(CommentPageRealm.class, map)
+        disposable.add(AwakerRepository.get().getLocalRealm(CommentPageRealm.class, map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
                 .doOnNext(realmResults -> {

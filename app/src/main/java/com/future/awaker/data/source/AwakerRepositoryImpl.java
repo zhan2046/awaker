@@ -6,10 +6,10 @@ import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
-import com.future.awaker.data.source.local.ILocalNewDataSource;
-import com.future.awaker.data.source.local.LocalNewDataSourceImpl;
-import com.future.awaker.data.source.remote.IRemoteNewDataSource;
-import com.future.awaker.data.source.remote.RemoteNewDataSourceImpl;
+import com.future.awaker.data.source.local.ILocalDataSource;
+import com.future.awaker.data.source.local.LocalDataSourceImpl;
+import com.future.awaker.data.source.remote.IRemoteDataSource;
+import com.future.awaker.data.source.remote.RemoteDataSourceImpl;
 import com.future.awaker.network.HttpResult;
 
 import java.util.HashMap;
@@ -24,31 +24,10 @@ import io.realm.RealmResults;
  * Copyright ©2017 by Teambition
  */
 
-public final class NewRepository implements INewRepository {
+public final class AwakerRepositoryImpl implements IAwakerRepository {
 
-    private static INewRepository INSTANCE;
-
-    private IRemoteNewDataSource remoteDataSource = new RemoteNewDataSourceImpl();
-    private ILocalNewDataSource localNewDataSource = new LocalNewDataSourceImpl();
-
-    private NewRepository() {
-    }
-
-    public static INewRepository get() {
-        if (INSTANCE == null) {
-            synchronized (NewRepository.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new NewRepository();
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
-    public static void destroyInstance() {
-        INSTANCE = null;
-    }
-
+    private IRemoteDataSource remoteDataSource = new RemoteDataSourceImpl();
+    private ILocalDataSource localNewDataSource = new LocalDataSourceImpl();
 
     ///////////////////////
     // remote
