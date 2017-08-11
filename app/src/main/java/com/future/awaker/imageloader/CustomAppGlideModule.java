@@ -3,7 +3,6 @@ package com.future.awaker.imageloader;
 import android.content.Context;
 
 import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.module.AppGlideModule;
@@ -28,10 +27,5 @@ public class CustomAppGlideModule extends AppGlideModule {
     @Override
     public boolean isManifestParsingEnabled() {
         return false;
-    }
-
-    @Override
-    public void registerComponents(Context context, Registry registry) {
-        super.registerComponents(context, registry);
     }
 }

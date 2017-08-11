@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -28,7 +28,6 @@
     <item name="android:background">?attr/colorPrimary</item>
     <item name="android:theme">@style/ThemeOverlay.Awaker.ActionBar</item>
     <item name="popupTheme">@style/ThemeOverlay.MaterialSheetFab.ActionBar.Popup</item>
-    <item name="android:elevation" tools:ignore="NewApi">@dimen/toolbar_elevation</item>
     <item name="layout_scrollFlags">scroll|enterAlways</item>
   </style>
 
@@ -41,7 +40,6 @@
     <item name="android:layout_height">?attr/actionBarSize</item>
     <item name="android:background">?attr/colorPrimary</item>
     <item name="android:theme">@style/ThemeOverlay.Awaker.ActionBar</item>
-    <item name="android:elevation" tools:ignore="NewApi">@dimen/toolbar_elevation</item>
     <item name="tabMode">fixed</item>
     <item name="tabGravity">fill</item>
     <item name="layout_scrollFlags">scroll|enterAlways</item>
@@ -54,7 +52,6 @@
     <item name="android:layout_marginBottom">@dimen/fab_spacing</item>
     <item name="android:layout_marginLeft">@dimen/fab_spacing</item>
     <item name="android:layout_marginRight">@dimen/fab_spacing</item>
-    <item name="android:elevation" tools:ignore="NewApi">@dimen/fab_elevation</item>
     <item name="android:src">@mipmap/ic_add_grey600_24dp</item>
     <item name="fabSize">normal</item>
     <item name="borderWidth">0dp</item>
@@ -77,10 +74,8 @@
     <item name="android:layout_marginBottom">@dimen/sheet_spacing</item>
     <item name="android:layout_marginLeft">@dimen/sheet_spacing</item>
     <item name="android:layout_marginRight">@dimen/sheet_spacing</item>
-    <item name="cardBackgroundColor"  tools:ignore="NewApi">@color/white</item>
-    <item name="cardElevation"  tools:ignore="NewApi">@dimen/fab_sheet_elevation</item>
-    <item name="cardMaxElevation"  tools:ignore="NewApi">@dimen/fab_sheet_elevation</item>
-    <item name="contentPadding"  tools:ignore="NewApi">-3dp</item>
+    <item name="cardBackgroundColor">@color/white</item>
+    <item name="contentPadding">-3dp</item>
   </style>
 
   <style name="TextAppearance.Awaker.Sheet.Item" parent="">

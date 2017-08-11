@@ -92,7 +92,7 @@ dependencies {
     def supportLibraryVersion = rootProject.ext.supportLibraryVersion
     def retrofitVersion = '2.3.0'
     def leakCanaryVersion = '1.5.1'
-    def glideVersion = '4.0.0-RC1'
+    def glideVersion = '4.0.0'
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
 

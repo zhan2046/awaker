@@ -71,8 +71,7 @@
                 <!-- Sheet that contains your items -->
                 <android.support.v7.widget.CardView
                     android:id="@+id/fab_sheet"
-                    style="@style/Widget.Awaker.Sheet"
-                    tools:targetApi="lollipop">
+                    style="@style/Widget.Awaker.Sheet">
 
                     <!-- Sheet items -->
                     <LinearLayout

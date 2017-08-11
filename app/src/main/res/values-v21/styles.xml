@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.Awaker.Fab" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/fab_spacing</item>
+        <item name="android:layout_marginBottom">@dimen/fab_spacing</item>
+        <item name="android:layout_marginLeft">@dimen/fab_spacing</item>
+        <item name="android:layout_marginRight">@dimen/fab_spacing</item>
+        <item name="android:elevation">@dimen/fab_elevation</item>
+        <item name="android:src">@mipmap/ic_add_grey600_24dp</item>
+        <item name="fabSize">normal</item>
+        <item name="borderWidth">0dp</item>
+    </style>
+
+    <style name="Widget.Awaker.ToolBar" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">@style/ThemeOverlay.Awaker.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.MaterialSheetFab.ActionBar.Popup</item>
+        <item name="android:elevation">@dimen/toolbar_elevation</item>
+        <item name="layout_scrollFlags">scroll|enterAlways</item>
+    </style>
+
+    <style name="Widget.Awaker.TabLayout" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">@style/ThemeOverlay.Awaker.ActionBar</item>
+        <item name="android:elevation">@dimen/toolbar_elevation</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabGravity">fill</item>
+        <item name="layout_scrollFlags">scroll|enterAlways</item>
+    </style>
+
+    <style name="Widget.Awaker.Sheet" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/sheet_spacing</item>
+        <item name="android:layout_marginBottom">@dimen/sheet_spacing</item>
+        <item name="android:layout_marginLeft">@dimen/sheet_spacing</item>
+        <item name="android:layout_marginRight">@dimen/sheet_spacing</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">@dimen/fab_sheet_elevation</item>
+        <item name="cardMaxElevation">@dimen/fab_sheet_elevation</item>
+        <item name="contentPadding">-3dp</item>
+    </style>
+</resources>
