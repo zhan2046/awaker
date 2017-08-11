@@ -80,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
         setupTabs();
 
         if (BuildConfig.BUILD_TYPE.equals("release")) {
-            //checkVersionUpdate();
+            checkVersionUpdate();
         }
     }
 
@@ -96,9 +96,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         NewRepository.destroyInstance();
-        if (versionIntent != null) {
-            stopService(versionIntent);
-        }
         super.onDestroy();
     }
 
