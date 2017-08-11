@@ -7,9 +7,7 @@ import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.data.source.local.ILocalDataSource;
-import com.future.awaker.data.source.local.LocalDataSourceImpl;
 import com.future.awaker.data.source.remote.IRemoteDataSource;
-import com.future.awaker.data.source.remote.RemoteDataSourceImpl;
 import com.future.awaker.network.HttpResult;
 
 import java.util.HashMap;
@@ -26,8 +24,14 @@ import io.realm.RealmResults;
 
 public final class AwakerRepositoryImpl implements IAwakerRepository {
 
-    private IRemoteDataSource remoteDataSource = new RemoteDataSourceImpl();
-    private ILocalDataSource localNewDataSource = new LocalDataSourceImpl();
+    private IRemoteDataSource remoteDataSource;
+    private ILocalDataSource localNewDataSource;
+
+    public AwakerRepositoryImpl(IRemoteDataSource remoteDataSource,
+                                ILocalDataSource localNewDataSource) {
+        this.remoteDataSource = remoteDataSource;
+        this.localNewDataSource = localNewDataSource;
+    }
 
     ///////////////////////
     // remote
