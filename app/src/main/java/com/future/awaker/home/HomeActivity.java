@@ -291,15 +291,6 @@ public class HomeActivity extends AppCompatActivity {
         drawerToggle.syncState();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (materialSheetFab.isSheetVisible()) {
-            materialSheetFab.hideSheet();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     private class HomeClickListener extends DebouncingOnClickListener {
 
         @Override
@@ -333,6 +324,17 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         long secondTime = System.currentTimeMillis();
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            if (binding.drawerLayout.isDrawerVisible(GravityCompat.START)) {
+                binding.drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+
+            if (materialSheetFab.isSheetVisible()) {
+                materialSheetFab.hideSheet();
+                return true;
+            }
+
             if (secondTime - firstTime < BACK_TIME) {
                 System.exit(0);
             } else {
