@@ -38,7 +38,7 @@ public class HotReadNewsFragment extends BaseListFragment<FragNewHotReadBinding>
         setListViewModel(viewModel);
         binding.setViewModel(viewModel);
 
-        adapter = new NewListAdapter(viewModel, this);
+        adapter = new NewListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL));

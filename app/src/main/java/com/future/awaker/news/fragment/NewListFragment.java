@@ -50,7 +50,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
 
         binding.setViewModel(newViewModel);
 
-        adapter = new NewListAdapter(newViewModel, this);
+        adapter = new NewListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
 
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,

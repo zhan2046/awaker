@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import com.future.awaker.R;
 import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
-import com.future.awaker.base.viewmodel.BaseViewModel;
 import com.future.awaker.data.News;
 import com.future.awaker.databinding.ItemNewListGridBinding;
 
@@ -24,13 +23,11 @@ public class NewListAdapter extends RecyclerView.Adapter {
 
     private static final int TYPE_NEW = 1001;
 
-    private BaseViewModel viewModel;
     private OnItemClickListener<News> listener;
     private List<News> news;
     private NewDiffCallBack diffCallBack = new NewDiffCallBack();
 
-    public NewListAdapter(BaseViewModel viewModel, OnItemClickListener<News> listener) {
-        this.viewModel = viewModel;
+    public NewListAdapter(OnItemClickListener<News> listener) {
         this.listener = listener;
     }
 
