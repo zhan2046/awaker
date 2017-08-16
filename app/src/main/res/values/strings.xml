@@ -43,4 +43,6 @@
   <string name="comment_count">%1$s 跟帖</string>
   <string name="update_version_title">检测到新版本 %1$s</string>
 
+  <string name="comment_suc">评论成功</string>
+
 </resources>

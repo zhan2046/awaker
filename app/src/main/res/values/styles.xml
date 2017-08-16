@@ -93,4 +93,9 @@
     <item name="android:drawablePadding">@dimen/sheet_item_image_spacing</item>
   </style>
 
+  <style name="CommentEditText" parent="Theme.AppCompat.Light">
+    <item name="colorControlNormal">@color/grey_zan</item>
+    <item name="colorControlActivated">@color/grey_zan</item>
+  </style>
+
 </resources>

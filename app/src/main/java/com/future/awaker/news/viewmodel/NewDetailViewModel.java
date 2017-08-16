@@ -13,6 +13,7 @@ import com.future.awaker.data.realm.CommentRealm;
 import com.future.awaker.data.realm.NewDetailRealm;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
+import com.future.awaker.news.listener.NewDetailListener;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 
@@ -39,6 +40,12 @@ public class NewDetailViewModel extends BaseListViewModel {
     private HashMap<String, String> map = new HashMap<>();
     private HashMap<String, String> commentMap = new HashMap<>();
 
+    private NewDetailListener listener;
+
+
+    public NewDetailViewModel(NewDetailListener listener) {
+        this.listener = listener;
+    }
 
     public String getNewId() {
         return newId;
@@ -169,5 +176,13 @@ public class NewDetailViewModel extends BaseListViewModel {
             comments.clear();
             comments.addAll(commentList);
         }
+    }
+
+    public void sendNewsComment(String newId, String content, String open_id,
+                                String pid) {
+        disposable.add(AwakerRepository.get().sendNewsComment(TOKEN, newId, content, open_id, pid)
+                .doOnError(throwable -> LogUtils.showLog(TAG, "remote doOnError: " + throwable.toString()))
+                .doOnNext(result -> listener.sendCommentSuc())
+                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 }

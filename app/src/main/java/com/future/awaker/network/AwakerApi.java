@@ -78,4 +78,11 @@ public interface AwakerApi {
                                                          @Path("id") String id);
 
 
+    @FormUrlEncoded
+    @POST("news/sendNewsComment/id/{newId}")
+    Flowable<HttpResult<Object>> sendNewsComment(@Field("access_token") String token,
+                                                  @Path("newId") String newId,
+                                                  @Field("content") String content,
+                                                  @Field("open_id") String open_id,
+                                                  @Field("pid") String pid);
 }

@@ -86,4 +86,10 @@ public class RemoteDataSourceImpl implements IRemoteDataSource {
         return awakerApi.getHotComment(token)
                 .subscribeOn(Schedulers.io());
     }
+
+    @Override
+    public Flowable<HttpResult<Object>> sendNewsComment(String token, String newId, String content, String open_id, String pid) {
+        return awakerApi.sendNewsComment(token, newId, content, open_id, pid)
+                .subscribeOn(Schedulers.io());
+    }
 }

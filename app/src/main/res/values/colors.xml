@@ -28,4 +28,6 @@
 
   <color name="blue_zan">#FF3BB9FF</color>
   <color name="grey_zan">#FFB6B6B4</color>
+
+  <color name="text_color">#EE383838</color>
 </resources>

@@ -6,9 +6,12 @@ import android.databinding.Observable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
+import com.future.awaker.Application;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
+import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.NewEle;
@@ -17,8 +20,11 @@ import com.future.awaker.databinding.FragNewDetailBinding;
 import com.future.awaker.news.activity.CommentListActivity;
 import com.future.awaker.news.activity.ImageDetailActivity;
 import com.future.awaker.news.adapter.NewDetailAdapter;
+import com.future.awaker.news.listener.NewDetailListener;
 import com.future.awaker.news.viewmodel.NewDetailViewModel;
 import com.future.awaker.util.HtmlParser;
+import com.future.awaker.util.KeyboardUtils;
+import com.future.awaker.util.UiUtils;
 import com.future.awaker.video.activity.VideoDetailActivity;
 
 import java.util.List;
@@ -32,13 +38,13 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
-        implements OnItemClickListener<NewEle> {
+        implements OnItemClickListener<NewEle>, NewDetailListener {
 
     private static final String NEW_ID = "newId";
     private static final String NEW_TITLE = "newTitle";
     private static final String NEW_URL = "newUrl";
 
-    private NewDetailViewModel viewModel = new NewDetailViewModel();
+    private NewDetailViewModel viewModel = new NewDetailViewModel(this);
     private NewDetailBack newDetailBack = new NewDetailBack();
     private NewDetailAdapter adapter;
     private String newId;
@@ -77,6 +83,17 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
         recyclerView.setAdapter(adapter);
 
         viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
+
+        binding.sendTv.setOnClickListener(new DebouncingOnClickListener() {
+            @Override
+            public void doClick(View v) {
+                String content = binding.commentEt.getText().toString().trim();
+                if (TextUtils.isEmpty(content)) {
+                    return;
+                }
+                viewModel.sendNewsComment(newId, content, null, null);
+            }
+        });
 
         onRefresh();
         viewModel.getHotCommentList();
@@ -127,6 +144,12 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
         } else { // comment more
             CommentListActivity.launch(getActivity(), newId);
         }
+    }
+
+    @Override
+    public void sendCommentSuc() {
+        KeyboardUtils.closeSoftInput(getActivity(), binding.commentEt);
+        onRefresh();
     }
 
     private class NewDetailBack extends Observable.OnPropertyChangedCallback {

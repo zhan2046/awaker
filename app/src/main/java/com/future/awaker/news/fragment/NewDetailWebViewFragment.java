@@ -20,6 +20,7 @@ import com.future.awaker.base.BaseFragment;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.NewEle;
 import com.future.awaker.databinding.FragNewDetail2Binding;
+import com.future.awaker.news.listener.NewDetailListener;
 import com.future.awaker.news.viewmodel.NewDetailViewModel;
 import com.future.awaker.util.HtmlParser;
 import com.just.library.AgentWeb;
@@ -36,7 +37,8 @@ import io.reactivex.schedulers.Schedulers;
  * Copyright ©2017 by Teambition
  */
 
-public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding> implements SwipeRefreshLayout.OnRefreshListener {
+public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding>
+        implements SwipeRefreshLayout.OnRefreshListener, NewDetailListener {
 
     private static final String IMG = "<img";
     private static final String IMG_WIDTH_AUTO = "<img style='max-width:100%;height:auto;'";
@@ -47,7 +49,7 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
     private static final String NEW_ID = "newId";
     private static final String NEW_TITLE = "newTitle";
 
-    private NewDetailViewModel viewModel = new NewDetailViewModel();
+    private NewDetailViewModel viewModel;
     private NewDetailBack newDetailBack = new NewDetailBack();
     protected AgentWeb mAgentWeb;
     private WebView webView;
@@ -75,6 +77,8 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
         super.onViewCreated(view, savedInstanceState);
         String newId = getArguments().getString(NEW_ID);
         String newTitle = getArguments().getString(NEW_TITLE);
+
+        viewModel = new NewDetailViewModel(this);
 
         viewModel.setNewId(newId);
 
@@ -147,6 +151,11 @@ public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding
     @Override
     public void onRefresh() {
         viewModel.fetchData(true);
+    }
+
+    @Override
+    public void sendCommentSuc() {
+
     }
 
     private class NewDetailBack extends Observable.OnPropertyChangedCallback {

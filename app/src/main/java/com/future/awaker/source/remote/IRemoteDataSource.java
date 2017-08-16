@@ -38,4 +38,7 @@ public interface IRemoteDataSource {
     Flowable<HttpResult<List<News>>> getHotNewsAll(String token, int page, int id);
 
     Flowable<HttpResult<List<Comment>>> getHotComment(String token);
+
+    Flowable<HttpResult<Object>> sendNewsComment(String token, String newId, String content, String open_id,
+                                                 String pid);
 }
