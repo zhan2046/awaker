@@ -29,5 +29,7 @@ public class Application extends android.app.Application {
                 .schemaVersion(VERSION_CODE)
                 .build();
         Realm.setDefaultConfiguration(config);
+
+        Account.get().initUserInfo();
     }
 }

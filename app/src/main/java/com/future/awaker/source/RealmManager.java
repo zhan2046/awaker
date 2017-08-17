@@ -83,7 +83,7 @@ public final class RealmManager {
             @Override
             public void onChange(RealmResults realmResults) {
                 if (realmResults.isLoaded()) {
-                    realmResults.deleteAllFromRealm();
+                    realmInstance.executeTransaction(realm -> results.deleteAllFromRealm());
                     realmResults.removeChangeListener(this);
                 }
             }

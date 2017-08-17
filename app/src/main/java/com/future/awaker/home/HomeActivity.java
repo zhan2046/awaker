@@ -24,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.allenliu.versionchecklib.HttpRequestMethod;
 import com.allenliu.versionchecklib.VersionParams;
 import com.future.awaker.Account;
@@ -112,7 +114,28 @@ public class HomeActivity extends AppCompatActivity {
         binding.navigationView.setItemTextColor(csl);
 
         binding.navigationView.setNavigationItemSelectedListener(item -> {
-            Toast.makeText(this, R.string.future_desc, Toast.LENGTH_SHORT).show();
+            switch (item.getItemId()) {
+                case R.id.login_out:
+                    new MaterialDialog.Builder(this)
+                            .title(R.string.login_out)
+                            .content(R.string.login_out_desc)
+                            .positiveText(R.string.confirm)
+                            .negativeText(R.string.cancel)
+                            .theme(Theme.LIGHT)
+                            .negativeColorRes(R.color.text_color)
+                            .positiveColorRes(R.color.text_color)
+                            .onPositive((dialog, which) -> {
+                                Account.get().clearUserInfo();
+                                updateAccountInfo();
+                                Toast.makeText(this, R.string.login_out_finish, Toast.LENGTH_SHORT).show();
+                            })
+                            .onNegative((dialog, which) -> dialog.dismiss())
+                            .show();
+                    break;
+                default:
+                    Toast.makeText(this, R.string.future_desc, Toast.LENGTH_SHORT).show();
+                    break;
+            }
             return true;
         });
     }
@@ -413,11 +436,6 @@ public class HomeActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_HOME) {
             if (resultCode == LoginActivity.RESULT_CODE_SUC) {
                 updateAccountInfo();
-                binding.drawerLayout.postDelayed(() -> {
-                    if (binding.drawerLayout.isDrawerVisible(GravityCompat.START)) {
-                        binding.drawerLayout.closeDrawer(GravityCompat.START);
-                    }
-                }, 600);
             }
         }
     }

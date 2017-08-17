@@ -26,5 +26,11 @@
             android:checkable="true"
             android:title="其它"
             />
+
+        <item
+            android:id="@+id/login_out"
+            android:checkable="true"
+            android:title="@string/login_out"
+            />
     </group>
 </menu>

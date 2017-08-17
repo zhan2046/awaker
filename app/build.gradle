@@ -125,4 +125,5 @@ dependencies {
     compile 'org.jsoup:jsoup:1.10.3'
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'com.allenliu.versionchecklib:library:1.0.9'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.6'
 }

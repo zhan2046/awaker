@@ -19,7 +19,7 @@ public class BannerRealm extends RealmObject {
     public static final String ID_VALUE = "0";
 
     @PrimaryKey
-    public String banner_id = "0";
+    public String banner_id = ID_VALUE;
     public RealmList<BannerItemRealm> bannerItemList;
 
     public static List<BannerItem> getBannerItemList(RealmList<BannerItemRealm> itemRealmList) {

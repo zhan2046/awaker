@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.future.awaker.Account;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
@@ -67,7 +68,8 @@ public class CommentListFragment extends BaseListFragment<FragCommentListBinding
                 if (TextUtils.isEmpty(content)) {
                     return;
                 }
-                viewModel.sendNewsComment(newId, content, null, null);
+                String openId = Account.get().getOpenId();
+                viewModel.sendNewsComment(newId, content, openId, null);
             }
         });
 

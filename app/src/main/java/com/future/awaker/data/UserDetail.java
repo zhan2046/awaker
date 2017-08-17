@@ -1,6 +1,5 @@
 package com.future.awaker.data;
 
-import java.util.List;
 
 /**
  * Copyright ©2017 by Teambition
@@ -28,9 +27,6 @@ public class UserDetail {
     public String following;
     public Level level;
     public String now_shop_score;
-    public Object province;
-    public Object city;
-    public Object district;
     public int is_self;
     public String message_unread_count;
     public String avatar32;
@@ -40,6 +36,4 @@ public class UserDetail {
     public String avatar512;
     public int is_following;
     public int is_followed;
-    public List<?> rank_link;
-    public List<?> tags;
 }
