@@ -14,7 +14,8 @@ public final class Account {
 
     private UserInfo userInfo;
 
-    private Account() {}
+    private Account() {
+    }
 
     public static Account get() {
         if (INSTANCE == null) {

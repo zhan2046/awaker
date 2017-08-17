@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,7 +35,6 @@ import com.future.awaker.data.Special;
 import com.future.awaker.data.UserDetail;
 import com.future.awaker.data.UserInfo;
 import com.future.awaker.databinding.ActivityHomeBinding;
-import com.future.awaker.databinding.DataBindingAdapter;
 import com.future.awaker.fir.Fir;
 import com.future.awaker.fir.FirService;
 import com.future.awaker.home.adapter.HomeAdapter;
@@ -94,6 +94,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.drawerLayout.setDrawerListener(drawerToggle);
 
         initHeaderView();
+        initNavigationViewMenu();
 
         setupFab();
         setupTabs();
@@ -101,6 +102,19 @@ public class HomeActivity extends AppCompatActivity {
         if (BuildConfig.BUILD_TYPE.equals("release")) {
             checkVersionUpdate();
         }
+    }
+
+    private void initNavigationViewMenu() {
+        //set null for item icon tint，这样使得icon颜色恢复本色
+        binding.navigationView.setItemIconTintList(null);
+
+        ColorStateList csl = getResources().getColorStateList(R.color.navigation_menu_item_color);
+        binding.navigationView.setItemTextColor(csl);
+
+        binding.navigationView.setNavigationItemSelectedListener(item -> {
+            Toast.makeText(this, R.string.future_desc, Toast.LENGTH_SHORT).show();
+            return true;
+        });
     }
 
     private void initHeaderView() {
@@ -410,8 +424,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private void updateAccountInfo() {
         UserInfo userInfo = Account.get().getUserInfo();
-        userLoginLl.setVisibility(userInfo == null ? View.VISIBLE :View.GONE);
-        userNameTv.setVisibility(userInfo == null ? View.GONE :View.VISIBLE);
+        userLoginLl.setVisibility(userInfo == null ? View.VISIBLE : View.GONE);
+        userNameTv.setVisibility(userInfo == null ? View.GONE : View.VISIBLE);
         userOtherDescTv.setText(userInfo == null ?
                 R.string.launch_desc : R.string.other_desc_str);
         userIconIv.setImageResource(R.drawable.ic_gongjihui);
