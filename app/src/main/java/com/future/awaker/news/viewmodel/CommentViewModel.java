@@ -9,6 +9,7 @@ import com.future.awaker.data.realm.CommentPageRealm;
 import com.future.awaker.data.realm.CommentRealm;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
+import com.future.awaker.news.listener.SendCommentListener;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 
@@ -31,6 +32,11 @@ public class CommentViewModel extends BaseListViewModel {
     public ObservableList<Comment> comments = new ObservableArrayList<>();
     private HashMap<String, String> map = new HashMap<>();
 
+    private SendCommentListener listener;
+
+    public CommentViewModel(SendCommentListener listener) {
+        this.listener = listener;
+    }
 
     public void setNewId(String newId) {
         this.newId = newId;
@@ -88,5 +94,14 @@ public class CommentViewModel extends BaseListViewModel {
             List<Comment> commentList = CommentPageRealm.getList(commentRealms);
             setDataList(commentList, comments);
         }
+    }
+
+    public void sendNewsComment(String newId, String content, String open_id,
+                                String pid) {
+        disposable.add(AwakerRepository.get().sendNewsComment(TOKEN, newId, content, open_id, pid)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG, "remote doOnError: " + throwable.toString()))
+                .doOnNext(result -> listener.sendCommentSuc())
+                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }
 }

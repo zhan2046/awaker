@@ -16,7 +16,7 @@ import com.future.awaker.data.realm.CommentRealm;
 import com.future.awaker.data.realm.NewDetailRealm;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
-import com.future.awaker.news.listener.NewDetailListener;
+import com.future.awaker.news.listener.SendCommentListener;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 import com.future.awaker.util.ResUtils;
@@ -45,10 +45,10 @@ public class NewDetailViewModel extends BaseListViewModel {
     private HashMap<String, String> commentMap = new HashMap<>();
     private String commentCount;
 
-    private NewDetailListener listener;
+    private SendCommentListener listener;
 
 
-    public NewDetailViewModel(NewDetailListener listener) {
+    public NewDetailViewModel(SendCommentListener listener) {
         this.listener = listener;
     }
 

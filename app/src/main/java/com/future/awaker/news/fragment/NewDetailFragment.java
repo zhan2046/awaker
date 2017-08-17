@@ -20,7 +20,7 @@ import com.future.awaker.databinding.FragNewDetailBinding;
 import com.future.awaker.news.activity.CommentListActivity;
 import com.future.awaker.news.activity.ImageDetailActivity;
 import com.future.awaker.news.adapter.NewDetailAdapter;
-import com.future.awaker.news.listener.NewDetailListener;
+import com.future.awaker.news.listener.SendCommentListener;
 import com.future.awaker.news.viewmodel.NewDetailViewModel;
 import com.future.awaker.util.HtmlParser;
 import com.future.awaker.util.KeyboardUtils;
@@ -37,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
-        implements OnItemClickListener<NewEle>, NewDetailListener {
+        implements OnItemClickListener<NewEle>, SendCommentListener {
 
     private static final int RESET_EDIT_VALUE = 30;
 

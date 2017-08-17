@@ -20,7 +20,7 @@ import com.future.awaker.base.BaseFragment;
 import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.NewEle;
 import com.future.awaker.databinding.FragNewDetail2Binding;
-import com.future.awaker.news.listener.NewDetailListener;
+import com.future.awaker.news.listener.SendCommentListener;
 import com.future.awaker.news.viewmodel.NewDetailViewModel;
 import com.future.awaker.util.HtmlParser;
 import com.just.library.AgentWeb;
@@ -38,7 +38,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class NewDetailWebViewFragment extends BaseFragment<FragNewDetail2Binding>
-        implements SwipeRefreshLayout.OnRefreshListener, NewDetailListener {
+        implements SwipeRefreshLayout.OnRefreshListener, SendCommentListener {
 
     private static final String IMG = "<img";
     private static final String IMG_WIDTH_AUTO = "<img style='max-width:100%;height:auto;'";
