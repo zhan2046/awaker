@@ -11,6 +11,8 @@ import com.future.awaker.Account;
 import com.future.awaker.Application;
 import com.future.awaker.R;
 import com.future.awaker.data.UserInfo;
+import com.future.awaker.login.fragment.LoginFragment;
+import com.future.awaker.login.fragment.RegisterFragment;
 import com.future.awaker.login.listener.LoginListener;
 
 /**
@@ -19,12 +21,19 @@ import com.future.awaker.login.listener.LoginListener;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
 
+    private static final String TYPE_FLAG = "typeFlag";
+
     public static final int RESULT_CODE_SUC = 10001;
 
-    private LoginFragment loginFragment;
+    public static final int LOGIN_FLAG = 3000;
+    public static final int REGISTER_FLAG = 3001;
 
-    public static void launch(Activity activity, int requestCode) {
+    private LoginFragment loginFragment;
+    private RegisterFragment registerFragment;
+
+    public static void launch(Activity activity, int requestCode, int typeFlag) {
         Intent intent = new Intent(activity, LoginActivity.class);
+        intent.putExtra(TYPE_FLAG, typeFlag);
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -33,6 +42,19 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.container);
 
+        int typeFlag = getIntent().getIntExtra(TYPE_FLAG, REGISTER_FLAG);
+        if (typeFlag == LOGIN_FLAG) {
+            switchLoginFragment();
+
+        } else if (typeFlag == REGISTER_FLAG) {
+            switchRegisterFragment();
+
+        } else {
+            switchRegisterFragment();
+        }
+    }
+
+    private void switchLoginFragment() {
         if (loginFragment == null) {
             loginFragment = LoginFragment.newInstance();
             loginFragment.setLoginListener(this);
@@ -41,6 +63,18 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
                 .beginTransaction()
                 .add(R.id.container_fl, loginFragment,
                         LoginFragment.class.getSimpleName())
+                .commit();
+    }
+
+    private void switchRegisterFragment() {
+        if (registerFragment == null) {
+            registerFragment = RegisterFragment.newInstance();
+            registerFragment.setLoginListener(this);
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.container_fl, registerFragment,
+                        RegisterFragment.class.getSimpleName())
                 .commit();
     }
 

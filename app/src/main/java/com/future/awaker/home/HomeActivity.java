@@ -115,14 +115,16 @@ public class HomeActivity extends AppCompatActivity {
         userLoginTv.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
-                LoginActivity.launch(HomeActivity.this, REQUEST_CODE_HOME);
+                LoginActivity.launch(HomeActivity.this, REQUEST_CODE_HOME,
+                        LoginActivity.LOGIN_FLAG);
             }
         });
 
         userRegisterTv.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
-                LoginActivity.launch(HomeActivity.this, REQUEST_CODE_HOME);
+                LoginActivity.launch(HomeActivity.this, REQUEST_CODE_HOME,
+                        LoginActivity.REGISTER_FLAG);
             }
         });
     }

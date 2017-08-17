@@ -1,4 +1,4 @@
-package com.future.awaker.login;
+package com.future.awaker.login.fragment;
 
 import android.databinding.Observable;
 import android.os.Bundle;
@@ -13,51 +13,54 @@ import com.future.awaker.R;
 import com.future.awaker.base.BaseFragment;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.data.UserInfo;
-import com.future.awaker.databinding.FragLoginBinding;
+import com.future.awaker.databinding.FragRegisterBinding;
 import com.future.awaker.login.listener.LoginListener;
-import com.future.awaker.login.viewmodel.LoginViewModel;
+import com.future.awaker.login.viewmodel.RegisterViewModel;
 import com.future.awaker.util.KeyboardUtils;
 
 /**
  * Copyright ©2017 by Teambition
  */
 
-public class LoginFragment extends BaseFragment<FragLoginBinding> {
+public class RegisterFragment extends BaseFragment<FragRegisterBinding> {
+
+    private RegisterViewModel registerViewModel = new RegisterViewModel();
+    private RegisterCallBack registerCallBack = new RegisterCallBack();
 
     private LoginListener listener;
-    private LoginViewModel loginViewModel;
-    private LoginCallBack loginCallBack = new LoginCallBack();
 
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
+    public static RegisterFragment newInstance() {
+        return new RegisterFragment();
+    }
+
+    public void setLoginListener(LoginListener listener) {
+        this.listener = listener;
     }
 
     @Override
     protected int getLayout() {
-        return R.layout.frag_login;
+        return R.layout.frag_register;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        loginViewModel = new LoginViewModel();
-        binding.setViewModel(loginViewModel);
-        addRunStatusChangeCallBack(loginViewModel);
+        binding.setViewModel(registerViewModel);
+        addRunStatusChangeCallBack(registerViewModel);
+        registerViewModel.userInfo.addOnPropertyChangedCallback(registerCallBack);
 
-        binding.toolbar.setTitle(R.string.user_login);
+        binding.toolbar.setTitle(R.string.register);
         setToolbar(binding.toolbar);
 
-        loginViewModel.userInfo.addOnPropertyChangedCallback(loginCallBack);
-
-        binding.loginBtn.setOnClickListener(new DebouncingOnClickListener() {
+        binding.registerBtn.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
-                loginViewModel.loginToAccount();
+                registerViewModel.register();
             }
         });
 
-        binding.pwdEt.addTextChangedListener(new TextWatcher() {
+        binding.pwd2Et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -68,7 +71,7 @@ public class LoginFragment extends BaseFragment<FragLoginBinding> {
                 binding.pwdLayout.setErrorEnabled(false);
 
                 String result = s.toString();
-                binding.loginBtn.setEnabled(!TextUtils.isEmpty(result));
+                binding.registerBtn.setEnabled(!TextUtils.isEmpty(result));
             }
 
             @Override
@@ -77,10 +80,10 @@ public class LoginFragment extends BaseFragment<FragLoginBinding> {
             }
         });
 
-        binding.pwdEt.setOnEditorActionListener((v, actionId, event) -> {
+        binding.pwd2Et.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE
                     || actionId == EditorInfo.IME_ACTION_GO) {
-                loginViewModel.loginToAccount();
+                registerViewModel.register();
             }
             return false;
         });
@@ -89,20 +92,16 @@ public class LoginFragment extends BaseFragment<FragLoginBinding> {
     @Override
     public void onDestroyView() {
         KeyboardUtils.closeSoftInput(getActivity(), binding.pwdEt);
-        loginViewModel.userInfo.removeOnPropertyChangedCallback(loginCallBack);
-        loginViewModel.clear();
+        registerViewModel.userInfo.removeOnPropertyChangedCallback(registerCallBack);
+        registerViewModel.clear();
         super.onDestroyView();
     }
 
-    public void setLoginListener(LoginListener listener) {
-        this.listener = listener;
-    }
-
-    private class LoginCallBack extends Observable.OnPropertyChangedCallback {
+    private class RegisterCallBack extends Observable.OnPropertyChangedCallback {
 
         @Override
         public void onPropertyChanged(Observable sender, int propertyId) {
-            UserInfo userInfo = loginViewModel.userInfo.get();
+            UserInfo userInfo = registerViewModel.userInfo.get();
             if (listener != null) {
                 listener.onLoginSuc(userInfo);
             }
