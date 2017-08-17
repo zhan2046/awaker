@@ -102,7 +102,7 @@ public class RegisterFragment extends BaseFragment<FragRegisterBinding> {
         @Override
         public void onPropertyChanged(Observable sender, int propertyId) {
             UserInfo userInfo = registerViewModel.userInfo.get();
-            if (listener != null) {
+            if (userInfo != null && listener != null) {
                 listener.onLoginSuc(userInfo);
             }
         }

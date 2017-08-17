@@ -116,21 +116,24 @@ public class HomeActivity extends AppCompatActivity {
         binding.navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.login_out:
-                    new MaterialDialog.Builder(this)
-                            .title(R.string.login_out)
-                            .content(R.string.login_out_desc)
-                            .positiveText(R.string.confirm)
-                            .negativeText(R.string.cancel)
-                            .theme(Theme.LIGHT)
-                            .negativeColorRes(R.color.text_color)
-                            .positiveColorRes(R.color.text_color)
-                            .onPositive((dialog, which) -> {
-                                Account.get().clearUserInfo();
-                                updateAccountInfo();
-                                Toast.makeText(this, R.string.login_out_finish, Toast.LENGTH_SHORT).show();
-                            })
-                            .onNegative((dialog, which) -> dialog.dismiss())
-                            .show();
+                    if (Account.get().isLogin()) {
+                        new MaterialDialog.Builder(this)
+                                .title(R.string.login_out)
+                                .content(R.string.login_out_desc)
+                                .positiveText(R.string.confirm)
+                                .negativeText(R.string.cancel)
+                                .theme(Theme.LIGHT)
+                                .negativeColorRes(R.color.text_color)
+                                .positiveColorRes(R.color.text_color)
+                                .onPositive((dialog, which) -> {
+                                    Account.get().clearUserInfo();
+                                    updateAccountInfo();
+                                    Toast.makeText(this, R.string.login_out_finish, Toast.LENGTH_SHORT).show();
+                                })
+                                .onNegative((dialog, which) -> dialog.dismiss())
+                                .show();
+                    }
+
                     break;
                 default:
                     Toast.makeText(this, R.string.future_desc, Toast.LENGTH_SHORT).show();

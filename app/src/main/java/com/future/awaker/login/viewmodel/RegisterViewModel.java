@@ -82,14 +82,17 @@ public class RegisterViewModel extends BaseViewModel {
                     LogUtils.showLog(TAG, throwable.toString());
                     Toast.makeText(Application.get(), R.string.login_error, Toast.LENGTH_SHORT).show();
                 })
-                .doOnSubscribe(disposable -> isRunning.set(true))
-                .doOnTerminate(() -> isRunning.set(false))
                 .doOnNext(result -> {
+                    if (result == null) {
+                        return;
+                    }
                     if (!TextUtils.isEmpty(result.info)) {
                         Toast.makeText(Application.get(), "" +
                                 result.info, Toast.LENGTH_SHORT).show();
                     }
-                    userInfo.set(result);
+                    if (result.data_1 != null) {
+                        userInfo.set(result);
+                    }
                 })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
     }

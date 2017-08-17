@@ -103,7 +103,7 @@ public class LoginFragment extends BaseFragment<FragLoginBinding> {
         @Override
         public void onPropertyChanged(Observable sender, int propertyId) {
             UserInfo userInfo = loginViewModel.userInfo.get();
-            if (listener != null) {
+            if (userInfo != null && listener != null) {
                 listener.onLoginSuc(userInfo);
             }
         }

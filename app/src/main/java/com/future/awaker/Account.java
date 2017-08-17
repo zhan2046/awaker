@@ -1,6 +1,7 @@
 package com.future.awaker;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.future.awaker.data.UserInfo;
 import com.future.awaker.data.realm.UserInfoRealm;
@@ -43,6 +44,10 @@ public final class Account {
             }
         }
         return INSTANCE;
+    }
+
+    public boolean isLogin() {
+        return userInfo != null;
     }
 
     public void initUserInfo() {
