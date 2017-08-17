@@ -1,7 +1,6 @@
 package com.future.awaker;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.future.awaker.data.UserInfo;
 import com.future.awaker.data.realm.UserInfoRealm;
@@ -94,6 +93,7 @@ public final class Account {
     public void clearUserInfo() {
         userInfo = null;
         openId = null;
+        setOpenIdToLocal("");
         HashMap<String, String> map = new HashMap<>();
         map.put(UserInfoRealm.ID, UserInfoRealm.ID_VALUE);
         AwakerRepository.get().deleteLocalRealm(UserInfoRealm.class, map);

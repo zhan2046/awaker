@@ -1,13 +1,14 @@
 *.iml
 .gradle
 /local.properties
+.idea/
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
 /build
 /captures
 .externalNativeBuild
+.idea/misc.xml
 
-.idea/
 .idea/vcs.xml
 app/src/main/java/com/love/awaker/main/holder/

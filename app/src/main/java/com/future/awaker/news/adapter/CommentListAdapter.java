@@ -15,6 +15,7 @@ import com.future.awaker.databinding.ItemLoadBinding;
 import com.future.awaker.databinding.ItemNewDetailCommentBinding;
 import com.future.awaker.news.adapter.holder.NewDetailCommentHolder;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,6 +40,8 @@ public class CommentListAdapter extends RecyclerView.Adapter {
         if (comments == null || comments.isEmpty()) {
             return;
         }
+
+        Collections.reverse(comments);
 
         if (commentList == null) {
             commentList = comments;
