@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.future.awaker.Application;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
@@ -24,7 +23,6 @@ import com.future.awaker.news.listener.NewDetailListener;
 import com.future.awaker.news.viewmodel.NewDetailViewModel;
 import com.future.awaker.util.HtmlParser;
 import com.future.awaker.util.KeyboardUtils;
-import com.future.awaker.util.UiUtils;
 import com.future.awaker.video.activity.VideoDetailActivity;
 
 import java.util.List;
@@ -148,8 +146,11 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
 
     @Override
     public void sendCommentSuc() {
+        String str = getResources().getString(R.string.comment_suc);
+        Toast.makeText(getContext(), str + "", Toast.LENGTH_LONG).show();
+        binding.commentEt.setText("");
+        binding.commentEt.setFocusable(false);
         KeyboardUtils.closeSoftInput(getActivity(), binding.commentEt);
-        onRefresh();
     }
 
     private class NewDetailBack extends Observable.OnPropertyChangedCallback {

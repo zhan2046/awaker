@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 
-def gitVersionCode() {
+def static gitVersionCode() {
     def cmd = 'git rev-list HEAD --first-parent --count'
     cmd.execute().text.trim().toInteger()
 }
 
-def gitVersionTag() {
+def static gitVersionTag() {
     def cmd = 'git describe --tags'
     def version = cmd.execute().text.trim()
 
@@ -35,13 +35,13 @@ android {
         }
     }
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         applicationId "com.future.awaker"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
 
         versionCode 1
         versionName "1.0"
@@ -52,6 +52,7 @@ android {
         debug {
             // 为了不和 release 版本冲突
             applicationIdSuffix ".debug"
+            signingConfig signingConfigs.config
         }
 
         release {
@@ -89,9 +90,8 @@ android {
 }
 
 dependencies {
-    def supportLibraryVersion = rootProject.ext.supportLibraryVersion
+    def supportLibraryVersion = rootProject.supportLibraryVersion
     def retrofitVersion = '2.3.0'
-    def leakCanaryVersion = '1.5.1'
     def glideVersion = '4.0.0'
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -117,10 +117,6 @@ dependencies {
 
     // core ui
     compile 'com.gordonwong:material-sheet-fab:1.2.1'
-
-    //leakCanary
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 
     compile 'com.pnikosis:materialish-progress:1.1'
     compile 'net.soulwolf.widget:ratiolayout:1.0.0'

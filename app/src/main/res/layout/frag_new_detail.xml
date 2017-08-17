@@ -11,11 +11,11 @@
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/f5"
         android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:focusableInTouchMode="true">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
@@ -29,73 +29,73 @@
                 app:titleTextAppearance="@style/Toolbar.TitleText" />
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh"
-            app:refreshing="@{viewModel.refreshing}"
-            android:layout_below="@+id/appbar"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appbar">
 
             <RelativeLayout
+                android:id="@+id/comment_rl"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/text_white_50">
 
-                <RelativeLayout
-                    android:id="@+id/comment_rl"
-                    android:background="@color/text_white_50"
-                    android:layout_alignParentBottom="true"
+                <TextView
+                    android:id="@+id/send_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingEnd="@dimen/space_normal"
+                    android:paddingStart="@dimen/space_normal"
+                    android:paddingTop="@dimen/space_normal"
+                    android:text="发送"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_small_1" />
+
+                <EditText
+                    android:id="@+id/comment_et"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/space_normal"
+                    android:layout_toStartOf="@+id/send_tv"
+                    android:hint="@string/add_comment"
+                    android:lineSpacingExtra="@dimen/space_small_1"
+                    android:maxLines="6"
+                    android:paddingEnd="@dimen/space_small_1"
+                    android:paddingStart="@dimen/space_small_1"
+                    android:textColor="@color/text_color"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_size_small_1"
+                    android:theme="@style/CommentEditText" />
 
-                    <TextView
-                        android:id="@+id/send_tv"
-                        android:text="发送"
-                        android:paddingTop="@dimen/space_normal"
-                        android:paddingBottom="@dimen/space_normal"
-                        android:paddingStart="@dimen/space_normal"
-                        android:paddingEnd="@dimen/space_normal"
-                        android:textSize="@dimen/text_size_small_1"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:textColor="@color/text_color"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_height"
+                    android:background="@color/black12" />
+            </RelativeLayout>
 
-                    <EditText
-                        android:id="@+id/comment_et"
-                        android:maxLines="6"
-                        android:theme="@style/CommentEditText"
-                        android:textCursorDrawable="@null"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/text_size_small_1"
-                        android:lineSpacingExtra="@dimen/space_small_1"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/space_normal"
-                        android:paddingStart="@dimen/space_small_1"
-                        android:paddingEnd="@dimen/space_small_1"
-                        android:layout_toStartOf="@+id/send_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
 
-                    <View
-                        android:background="@color/black12"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/divider_height"/>
-                </RelativeLayout>
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh"
+                android:layout_above="@+id/comment_rl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:refreshing="@{viewModel.refreshing}">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view"
-                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/comment_rl"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    app:comments="@{viewModel.comments}"
+                    android:background="@color/white"
                     android:scrollbars="vertical"
-                    app:layoutManager="LinearLayoutManager" />
-            </RelativeLayout>
-        </android.support.v4.widget.SwipeRefreshLayout>
-
+                    app:comments="@{viewModel.comments}"
+                    app:layoutManager="LinearLayoutManager"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

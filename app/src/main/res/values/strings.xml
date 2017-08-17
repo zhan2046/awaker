@@ -44,5 +44,6 @@
   <string name="update_version_title">检测到新版本 %1$s</string>
 
   <string name="comment_suc">评论成功</string>
+  <string name="add_comment">添加评论</string>
 
 </resources>

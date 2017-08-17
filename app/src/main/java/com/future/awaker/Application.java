@@ -1,7 +1,5 @@
 package com.future.awaker;
 
-import com.squareup.leakcanary.LeakCanary;
-
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -24,8 +22,6 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
-
-        LeakCanary.install(this);
 
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder()

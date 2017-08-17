@@ -136,6 +136,7 @@ public class NewDetailViewModel extends BaseListViewModel {
 
     public void getRemoteHotCommentList() {
         disposable.add(AwakerRepository.get().getUpNewsComments(TOKEN, newId)
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "remote doOnError: " + throwable.toString()))
                 .doOnNext(result -> setRemoteHotCommentList(result.getData()))
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
@@ -181,6 +182,7 @@ public class NewDetailViewModel extends BaseListViewModel {
     public void sendNewsComment(String newId, String content, String open_id,
                                 String pid) {
         disposable.add(AwakerRepository.get().sendNewsComment(TOKEN, newId, content, open_id, pid)
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "remote doOnError: " + throwable.toString()))
                 .doOnNext(result -> listener.sendCommentSuc())
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
