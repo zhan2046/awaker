@@ -45,5 +45,6 @@
 
   <string name="comment_suc">评论成功</string>
   <string name="add_comment">添加评论</string>
+  <string name="new_comment_count">评论( %1$s )</string>
 
 </resources>

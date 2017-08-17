@@ -4,6 +4,7 @@ package com.future.awaker.news.fragment;
 import android.annotation.SuppressLint;
 import android.databinding.Observable;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -37,6 +38,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
         implements OnItemClickListener<NewEle>, NewDetailListener {
+
+    private static final int RESET_EDIT_VALUE = 30;
 
     private static final String NEW_ID = "newId";
     private static final String NEW_TITLE = "newTitle";
@@ -82,7 +85,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
 
         viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
 
-        binding.sendTv.setOnClickListener(new DebouncingOnClickListener() {
+        binding.sendIv.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
                 String content = binding.commentEt.getText().toString().trim();
@@ -91,6 +94,39 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
                 }
                 viewModel.sendNewsComment(newId, content, null, null);
             }
+        });
+
+        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (Math.abs(dy) > RESET_EDIT_VALUE && binding.commentEt.isFocusable()) {
+                    binding.commentEt.setText("");
+                    binding.commentEt.setFocusable(false);
+                    binding.commentEt.setFocusableInTouchMode(true);
+                    KeyboardUtils.closeSoftInput(getActivity(), binding.commentEt);
+                }
+            }
+        });
+
+        binding.commentEt.setOnClickListener(new DebouncingOnClickListener() {
+            @Override
+            public void doClick(View v) {
+                binding.commentEt.setFocusable(true);
+                binding.commentEt.requestFocus();
+            }
+        });
+
+        binding.commentRightTv.setOnClickListener(new DebouncingOnClickListener() {
+            @Override
+            public void doClick(View v) {
+                CommentListActivity.launch(getActivity(), newId);
+            }
+        });
+
+        binding.commentEt.setOnFocusChangeListener((v, hasFocus) -> {
+            binding.sendIv.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
+            binding.commentRightTv.setVisibility(hasFocus ? View.GONE : View.VISIBLE);
         });
 
         onRefresh();
@@ -150,6 +186,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
         Toast.makeText(getContext(), str + "", Toast.LENGTH_LONG).show();
         binding.commentEt.setText("");
         binding.commentEt.setFocusable(false);
+        binding.commentEt.setFocusableInTouchMode(true);
         KeyboardUtils.closeSoftInput(getActivity(), binding.commentEt);
     }
 
@@ -172,6 +209,8 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
                 viewModel.header.url = newDetail.cover_url.ori;
             }
             viewModel.header.createTime = newDetail.create_time;
+
+            viewModel.setCommentCount(newDetail.comment);
 
             String html = newDetail.content;
             if (TextUtils.isEmpty(html)) {

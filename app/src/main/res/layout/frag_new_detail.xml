@@ -32,7 +32,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/appbar">
+            android:layout_below="@+id/appbar"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <RelativeLayout
                 android:id="@+id/comment_rl"
@@ -41,19 +42,42 @@
                 android:layout_alignParentBottom="true"
                 android:background="@color/text_white_50">
 
-                <TextView
-                    android:id="@+id/send_tv"
+                <FrameLayout
+                    android:id="@+id/comment_right_fl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:paddingBottom="@dimen/space_normal"
-                    android:paddingEnd="@dimen/space_normal"
-                    android:paddingStart="@dimen/space_normal"
-                    android:paddingTop="@dimen/space_normal"
-                    android:text="发送"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_small_1" />
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:id="@+id/send_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:paddingBottom="@dimen/space_normal"
+                        android:paddingEnd="@dimen/space_normal"
+                        android:paddingStart="@dimen/space_normal"
+                        android:paddingTop="@dimen/space_normal"
+                        android:src="@mipmap/ic_send_text_gray"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/comment_right_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:paddingBottom="@dimen/space_normal"
+                        android:paddingEnd="@dimen/space_normal"
+                        android:paddingStart="@dimen/space_normal"
+                        android:paddingTop="@dimen/space_normal"
+                        android:text="@{viewModel.commentCount}"
+                        android:textColor="@color/themePrimaryDark"
+                        android:textSize="@dimen/text_size_small_2" />
+                </FrameLayout>
 
                 <EditText
                     android:id="@+id/comment_et"
@@ -61,7 +85,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/space_normal"
-                    android:layout_toStartOf="@+id/send_tv"
+                    android:layout_toStartOf="@+id/comment_right_fl"
+                    android:gravity="center_vertical"
                     android:hint="@string/add_comment"
                     android:lineSpacingExtra="@dimen/space_small_1"
                     android:maxLines="6"
@@ -81,9 +106,9 @@
 
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_refresh"
-                android:layout_above="@+id/comment_rl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_above="@+id/comment_rl"
                 app:refreshing="@{viewModel.refreshing}">
 
                 <android.support.v7.widget.RecyclerView

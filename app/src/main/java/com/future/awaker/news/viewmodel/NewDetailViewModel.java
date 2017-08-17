@@ -1,9 +1,12 @@
 package com.future.awaker.news.viewmodel;
 
+import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
+import com.future.awaker.BR;
+import com.future.awaker.R;
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.Comment;
 import com.future.awaker.data.Header;
@@ -16,6 +19,7 @@ import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.news.listener.NewDetailListener;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
+import com.future.awaker.util.ResUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,12 +43,23 @@ public class NewDetailViewModel extends BaseListViewModel {
     private String newId;
     private HashMap<String, String> map = new HashMap<>();
     private HashMap<String, String> commentMap = new HashMap<>();
+    private String commentCount;
 
     private NewDetailListener listener;
 
 
     public NewDetailViewModel(NewDetailListener listener) {
         this.listener = listener;
+    }
+
+    @Bindable
+    public String getCommentCount() {
+        return ResUtils.getString(R.string.new_comment_count, commentCount);
+    }
+
+    public void setCommentCount(String commentCount) {
+        this.commentCount = commentCount;
+        notifyPropertyChanged(BR.commentCount);
     }
 
     public String getNewId() {
