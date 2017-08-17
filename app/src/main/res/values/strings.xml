@@ -47,4 +47,15 @@
   <string name="add_comment">添加评论</string>
   <string name="new_comment_count">评论( %1$s )</string>
 
+  <string name="welcome_back">%1$s 欢迎回来</string>
+  <string name="user_login">用户登录</string>
+  <string name="login">登录</string>
+  <string name="account">帐号</string>
+  <string name="password">密码</string>
+  <string name="login_error">帐号或密码错误</string>
+
+  <string name="register">注册</string>
+  <string name="wait">请稍等</string>
+
+
 </resources>

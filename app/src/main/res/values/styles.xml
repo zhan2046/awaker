@@ -15,6 +15,20 @@
     <item name="windowNoTitle">true</item>
   </style>
 
+  <style name="LoginTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Customize your theme here. -->
+
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorAccent">@color/colorPrimary</item>
+
+    <item name="android:textColorPrimary">@color/white</item>
+    <item name="android:windowBackground">@color/f5</item>
+
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
   <style name="NoAnimTheme" parent="AppTheme">
     <item name="android:windowAnimationStyle">@null</item>
     <item name="android:windowBackground">@android:color/transparent</item>

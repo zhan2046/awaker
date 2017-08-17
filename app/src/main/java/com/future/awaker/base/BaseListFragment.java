@@ -125,7 +125,7 @@ public class BaseListFragment<VB extends ViewDataBinding> extends BaseFragment<V
     }
 
     @Override
-    protected void runStatusChange() {
+    protected void runStatusChange(boolean isRunning) {
         if (listViewModel != null &&
                 !listViewModel.isRunning.get()) { // 网络请求结束隐藏下拉刷新
             listViewModel.refreshing.set(false);

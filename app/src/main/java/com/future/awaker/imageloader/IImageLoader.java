@@ -20,4 +20,6 @@ public interface IImageLoader {
     void loadThumb(ImageView imageView, String url);
 
     void loadCropCircle(ImageView imageView, String url);
+
+    void loadCropCircle(ImageView imageView, int resId);
 }

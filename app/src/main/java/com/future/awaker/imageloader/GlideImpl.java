@@ -102,4 +102,15 @@ public class GlideImpl implements IImageLoader {
                 .error(R.drawable.image_circle_mark)
                 .into(imageView);
     }
+
+    @Override
+    public void loadCropCircle(ImageView imageView, int resId) {
+        GlideApp.with(imageView.getContext())
+                .load(resId)
+                .transition(normalTransitionOptions)
+                .transform(new MultiTransformation<>(new CircleCrop()))
+                .placeholder(R.drawable.image_circle_mark)
+                .error(R.drawable.image_circle_mark)
+                .into(imageView);
+    }
 }

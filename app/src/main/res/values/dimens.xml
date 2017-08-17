@@ -38,4 +38,6 @@
     <dimen name="text_size_large_2">24sp</dimen>
     <dimen name="text_size_large_3">28sp</dimen>
     <dimen name="text_size_large_4">32sp</dimen>
+
+    <dimen name="account_icon">80dp</dimen>
 </resources>

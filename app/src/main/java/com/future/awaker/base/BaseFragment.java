@@ -1,5 +1,6 @@
 package com.future.awaker.base;
 
+import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.databinding.ViewDataBinding;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.future.awaker.R;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.viewmodel.BaseViewModel;
 
@@ -21,6 +23,8 @@ import com.future.awaker.base.viewmodel.BaseViewModel;
  */
 
 public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment {
+
+    protected ProgressDialog progressDialog;
 
     protected VB binding;
     protected BaseViewModel viewModel;
@@ -35,6 +39,20 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
 
     protected void onCreateBindView() {
 
+    }
+
+    public void showProgressDialog(int message) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this.getActivity());
+        }
+        progressDialog.setMessage(getString(message));
+        progressDialog.show();
+    }
+
+    public void dismissProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 
     @Nullable
@@ -84,15 +102,19 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment 
         this.viewModel.isRunning.addOnPropertyChangedCallback(runCallBack);
     }
 
-    protected void runStatusChange() {
-
+    protected void runStatusChange(boolean isRunning) {
+        if (isRunning) {
+            showProgressDialog(R.string.wait);
+        } else {
+            dismissProgressDialog();
+        }
     }
 
     private class RunCallBack extends Observable.OnPropertyChangedCallback {
 
         @Override
         public void onPropertyChanged(Observable sender, int propertyId) {
-            runStatusChange();
+            runStatusChange(viewModel.isRunning.get());
         }
     }
 }

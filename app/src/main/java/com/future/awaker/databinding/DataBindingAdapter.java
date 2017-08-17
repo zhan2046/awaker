@@ -50,6 +50,13 @@ public final class DataBindingAdapter {
         }
     }
 
+    @BindingAdapter({"imageCropCircleUrlRes"})
+    public static void loadImageCropCircle(ImageView iv, int resId) {
+        if (resId > 0) {
+            ImageLoader.get().loadCropCircle(iv, resId);
+        }
+    }
+
     @BindingAdapter({"news"})
     public static void setNews(RecyclerView recyclerView, List<News> news) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();

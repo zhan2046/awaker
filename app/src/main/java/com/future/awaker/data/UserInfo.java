@@ -8,5 +8,6 @@ public class UserInfo {
 
     public UserData data;
     public UserDetail data_1;
+    public String info;
     public int code;
 }

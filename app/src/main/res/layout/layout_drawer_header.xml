@@ -1,24 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/f5"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
-    <FrameLayout
-        android:background="@color/colorPrimary"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/drawer_header_height">
+        android:layout_height="match_parent"
+        android:background="@color/f5"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_margin="@dimen/drawer_header_text_spacing"
-            android:text="@string/app_name"
-            android:textColor="@color/text_white_87"
-            android:textSize="@dimen/drawer_header_textsize" />
-    </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/drawer_header_height"
+            android:background="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/icon_iv"
+                    android:layout_width="@dimen/account_icon"
+                    android:layout_height="@dimen/account_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingEnd="@dimen/space_normal"
+                    android:paddingStart="@dimen/space_normal"
+                    android:paddingTop="@dimen/space_normal"
+                    android:layout_marginTop="@dimen/space_normal"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <LinearLayout
+                    android:id="@+id/login_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_large_1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/login_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:paddingBottom="@dimen/space_normal"
+                        android:paddingEnd="@dimen/space_normal"
+                        android:paddingStart="@dimen/space_normal"
+                        android:paddingTop="@dimen/space_normal"
+                        android:layout_marginEnd="@dimen/space_normal"
+                        android:text="@string/login"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_normal" />
+
+                    <TextView
+                        android:id="@+id/register_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:paddingBottom="@dimen/space_normal"
+                        android:paddingEnd="@dimen/space_normal"
+                        android:paddingStart="@dimen/space_normal"
+                        android:paddingTop="@dimen/space_normal"
+                        android:layout_marginStart="@dimen/space_normal"
+                        android:text="@string/register"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_normal" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</layout>
 
 
-</LinearLayout>

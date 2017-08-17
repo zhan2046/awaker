@@ -13,24 +13,32 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.allenliu.versionchecklib.HttpRequestMethod;
 import com.allenliu.versionchecklib.VersionParams;
+import com.future.awaker.Account;
 import com.future.awaker.BuildConfig;
 import com.future.awaker.R;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.Special;
+import com.future.awaker.data.UserDetail;
+import com.future.awaker.data.UserInfo;
 import com.future.awaker.databinding.ActivityHomeBinding;
+import com.future.awaker.databinding.DataBindingAdapter;
 import com.future.awaker.fir.Fir;
 import com.future.awaker.fir.FirService;
 import com.future.awaker.home.adapter.HomeAdapter;
+import com.future.awaker.login.LoginActivity;
 import com.future.awaker.util.AnimatorUtils;
 import com.future.awaker.util.ResUtils;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
@@ -45,6 +53,7 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE_HOME = 1000;
     private static final int BACK_TIME = 2000;
 
     private ActivityHomeBinding binding;
@@ -57,6 +66,12 @@ public class HomeActivity extends AppCompatActivity {
     private HomeClickListener homeClickListener = new HomeClickListener();
     private HomeAdapter homeAdapter;
     private Intent versionIntent;
+
+    private ImageView userIconIv;
+    private View userLoginLl;
+    private TextView userNameTv;
+    private TextView userLoginTv;
+    private TextView userRegisterTv;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
@@ -77,12 +92,39 @@ public class HomeActivity extends AppCompatActivity {
                 R.string.app_name);
         binding.drawerLayout.setDrawerListener(drawerToggle);
 
+        initHeaderView();
+
         setupFab();
         setupTabs();
 
         if (BuildConfig.BUILD_TYPE.equals("release")) {
             checkVersionUpdate();
         }
+    }
+
+    private void initHeaderView() {
+        View headerView = binding.navigationView.getHeaderView(0);
+        userIconIv = (ImageView) headerView.findViewById(R.id.icon_iv);
+        userLoginTv = (TextView) headerView.findViewById(R.id.login_tv);
+        userRegisterTv = (TextView) headerView.findViewById(R.id.register_tv);
+        userLoginLl = headerView.findViewById(R.id.login_ll);
+        userNameTv = (TextView) headerView.findViewById(R.id.name_tv);
+
+        updateAccountInfo();
+
+        userLoginTv.setOnClickListener(new DebouncingOnClickListener() {
+            @Override
+            public void doClick(View v) {
+                LoginActivity.launch(HomeActivity.this, REQUEST_CODE_HOME);
+            }
+        });
+
+        userRegisterTv.setOnClickListener(new DebouncingOnClickListener() {
+            @Override
+            public void doClick(View v) {
+                LoginActivity.launch(HomeActivity.this, REQUEST_CODE_HOME);
+            }
+        });
     }
 
     private void checkVersionUpdate() {
@@ -346,4 +388,32 @@ public class HomeActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_HOME) {
+            if (resultCode == LoginActivity.RESULT_CODE_SUC) {
+                updateAccountInfo();
+            }
+        }
+    }
+
+    private void updateAccountInfo() {
+        UserInfo userInfo = Account.get().getUserInfo();
+        userLoginLl.setVisibility(userInfo == null ? View.VISIBLE :View.GONE);
+        userNameTv.setVisibility(userInfo == null ? View.GONE :View.VISIBLE);
+        userIconIv.setImageResource(userInfo == null ? R.drawable.ic_gongjihui : R.drawable.ic_qita);
+
+        if (userInfo != null) {
+            UserDetail userDetail = userInfo.data_1;
+            if (userDetail != null) {
+                userNameTv.setText(userDetail.nickname);
+                String url = userDetail.avatar512;
+                if (!TextUtils.isEmpty(url)) {
+                    //DataBindingAdapter.loadImageCropCircle(userIconIv, userDetail.avatar64);
+                }
+            }
+        }
+    }
 }
