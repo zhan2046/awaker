@@ -6,6 +6,7 @@ import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
+import com.future.awaker.data.UserInfo;
 
 import java.util.List;
 
@@ -81,8 +82,21 @@ public interface AwakerApi {
     @FormUrlEncoded
     @POST("news/sendNewsComment/id/{newId}")
     Flowable<HttpResult<Object>> sendNewsComment(@Field("access_token") String token,
-                                                  @Path("newId") String newId,
-                                                  @Field("content") String content,
-                                                  @Field("open_id") String open_id,
-                                                  @Field("pid") String pid);
+                                                 @Path("newId") String newId,
+                                                 @Field("content") String content,
+                                                 @Field("open_id") String open_id,
+                                                 @Field("pid") String pid);
+
+    @FormUrlEncoded
+    @POST("account/register")
+    Flowable<HttpResult<Object>> register(@Field("access_token") String token,
+                                          @Field("email") String email,
+                                          @Field("nickname") String nickname,
+                                          @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("account/login")
+    Flowable<UserInfo> login(@Field("access_token") String token,
+                             @Field("username") String username,
+                             @Field("password") String password);
 }

@@ -6,6 +6,7 @@ import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
+import com.future.awaker.data.UserInfo;
 import com.future.awaker.network.HttpResult;
 
 import java.util.List;
@@ -41,4 +42,8 @@ public interface IRemoteDataSource {
 
     Flowable<HttpResult<Object>> sendNewsComment(String token, String newId, String content, String open_id,
                                                  String pid);
+
+    Flowable<HttpResult<Object>> register(String token, String email, String nickname, String password);
+
+    Flowable<UserInfo> login(String token, String username, String password);
 }

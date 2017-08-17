@@ -6,6 +6,7 @@ import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
+import com.future.awaker.data.UserInfo;
 import com.future.awaker.network.HttpResult;
 import com.future.awaker.source.local.ILocalDataSource;
 import com.future.awaker.source.remote.IRemoteDataSource;
@@ -92,6 +93,16 @@ public final class AwakerRepositoryImpl implements IAwakerRepository {
     @Override
     public Flowable<HttpResult<Object>> sendNewsComment(String token, String newId, String content, String open_id, String pid) {
         return remoteDataSource.sendNewsComment(token, newId, content, open_id, pid);
+    }
+
+    @Override
+    public Flowable<HttpResult<Object>> register(String token, String email, String nickname, String password) {
+        return remoteDataSource.register(token, email, nickname, password);
+    }
+
+    @Override
+    public Flowable<UserInfo> login(String token, String username, String password) {
+        return remoteDataSource.login(token, username, password);
     }
 
     ///////////////////////

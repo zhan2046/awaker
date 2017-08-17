@@ -6,6 +6,7 @@ import com.future.awaker.data.NewDetail;
 import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
+import com.future.awaker.data.UserInfo;
 import com.future.awaker.network.AwakerApi;
 import com.future.awaker.network.HttpResult;
 
@@ -90,6 +91,18 @@ public class RemoteDataSourceImpl implements IRemoteDataSource {
     @Override
     public Flowable<HttpResult<Object>> sendNewsComment(String token, String newId, String content, String open_id, String pid) {
         return awakerApi.sendNewsComment(token, newId, content, open_id, pid)
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Flowable<HttpResult<Object>> register(String token, String email, String nickname, String password) {
+        return awakerApi.register(token, email, nickname, password)
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Flowable<UserInfo> login(String token, String username, String password) {
+        return awakerApi.login(token, username, password)
                 .subscribeOn(Schedulers.io());
     }
 }
