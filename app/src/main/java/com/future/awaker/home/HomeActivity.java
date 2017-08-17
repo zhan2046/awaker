@@ -70,6 +70,7 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView userIconIv;
     private View userLoginLl;
     private TextView userNameTv;
+    private TextView userOtherDescTv;
     private TextView userLoginTv;
     private TextView userRegisterTv;
 
@@ -109,6 +110,7 @@ public class HomeActivity extends AppCompatActivity {
         userRegisterTv = (TextView) headerView.findViewById(R.id.register_tv);
         userLoginLl = headerView.findViewById(R.id.login_ll);
         userNameTv = (TextView) headerView.findViewById(R.id.name_tv);
+        userOtherDescTv = (TextView) headerView.findViewById(R.id.other_tv);
 
         updateAccountInfo();
 
@@ -397,6 +399,11 @@ public class HomeActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_HOME) {
             if (resultCode == LoginActivity.RESULT_CODE_SUC) {
                 updateAccountInfo();
+                binding.drawerLayout.postDelayed(() -> {
+                    if (binding.drawerLayout.isDrawerVisible(GravityCompat.START)) {
+                        binding.drawerLayout.closeDrawer(GravityCompat.START);
+                    }
+                }, 600);
             }
         }
     }
@@ -405,6 +412,8 @@ public class HomeActivity extends AppCompatActivity {
         UserInfo userInfo = Account.get().getUserInfo();
         userLoginLl.setVisibility(userInfo == null ? View.VISIBLE :View.GONE);
         userNameTv.setVisibility(userInfo == null ? View.GONE :View.VISIBLE);
+        userOtherDescTv.setText(userInfo == null ?
+                R.string.launch_desc : R.string.other_desc_str);
         userIconIv.setImageResource(R.drawable.ic_gongjihui);
 
         if (userInfo != null) {

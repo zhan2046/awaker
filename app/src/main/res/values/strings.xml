@@ -61,6 +61,8 @@
   <string name="nike">昵称</string>
   <string name="pwd_check">两次输入的密码不一致</string>
 
+  <string name="other_desc_str">你渴望得到力量吗?</string>
+
 
 
 </resources>

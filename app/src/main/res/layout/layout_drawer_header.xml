@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,25 +27,40 @@
                     android:scaleType="centerCrop" />
 
                 <TextView
+                    android:id="@+id/other_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/space_normal"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/launch_desc"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small_1" />
+
+                <TextView
                     android:id="@+id/name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_small_1"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:paddingBottom="@dimen/space_normal"
                     android:paddingEnd="@dimen/space_normal"
                     android:paddingStart="@dimen/space_normal"
                     android:paddingTop="@dimen/space_normal"
-                    android:layout_marginTop="@dimen/space_normal"
-                    android:visibility="gone"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_normal" />
+                    android:textSize="@dimen/text_size_normal"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/login_ll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_large_1"
+                    android:layout_marginTop="@dimen/space_small_1"
                     android:orientation="horizontal">
 
                     <TextView
