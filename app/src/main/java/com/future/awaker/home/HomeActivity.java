@@ -403,7 +403,7 @@ public class HomeActivity extends AppCompatActivity {
         UserInfo userInfo = Account.get().getUserInfo();
         userLoginLl.setVisibility(userInfo == null ? View.VISIBLE :View.GONE);
         userNameTv.setVisibility(userInfo == null ? View.GONE :View.VISIBLE);
-        userIconIv.setImageResource(userInfo == null ? R.drawable.ic_gongjihui : R.drawable.ic_qita);
+        userIconIv.setImageResource(R.drawable.ic_gongjihui);
 
         if (userInfo != null) {
             UserDetail userDetail = userInfo.data_1;

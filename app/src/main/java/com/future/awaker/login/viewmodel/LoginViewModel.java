@@ -48,8 +48,8 @@ public class LoginViewModel extends BaseViewModel {
                 .doOnTerminate(() -> isRunning.set(false))
                 .doOnNext(result -> {
                     if (!TextUtils.isEmpty(result.info)) {
-                        Toast.makeText(Application.get(), "" + result.info, Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(Application.get(), "" +
+                                result.info, Toast.LENGTH_SHORT).show();
                     }
                     userInfo.set(result);
                 })
