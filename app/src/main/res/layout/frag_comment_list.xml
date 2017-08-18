@@ -65,6 +65,7 @@
                     android:layout_toStartOf="@+id/send_iv"
                     android:gravity="center_vertical"
                     android:hint="@string/add_comment"
+                    android:inputType="textMultiLine"
                     android:lineSpacingExtra="@dimen/space_small_1"
                     android:maxLines="6"
                     android:paddingEnd="@dimen/space_small_1"

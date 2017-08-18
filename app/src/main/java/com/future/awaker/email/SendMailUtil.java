@@ -12,7 +12,7 @@ import java.io.File;
 
 public class SendMailUtil {
 
-    private static final String EMAIL_TITLE = "来自(awaker android app)用户反馈";
+    private static final String EMAIL_TITLE = "来自 (awaker android app) 用户反馈";
 
     //qq
     private static final String HOST = "smtp.qq.com";

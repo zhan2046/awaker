@@ -7,9 +7,10 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.future.awaker.Application;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseFragment;
@@ -71,16 +72,19 @@ public class UserBackFragment extends BaseFragment<FragUserBackBinding> {
         binding.sendBtn.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
-                userBackViewModel.sendEmail();
+                new MaterialDialog.Builder(getActivity())
+                        .title(R.string.send_email)
+                        .content(R.string.send_email_content)
+                        .positiveText(R.string.confirm)
+                        .negativeText(R.string.cancel)
+                        .theme(Theme.LIGHT)
+                        .contentColorRes(R.color.themePrimaryDark)
+                        .negativeColorRes(R.color.text_color)
+                        .positiveColorRes(R.color.text_color)
+                        .onPositive((dialog, which) -> userBackViewModel.sendEmail())
+                        .onNegative((dialog, which) -> dialog.dismiss())
+                        .show();
             }
-        });
-
-        binding.contentEt.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE
-                    || actionId == EditorInfo.IME_ACTION_GO) {
-                userBackViewModel.sendEmail();
-            }
-            return false;
         });
     }
 

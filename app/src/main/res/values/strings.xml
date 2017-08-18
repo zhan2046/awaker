@@ -79,5 +79,6 @@
   <string name="user_back_title">有什么要跟开发者说的：</string>
   <string name="user_back_content">发送一封邮件给开发者</string>
   <string name="send_email">发送邮件</string>
+  <string name="send_email_content">是否发送一封邮件给开发者?</string>
   <string name="send_email_finish">邮件发送成功</string>
 </resources>

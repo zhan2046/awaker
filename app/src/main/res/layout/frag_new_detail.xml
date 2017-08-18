@@ -89,6 +89,7 @@
                     android:gravity="center_vertical"
                     android:hint="@string/add_comment"
                     android:lineSpacingExtra="@dimen/space_small_1"
+                    android:inputType="textMultiLine"
                     android:maxLines="6"
                     android:paddingEnd="@dimen/space_small_1"
                     android:paddingStart="@dimen/space_small_1"
