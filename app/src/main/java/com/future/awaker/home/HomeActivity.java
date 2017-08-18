@@ -26,8 +26,9 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.allenliu.versionchecklib.HttpRequestMethod;
-import com.allenliu.versionchecklib.VersionParams;
+import com.allenliu.versionchecklib.core.AllenChecker;
+import com.allenliu.versionchecklib.core.HttpRequestMethod;
+import com.allenliu.versionchecklib.core.VersionParams;
 import com.future.awaker.Account;
 import com.future.awaker.BuildConfig;
 import com.future.awaker.R;
@@ -69,7 +70,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private HomeClickListener homeClickListener = new HomeClickListener();
     private HomeAdapter homeAdapter;
-    private Intent versionIntent;
 
     private ImageView userIconIv;
     private View userLoginLl;
@@ -215,12 +215,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void checkVersionUpdate() {
-        VersionParams versionParams = new VersionParams()
+        VersionParams.Builder builder = new VersionParams.Builder()
                 .setRequestMethod(HttpRequestMethod.GET)
-                .setRequestUrl(Fir.VERSION_URL);
-        versionIntent = new Intent(this, FirService.class);
-        versionIntent.putExtra(FirService.VERSION_PARAMS_KEY, versionParams);
-        startService(versionIntent);
+                .setRequestUrl(Fir.VERSION_URL)
+                .setService(FirService.class);
+        AllenChecker.startVersionCheck(this, builder.build());
     }
 
     @Override

@@ -56,7 +56,9 @@ android {
         }
 
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
@@ -124,7 +126,7 @@ dependencies {
     compile 'com.just.agentweb:agentweb:1.2.5'
     compile 'org.jsoup:jsoup:1.10.3'
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
-    compile 'com.allenliu.versionchecklib:library:1.0.9'
+    compile 'com.allenliu.versionchecklib:library:1.5'
     compile 'com.afollestad.material-dialogs:core:0.9.4.6'
 
     compile 'com.sun.mail:android-mail:1.5.5'

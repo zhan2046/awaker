@@ -2,7 +2,7 @@ package com.future.awaker.fir;
 
 import android.text.TextUtils;
 
-import com.allenliu.versionchecklib.AVersionService;
+import com.allenliu.versionchecklib.core.AVersionService;
 import com.future.awaker.R;
 import com.future.awaker.util.GsonTools;
 import com.future.awaker.util.UiUtils;
