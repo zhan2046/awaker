@@ -23,4 +23,5 @@ public class Comment {
     public String sina_url;
     public User user;
     public CommentTitle newstitle;
+    public boolean isSelect;
 }
