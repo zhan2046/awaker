@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.Awaker.ToolBar"
+            app:titleTextAppearance="@style/Toolbar.TitleText"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_large_2"
+            android:gravity="center_horizontal"
+            android:text="@string/app_name"
+            android:textColor="#FF383838"
+            android:textSize="48sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_normal"
+            android:gravity="center_horizontal"
+            android:text="@string/launch_desc"
+            android:textColor="#FF9B9B9B"
+            android:textSize="@dimen/text_size_small_1" />
+
+        <TextView
+            android:id="@+id/version_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_small_1"
+            android:gravity="center_horizontal"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_small_2" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_large_2"
+            android:gravity="center_horizontal"
+            android:text="@string/develop_desc_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_normal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_normal"
+            android:gravity="center_horizontal"
+            android:text="@string/awaker_link"
+            android:autoLink="web"
+            android:textColorLink="@color/colorPrimary"
+            android:lineSpacingExtra="@dimen/space_normal"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_normal" />
+    </LinearLayout>
+</layout>

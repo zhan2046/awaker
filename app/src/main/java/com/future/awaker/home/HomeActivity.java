@@ -51,8 +51,6 @@ import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 import java.util.Arrays;
 import java.util.List;
 
-import io.realm.Realm;
-
 /**
  * Copyright ©2017 by Teambition
  */
@@ -121,7 +119,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.develop_desc:
-
+                    SettingActivity.launch(this, SettingActivity.DEVELOP_DESC);
                     break;
                 case R.id.cache_clear:
                     new MaterialDialog.Builder(this)

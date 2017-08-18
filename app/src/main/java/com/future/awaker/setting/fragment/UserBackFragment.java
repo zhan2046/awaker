@@ -1,4 +1,4 @@
-package com.future.awaker.setting;
+package com.future.awaker.setting.fragment;
 
 import android.databinding.Observable;
 import android.os.Bundle;

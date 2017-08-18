@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.future.awaker.R;
+import com.future.awaker.setting.fragment.DevelopDescFragment;
+import com.future.awaker.setting.fragment.UserBackFragment;
 
 /**
  * Copyright ©2017 by Teambition
@@ -20,6 +22,7 @@ public class SettingActivity extends AppCompatActivity {
     public static final int USER_BACK = 1001;
 
     private UserBackFragment userBackFragment;
+    private DevelopDescFragment developDescFragment;
 
     public static void launch(Context context, int type) {
         Intent intent = new Intent(context, SettingActivity.class);
@@ -34,6 +37,7 @@ public class SettingActivity extends AppCompatActivity {
 
         int type = getIntent().getIntExtra(KEY_TYPE, DEVELOP_DESC);
         if (DEVELOP_DESC == type) {
+            switchDevelopDescFragment();
 
         } else if (USER_BACK == type) {
             switchUserBackFragment();
@@ -49,6 +53,18 @@ public class SettingActivity extends AppCompatActivity {
                 .beginTransaction()
                 .add(R.id.container_fl, userBackFragment,
                         UserBackFragment.class.getSimpleName())
+                .commit();
+    }
+
+    private void switchDevelopDescFragment() {
+        if (developDescFragment == null) {
+            developDescFragment = DevelopDescFragment.newInstance();
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.container_fl, developDescFragment,
+                        DevelopDescFragment.class.getSimpleName())
                 .commit();
     }
 }

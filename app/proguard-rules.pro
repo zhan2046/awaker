@@ -32,3 +32,7 @@
 -dontwarn com.just.library.**
 
 -keepclassmembers class com.just.library.agentweb.AndroidInterface{ *; }
+
+-keep class com.blankj.utilcode.** { *; }
+-keepclassmembers class com.blankj.utilcode.** { *; }
+-dontwarn com.blankj.utilcode.**

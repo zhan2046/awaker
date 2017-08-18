@@ -1,5 +1,7 @@
 package com.future.awaker;
 
+import com.blankj.utilcode.util.Utils;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -22,6 +24,8 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
+
+        Utils.init(Application.get());
 
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder()

@@ -81,4 +81,7 @@
   <string name="send_email">发送邮件</string>
   <string name="send_email_content">是否发送一封邮件给开发者?</string>
   <string name="send_email_finish">邮件发送成功</string>
+
+  <string name="develop_desc_content">这是一个开源项目</string>
+  <string name="awaker_link">https://github.com/ruzhan123/awaker/blob/master/README.md</string>
 </resources>
