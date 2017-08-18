@@ -42,6 +42,7 @@ import com.future.awaker.fir.FirService;
 import com.future.awaker.home.adapter.HomeAdapter;
 import com.future.awaker.login.LoginActivity;
 import com.future.awaker.setting.SettingActivity;
+import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.AnimatorUtils;
 import com.future.awaker.util.ResUtils;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
@@ -49,6 +50,8 @@ import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 
 import java.util.Arrays;
 import java.util.List;
+
+import io.realm.Realm;
 
 /**
  * Copyright ©2017 by Teambition
@@ -120,7 +123,21 @@ public class HomeActivity extends AppCompatActivity {
 
                     break;
                 case R.id.cache_clear:
-
+                    new MaterialDialog.Builder(this)
+                            .title(R.string.cache_clear)
+                            .content(R.string.cache_clear_desc)
+                            .positiveText(R.string.confirm)
+                            .negativeText(R.string.cancel)
+                            .theme(Theme.LIGHT)
+                            .negativeColorRes(R.color.text_color)
+                            .positiveColorRes(R.color.text_color)
+                            .onPositive((dialog, which) -> {
+                                AwakerRepository.get().clearAll();
+                                Toast.makeText(this, R.string.cache_clear_finish,
+                                        Toast.LENGTH_SHORT).show();
+                            })
+                            .onNegative((dialog, which) -> dialog.dismiss())
+                            .show();
                     break;
                 case R.id.user_back:
                     SettingActivity.launch(this, SettingActivity.USER_BACK);

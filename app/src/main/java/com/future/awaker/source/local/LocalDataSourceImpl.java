@@ -37,6 +37,11 @@ public class LocalDataSourceImpl implements ILocalDataSource {
     }
 
     @Override
+    public void clearAll() {
+        realmManager.clearAll();
+    }
+
+    @Override
     public void close() {
         realmManager.close();
     }

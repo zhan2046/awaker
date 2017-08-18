@@ -73,6 +73,8 @@
 
   <string name="develop_desc">关于</string>
   <string name="cache_clear">缓存</string>
+  <string name="cache_clear_desc">是否清除缓存?</string>
+  <string name="cache_clear_finish">清除缓存完成</string>
   <string name="user_back">反馈</string>
   <string name="user_back_title">有什么要跟开发者说的：</string>
   <string name="user_back_content">发送一封邮件给开发者</string>

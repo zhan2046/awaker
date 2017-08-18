@@ -19,5 +19,7 @@ public interface ILocalDataSource {
 
     void deleteLocalRealm(Class clazz, Map<String, String> map);
 
+    void clearAll();
+
     void close();
 }

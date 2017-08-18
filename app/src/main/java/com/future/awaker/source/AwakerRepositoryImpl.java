@@ -125,6 +125,11 @@ public final class AwakerRepositoryImpl implements IAwakerRepository {
     }
 
     @Override
+    public void clearAll() {
+        localNewDataSource.clearAll();
+    }
+
+    @Override
     public void close() {
         localNewDataSource.close();
     }

@@ -43,7 +43,7 @@ public class NewDetailViewModel extends BaseListViewModel {
     private String newId;
     private HashMap<String, String> map = new HashMap<>();
     private HashMap<String, String> commentMap = new HashMap<>();
-    private String commentCount;
+    private String commentCount = "0";
 
     private SendCommentListener listener;
 

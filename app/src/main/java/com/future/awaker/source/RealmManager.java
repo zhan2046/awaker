@@ -94,4 +94,9 @@ public final class RealmManager {
     public void close() {
         Realm.getDefaultInstance().close();
     }
+
+    public void clearAll() {
+        Realm realmInstance = Realm.getDefaultInstance();
+        realmInstance.executeTransaction(realm -> realm.deleteAll());
+    }
 }
