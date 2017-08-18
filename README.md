@@ -16,7 +16,7 @@ Awaker
 Content
 ------
 
-项目架构采用MVVM，google Databinding
+项目架构采用MVVM，采用单一职能设计与分层设计原则。
 
 
 
