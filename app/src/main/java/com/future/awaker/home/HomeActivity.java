@@ -79,6 +79,7 @@ public class HomeActivity extends AppCompatActivity {
     private TextView userOtherDescTv;
     private TextView userLoginTv;
     private TextView userRegisterTv;
+    private TextView userExitLoginTv;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
@@ -142,34 +143,6 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.user_back:
                     SettingActivity.launch(this, SettingActivity.USER_BACK);
                     break;
-                case R.id.login_out:
-                    if (Account.get().isLogin()) {
-                        new MaterialDialog.Builder(this)
-                                .title(R.string.login_out)
-                                .content(R.string.login_out_desc)
-                                .positiveText(R.string.confirm)
-                                .negativeText(R.string.cancel)
-                                .theme(Theme.LIGHT)
-                                .negativeColorRes(R.color.text_color)
-                                .positiveColorRes(R.color.text_color)
-                                .onPositive((dialog, which) -> {
-                                    Account.get().clearUserInfo();
-                                    updateAccountInfo();
-                                    Toast.makeText(this, R.string.login_out_finish, Toast.LENGTH_SHORT).show();
-
-                                    binding.drawerLayout.postDelayed(() -> {
-                                        if (binding.drawerLayout.isDrawerVisible(GravityCompat.START)) {
-                                            binding.drawerLayout.closeDrawer(GravityCompat.START);
-                                        }
-                                    }, 600);
-                                })
-                                .onNegative((dialog, which) -> dialog.dismiss())
-                                .show();
-
-                    } else {
-                        Toast.makeText(this, R.string.login_no, Toast.LENGTH_SHORT).show();
-                    }
-                    break;
                 default:
                     Toast.makeText(this, R.string.future_desc, Toast.LENGTH_SHORT).show();
                     break;
@@ -186,6 +159,7 @@ public class HomeActivity extends AppCompatActivity {
         userLoginLl = headerView.findViewById(R.id.login_ll);
         userNameTv = (TextView) headerView.findViewById(R.id.name_tv);
         userOtherDescTv = (TextView) headerView.findViewById(R.id.other_tv);
+        userExitLoginTv = (TextView) headerView.findViewById(R.id.exit_login_tv);
 
         updateAccountInfo();
 
@@ -204,6 +178,42 @@ public class HomeActivity extends AppCompatActivity {
                         LoginActivity.REGISTER_FLAG);
             }
         });
+
+        userExitLoginTv.setOnClickListener(new DebouncingOnClickListener() {
+            @Override
+            public void doClick(View v) {
+                exitLogin();
+            }
+        });
+    }
+
+    private void exitLogin() {
+        if (Account.get().isLogin()) {
+            new MaterialDialog.Builder(this)
+                    .title(R.string.login_out)
+                    .content(R.string.login_out_desc)
+                    .positiveText(R.string.confirm)
+                    .negativeText(R.string.cancel)
+                    .theme(Theme.LIGHT)
+                    .negativeColorRes(R.color.text_color)
+                    .positiveColorRes(R.color.text_color)
+                    .onPositive((dialog, which) -> {
+                        Account.get().clearUserInfo();
+                        updateAccountInfo();
+                        Toast.makeText(this, R.string.login_out_finish, Toast.LENGTH_SHORT).show();
+
+                        binding.drawerLayout.postDelayed(() -> {
+                            if (binding.drawerLayout.isDrawerVisible(GravityCompat.START)) {
+                                binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            }
+                        }, 600);
+                    })
+                    .onNegative((dialog, which) -> dialog.dismiss())
+                    .show();
+
+        } else {
+            Toast.makeText(this, R.string.login_no, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void checkVersionUpdate() {
@@ -482,6 +492,7 @@ public class HomeActivity extends AppCompatActivity {
         UserInfo userInfo = Account.get().getUserInfo();
         userLoginLl.setVisibility(userInfo == null ? View.VISIBLE : View.GONE);
         userNameTv.setVisibility(userInfo == null ? View.GONE : View.VISIBLE);
+        userExitLoginTv.setVisibility(userInfo == null ? View.GONE : View.VISIBLE);
         userOtherDescTv.setText(userInfo == null ?
                 R.string.launch_desc : R.string.other_desc_str);
         userIconIv.setImageResource(R.drawable.ic_gongjihui);

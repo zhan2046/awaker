@@ -19,11 +19,5 @@
             android:checkable="true"
             android:title="@string/cache_clear"
             />
-
-        <item
-            android:id="@+id/login_out"
-            android:checkable="true"
-            android:title="@string/login_out"
-            />
     </group>
 </menu>

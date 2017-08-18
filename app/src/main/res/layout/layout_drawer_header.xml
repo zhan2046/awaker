@@ -98,6 +98,18 @@
                         android:textSize="@dimen/text_size_normal" />
                 </LinearLayout>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/exit_login_tv"
+                android:visibility="gone"
+                android:text="@string/login_out"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/space_normal"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_small_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </FrameLayout>
     </LinearLayout>
 </layout>
