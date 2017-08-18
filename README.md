@@ -20,7 +20,11 @@ Content
 
 
 
-[下载体验](https://fir.im/r68b)
+
+Download
+------
+[酷安市场下载](https://www.coolapk.com/apk/155953)
+[Fir下载](https://fir.im/r68b)
 	  
 	
 
