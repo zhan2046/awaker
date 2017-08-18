@@ -16,7 +16,7 @@ import com.future.awaker.login.fragment.RegisterFragment;
 import com.future.awaker.login.listener.LoginListener;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {

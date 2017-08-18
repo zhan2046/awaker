@@ -16,7 +16,7 @@ import com.future.awaker.news.fragment.NewListFragment;
 import com.future.awaker.news.fragment.NiceCommentFragment;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class HomeTypeListActivity extends BaseActivity<ActivityNewListBinding> {

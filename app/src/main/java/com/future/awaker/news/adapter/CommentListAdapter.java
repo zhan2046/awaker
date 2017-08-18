@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class CommentListAdapter extends RecyclerView.Adapter {

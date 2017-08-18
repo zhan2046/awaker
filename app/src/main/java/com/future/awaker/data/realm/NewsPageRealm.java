@@ -10,7 +10,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class NewsPageRealm extends RealmObject {

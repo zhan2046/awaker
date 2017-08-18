@@ -11,7 +11,7 @@ import com.future.awaker.R;
 import com.future.awaker.news.fragment.NewDetailFragment;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class NewDetailActivity extends AppCompatActivity {

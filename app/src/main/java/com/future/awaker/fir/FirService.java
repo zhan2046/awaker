@@ -8,7 +8,7 @@ import com.future.awaker.util.GsonTools;
 import com.future.awaker.util.UiUtils;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class FirService extends AVersionService {

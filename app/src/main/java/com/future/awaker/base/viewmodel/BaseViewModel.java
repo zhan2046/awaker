@@ -10,7 +10,7 @@ import java.util.List;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class BaseViewModel extends BaseObservable {

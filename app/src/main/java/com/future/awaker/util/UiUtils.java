@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import com.future.awaker.Application;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public final class UiUtils {

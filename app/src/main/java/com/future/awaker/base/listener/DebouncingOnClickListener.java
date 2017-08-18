@@ -3,7 +3,7 @@ package com.future.awaker.base.listener;
 import android.view.View;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  * <p>
  * A {@linkplain View.OnClickListener click listener} that debounces multiple clicks posted in the
  * same frame. A click on one button disables all buttons for that frame.

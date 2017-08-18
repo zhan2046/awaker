@@ -5,7 +5,7 @@ import com.future.awaker.source.local.LocalDataSourceImpl;
 import com.future.awaker.source.remote.RemoteDataSourceImpl;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public final class AwakerRepository {

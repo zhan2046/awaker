@@ -9,7 +9,7 @@ import com.future.awaker.data.HomeItem;
 import com.future.awaker.databinding.ItemHomeListBinding;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class HomeListHolder extends RecyclerView.ViewHolder {

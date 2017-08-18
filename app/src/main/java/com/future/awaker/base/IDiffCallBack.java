@@ -5,7 +5,7 @@ import android.support.v7.util.DiffUtil;
 import java.util.List;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public abstract class IDiffCallBack<T> extends DiffUtil.Callback {

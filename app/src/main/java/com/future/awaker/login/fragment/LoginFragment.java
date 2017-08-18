@@ -19,7 +19,7 @@ import com.future.awaker.login.viewmodel.LoginViewModel;
 import com.future.awaker.util.KeyboardUtils;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class LoginFragment extends BaseFragment<FragLoginBinding> {

@@ -9,7 +9,7 @@ import net.soulwolf.widget.ratiolayout.RatioLayoutDelegate;
 import net.soulwolf.widget.ratiolayout.RatioMeasureDelegate;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class RatioCardView extends CardView implements RatioMeasureDelegate {

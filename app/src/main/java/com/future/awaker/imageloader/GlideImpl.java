@@ -14,7 +14,7 @@ import com.bumptech.glide.request.target.Target;
 import com.future.awaker.R;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class GlideImpl implements IImageLoader {

@@ -16,7 +16,7 @@ import com.future.awaker.widget.banner.RZLoopViewPager;
 import java.util.List;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class HomeBannerAdapter extends RZLoopAdapter implements BannerImageView.OnBannerClickListener {

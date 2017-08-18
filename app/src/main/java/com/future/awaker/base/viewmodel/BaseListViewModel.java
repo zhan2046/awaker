@@ -6,7 +6,7 @@ import android.databinding.ObservableList;
 import java.util.List;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public abstract class BaseListViewModel extends BaseViewModel {

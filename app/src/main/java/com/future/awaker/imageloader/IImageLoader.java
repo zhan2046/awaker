@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.request.RequestListener;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public interface IImageLoader {

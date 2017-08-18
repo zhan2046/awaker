@@ -16,7 +16,7 @@ import io.reactivex.Flowable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class RemoteDataSourceImpl implements IRemoteDataSource {

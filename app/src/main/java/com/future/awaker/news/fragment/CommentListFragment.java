@@ -17,7 +17,7 @@ import com.future.awaker.news.viewmodel.CommentViewModel;
 import com.future.awaker.util.KeyboardUtils;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class CommentListFragment extends BaseListFragment<FragCommentListBinding> implements SendCommentListener {

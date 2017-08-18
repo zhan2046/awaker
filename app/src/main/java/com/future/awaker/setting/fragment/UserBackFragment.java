@@ -20,7 +20,7 @@ import com.future.awaker.setting.viewmodel.UserBackViewModel;
 import com.future.awaker.util.KeyboardUtils;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class UserBackFragment extends BaseFragment<FragUserBackBinding> {

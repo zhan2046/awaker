@@ -5,7 +5,7 @@ import com.future.awaker.data.News;
 import io.realm.RealmObject;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class NewsRealm extends RealmObject {

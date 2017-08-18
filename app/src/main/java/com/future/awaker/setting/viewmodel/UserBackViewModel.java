@@ -10,7 +10,7 @@ import com.future.awaker.data.UserInfo;
 import com.future.awaker.email.SendMailUtil;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class UserBackViewModel extends BaseViewModel {

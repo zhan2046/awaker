@@ -3,7 +3,7 @@ package com.future.awaker.email;
 import java.util.Properties;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  * <p>
  * 代表一个即将被发送的邮件
  */

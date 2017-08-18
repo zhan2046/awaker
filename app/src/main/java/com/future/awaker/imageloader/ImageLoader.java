@@ -1,7 +1,7 @@
 package com.future.awaker.imageloader;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public final class ImageLoader {

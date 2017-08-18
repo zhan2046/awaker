@@ -12,7 +12,7 @@ import com.future.awaker.news.adapter.HotCommentAdapter;
 import com.future.awaker.news.viewmodel.NiceCommentViewModel;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class NiceCommentFragment extends BaseListFragment<FragNiceCommentBinding>

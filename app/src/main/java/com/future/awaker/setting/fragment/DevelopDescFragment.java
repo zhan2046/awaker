@@ -10,7 +10,7 @@ import com.future.awaker.base.BaseFragment;
 import com.future.awaker.databinding.FragDevelopDescBinding;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class DevelopDescFragment extends BaseFragment<FragDevelopDescBinding> {

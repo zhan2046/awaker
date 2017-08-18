@@ -14,7 +14,7 @@ import com.future.awaker.R;
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class BaseListFragment<VB extends ViewDataBinding> extends BaseFragment<VB>

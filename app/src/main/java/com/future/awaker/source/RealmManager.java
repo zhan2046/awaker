@@ -18,7 +18,7 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public final class RealmManager {

@@ -14,7 +14,7 @@ import java.util.List;
 import io.reactivex.Flowable;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public interface IRemoteDataSource {

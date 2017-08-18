@@ -3,7 +3,7 @@ package com.future.awaker.network;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class HttpResult<T> {

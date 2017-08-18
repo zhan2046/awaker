@@ -17,7 +17,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public interface AwakerApi {

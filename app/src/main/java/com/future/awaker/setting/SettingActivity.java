@@ -11,7 +11,7 @@ import com.future.awaker.setting.fragment.DevelopDescFragment;
 import com.future.awaker.setting.fragment.UserBackFragment;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class SettingActivity extends AppCompatActivity {

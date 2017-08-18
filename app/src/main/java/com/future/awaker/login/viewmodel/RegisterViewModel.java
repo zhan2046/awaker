@@ -18,7 +18,7 @@ import java.util.Objects;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class RegisterViewModel extends BaseViewModel {

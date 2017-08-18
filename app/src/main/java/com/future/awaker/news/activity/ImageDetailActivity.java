@@ -21,7 +21,7 @@ import com.future.awaker.databinding.ActivityImageDetailBinding;
 import com.future.awaker.imageloader.ImageLoader;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class ImageDetailActivity extends AppCompatActivity {

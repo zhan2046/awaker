@@ -19,7 +19,7 @@ import com.future.awaker.login.viewmodel.RegisterViewModel;
 import com.future.awaker.util.KeyboardUtils;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class RegisterFragment extends BaseFragment<FragRegisterBinding> {

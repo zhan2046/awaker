@@ -5,7 +5,7 @@ import com.future.awaker.data.CoverUrl;
 import io.realm.RealmObject;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class CoverUrlRealm extends RealmObject {

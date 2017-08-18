@@ -10,7 +10,7 @@ import com.future.awaker.home.adapter.HomeBannerAdapter;
 import java.util.List;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class HomeBannerHolder extends RecyclerView.ViewHolder {

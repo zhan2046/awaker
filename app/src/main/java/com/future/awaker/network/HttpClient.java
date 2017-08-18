@@ -3,7 +3,7 @@ package com.future.awaker.network;
 import okhttp3.OkHttpClient;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class HttpClient {

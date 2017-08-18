@@ -1,7 +1,7 @@
 package com.future.awaker.data;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class CoverUrl {

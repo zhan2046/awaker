@@ -20,7 +20,7 @@ import io.realm.RealmList;
 import io.realm.RealmResults;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class HotNewsViewModel extends BaseListViewModel {

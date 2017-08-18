@@ -19,7 +19,7 @@ import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.viewmodel.BaseViewModel;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment {

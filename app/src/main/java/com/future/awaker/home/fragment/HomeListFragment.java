@@ -17,7 +17,7 @@ import com.future.awaker.news.activity.HomeTypeListActivity;
 import com.future.awaker.util.LogUtils;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class HomeListFragment extends BaseFragment<FragHomeListBinding>

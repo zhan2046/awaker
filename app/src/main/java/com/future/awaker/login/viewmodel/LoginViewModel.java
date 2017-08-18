@@ -16,7 +16,7 @@ import com.future.awaker.util.LogUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class LoginViewModel extends BaseViewModel {

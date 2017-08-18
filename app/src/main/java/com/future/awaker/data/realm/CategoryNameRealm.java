@@ -5,7 +5,7 @@ import com.future.awaker.data.CategoryName;
 import io.realm.RealmObject;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class CategoryNameRealm extends RealmObject {

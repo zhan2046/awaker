@@ -17,7 +17,7 @@ import com.future.awaker.video.adapter.VideoListAdapter;
 import com.future.awaker.video.viewmodel.VideoViewModel;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by ruzhan
  */
 
 public class VideoListFragment extends BaseListFragment<FragVideoBinding>
