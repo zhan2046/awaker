@@ -2,21 +2,6 @@
 Awaker
 ===============
 
-未解之谜，十万个为什么，UFO，人类的未来
-
-探索宇宙，研究地球文明，了解地外文明，拓展意识，看小说
-
-进入到远古时代，回到从前，了解过去，遇见未来
-
-这是一个探索世界上未解之事的应用，堪比故事会，胜过十万个为什么
-
-浏览无数每日新闻，观看无数小说厌倦之后，这是个不错的选择
-
-我们讨论未解之谜，不单单讨论外星人
-
-Screenshots
-===============
-
 ![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker01.png)
 ![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker02.png)
 ![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker03.png)
