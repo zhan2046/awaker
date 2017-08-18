@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/item_one">
+
         <item
-            android:id="@+id/home"
+            android:id="@+id/develop_desc"
             android:checkable="true"
-            android:title="设置"
+            android:title="@string/develop_desc"
             />
 
         <item
-            android:id="@+id/news"
+            android:id="@+id/user_back"
             android:checkable="true"
-            android:title="关于"
+            android:title="@string/user_back"
             />
 
         <item
-            android:id="@+id/favorite"
+            android:id="@+id/cache_clear"
             android:checkable="true"
-            android:title="缓存"
-            />
-    </group>
-
-    <group android:id="@+id/item_two">
-        <item
-            android:id="@+id/settings"
-            android:checkable="true"
-            android:title="其它"
+            android:title="@string/cache_clear"
             />
 
         <item

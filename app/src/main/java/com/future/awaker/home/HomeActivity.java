@@ -41,6 +41,7 @@ import com.future.awaker.fir.Fir;
 import com.future.awaker.fir.FirService;
 import com.future.awaker.home.adapter.HomeAdapter;
 import com.future.awaker.login.LoginActivity;
+import com.future.awaker.setting.SettingActivity;
 import com.future.awaker.util.AnimatorUtils;
 import com.future.awaker.util.ResUtils;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
@@ -115,6 +116,15 @@ public class HomeActivity extends AppCompatActivity {
 
         binding.navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
+                case R.id.develop_desc:
+
+                    break;
+                case R.id.cache_clear:
+
+                    break;
+                case R.id.user_back:
+                    SettingActivity.launch(this, SettingActivity.USER_BACK);
+                    break;
                 case R.id.login_out:
                     if (Account.get().isLogin()) {
                         new MaterialDialog.Builder(this)
@@ -129,11 +139,19 @@ public class HomeActivity extends AppCompatActivity {
                                     Account.get().clearUserInfo();
                                     updateAccountInfo();
                                     Toast.makeText(this, R.string.login_out_finish, Toast.LENGTH_SHORT).show();
+
+                                    binding.drawerLayout.postDelayed(() -> {
+                                        if (binding.drawerLayout.isDrawerVisible(GravityCompat.START)) {
+                                            binding.drawerLayout.closeDrawer(GravityCompat.START);
+                                        }
+                                    }, 600);
                                 })
                                 .onNegative((dialog, which) -> dialog.dismiss())
                                 .show();
-                    }
 
+                    } else {
+                        Toast.makeText(this, R.string.login_no, Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 default:
                     Toast.makeText(this, R.string.future_desc, Toast.LENGTH_SHORT).show();

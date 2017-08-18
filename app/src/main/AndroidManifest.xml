@@ -67,6 +67,11 @@
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:theme="@style/LoginTheme"
+            android:name=".setting.SettingActivity"
+            android:screenOrientation="portrait" />
+
         <service android:name=".fir.FirService"
             android:enabled="true"
             android:exported="true" />

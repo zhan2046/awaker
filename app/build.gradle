@@ -126,4 +126,7 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'com.allenliu.versionchecklib:library:1.0.9'
     compile 'com.afollestad.material-dialogs:core:0.9.4.6'
+
+    compile 'com.sun.mail:android-mail:1.5.5'
+    compile 'com.sun.mail:android-activation:1.5.5'
 }

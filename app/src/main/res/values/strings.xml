@@ -57,6 +57,7 @@
   <string name="login_out">退出登录</string>
   <string name="login_out_desc">是否要退出登录？</string>
   <string name="login_out_finish">已退出登录</string>
+  <string name="login_no">你还没有登录噢</string>
 
   <string name="register">注册</string>
   <string name="wait">请稍等</string>
@@ -70,4 +71,11 @@
   <string name="confirm">确认</string>
   <string name="cancel">取消</string>
 
+  <string name="develop_desc">关于</string>
+  <string name="cache_clear">缓存</string>
+  <string name="user_back">反馈</string>
+  <string name="user_back_title">有什么要跟开发者说的：</string>
+  <string name="user_back_content">发送一封邮件给开发者</string>
+  <string name="send_email">发送邮件</string>
+  <string name="send_email_finish">邮件发送成功</string>
 </resources>
