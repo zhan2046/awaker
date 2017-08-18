@@ -84,4 +84,9 @@
 
   <string name="develop_desc_content">这是一个开源项目</string>
   <string name="awaker_link">https://github.com/ruzhan123/awaker/blob/master/README.md</string>
+
+
+  <string name="play_develop">打赏开发者</string>
+
+
 </resources>

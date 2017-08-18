@@ -20,4 +20,12 @@
             android:title="@string/cache_clear"
             />
     </group>
+
+    <group android:id="@+id/item_two">
+        <item
+            android:id="@+id/play_develop"
+            android:checkable="true"
+            android:title="@string/play_develop"
+            />
+    </group>
 </menu>
