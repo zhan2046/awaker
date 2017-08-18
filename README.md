@@ -21,10 +21,12 @@ Content
 
 
 
-Download
+App Store
 ------
-[酷安市场下载](https://www.coolapk.com/apk/155953)
-[Fir下载](https://fir.im/r68b)
+[酷安](https://www.coolapk.com/apk/155953)
+
+
+[fir](https://fir.im/r68b)
 	  
 	
 
