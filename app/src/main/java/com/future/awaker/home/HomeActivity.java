@@ -35,8 +35,6 @@ import com.future.awaker.R;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.Special;
-import com.future.awaker.data.UserDetail;
-import com.future.awaker.data.UserInfo;
 import com.future.awaker.databinding.ActivityHomeBinding;
 import com.future.awaker.fir.Fir;
 import com.future.awaker.fir.FirService;
@@ -486,23 +484,16 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void updateAccountInfo() {
-        UserInfo userInfo = Account.get().getUserInfo();
-        userLoginLl.setVisibility(userInfo == null ? View.VISIBLE : View.GONE);
-        userNameTv.setVisibility(userInfo == null ? View.GONE : View.VISIBLE);
-        userExitLoginTv.setVisibility(userInfo == null ? View.GONE : View.VISIBLE);
-        userOtherDescTv.setText(userInfo == null ?
+        String openId = Account.get().getOpenId();
+
+        userLoginLl.setVisibility(TextUtils.isEmpty(openId) ? View.VISIBLE : View.GONE);
+        userNameTv.setVisibility(TextUtils.isEmpty(openId) ? View.GONE : View.VISIBLE);
+        userExitLoginTv.setVisibility(TextUtils.isEmpty(openId) ? View.GONE : View.VISIBLE);
+        userOtherDescTv.setText(TextUtils.isEmpty(openId) ?
                 R.string.launch_desc : R.string.other_desc_str);
         userIconIv.setImageResource(R.drawable.ic_gongjihui);
 
-        if (userInfo != null) {
-            UserDetail userDetail = userInfo.data_1;
-            if (userDetail != null) {
-                userNameTv.setText(userDetail.nickname);
-                String url = userDetail.avatar512;
-                if (!TextUtils.isEmpty(url)) {
-                    //DataBindingAdapter.loadImageCropCircle(userIconIv, userDetail.avatar64);
-                }
-            }
-        }
+        String userName = Account.get().getUserName();
+        userNameTv.setText(userName);
     }
 }

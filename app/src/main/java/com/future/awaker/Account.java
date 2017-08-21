@@ -23,15 +23,19 @@ public final class Account {
     private static final String TAG = Account.class.getSimpleName();
 
     public static final String OPEN_ID = "openId";
+    public static final String USER_NAME = "userName";
 
     private static Account INSTANCE;
 
     private String openId;
+    private String userName;
     private UserInfo userInfo;
 
     private Account() {
         openId = Application.get().getSharedPreferences(OPEN_ID, Context.MODE_PRIVATE)
                 .getString(OPEN_ID, "");
+        userName = Application.get().getSharedPreferences(OPEN_ID, Context.MODE_PRIVATE)
+                .getString(USER_NAME, "");
     }
 
     public static Account get() {
@@ -94,6 +98,8 @@ public final class Account {
         userInfo = null;
         openId = null;
         setOpenIdToLocal("");
+        setUserNameToLocal("");
+
         HashMap<String, String> map = new HashMap<>();
         map.put(UserInfoRealm.ID, UserInfoRealm.ID_VALUE);
         AwakerRepository.get().deleteLocalRealm(UserInfoRealm.class, map);
@@ -107,7 +113,19 @@ public final class Account {
                 .apply();
     }
 
+    public void setUserNameToLocal(String userName) {
+        this.userName = userName;
+        Application.get().getSharedPreferences(OPEN_ID, Context.MODE_PRIVATE)
+                .edit()
+                .putString(USER_NAME, userName)
+                .apply();
+    }
+
     public String getOpenId() {
         return openId;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

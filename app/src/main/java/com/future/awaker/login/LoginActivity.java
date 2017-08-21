@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     public void onLoginSuc(UserInfo userInfo) {
         Account.get().setUserInfoToLocal(userInfo);
         Account.get().setOpenIdToLocal(userInfo.data == null ? "" : userInfo.data.open_id);
+        Account.get().setUserNameToLocal(userInfo.data_1 == null ? "" : userInfo.data_1.nickname);
 
         String str = getResources().getString(R.string.welcome_back, userInfo.data_1.nickname);
         Toast.makeText(Application.get(), str, Toast.LENGTH_SHORT).show();
