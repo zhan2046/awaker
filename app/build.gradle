@@ -123,7 +123,7 @@ dependencies {
     compile 'com.pnikosis:materialish-progress:1.1'
     compile 'net.soulwolf.widget:ratiolayout:1.0.0'
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
-    compile 'com.just.agentweb:agentweb:1.2.5'
+    compile 'com.just.agentweb:agentweb:1.2.6'
     compile 'org.jsoup:jsoup:1.10.3'
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'com.allenliu.versionchecklib:library:1.5'

@@ -80,7 +80,7 @@ public class VideoDetailFragment extends BaseFragment<FragVideoDetailBinding> {
                 .setAgentWebParent(binding.contentFl, lp)
                 .closeDefaultIndicator()//
                 .setWebView(webView)
-                .setWebSettings(getSettings())//
+                .setAgentWebWebSettings(getSettings())//
                 .setWebViewClient(new WebViewClient())
                 .setWebChromeClient(new WebChromeClient())
                 .setReceivedTitleCallback((view1, title) -> {

@@ -61,7 +61,7 @@ public class NewDetailVideoHolder extends RecyclerView.ViewHolder {
                 .setAgentWebParent(binding.contentFl, lp)//
                 .closeDefaultIndicator()//
                 .setWebView(webView)
-                .setWebSettings(getSettings())//
+                .setAgentWebWebSettings(getSettings())//
                 .setWebViewClient(new WebViewClient())
                 .setWebChromeClient(new WebChromeClient())
                 .setReceivedTitleCallback((view1, title) -> {
