@@ -46,7 +46,7 @@
                     android:layout_width="100dp"
                     android:layout_height="65dp"
                     android:scaleType="centerCrop"
-                    app:imageThumbUrl="@{newsItem.cover_url.ori}"/>
+                    app:imageUrl="@{newsItem.cover_url.ori}"/>
 
                 <ImageView
                     android:src="@drawable/img_mask"

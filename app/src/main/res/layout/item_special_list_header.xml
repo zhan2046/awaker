@@ -28,7 +28,7 @@
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:imageThumbUrl="@{viewModel.url}" />
+                app:imageUrl="@{viewModel.url}" />
 
             <ImageView
                 android:src="@drawable/img_mask"

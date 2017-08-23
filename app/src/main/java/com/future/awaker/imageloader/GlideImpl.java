@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.Option;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -19,16 +20,22 @@ import com.future.awaker.R;
 
 public class GlideImpl implements IImageLoader {
 
-    private static final int DEFAULT_DURATION_MS = 600;
-    private static final float SIZE_MULTIPLIER = 0.5f;
+    private static final String KEY_MEMORY = "com.bumptech.glide.load.model.stream.HttpGlideUrlLoader.Timeout";
+
+    private static final float SIZE_MULTIPLIER = 0.3f;
+    private static final int TIMEOUT_MS =16000;
 
     private DrawableTransitionOptions normalTransitionOptions = new DrawableTransitionOptions()
-            .crossFade(DEFAULT_DURATION_MS);
+            .crossFade();
+
+    private static Option<Integer> TIMEOUT_OPTION =
+            Option.memory(KEY_MEMORY, TIMEOUT_MS);
 
     @Override
     public void load(ImageView imageView, String url) {
         GlideApp.with(imageView.getContext())
                 .load(url)
+                .set(TIMEOUT_OPTION, TIMEOUT_MS)
                 .transition(normalTransitionOptions)
                 .placeholder(R.drawable.image_mark)
                 .error(R.drawable.image_mark)
@@ -39,6 +46,7 @@ public class GlideImpl implements IImageLoader {
     public void load(ImageView imageView, String url, RequestListener<Drawable> listener) {
         GlideApp.with(imageView.getContext())
                 .load(url)
+                .set(TIMEOUT_OPTION, TIMEOUT_MS)
                 .transition(normalTransitionOptions)
                 .listener(new RequestListener<Drawable>() {
                     @Override
@@ -60,6 +68,7 @@ public class GlideImpl implements IImageLoader {
     public void load(ImageView imageView, int resId, RequestListener<Drawable> listener) {
         GlideApp.with(imageView.getContext())
                 .load(resId)
+                .set(TIMEOUT_OPTION, TIMEOUT_MS)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model,
@@ -85,6 +94,7 @@ public class GlideImpl implements IImageLoader {
     public void loadThumb(ImageView imageView, String url) {
         GlideApp.with(imageView.getContext())
                 .load(url)
+                .set(TIMEOUT_OPTION, TIMEOUT_MS)
                 .thumbnail(SIZE_MULTIPLIER)
                 .transition(normalTransitionOptions)
                 .placeholder(R.drawable.image_mark)
@@ -96,6 +106,7 @@ public class GlideImpl implements IImageLoader {
     public void loadCropCircle(ImageView imageView, String url) {
         GlideApp.with(imageView.getContext())
                 .load(url)
+                .set(TIMEOUT_OPTION, TIMEOUT_MS)
                 .transition(normalTransitionOptions)
                 .transform(new MultiTransformation<>(new CircleCrop()))
                 .placeholder(R.drawable.image_circle_mark)
@@ -107,6 +118,7 @@ public class GlideImpl implements IImageLoader {
     public void loadCropCircle(ImageView imageView, int resId) {
         GlideApp.with(imageView.getContext())
                 .load(resId)
+                .set(TIMEOUT_OPTION, TIMEOUT_MS)
                 .transition(normalTransitionOptions)
                 .transform(new MultiTransformation<>(new CircleCrop()))
                 .placeholder(R.drawable.image_circle_mark)
