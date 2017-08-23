@@ -4,6 +4,7 @@
 
 
     <LinearLayout
+        android:background="@android:color/black"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -11,7 +12,6 @@
 
         <FrameLayout
             android:id="@+id/content_fl"
-            android:background="@android:color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
