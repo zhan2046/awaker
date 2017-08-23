@@ -52,7 +52,6 @@ android {
         debug {
             // 为了不和 release 版本冲突
             applicationIdSuffix ".debug"
-            signingConfig signingConfigs.config
         }
 
         release {
