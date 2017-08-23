@@ -93,6 +93,7 @@ public class VideoDetailFragment extends BaseFragment<FragVideoDetailBinding> {
 
         setDesktopMode(webView, false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.setKeepScreenOn(true);
     }
 
     public void setDesktopMode(WebView webView, final boolean enabled) {

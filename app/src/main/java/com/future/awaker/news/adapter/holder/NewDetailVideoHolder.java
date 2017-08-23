@@ -74,6 +74,7 @@ public class NewDetailVideoHolder extends RecyclerView.ViewHolder {
 
         setDesktopMode(webView, false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.setKeepScreenOn(true);
     }
 
     public AgentWebSettings getSettings() {
