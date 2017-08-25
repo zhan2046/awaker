@@ -45,8 +45,8 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:name=".news.activity.ImageDetailActivity" />
+            android:name=".news.activity.ImageDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <activity
             android:name=".video.SpecialListActivity"
@@ -63,16 +63,18 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:theme="@style/LoginTheme"
             android:name=".login.LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
-            android:theme="@style/LoginTheme"
             android:name=".setting.SettingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme" />
 
-        <service android:name=".fir.FirService"
+        <service
+            android:name=".fir.FirService"
             android:enabled="true"
             android:exported="true" />
     </application>

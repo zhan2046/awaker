@@ -9,10 +9,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
+import com.future.awaker.R;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.NewEle;
 import com.future.awaker.databinding.ItemNewDetailVideoBinding;
 import com.future.awaker.util.HtmlParser;
+import com.future.awaker.widget.NoScrollWebView;
 import com.just.library.AgentWeb;
 import com.just.library.AgentWebSettings;
 import com.just.library.WebDefaultSettingsManager;
@@ -55,7 +57,7 @@ public class NewDetailVideoHolder extends RecyclerView.ViewHolder {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT);
 
-        webView = new WebView(itemView.getContext());
+        webView = new NoScrollWebView(itemView.getContext());
 
         mAgentWeb = AgentWeb.with((Fragment) listener)//
                 .setAgentWebParent(binding.contentFl, lp)//
@@ -75,6 +77,9 @@ public class NewDetailVideoHolder extends RecyclerView.ViewHolder {
         setDesktopMode(webView, false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.setKeepScreenOn(true);
+        webView.setVerticalScrollBarEnabled(false);
+        webView.setHorizontalScrollBarEnabled(false);
+        webView.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.f5));
     }
 
     public AgentWebSettings getSettings() {

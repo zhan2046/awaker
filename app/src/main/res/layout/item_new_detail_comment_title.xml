@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:background="@color/white"
+        android:background="@color/f5"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="16dp"/>
+            android:layout_height="16dp" />
 
         <TextView
             android:textStyle="bold"
@@ -25,6 +25,6 @@
         <View
             android:background="@color/black12"
             android:layout_width="match_parent"
-            android:layout_height="0.3dp"/>
+            android:layout_height="0.3dp" />
     </LinearLayout>
 </layout>

@@ -1,12 +1,9 @@
 package com.future.awaker.home;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -42,7 +39,6 @@ import com.future.awaker.home.adapter.HomeAdapter;
 import com.future.awaker.login.LoginActivity;
 import com.future.awaker.setting.SettingActivity;
 import com.future.awaker.source.AwakerRepository;
-import com.future.awaker.util.AnimatorUtils;
 import com.future.awaker.util.ResUtils;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
@@ -296,58 +292,6 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void setupColor(int position) {
-        binding.toolbar.post(() -> {
-            int centerX = 0;
-            int centerY = binding.appbar.getMeasuredHeight();
-            switch (position) {
-                case 0:
-                    centerX = binding.toolbar.getMeasuredWidth() / 4;
-                    binding.coordinator.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                    binding.appbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                    break;
-                case 1:
-                    centerX = binding.toolbar.getMeasuredWidth() / 4 * 3;
-                    binding.coordinator.setBackgroundColor(getResources().getColor(R.color.themePrimary));
-                    binding.appbar.setBackgroundColor(getResources().getColor(R.color.themePrimary));
-                    break;
-            }
-
-            Animator animator = AnimatorUtils.createRevealAnimator(binding.appbar, centerX, centerY,
-                    false, new AnimatorListenerAdapter() {
-
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            super.onAnimationStart(animation);
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            //updateThemeColor(position);
-                        }
-                    });
-            animator.start();
-        });
-    }
-
-    public void updateThemeColor(int position) {
-        switch (position) {
-            case 0:
-                setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-                binding.toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                binding.tabs.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-
-                break;
-            case 1:
-                setStatusBarColor(getResources().getColor(R.color.themePrimaryDark));
-                binding.toolbar.setBackgroundColor(getResources().getColor(R.color.themePrimary));
-                binding.tabs.setBackgroundColor(getResources().getColor(R.color.themePrimary));
-
-                break;
-        }
-    }
-
     private void updateFab(int position) {
         switch (position) {
             case HomeAdapter.HOME:
@@ -380,14 +324,11 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onShowSheet() {
                 super.onShowSheet();
-                statusBarColor = getStatusBarColor();
-                setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark2));
             }
 
             @Override
             public void onHideSheet() {
                 super.onHideSheet();
-                setStatusBarColor(statusBarColor);
             }
         });
 
@@ -396,19 +337,6 @@ public class HomeActivity extends AppCompatActivity {
         binding.fabSheetItemSpirit.setOnClickListener(homeClickListener);
         binding.fabSheetItemFree.setOnClickListener(homeClickListener);
         binding.fabSheetItemNormal.setOnClickListener(homeClickListener);
-    }
-
-    private int getStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return getWindow().getStatusBarColor();
-        }
-        return 0;
-    }
-
-    private void setStatusBarColor(int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(color);
-        }
     }
 
     @Override

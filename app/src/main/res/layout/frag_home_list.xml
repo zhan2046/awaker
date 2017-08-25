@@ -6,17 +6,17 @@
 
         <variable
             name="viewModel"
-            type="com.future.awaker.home.viewmodel.HomeViewModel"/>
+            type="com.future.awaker.home.viewmodel.HomeViewModel" />
     </data>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:background="@color/f5"
+        android:background="@color/grey300"
         app:homeBanner="@{viewModel.bannerItems}"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         android:clipToPadding="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </layout>
 

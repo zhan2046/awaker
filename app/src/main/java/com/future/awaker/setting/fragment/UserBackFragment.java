@@ -78,7 +78,7 @@ public class UserBackFragment extends BaseFragment<FragUserBackBinding> {
                         .positiveText(R.string.confirm)
                         .negativeText(R.string.cancel)
                         .theme(Theme.LIGHT)
-                        .contentColorRes(R.color.themePrimaryDark)
+                        .contentColorRes(R.color.colorPrimary)
                         .negativeColorRes(R.color.text_color)
                         .positiveColorRes(R.color.text_color)
                         .onPositive((dialog, which) -> userBackViewModel.sendEmail())

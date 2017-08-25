@@ -10,7 +10,7 @@
 
         <variable
             name="newEle"
-            type="com.future.awaker.data.NewEle"/>
+            type="com.future.awaker.data.NewEle" />
 
         <variable
             name="listener"
@@ -24,11 +24,10 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:foreground="?attr/selectableItemBackground"
+        android:layout_margin="8dp"
+        card_view:cardBackgroundColor="@color/f5"
+        android:background="@color/f5"
         android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newEle)}"
         android:stateListAnimator="@drawable/lift_on_touch"
         app:cardPreventCornerOverlap="false"
@@ -38,7 +37,7 @@
         tools:targetApi="lollipop">
 
         <LinearLayout
-            android:background="@android:color/white"
+            android:background="@color/f5"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -49,13 +48,14 @@
                 soulwolf:datumRatio="datumWidth"
                 soulwolf:widthRatio="16"
                 soulwolf:heightRatio="9"
+                android:background="@color/f5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <View
                 android:background="#eeeeee"
                 android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
+                android:layout_height="0.3dp" />
 
             <TextView
                 android:clickable="true"

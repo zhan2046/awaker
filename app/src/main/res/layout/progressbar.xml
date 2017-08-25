@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:wheel="http://schemas.android.com/apk/res-auto">
 
     <com.pnikosis.materialishprogress.ProgressWheel
@@ -10,5 +9,5 @@
         android:layout_gravity="center"
         android:visibility="gone"
         wheel:barColor="@color/colorAccent"
-        wheel:progressIndeterminate="true"/>
+        wheel:progressIndeterminate="true" />
 </layout>

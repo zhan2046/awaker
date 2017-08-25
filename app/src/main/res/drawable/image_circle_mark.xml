@@ -2,6 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
 
-    <solid android:color="@color/image_mark"/>
-    <size android:width="52dp" android:height="52dp"/>
+    <solid android:color="@color/image_mark" />
+    <size
+        android:width="52dp"
+        android:height="52dp" />
 </shape>

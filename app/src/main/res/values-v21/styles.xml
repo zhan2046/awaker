@@ -77,7 +77,7 @@
         <item name="android:layout_marginBottom">@dimen/sheet_spacing</item>
         <item name="android:layout_marginLeft">@dimen/sheet_spacing</item>
         <item name="android:layout_marginRight">@dimen/sheet_spacing</item>
-        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardBackgroundColor">@color/f5</item>
         <item name="cardElevation">@dimen/fab_sheet_elevation</item>
         <item name="cardMaxElevation">@dimen/fab_sheet_elevation</item>
         <item name="contentPadding">-3dp</item>

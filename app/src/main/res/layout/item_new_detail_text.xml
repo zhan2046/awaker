@@ -6,10 +6,11 @@
 
         <variable
             name="newEle"
-            type="com.future.awaker.data.NewEle"/>
+            type="com.future.awaker.data.NewEle" />
     </data>
 
     <FrameLayout
+        android:background="@color/f5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,7 +22,7 @@
             android:layout_marginBottom="16dp"
             android:lineSpacingExtra="15dp"
             android:textSize="14sp"
-            android:textColor="#383838"
+            android:textColor="@color/text_color"
             android:text="@{newEle.text}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

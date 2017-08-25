@@ -8,10 +8,11 @@
 
         <variable
             name="header"
-            type="com.future.awaker.data.Header"/>
+            type="com.future.awaker.data.Header" />
     </data>
 
     <LinearLayout
+        android:background="@color/f5"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -83,7 +84,7 @@
         <View
             android:background="@color/black12"
             android:layout_width="match_parent"
-            android:layout_height="0.3dp"/>
+            android:layout_height="0.3dp" />
 
         <TextView
             android:id="@+id/title_tv"

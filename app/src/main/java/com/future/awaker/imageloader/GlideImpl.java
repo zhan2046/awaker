@@ -23,7 +23,7 @@ public class GlideImpl implements IImageLoader {
     private static final String KEY_MEMORY = "com.bumptech.glide.load.model.stream.HttpGlideUrlLoader.Timeout";
 
     private static final float SIZE_MULTIPLIER = 0.3f;
-    private static final int TIMEOUT_MS =16000;
+    private static final int TIMEOUT_MS = 16000;
 
     private DrawableTransitionOptions normalTransitionOptions = new DrawableTransitionOptions()
             .crossFade();

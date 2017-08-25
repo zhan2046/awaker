@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@color/text_white_50">
+                android:background="@color/f5">
 
                 <FrameLayout
                     android:id="@+id/comment_right_fl"
@@ -117,7 +117,7 @@
                     android:keepScreenOn="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:background="@color/f5"
                     android:scrollbars="vertical"
                     app:comments="@{viewModel.comments}"
                     app:layoutManager="LinearLayoutManager"

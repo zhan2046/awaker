@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackground"
-        android:background="@color/white"
+        card_view:cardBackgroundColor="@color/f5"
         android:onClick="@{(view) -> listener.onItemClick(view, holder.getAdapterPosition(), newsItem)}"
         android:stateListAnimator="@drawable/lift_on_touch"
         card_view:cardCornerRadius="2dp"
@@ -68,7 +68,7 @@
                 android:layout_marginBottom="8dp"
                 android:ellipsize="end"
                 android:text="@{newsItem.title}"
-                android:textColor="#FF383838"
+                android:textColor="@color/text_color"
                 android:textSize="13sp" />
 
 

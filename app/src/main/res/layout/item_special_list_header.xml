@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
+<layout xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.future.awaker.video.viewmodel.SpecialListViewModel"/>
+            type="com.future.awaker.video.viewmodel.SpecialListViewModel" />
     </data>
 
     <LinearLayout
-        android:background="@color/white"
+        android:background="@color/f5"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -62,7 +62,7 @@
         <View
             android:background="@color/black12"
             android:layout_width="match_parent"
-            android:layout_height="0.3dp"/>
+            android:layout_height="0.3dp" />
     </LinearLayout>
 </layout>
 

@@ -28,13 +28,14 @@
                     <android.support.v7.widget.Toolbar
                         android:id="@+id/toolbar"
                         style="@style/Widget.Awaker.ToolBar"
-                        app:titleTextAppearance="@style/Toolbar.TitleText"/>
+                        app:titleTextAppearance="@style/Toolbar.TitleText" />
 
                     <!-- Tabs -->
                     <android.support.design.widget.TabLayout
                         android:id="@+id/tabs"
                         app:tabTextColor="@color/text_white_50"
                         app:tabSelectedTextColor="@color/text_white_87"
+                        app:tabIndicatorColor="@color/white"
                         app:tabTextAppearance="@style/Toolbar.TabLayout"
                         style="@style/Widget.Awaker.TabLayout" />
                 </android.support.design.widget.AppBarLayout>
@@ -42,6 +43,7 @@
                 <!-- View pager -->
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewpager"
+                    android:background="@color/grey300"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/appbar"
@@ -50,14 +52,13 @@
             </android.support.design.widget.CoordinatorLayout>
 
 
-
             <!-- Your FAB implementation -->
             <com.future.awaker.widget.Fab
                 android:id="@+id/fab"
                 style="@style/Widget.Awaker.Fab"
+                android:tint="@color/f5"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentEnd="true" />
 
             <!-- Overlay that dims the screen -->
             <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
@@ -130,8 +131,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:fitsSystemWindows="true"
             app:headerLayout="@layout/layout_drawer_header"
-            app:menu="@menu/home_menu"/>
+            app:menu="@menu/home_menu" />
 
     </android.support.v4.widget.DrawerLayout>
 

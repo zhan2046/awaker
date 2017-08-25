@@ -8,11 +8,10 @@
 
         <variable
             name="bean"
-            type="com.future.awaker.data.HomeItem"/>
+            type="com.future.awaker.data.HomeItem" />
     </data>
 
-    <com.future.awaker.widget.RatioCardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <com.future.awaker.widget.RatioCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/root_card"
         soulwolf:datumRatio="datumWidth"
         soulwolf:widthRatio="1"
@@ -20,10 +19,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackground"
-        android:background="@color/white"
         android:stateListAnimator="@drawable/lift_on_touch"
         card_view:cardCornerRadius="2dp"
         card_view:cardElevation="2dp"
+        card_view:cardBackgroundColor="@color/f5"
         android:layout_margin="4dp"
         tools:targetApi="lollipop">
 
@@ -44,7 +43,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@{bean.title}"
                 android:textSize="12sp"
-                android:textColor="#383838"
+                android:textColor="@color/text_color"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:layout_marginLeft="8dp"
