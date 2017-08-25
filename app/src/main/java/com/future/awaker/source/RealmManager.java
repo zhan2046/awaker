@@ -60,10 +60,7 @@ public final class RealmManager {
         Flowable.create((FlowableOnSubscribe<List<News>>) e -> {
             Realm realmInstance = Realm.getDefaultInstance();
             realmInstance.executeTransactionAsync(realm ->
-            {
-                realm.copyToRealmOrUpdate(realmModel);
-                e.onNext(null);
-            });
+                    realm.copyToRealmOrUpdate(realmModel));
         }, BackpressureStrategy.LATEST)
                 .doOnError(throwable -> LogUtils.showLog(TAG,
                         "doOnError: " + throwable.toString()))

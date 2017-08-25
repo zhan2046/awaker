@@ -23,9 +23,18 @@ import com.future.awaker.video.viewmodel.VideoViewModel;
 public class VideoListFragment extends BaseListFragment<FragVideoBinding>
         implements OnItemClickListener<Special>, onPageSelectedListener {
 
+    private static final String TAG = VideoListFragment.class.getSimpleName();
+
+    private static final int SCROLL_OFFSET_TIME = 350;
+    private static final int MIN_OFFSET = 30;
+
     private VideoViewModel videoViewModel;
     private VideoListAdapter adapter;
     private boolean isFirst;
+
+    private long offsetTime;
+    private boolean isScrolledDown;
+    private boolean onScrolledUp;
 
     public static VideoListFragment newInstance() {
         return new VideoListFragment();
@@ -50,13 +59,32 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding>
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
-                    onScrolledDown();
-                } else {
-                    onScrolledUp();
-                }
+                updateFab(dy);
             }
         });
+    }
+
+    private void updateFab(int dy) {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - offsetTime < SCROLL_OFFSET_TIME) {
+            return;
+        }
+        offsetTime = currentTime;
+
+        if (dy > MIN_OFFSET && !isScrolledDown) {
+            isScrolledDown = true;
+
+            onScrolledUp = false;
+            LogUtils.showLog(TAG, "updateFab onScrolledDown");
+            onScrolledDown();
+
+        } else if (dy < -MIN_OFFSET && !onScrolledUp) {
+            onScrolledUp = true;
+
+            isScrolledDown = false;
+            LogUtils.showLog(TAG, "updateFab onScrolledUp");
+            onScrolledUp();
+        }
     }
 
     private void onScrolledDown() {
