@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.future.awaker.widget.banner.BannerImageView
+    <ImageView
         android:id="@+id/banner_iv"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"

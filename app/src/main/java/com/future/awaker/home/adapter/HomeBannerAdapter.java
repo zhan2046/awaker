@@ -1,17 +1,17 @@
 package com.future.awaker.home.adapter;
 
+import android.support.v4.view.PagerAdapter;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.future.awaker.R;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.data.BannerItem;
 import com.future.awaker.imageloader.ImageLoader;
 import com.future.awaker.news.NewDetailActivity;
-import com.future.awaker.widget.banner.BannerImageView;
-import com.future.awaker.widget.banner.RZLoopAdapter;
-import com.future.awaker.widget.banner.RZLoopViewPager;
 
 import java.util.List;
 
@@ -19,31 +19,41 @@ import java.util.List;
  * Copyright ©2017 by ruzhan
  */
 
-public class HomeBannerAdapter extends RZLoopAdapter implements BannerImageView.OnBannerClickListener {
+public class HomeBannerAdapter extends PagerAdapter {
 
+    private SparseArray<View> mViews = new SparseArray<>();
     private List<BannerItem> bannerItemList;
 
-    public HomeBannerAdapter(int realCount, RZLoopViewPager viewPager, List<BannerItem> bannerItemList) {
-        super(realCount, viewPager);
+    public void setData(List<BannerItem> bannerItemList) {
         this.bannerItemList = bannerItemList;
+        notifyDataSetChanged();
     }
 
     @Override
-    public View instantiateItemView(ViewGroup container, int realPosition) {
-        return LayoutInflater.from(container.getContext())
-                .inflate(R.layout.item_home_banner_item, container, false);
+    public Object instantiateItem(ViewGroup container, int position) {
+        View view = mViews.get(position);
+        if (view == null) {
+            view = LayoutInflater.from(container.getContext())
+                    .inflate(R.layout.item_home_banner_item, container, false);
+            mViews.put(position, view);
+        }
+        initViewToData(view, position);
+        container.addView(view);
+        return view;
     }
 
     @Override
-    public void initViewToData(View view, int realPosition) {
-        BannerImageView bannerImageView =
-                (BannerImageView) view.findViewById(R.id.banner_iv);
-        BannerItem bannerItem = bannerItemList.get(realPosition);
-        ImageLoader.get().load(bannerImageView, bannerItem.img_url);
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((View) object);
+    }
 
+    public void initViewToData(View view, int position) {
+        ImageView imageView =
+                (ImageView) view.findViewById(R.id.banner_iv);
+        BannerItem bannerItem = bannerItemList.get(position);
+        ImageLoader.get().load(imageView, bannerItem.img_url);
 
-        bannerImageView.setOnBannerClickListener(this);
-        bannerImageView.setOnClickListener(new DebouncingOnClickListener() {
+        imageView.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
                 NewDetailActivity.launch(v.getContext(), bannerItem.newsid,
@@ -53,12 +63,12 @@ public class HomeBannerAdapter extends RZLoopAdapter implements BannerImageView.
     }
 
     @Override
-    public void actionDown() {
-        mRZLoopViewPager.stopLoopPager();
+    public int getCount() {
+        return bannerItemList == null ? 0 : bannerItemList.size();
     }
 
     @Override
-    public void actionUp() {
-        mRZLoopViewPager.startLoopPager();
+    public boolean isViewFromObject(View view, Object object) {
+        return view == object;
     }
 }
