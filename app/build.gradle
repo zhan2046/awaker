@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
+apply plugin: 'io.fabric'
 
 def static gitVersionCode() {
     def cmd = 'git rev-list HEAD --first-parent --count'
@@ -52,6 +53,10 @@ android {
         debug {
             // 为了不和 release 版本冲突
             applicationIdSuffix ".debug"
+
+            manifestPlaceholders = [
+                    fabric_apikey: rootProject.fabric_apikey
+            ]
         }
 
         release {
@@ -60,6 +65,10 @@ android {
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
+
+            manifestPlaceholders = [
+                    fabric_apikey: rootProject.fabric_apikey
+            ]
         }
     }
 
@@ -132,4 +141,8 @@ dependencies {
     compile 'com.sun.mail:android-activation:1.5.5'
 
     compile 'com.blankj:utilcode:1.8.2'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }

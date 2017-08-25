@@ -140,7 +140,6 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
     public void onResume() {
 
         super.onResume();
-
     }
 
     @SuppressLint("NewApi")

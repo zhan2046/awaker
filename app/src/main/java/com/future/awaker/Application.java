@@ -1,7 +1,9 @@
 package com.future.awaker;
 
 import com.blankj.utilcode.util.Utils;
+import com.crashlytics.android.Crashlytics;
 
+import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -35,5 +37,7 @@ public class Application extends android.app.Application {
         Realm.setDefaultConfiguration(config);
 
         Account.get().initUserInfo();
+
+        Fabric.with(this, new Crashlytics());
     }
 }

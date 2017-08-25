@@ -59,7 +59,6 @@ public class HomeActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private MaterialSheetFab materialSheetFab;
 
-    private int statusBarColor;
     private long firstTime = 0;
 
     private HomeClickListener homeClickListener = new HomeClickListener();

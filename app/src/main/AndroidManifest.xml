@@ -30,6 +30,10 @@
             </intent-filter>
         </activity>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="${fabric_apikey}" />
+
         <activity
             android:name=".home.HomeActivity"
             android:screenOrientation="portrait" />
