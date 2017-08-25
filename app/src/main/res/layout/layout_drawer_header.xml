@@ -11,7 +11,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/drawer_header_height"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimaryDark2">
 
             <LinearLayout
                 android:layout_width="wrap_content"

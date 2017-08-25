@@ -86,7 +86,9 @@ public class HomeActivity extends AppCompatActivity {
 
         setTitle(R.string.app_name);
         setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         drawerToggle = new ActionBarDrawerToggle(this, binding.drawerLayout, R.string.app_name,
                 R.string.app_name);
