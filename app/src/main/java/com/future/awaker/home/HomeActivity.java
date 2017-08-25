@@ -421,7 +421,7 @@ public class HomeActivity extends AppCompatActivity {
         userExitLoginTv.setVisibility(TextUtils.isEmpty(openId) ? View.GONE : View.VISIBLE);
         userOtherDescTv.setText(TextUtils.isEmpty(openId) ?
                 R.string.launch_desc : R.string.other_desc_str);
-        userIconIv.setImageResource(R.drawable.ic_gongjihui);
+        userIconIv.setImageResource(R.drawable.ic_gongjihui2);
 
         String userName = Account.get().getUserName();
         userNameTv.setText(userName);
