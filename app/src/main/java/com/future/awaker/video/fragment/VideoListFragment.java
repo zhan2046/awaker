@@ -73,16 +73,12 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding>
 
         if (dy > MIN_OFFSET && !isScrolledDown) {
             isScrolledDown = true;
-
             onScrolledUp = false;
-            LogUtils.showLog(TAG, "updateFab onScrolledDown");
             onScrolledDown();
 
         } else if (dy < -MIN_OFFSET && !onScrolledUp) {
             onScrolledUp = true;
-
             isScrolledDown = false;
-            LogUtils.showLog(TAG, "updateFab onScrolledUp");
             onScrolledUp();
         }
     }
