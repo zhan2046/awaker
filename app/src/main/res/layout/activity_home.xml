@@ -28,7 +28,7 @@
                         android:id="@+id/toolbar"
                         style="@style/Widget.Awaker.ToolBar"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="@dimen/global_actionbar_size"
                         app:titleTextAppearance="@style/Toolbar.TitleText" />
 
                     <!-- Tabs -->
