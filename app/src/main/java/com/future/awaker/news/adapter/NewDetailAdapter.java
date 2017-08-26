@@ -1,14 +1,12 @@
 package com.future.awaker.news.adapter;
 
 import android.databinding.DataBindingUtil;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.future.awaker.R;
 import com.future.awaker.base.EmptyHolder;
-import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.Comment;
 import com.future.awaker.data.Header;
@@ -29,7 +27,6 @@ import com.future.awaker.news.adapter.holder.NewDetailVideoHolder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -55,7 +52,6 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
     private List<Comment> commentList;
 
     private List<NewDetailVideoHolder> videoHolders = new ArrayList<>();
-    private NewDetailDiffCallBack diffCallBack = new NewDetailDiffCallBack();
 
     public NewDetailAdapter(Header header, OnItemClickListener<NewEle> listener) {
         this.header = header;
@@ -67,43 +63,36 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         if (list == null) {
             return;
         }
-        List<Object> newDataList = new ArrayList<>();
+        dataList.clear();
         newEleList = list;
         this.header = header;
 
-        newDataList.add(this.header);
-        newDataList.addAll(newEleList);
+        dataList.add(this.header);
+        dataList.addAll(newEleList);
         if (commentList != null && !commentList.isEmpty()) {
-            newDataList.add(COMMENT_TITLE);
-            newDataList.addAll(commentList);
-            newDataList.add(COMMENT_MORE);
+            dataList.add(COMMENT_TITLE);
+            dataList.addAll(commentList);
+            dataList.add(COMMENT_MORE);
         }
-
-        diffCallBack.setData(dataList, newDataList);
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
-        diffResult.dispatchUpdatesTo(this);
-        dataList = newDataList;
+        notifyDataSetChanged();
     }
 
     public void setCommentList(List<Comment> list) {
         if (list == null) {
             return;
         }
-        List<Object> newDataList = new ArrayList<>();
+        dataList.clear();
         commentList = list;
 
-        newDataList.add(header);
+        dataList.add(header);
         if (newEleList != null && !newEleList.isEmpty()) {
-            newDataList.addAll(newEleList);
+            dataList.addAll(newEleList);
 
-            newDataList.add(COMMENT_TITLE);
-            newDataList.addAll(commentList);
-            newDataList.add(COMMENT_MORE);
+            dataList.add(COMMENT_TITLE);
+            dataList.addAll(commentList);
+            dataList.add(COMMENT_MORE);
         }
-        diffCallBack.setData(dataList, newDataList);
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
-        diffResult.dispatchUpdatesTo(this);
-        dataList = newDataList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -246,65 +235,6 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         if (holder instanceof NewDetailVideoHolder) {
             NewDetailVideoHolder videoHolder = (NewDetailVideoHolder) holder;
             videoHolder.mAgentWeb.getWebLifeCycle().onResume();
-        }
-    }
-
-    private static class NewDetailDiffCallBack extends IDiffCallBack<Object> {
-
-        @Override
-        public boolean isItemsTheSame(int oldItemPosition, int newItemPosition) {
-            Object oldObj = oldData.get(oldItemPosition);
-            Object newsObj = newData.get(newItemPosition);
-
-            if (oldObj instanceof NewEle && newsObj instanceof NewEle) {
-                NewEle oldNewEle = (NewEle) oldObj;
-                NewEle newNewEle = (NewEle) newsObj;
-                if (oldNewEle.type == newNewEle.type) {
-                    if (oldNewEle.type == TYPE_TEXT) {
-                        return Objects.equals(oldNewEle.text, newNewEle.text);
-
-                    } else if (oldNewEle.type == TYPE_IMG) {
-                        return Objects.equals(oldNewEle.imgUrl, newNewEle.imgUrl);
-
-                    } else if (oldNewEle.type == TYPE_VIDEO) {
-                        return Objects.equals(oldNewEle.videoUrl, newNewEle.videoUrl);
-                    }
-                }
-
-            } else if (oldObj instanceof Header && newsObj instanceof Header) {
-                Header oldHeader = (Header) oldObj;
-                Header newHeader = (Header) newsObj;
-                return Objects.equals(oldHeader.url, newHeader.url);
-            }
-            return Objects.equals(oldObj, newsObj);
-        }
-
-        @Override
-        public boolean isContentsTheSame(int oldItemPosition, int newItemPosition) {
-            Object oldObj = oldData.get(oldItemPosition);
-            Object newsObj = newData.get(newItemPosition);
-
-            if (oldObj instanceof NewEle && newsObj instanceof NewEle) {
-                NewEle oldNewEle = (NewEle) oldObj;
-                NewEle newNewEle = (NewEle) newsObj;
-                if (oldNewEle.type == newNewEle.type) {
-                    if (oldNewEle.type == TYPE_TEXT) {
-                        return Objects.equals(oldNewEle.text, newNewEle.text);
-
-                    } else if (oldNewEle.type == TYPE_IMG) {
-                        return Objects.equals(oldNewEle.imgUrl, newNewEle.imgUrl);
-
-                    } else if (oldNewEle.type == TYPE_VIDEO) {
-                        return Objects.equals(oldNewEle.videoUrl, newNewEle.videoUrl);
-                    }
-                }
-
-            } else if (oldObj instanceof Header && newsObj instanceof Header) {
-                Header oldHeader = (Header) oldObj;
-                Header newHeader = (Header) newsObj;
-                return Objects.equals(oldHeader.url, newHeader.url);
-            }
-            return Objects.equals(oldObj, newsObj);
         }
     }
 }

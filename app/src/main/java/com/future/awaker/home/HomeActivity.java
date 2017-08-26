@@ -23,18 +23,12 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.allenliu.versionchecklib.core.AllenChecker;
-import com.allenliu.versionchecklib.core.HttpRequestMethod;
-import com.allenliu.versionchecklib.core.VersionParams;
 import com.future.awaker.Account;
-import com.future.awaker.BuildConfig;
 import com.future.awaker.R;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.Special;
 import com.future.awaker.databinding.ActivityHomeBinding;
-import com.future.awaker.fir.Fir;
-import com.future.awaker.fir.FirService;
 import com.future.awaker.home.adapter.HomeAdapter;
 import com.future.awaker.login.LoginActivity;
 import com.future.awaker.setting.SettingActivity;
@@ -99,9 +93,9 @@ public class HomeActivity extends AppCompatActivity {
         setupFab();
         setupTabs();
 
-        if (BuildConfig.BUILD_TYPE.equals("release")) {
-            checkVersionUpdate();
-        }
+//        if (BuildConfig.BUILD_TYPE.equals("release")) {
+//            checkVersionUpdate();
+//        }
     }
 
     private void initNavigationViewMenu() {
@@ -209,13 +203,13 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void checkVersionUpdate() {
-        VersionParams.Builder builder = new VersionParams.Builder()
-                .setRequestMethod(HttpRequestMethod.GET)
-                .setRequestUrl(Fir.VERSION_URL)
-                .setService(FirService.class);
-        AllenChecker.startVersionCheck(this, builder.build());
-    }
+//    private void checkVersionUpdate() {
+//        VersionParams.Builder builder = new VersionParams.Builder()
+//                .setRequestMethod(HttpRequestMethod.GET)
+//                .setRequestUrl(Fir.VERSION_URL)
+//                .setService(FirService.class);
+//        AllenChecker.startVersionCheck(this, builder.build());
+//    }
 
     @Override
     protected void onDestroy() {
