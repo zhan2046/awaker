@@ -8,6 +8,7 @@ def static gitVersionCode() {
     cmd.execute().text.trim().toInteger()
 }
 
+
 def static gitVersionTag() {
     def cmd = 'git describe --tags'
     def version = cmd.execute().text.trim()
