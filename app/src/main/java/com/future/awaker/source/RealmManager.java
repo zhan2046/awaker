@@ -3,8 +3,10 @@ package com.future.awaker.source;
 import com.future.awaker.data.News;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
+import com.future.awaker.source.local.ILocalDataSource;
 import com.future.awaker.util.LogUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,13 +23,14 @@ import io.realm.RealmResults;
  * Copyright ©2017 by ruzhan
  */
 
-public final class RealmManager {
+public final class RealmManager implements ILocalDataSource {
 
     private static final String TAG = RealmManager.class.getSimpleName();
 
     @SuppressWarnings("unchecked")
-    public Flowable<RealmResults> getRealmItems(Class clazz,
-                                                Map<String, String> map) {
+    @Override
+    public Flowable<RealmResults> getLocalRealm(Class clazz,
+                                                HashMap<String, String> map) {
         Flowable<RealmResults> realmResultsFlowable =
                 Flowable.create(emitter -> {
                     Realm realmInstance = Realm.getDefaultInstance();
@@ -53,6 +56,7 @@ public final class RealmManager {
         return Flowable.defer(() -> realmResultsFlowable);
     }
 
+    @Override
     public void updateLocalRealm(RealmModel realmModel) {
         if (realmModel == null) {
             return;
@@ -68,6 +72,7 @@ public final class RealmManager {
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public void deleteLocalRealm(Class clazz, Map<String, String> map) {
         Realm realmInstance = Realm.getDefaultInstance();
         RealmQuery realmQuery = realmInstance.where(clazz);
@@ -91,10 +96,12 @@ public final class RealmManager {
         results.addChangeListener(listener);
     }
 
+    @Override
     public void close() {
         Realm.getDefaultInstance().close();
     }
 
+    @Override
     public void clearAll() {
         Realm realmInstance = Realm.getDefaultInstance();
         realmInstance.executeTransaction(realm -> realm.deleteAll());

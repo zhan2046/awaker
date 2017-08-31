@@ -1,5 +1,8 @@
 package com.future.awaker.source.local;
 
+import com.awaker.annotation.Delegate;
+import com.awaker.annotation.SingleDelegate;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +14,13 @@ import io.realm.RealmResults;
  * Copyright ©2017 by ruzhan
  */
 
+@SingleDelegate(
+        classNameImpl = "LocalDataSourceImpl",
+        delegate = @Delegate(
+                delegatePackage = "com.future.awaker.source",
+                delegateClassName = "RealmManager",
+                delegateSimpleName = "realmManager"
+        ))
 public interface ILocalDataSource {
 
     Flowable<RealmResults> getLocalRealm(Class clazz, HashMap<String, String> map);

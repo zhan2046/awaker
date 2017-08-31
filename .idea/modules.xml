@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/awaker.iml" filepath="$PROJECT_DIR$/awaker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/awaker-annotation/awaker-annotation.iml" filepath="$PROJECT_DIR$/awaker-annotation/awaker-annotation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/awaker-compiler/awaker-compiler.iml" filepath="$PROJECT_DIR$/awaker-compiler/awaker-compiler.iml" />
     </modules>
   </component>
 </project>
