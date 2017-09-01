@@ -17,14 +17,14 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 /**
- * Copyright ©2017 by Teambition
+ * ruzhan
  */
 
 @AutoService(Processor.class)//自动生成 javax.annotation.processing.IProcessor 文件
 @SupportedSourceVersion(SourceVersion.RELEASE_7)//java版本支持
 @SupportedAnnotationTypes({//标注注解处理器支持的注解类型
         "com.awaker.annotation.SingleDelegate",
-        "com.awaker.annotation.RepositoryDelegate"
+        "com.awaker.annotation.MultiDelegate"
 })
 public class AnnotationProcessor extends AbstractProcessor {
 
@@ -42,10 +42,9 @@ public class AnnotationProcessor extends AbstractProcessor {
         messager = processingEnv.getMessager();
         types = processingEnv.getTypeUtils();
 
-        // 远程数据源 实现类
         new SingleDelegateProcessor().process(set, roundEnvironment, this);
-        // 仓库数据源 实现类
-        new RepositoryProcessor().process(set, roundEnvironment, this);
+        new MultiDelegateProcessor().process(set, roundEnvironment, this);
+
         return true;
     }
 }

@@ -3,12 +3,21 @@ package com.future.awaker.imageloader;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
+import com.awaker.annotation.Delegate;
+import com.awaker.annotation.SingleDelegate;
 import com.bumptech.glide.request.RequestListener;
 
 /**
  * Copyright ©2017 by ruzhan
  */
 
+@SingleDelegate(
+        classNameImpl = "ImageLoaderImpl",
+        delegate = @Delegate(
+                delegatePackage = "com.future.awaker.imageloader",
+                delegateClassName = "IImageLoader",
+                delegateSimpleName = "imageLoader"
+        ))
 public interface IImageLoader {
 
     void load(ImageView imageView, String url);

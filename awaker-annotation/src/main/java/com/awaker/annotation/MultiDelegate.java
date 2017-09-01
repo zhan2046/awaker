@@ -6,15 +6,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Copyright ©2017 by Teambition
+ * ruzhan
  */
 
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
-public @interface RepositoryDelegate {
+public @interface MultiDelegate {
 
     /**
-     * need impl class name
+     * impl class name
      */
     String classNameImpl();
 

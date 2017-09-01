@@ -1,4 +1,4 @@
-package com.future.awaker.imageloader;
+package com.future.awaker.imageloader.glide;
 
 import android.content.Context;
 

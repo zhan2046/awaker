@@ -1,7 +1,7 @@
 package com.future.awaker.source;
 
 import com.awaker.annotation.Delegate;
-import com.awaker.annotation.RepositoryDelegate;
+import com.awaker.annotation.MultiDelegate;
 import com.future.awaker.source.local.ILocalDataSource;
 import com.future.awaker.source.remote.IRemoteDataSource;
 
@@ -9,7 +9,7 @@ import com.future.awaker.source.remote.IRemoteDataSource;
  * Copyright ©2017 by ruzhan
  */
 
-@RepositoryDelegate(
+@MultiDelegate(
         classNameImpl = "AwakerRepositoryImpl",
         Delegates = {
                 @Delegate(

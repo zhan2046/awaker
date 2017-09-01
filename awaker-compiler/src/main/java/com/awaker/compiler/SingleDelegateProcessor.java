@@ -20,7 +20,7 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.ElementFilter;
 
 /**
- * Copyright ©2017 by Teambition
+ * ruzhan
  */
 
 public class SingleDelegateProcessor implements IProcessor {
@@ -28,13 +28,6 @@ public class SingleDelegateProcessor implements IProcessor {
     @Override
     public void process(Set<? extends TypeElement> set, RoundEnvironment roundEnv,
                         AnnotationProcessor abstractProcessor) {
-
-
-        ////////////
-        /// core annotation compiler
-        ////////////
-
-
         // 查询注解是否存在
         Set<? extends Element> elementSet =
                 roundEnv.getElementsAnnotatedWith(SingleDelegate.class);
@@ -44,13 +37,13 @@ public class SingleDelegateProcessor implements IProcessor {
         }
 
         // 循环处理注解
-        for (TypeElement rootTypeElement : typeElementSet) {
-            if (!(rootTypeElement.getKind() == ElementKind.INTERFACE)) { // 只处理接口类型
+        for (TypeElement typeElement : typeElementSet) {
+            if (!(typeElement.getKind() == ElementKind.INTERFACE)) { // 只处理接口类型
                 continue;
             }
 
             // 处理 SingleDelegate，只处理 annotation.classNameImpl() 不为空的注解
-            SingleDelegate annotation = rootTypeElement.getAnnotation(SingleDelegate.class);
+            SingleDelegate annotation = typeElement.getAnnotation(SingleDelegate.class);
             if ("".equals(annotation.classNameImpl())) {
                 continue;
             }
@@ -60,43 +53,16 @@ public class SingleDelegateProcessor implements IProcessor {
             MethodSpec.Builder constructorBuilder = MethodSpec.constructorBuilder()
                     .addModifiers(Modifier.PUBLIC);
 
-
-            // create TypeSpec Builder
+            // 创建类名相关 class builder
             TypeSpec.Builder builder =
-                    ProcessUtils.createTypeSpecBuilder(rootTypeElement, annotation.classNameImpl());
+                    ProcessUtils.createTypeSpecBuilder(typeElement, annotation.classNameImpl());
 
-            // 处理 RemoteDataSource delegate
-            builder = ProcessUtils.processDelegate(rootTypeElement, builder,
+            // 处理 delegate
+            builder = ProcessUtils.processDelegate(typeElement, builder,
                     constructorBuilder, delegate);
 
-
-            ////////////
-            /// other annotation compiler
-            ////////////
-
-
             // 检查是否继承其它接口
-            List<? extends TypeMirror> typeMirrors = rootTypeElement.getInterfaces();
-            for (TypeMirror mirror : typeMirrors) {
-                TypeElement superTypeElement =
-                        (TypeElement) abstractProcessor.types.asElement(mirror);
-                if (!(superTypeElement.getKind() == ElementKind.INTERFACE)) { // 只处理接口类型
-                    continue;
-                }
-                SingleDelegate accountDataSource =
-                        superTypeElement.getAnnotation(SingleDelegate.class);
-                if (accountDataSource == null) {
-                    continue;
-                }
-                builder = ProcessUtils.processDelegate(superTypeElement, builder,
-                        constructorBuilder, accountDataSource.delegate());
-            }
-
-
-            ////////////
-            /// compiler finish
-            ////////////
-
+            builder = processSuperSingleDelegate(abstractProcessor, builder, constructorBuilder, typeElement);
 
             // 完成构造器
             builder.addMethod(constructorBuilder.build());
@@ -109,5 +75,33 @@ public class SingleDelegateProcessor implements IProcessor {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * 检查是否继承其它接口
+     */
+    private TypeSpec.Builder processSuperSingleDelegate(AnnotationProcessor abstractProcessor,
+                                                        TypeSpec.Builder builder,
+                                                        MethodSpec.Builder constructorBuilder,
+                                                        TypeElement typeElement) {
+        // 遍历当前 typeElement 继承的接口
+        List<? extends TypeMirror> typeMirrors = typeElement.getInterfaces();
+        for (TypeMirror mirror : typeMirrors) {
+            TypeElement superTypeElement = (TypeElement) abstractProcessor.types.asElement(mirror);
+            if (!(superTypeElement.getKind() == ElementKind.INTERFACE)) { // 只处理接口类型
+                continue;
+            }
+            SingleDelegate superAnnotation = superTypeElement.getAnnotation(SingleDelegate.class);
+
+            if (superAnnotation != null) {  // 处理继承接口 SingleDelegate
+                builder = ProcessUtils.processDelegate(superTypeElement, builder,
+                        constructorBuilder, superAnnotation.delegate());
+
+                //递归继续检查是否继承其它接口
+                builder = processSuperSingleDelegate(abstractProcessor, builder, constructorBuilder,
+                        superTypeElement);
+            }
+        }
+        return builder;
     }
 }

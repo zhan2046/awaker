@@ -16,12 +16,12 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 
 /**
- * Copyright ©2017 by Teambition
+ * ruzhan
  */
 
 public final class ProcessUtils {
 
-    private static final String CLASS_DESC = "poet compiler auto create";
+    private static final String CLASS_DESC = "From poet compiler auto create...";
 
     private static final String SCHEDULERS = "Schedulers";
     private static final String SCHEDULERS_PACKAGE = "io.reactivex.schedulers";
@@ -32,15 +32,16 @@ public final class ProcessUtils {
     private ProcessUtils() {
     }
 
-
+    /**
+     * 创建类名相关 class builder
+     */
     public static TypeSpec.Builder createTypeSpecBuilder(TypeElement typeElement,
                                                          String classNameImpl) {
         String tagPackage = typeElement.getQualifiedName().toString();
         String tagClazzName = typeElement.getSimpleName().toString();
 
-        // package 全路径移除 . class name，例如:com.a.b.x -> com.a.b
-        String realTagPackage = tagPackage.replace("."
-                + tagClazzName, "");
+        // package 全路径移除类名，例如:com.a.b.x -> com.a.b
+        String realTagPackage = tagPackage.replace("." + tagClazzName, "");
 
         // 实现的接口
         ClassName tagClassName =
@@ -53,6 +54,9 @@ public final class ProcessUtils {
                 .addJavadoc(CLASS_DESC);
     }
 
+    /**
+     * 处理代理: 添加字段，构造器声明，方法代理
+     */
     public static TypeSpec.Builder processDelegate(TypeElement typeElement,
                                                    TypeSpec.Builder builder,
                                                    MethodSpec.Builder constructorBuilder,
@@ -82,7 +86,7 @@ public final class ProcessUtils {
     }
 
     /**
-     * 处理方法集
+     * 处理方法
      */
     public static TypeSpec.Builder addMethodSpec(TypeSpec.Builder builder,
                                                  TypeElement typeElement,
@@ -91,7 +95,7 @@ public final class ProcessUtils {
     }
 
     /**
-     * 处理方法集
+     * 处理方法
      */
     public static TypeSpec.Builder addMethodSpec(TypeSpec.Builder builder,
                                                  TypeElement typeElement,

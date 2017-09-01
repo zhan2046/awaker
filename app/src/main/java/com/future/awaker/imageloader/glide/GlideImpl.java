@@ -1,4 +1,4 @@
-package com.future.awaker.imageloader;
+package com.future.awaker.imageloader.glide;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
@@ -13,6 +13,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.future.awaker.R;
+import com.future.awaker.imageloader.IImageLoader;
 
 /**
  * Copyright ©2017 by ruzhan

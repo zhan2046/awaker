@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Copyright ©2017 by Teambition
+ * ruzhan
  */
 
 @Retention(RetentionPolicy.SOURCE)
