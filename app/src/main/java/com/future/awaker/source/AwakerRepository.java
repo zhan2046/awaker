@@ -2,7 +2,6 @@ package com.future.awaker.source;
 
 import com.future.awaker.network.AwakerClient;
 import com.poet.compiler.awaker.AwakerRepositoryImpl;
-import com.poet.compiler.awaker.LocalDataSourceImpl;
 import com.poet.compiler.awaker.RemoteDataSourceImpl;
 
 /**
@@ -21,7 +20,7 @@ public final class AwakerRepository {
             synchronized (AwakerRepository.class) {
                 if (INSTANCE == null) {
                     INSTANCE = new AwakerRepositoryImpl(
-                            new LocalDataSourceImpl(new RealmManager()),
+                            new RealmManager(),
                             new RemoteDataSourceImpl(AwakerClient.get()));
                 }
             }
