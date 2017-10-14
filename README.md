@@ -4,7 +4,7 @@ Awaker
 
 
 
-####    本App 采用 MVVM + RXJava2 + Retrofit + OKHttp + Material Design +AOP + Base + Glide + Realm构建，地理杂志阅读类Android App,欢迎大家Star或Fork。
+####    本App 采用 MVVM + RXJava2 + Retrofit + OKHttp + Material Design +AOP + Base + Glide + Realm构建，欢迎大家Star或Fork。
 
 
 Screenshots
@@ -22,7 +22,7 @@ Screenshots
 
 
 
-下载
+扫描二维码下载
 ------
 ![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker_download_image.png)
 
@@ -38,7 +38,7 @@ Screenshots
 
 使用的第三方开源库，感谢开源的力量
 ------
-
+* [apt-delegate](https://github.com/ruzhan123/apt-delegate)
 * [RxJava](https://github.com/ReactiveX/RxJava)
 * [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 * [okhttp](https://github.com/square/okhttp)
