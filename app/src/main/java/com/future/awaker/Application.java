@@ -2,6 +2,7 @@ package com.future.awaker;
 
 import com.blankj.utilcode.util.Utils;
 import com.crashlytics.android.Crashlytics;
+import com.future.awaker.util.ConstantUtils;
 
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
@@ -38,6 +39,8 @@ public class Application extends android.app.Application {
 
         Account.get().initUserInfo();
 
-        Fabric.with(this, new Crashlytics());
+        if (ConstantUtils.isReleaseBuild() || ConstantUtils.isBetaBuild()) {
+            Fabric.with(this, new Crashlytics());
+        }
     }
 }
