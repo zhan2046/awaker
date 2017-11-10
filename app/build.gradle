@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 apply plugin: 'io.fabric'
 
@@ -91,10 +90,9 @@ android {
             variant.mergedFlavor.versionName = gitVersionTag()
         }
 
-        variant.outputs.each { output ->
-            def fileName = output.outputFile.name;
-            fileName = fileName.replace("app", "awaker-${variant.versionName}-${variant.versionCode}")
-            output.outputFile = new File(output.outputFile.parent, fileName)
+        variant.outputs.all { output ->
+            def fileName = output.outputFile.name
+            outputFileName = fileName.replace("app", "awaker-${variant.versionName}-${variant.versionCode}")
         }
     }
 }
@@ -104,45 +102,45 @@ dependencies {
     def retrofitVersion = '2.3.0'
     def glideVersion = '4.0.0'
 
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':awaker-annotation')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':awaker-annotation')
     annotationProcessor project(':awaker-compiler')
 
-    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
-    compile "com.android.support:cardview-v7:$supportLibraryVersion"
-    compile "com.android.support:design:$supportLibraryVersion"
-    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:cardview-v7:$supportLibraryVersion"
+    implementation "com.android.support:design:$supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
 
     //retrofit
-    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
     //rx
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
 
     //glide
-    compile "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     // core ui
-    compile 'com.gordonwong:material-sheet-fab:1.2.1'
+    implementation 'com.gordonwong:material-sheet-fab:1.2.1'
 
-    compile 'com.pnikosis:materialish-progress:1.1'
-    compile 'net.soulwolf.widget:ratiolayout:1.0.0'
-    compile 'com.github.chrisbanes:PhotoView:2.0.0'
-    compile 'com.just.agentweb:agentweb:1.2.6'
-    compile 'org.jsoup:jsoup:1.10.3'
-    compile 'com.afollestad.material-dialogs:core:0.9.4.6'
+    implementation 'com.pnikosis:materialish-progress:1.1'
+    implementation 'net.soulwolf.widget:ratiolayout:1.0.0'
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    implementation 'com.just.agentweb:agentweb:1.2.6'
+    implementation 'org.jsoup:jsoup:1.10.3'
+    implementation 'com.afollestad.material-dialogs:core:0.9.4.6'
 
-    compile 'com.sun.mail:android-mail:1.5.5'
-    compile 'com.sun.mail:android-activation:1.5.5'
+    implementation 'com.sun.mail:android-mail:1.5.5'
+    implementation 'com.sun.mail:android-activation:1.5.5'
 
-    compile 'com.blankj:utilcode:1.9.0'
+    implementation 'com.blankj:utilcode:1.9.0'
 
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }
 }
