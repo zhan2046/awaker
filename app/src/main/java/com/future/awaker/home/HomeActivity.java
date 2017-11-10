@@ -92,10 +92,6 @@ public class HomeActivity extends AppCompatActivity {
 
         setupFab();
         setupTabs();
-
-//        if (BuildConfig.BUILD_TYPE.equals("release")) {
-//            checkVersionUpdate();
-//        }
     }
 
     private void initNavigationViewMenu() {
@@ -202,14 +198,6 @@ public class HomeActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.login_no, Toast.LENGTH_SHORT).show();
         }
     }
-
-//    private void checkVersionUpdate() {
-//        VersionParams.Builder builder = new VersionParams.Builder()
-//                .setRequestMethod(HttpRequestMethod.GET)
-//                .setRequestUrl(Fir.VERSION_URL)
-//                .setService(FirService.class);
-//        AllenChecker.startVersionCheck(this, builder.build());
-//    }
 
     @Override
     protected void onDestroy() {

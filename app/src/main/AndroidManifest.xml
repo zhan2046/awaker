@@ -77,9 +77,5 @@
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
 
-        <service
-            android:name=".fir.FirService"
-            android:enabled="true"
-            android:exported="true" />
     </application>
 </manifest>
