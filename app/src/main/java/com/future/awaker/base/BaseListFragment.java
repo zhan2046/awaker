@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.future.awaker.R;
 import com.future.awaker.base.viewmodel.BaseListViewModel;
+import com.future.awaker.helper.LoadMoreHelper;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -55,7 +54,7 @@ public class BaseListFragment<VB extends ViewDataBinding> extends BaseFragment<V
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (isLoadMore(recyclerView, newState)) {
+                if (LoadMoreHelper.isLoadMore(recyclerView, newState)) {
                     onLoadMore();
                 }
             }
@@ -67,42 +66,6 @@ public class BaseListFragment<VB extends ViewDataBinding> extends BaseFragment<V
         super.onViewCreated(view, savedInstanceState);
 
         initData();
-    }
-
-    private boolean isLoadMore(RecyclerView recyclerView, int newState) {
-        RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter != null) {
-            RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-            int lastPosition = 0;
-            if (layoutManager instanceof LinearLayoutManager) {
-                lastPosition = ((LinearLayoutManager) layoutManager).findLastCompletelyVisibleItemPosition();
-            } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-                StaggeredGridLayoutManager staggeredGridLayoutManager =
-                        (StaggeredGridLayoutManager) layoutManager;
-                if (lastPositions == null) {
-                    lastPositions = new int[staggeredGridLayoutManager.getSpanCount()];
-                }
-                staggeredGridLayoutManager.findLastVisibleItemPositions(lastPositions);
-                lastPosition = findMax(lastPositions);
-            }
-
-            int adapterCount = adapter.getItemCount();
-            int refreshPosition = adapterCount - 1;
-            return lastPosition > 0 && lastPosition >= refreshPosition &&
-                    (newState == RecyclerView.SCROLL_STATE_IDLE ||
-                            newState == RecyclerView.SCROLL_STATE_SETTLING);
-        }
-        return false;
-    }
-
-    private int findMax(int[] lastPositions) {
-        int max = lastPositions[0];
-        for (int value : lastPositions) {
-            if (value > max) {
-                max = value;
-            }
-        }
-        return max;
     }
 
     @Override
