@@ -26,8 +26,6 @@ public class BaseListFragment<VB extends ViewDataBinding> extends BaseFragment<V
     protected boolean isStopRefresh;
     protected boolean isStopLoadMore;
 
-    private int[] lastPositions;
-
     @Override
     protected int getLayout() {
         return R.layout.frag_base_list;

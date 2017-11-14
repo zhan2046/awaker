@@ -4,9 +4,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-/**
- * Copyright ©2017 by Teambition
- */
 
 public class LoadMoreHelper {
 
