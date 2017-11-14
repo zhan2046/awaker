@@ -15,29 +15,19 @@
     <dimen name="sheet_item_textsize">16sp</dimen>
 
     <dimen name="drawer_header_height">200dp</dimen>
-    <dimen name="drawer_header_textsize">20sp</dimen>
-    <dimen name="drawer_header_text_spacing">@dimen/keyline_spacing</dimen>
 
     <dimen name="global_actionbar_size">48dp</dimen>
     <dimen name="divider_height">0.3dp</dimen>
 
-    <dimen name="space_small_2">4dp</dimen>
     <dimen name="space_small_1">8dp</dimen>
     <dimen name="space_normal">16dp</dimen>
     <dimen name="space_large_1">24dp</dimen>
     <dimen name="space_large_2">32dp</dimen>
     <dimen name="space_large_3">48dp</dimen>
-    <dimen name="space_large_4">56dp</dimen>
-    <dimen name="space_large_5">72dp</dimen>
 
-    <dimen name="text_size_small_3">10sp</dimen>
     <dimen name="text_size_small_2">12sp</dimen>
     <dimen name="text_size_small_1">14sp</dimen>
     <dimen name="text_size_normal">16sp</dimen>
-    <dimen name="text_size_large_1">20sp</dimen>
-    <dimen name="text_size_large_2">24sp</dimen>
-    <dimen name="text_size_large_3">28sp</dimen>
-    <dimen name="text_size_large_4">32sp</dimen>
 
     <dimen name="account_icon">80dp</dimen>
 </resources>

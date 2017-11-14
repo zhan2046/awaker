@@ -32,13 +32,6 @@
         <item name="colorControlActivated">@color/grey_zan</item>
     </style>
 
-    <style name="NoAnimTheme" parent="AppTheme">
-        <item name="android:windowAnimationStyle">@null</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
-
     <style name="Widget.Awaker.ToolBar" parent="">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>

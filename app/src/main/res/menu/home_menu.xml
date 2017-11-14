@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:id="@+id/item_one">
+    <group>
 
         <item
             android:id="@+id/develop_desc"
@@ -18,9 +18,8 @@
             android:title="@string/cache_clear" />
     </group>
 
-    <group android:id="@+id/item_two">
+    <group>
         <item
-            android:id="@+id/play_develop"
             android:checkable="true"
             android:title="@string/play_develop" />
     </group>

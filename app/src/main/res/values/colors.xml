@@ -7,24 +7,19 @@
 
     <color name="themePrimary">#FFFD7044</color>
     <color name="themePrimaryDark">#FFFD5044</color>
-    <color name="themePrimaryDark2">#FFFD3044</color>
 
     <color name="white">#FFFFFFFF</color>
-    <color name="white12">#1FFFFFFF</color>
     <color name="text_white_87">#deFFFFFF</color>
     <color name="text_white_50">#80FFFFFF</color>
 
     <color name="black">#FF000000</color>
-    <color name="black40">#88000000</color>
     <color name="black12">#1F000000</color>
-    <color name="text_black_87">#de000000</color>
 
     <color name="grey300">#FFE0E0E0</color>
 
     <color name="f5">#FFF5F5F5</color>
 
     <color name="image_mark">#FFE0E0E0</color>
-    <drawable name="divider_color">#FFD9D9D9</drawable>
 
     <color name="blue_zan">#FF3BB9FF</color>
     <color name="grey_zan">#FFB6B6B4</color>
