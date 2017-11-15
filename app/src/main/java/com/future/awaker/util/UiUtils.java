@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.Display;
@@ -44,26 +43,24 @@ public final class UiUtils {
 
     public static int getScreenHeight() {
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        if (wm == null) {
+            return 0;
+        }
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
-        if (Build.VERSION.SDK_INT >= 13) {
-            display.getSize(size);
-            return size.y;
-        } else {
-            return display.getHeight();
-        }
+        display.getSize(size);
+        return size.y;
     }
 
     public static int getScreenWidth() {
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        if (wm == null) {
+            return 0;
+        }
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
-        if (Build.VERSION.SDK_INT >= 13) {
-            display.getSize(size);
-            return size.x;
-        } else {
-            return display.getWidth();
-        }
+        display.getSize(size);
+        return size.x;
     }
 
     public static int getVersionCode(Context context) {
