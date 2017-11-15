@@ -26,6 +26,8 @@ public class HomeListAdapter extends RecyclerView.Adapter {
     private static final int TYPE_BANNER = 1000;
     private static final int TYPE_ITEM = 1001;
 
+    private static final int SPAN_COUNT = 3;
+
     private List<Object> dataList = new ArrayList<>();
     private OnItemClickListener<HomeItem> listener;
 
@@ -68,15 +70,13 @@ public class HomeListAdapter extends RecyclerView.Adapter {
             ItemHomeBannerBinding homeBannerBinding =
                     DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                             R.layout.item_home_banner, parent, false);
-            HomeBannerHolder bannerHolder = new HomeBannerHolder(homeBannerBinding);
-            viewHolder = bannerHolder;
+            viewHolder = new HomeBannerHolder(homeBannerBinding);
 
         } else if (viewType == TYPE_ITEM) {
             ItemHomeListBinding homeListBinding =
                     DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                             R.layout.item_home_list, parent, false);
-            HomeListHolder homeListHolder = new HomeListHolder(homeListBinding, listener);
-            viewHolder = homeListHolder;
+            viewHolder = new HomeListHolder(homeListBinding, listener);
 
         }
         return viewHolder;
@@ -101,7 +101,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         int spanSize = 1;
         int viewType = getItemViewType(position);
         if (viewType == TYPE_BANNER) {
-            spanSize = 3;
+            spanSize = SPAN_COUNT;
         }
         return spanSize;
     }

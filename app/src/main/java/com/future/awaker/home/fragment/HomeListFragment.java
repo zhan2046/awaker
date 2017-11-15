@@ -23,6 +23,8 @@ import com.future.awaker.util.LogUtils;
 public class HomeListFragment extends BaseFragment<FragHomeListBinding>
         implements OnItemClickListener<HomeItem>, onPageSelectedListener {
 
+    private static final int SPAN_COUNT = 3;
+
     private HomeViewModel homeViewModel;
     private HomeListAdapter adapter;
     private boolean isFirst;
@@ -45,7 +47,7 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding>
         adapter = new HomeListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
 
-        GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), SPAN_COUNT);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

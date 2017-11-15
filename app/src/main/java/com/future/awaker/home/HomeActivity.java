@@ -49,6 +49,8 @@ public class HomeActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_HOME = 1000;
     private static final int BACK_TIME = 2000;
 
+    private static final int DEFAULT_DURATION = 300;
+
     private ActivityHomeBinding binding;
     private ActionBarDrawerToggle drawerToggle;
     private MaterialSheetFab materialSheetFab;
@@ -146,6 +148,7 @@ public class HomeActivity extends AppCompatActivity {
 
         updateAccountInfo();
 
+        // user login
         userLoginTv.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
@@ -154,6 +157,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        // user register
         userRegisterTv.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
@@ -162,6 +166,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        // user logout
         userExitLoginTv.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
@@ -258,7 +263,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (fragment instanceof onPageSelectedListener) {
                         ((onPageSelectedListener) fragment).onPageSelected(position);
                     }
-                }, 300);
+                }, DEFAULT_DURATION);
 
             }
 
