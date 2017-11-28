@@ -29,18 +29,20 @@ public class Application extends android.app.Application {
         INSTANCE = this;
 
         Utils.init(Application.get());
+        initRealm();
+        Account.get().initUserInfo();
 
+        if (ConstantUtils.isReleaseBuild() || ConstantUtils.isBetaBuild()) {
+            Fabric.with(this, new Crashlytics());
+        }
+    }
+
+    private void initRealm() {
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .name(AWAKER_DB)
                 .schemaVersion(VERSION_CODE)
                 .build();
         Realm.setDefaultConfiguration(config);
-
-        Account.get().initUserInfo();
-
-        if (ConstantUtils.isReleaseBuild() || ConstantUtils.isBetaBuild()) {
-            Fabric.with(this, new Crashlytics());
-        }
     }
 }
