@@ -7,23 +7,6 @@ def static gitVersionCode() {
     cmd.execute().text.trim().toInteger()
 }
 
-def static gitVersionTag() {
-    def cmd = 'git describe --tags'
-    def version = cmd.execute().text.trim()
-
-    def pattern = "-(\\d+)-g"
-    def matcher = version =~ pattern
-
-    if (matcher) {
-        version = version.substring(0, matcher.start()) + "." + matcher[0][1]
-    } else {
-        version = version + ".0"
-    }
-
-    return version
-}
-
-
 android {
 
     signingConfigs {
@@ -43,19 +26,19 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
 
-        versionCode 1
-        versionName "1.0"
+        versionCode gitVersionCode()
+        versionName "0.0.6"
+
+        manifestPlaceholders = [
+                fabric_apikey: rootProject.fabric_apikey
+        ]
     }
 
     buildTypes {
 
         debug {
-            // 为了不和 release 版本冲突
-            applicationIdSuffix ".debug"
-
-            manifestPlaceholders = [
-                    fabric_apikey: rootProject.fabric_apikey
-            ]
+            versionNameSuffix 'd'
+            signingConfig signingConfigs.config
         }
 
         release {
@@ -64,10 +47,6 @@ android {
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
-
-            manifestPlaceholders = [
-                    fabric_apikey: rootProject.fabric_apikey
-            ]
         }
     }
 
@@ -85,11 +64,6 @@ android {
     }
 
     applicationVariants.all { variant ->
-        if (variant.buildType.name.equals('release')) {
-            variant.mergedFlavor.versionCode = gitVersionCode()
-            variant.mergedFlavor.versionName = gitVersionTag()
-        }
-
         variant.outputs.all { output ->
             def fileName = output.outputFile.name
             outputFileName = fileName.replace("app", "awaker-${variant.versionName}-${variant.versionCode}")
@@ -141,6 +115,6 @@ dependencies {
     implementation 'com.blankj:utilcode:1.9.0'
 
     implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
-        transitive = true;
+        transitive = true
     }
 }
