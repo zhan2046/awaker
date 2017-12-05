@@ -10,6 +10,13 @@ import java.util.Properties;
 
 public class MailInfo {
 
+    private static final String MAIL_SMTP_HOST = "mail.smtp.host";
+    private static final String MAIL_SMTP_PORT = "mail.smtp.port";
+    private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
+
+    private static final String TRUE = "true";
+    private static final String FALSE = "false";
+
     private String mailServerHost;// 发送邮件的服务器的IP
     private String mailServerPort;// 发送邮件的服务器的端口
     private String fromAddress;// 邮件发送者的地址
@@ -26,9 +33,9 @@ public class MailInfo {
      */
     public Properties getProperties() {
         Properties p = new Properties();
-        p.put("mail.smtp.host", this.mailServerHost);
-        p.put("mail.smtp.port", this.mailServerPort);
-        p.put("mail.smtp.auth", validate ? "true" : "false");
+        p.put(MAIL_SMTP_HOST, this.mailServerHost);
+        p.put(MAIL_SMTP_PORT, this.mailServerPort);
+        p.put(MAIL_SMTP_AUTH, validate ? TRUE : FALSE);
         return p;
     }
 
