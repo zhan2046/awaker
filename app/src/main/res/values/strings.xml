@@ -87,6 +87,7 @@
 
 
     <string name="play_develop">打赏开发者</string>
+    <string name="create_mail_fail">创建带附件的邮件失败</string>
 
 
 </resources>

@@ -2,6 +2,9 @@ package com.future.awaker.email;
 
 import android.util.Log;
 
+import com.future.awaker.R;
+import com.future.awaker.util.ResUtils;
+
 import java.io.File;
 import java.util.Date;
 import java.util.Properties;
@@ -31,6 +34,9 @@ import javax.mail.internet.MimeUtility;
 
 public class MailSender {
 
+    private static final String TEXT_HTML_UTF8 = "text/html;charset=UTF-8";
+    private static final String MIXED = "mixed";
+
     /**
      * 以文本格式发送邮件
      *
@@ -47,13 +53,6 @@ public class MailSender {
         }
         // 根据邮件会话属性和密码验证器构造一个发送邮件的session
         Session sendMailSession = Session.getDefaultInstance(pro, authenticator);
-
-//        Session sendMailSession = Session.getInstance(pro, new Authenticator() {
-//            @Override
-//            protected PasswordAuthentication getPasswordAuthentication() {
-//                return new PasswordAuthentication(mailInfo.getUserName(),mailInfo.getPassword());
-//            }
-//        });
 
         try {
             // 根据session创建一个邮件消息
@@ -182,7 +181,7 @@ public class MailSender {
 
             // 创建邮件正文，为了避免邮件正文中文乱码问题，需要使用CharSet=UTF-8指明字符编码
             MimeBodyPart text = new MimeBodyPart();
-            text.setContent(info.getContent(), "text/html;charset=UTF-8");
+            text.setContent(info.getContent(), TEXT_HTML_UTF8);
 
             // 创建容器描述数据关系
             MimeMultipart mp = new MimeMultipart();
@@ -195,12 +194,12 @@ public class MailSender {
             attach.setDataHandler(dh);
             attach.setFileName(MimeUtility.encodeText(dh.getName()));
             mp.addBodyPart(attach);
-            mp.setSubType("mixed");
+            mp.setSubType(MIXED);
             message.setContent(mp);
             message.saveChanges();
 
         } catch (Exception e) {
-            Log.e("TAG", "创建带附件的邮件失败");
+            Log.e("TAG", ResUtils.getString(R.string.create_mail_fail));
             e.printStackTrace();
         }
         // 返回生成的邮件
