@@ -50,7 +50,10 @@ public class UserBackFragment extends BaseFragment<FragUserBackBinding> {
 
         userBackViewModel.isSend.addOnPropertyChangedCallback(sendCallBack);
 
+        initListener();
+    }
 
+    private void initListener() {
         binding.contentEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
