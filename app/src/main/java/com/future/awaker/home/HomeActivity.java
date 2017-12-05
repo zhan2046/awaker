@@ -109,21 +109,7 @@ public class HomeActivity extends AppCompatActivity {
                     SettingActivity.launch(this, SettingActivity.DEVELOP_DESC);
                     break;
                 case R.id.cache_clear:
-                    new MaterialDialog.Builder(this)
-                            .title(R.string.cache_clear)
-                            .content(R.string.cache_clear_desc)
-                            .positiveText(R.string.confirm)
-                            .negativeText(R.string.cancel)
-                            .theme(Theme.LIGHT)
-                            .negativeColorRes(R.color.text_color)
-                            .positiveColorRes(R.color.text_color)
-                            .onPositive((dialog, which) -> {
-                                AwakerRepository.get().clearAll();
-                                Toast.makeText(this, R.string.cache_clear_finish,
-                                        Toast.LENGTH_SHORT).show();
-                            })
-                            .onNegative((dialog, which) -> dialog.dismiss())
-                            .show();
+                    handlerCacheClear();
                     break;
                 case R.id.user_back:
                     SettingActivity.launch(this, SettingActivity.USER_BACK);
@@ -134,6 +120,24 @@ public class HomeActivity extends AppCompatActivity {
             }
             return true;
         });
+    }
+
+    private void handlerCacheClear() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.cache_clear)
+                .content(R.string.cache_clear_desc)
+                .positiveText(R.string.confirm)
+                .negativeText(R.string.cancel)
+                .theme(Theme.LIGHT)
+                .negativeColorRes(R.color.text_color)
+                .positiveColorRes(R.color.text_color)
+                .onPositive((dialog, which) -> {
+                    AwakerRepository.get().clearAll();
+                    Toast.makeText(this, R.string.cache_clear_finish,
+                            Toast.LENGTH_SHORT).show();
+                })
+                .onNegative((dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     private void initHeaderView() {
@@ -147,7 +151,10 @@ public class HomeActivity extends AppCompatActivity {
         userExitLoginTv = (TextView) headerView.findViewById(R.id.exit_login_tv);
 
         updateAccountInfo();
+        initHeaderListener();
+    }
 
+    private void initHeaderListener() {
         // user login
         userLoginTv.setOnClickListener(new DebouncingOnClickListener() {
             @Override
