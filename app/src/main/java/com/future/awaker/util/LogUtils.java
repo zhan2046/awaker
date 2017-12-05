@@ -3,11 +3,17 @@ package com.future.awaker.util;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.future.awaker.BuildConfig;
+
 
 public class LogUtils {
 
     private static String mTag = LogUtils.class.getSimpleName();
     private static boolean isDebug = true;
+
+    static {
+        isDebug = BuildConfig.BUILD_TYPE.equals("debug");
+    }
 
     //for error log
     public static void error(String msg) {
