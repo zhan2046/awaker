@@ -50,6 +50,10 @@ public class LoginFragment extends BaseFragment<FragLoginBinding> {
 
         loginViewModel.userInfo.addOnPropertyChangedCallback(loginCallBack);
 
+        initListener();
+    }
+
+    private void initListener() {
         binding.loginBtn.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
