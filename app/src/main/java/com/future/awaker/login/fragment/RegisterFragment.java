@@ -53,6 +53,10 @@ public class RegisterFragment extends BaseFragment<FragRegisterBinding> {
         binding.toolbar.setTitle(R.string.register);
         setToolbar(binding.toolbar);
 
+        initListener();
+    }
+
+    private void initListener() {
         binding.registerBtn.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
