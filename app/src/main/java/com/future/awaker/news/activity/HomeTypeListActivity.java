@@ -51,6 +51,10 @@ public class HomeTypeListActivity extends BaseActivity<ActivityNewListBinding> {
         binding.toolbar.setTitle(newTitle);
         setToolbar(binding.toolbar);
 
+        switchPages(newId);
+    }
+
+    private void switchPages(int newId) {
         switch (newId) {
             case HomeItem.NICE_COMMENT:
                 if (niceCommentFragment == null) {
