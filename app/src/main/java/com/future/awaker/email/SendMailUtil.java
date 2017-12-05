@@ -21,33 +21,16 @@ public class SendMailUtil {
     private static final String FROM_PSW = "mmrhffjtghlsdjjd"; // 发送方邮箱授权码
     private static final String TO_ADD = "dev19921116@gmail.com"; // 发到哪个邮件去
 
-//    //163
-//    private static final String HOST = "smtp.163.com";
-//    private static final String PORT = "465"; //或者465  994
-//    private static final String FROM_ADD = "teprinciple@163.com";
-//    private static final String FROM_PSW = "teprinciple163";
-////    private static final String TO_ADD = "2584770373@qq.com";
-
     public static void send(final File file, String contentData) {
         final MailInfo mailInfo = createMail(contentData);
         final MailSender sms = new MailSender();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                sms.sendFileMail(mailInfo, file);
-            }
-        }).start();
+        new Thread(() -> sms.sendFileMail(mailInfo, file)).start();
     }
 
     public static void send(String contentData) {
         final MailInfo mailInfo = createMail(contentData);
         final MailSender sms = new MailSender();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                sms.sendTextMail(mailInfo);
-            }
-        }).start();
+        new Thread(() -> sms.sendTextMail(mailInfo)).start();
     }
 
     @NonNull
