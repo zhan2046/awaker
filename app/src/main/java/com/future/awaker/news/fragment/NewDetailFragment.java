@@ -86,6 +86,13 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
 
         viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
 
+        initListener();
+
+        onRefresh();
+        viewModel.getHotCommentList();
+    }
+
+    private void initListener() {
         binding.sendIv.setOnClickListener(new DebouncingOnClickListener() {
             @Override
             public void doClick(View v) {
@@ -130,9 +137,6 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
             binding.sendIv.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
             binding.commentRightTv.setVisibility(hasFocus ? View.GONE : View.VISIBLE);
         });
-
-        onRefresh();
-        viewModel.getHotCommentList();
     }
 
     @SuppressLint("NewApi")

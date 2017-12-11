@@ -2,7 +2,6 @@ package com.future.awaker.video.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.future.awaker.R;
-import com.future.awaker.databinding.ActivityVideoDetailBinding;
 import com.future.awaker.video.fragment.VideoDetailFragment;
 
 /**
@@ -35,9 +33,6 @@ public class VideoDetailActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        ActivityVideoDetailBinding binding = DataBindingUtil
-                .setContentView(this, R.layout.activity_video_detail);
 
         String videoHtml = getIntent().getStringExtra(VIDEO_HTML);
         if (TextUtils.isEmpty(videoHtml)) {

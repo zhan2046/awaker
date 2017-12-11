@@ -27,7 +27,8 @@ public final class AccountHelper {
     public static final String OPEN_ID = "openId";
     public static final String USER_NAME = "userName";
 
-    private AccountHelper() {}
+    private AccountHelper() {
+    }
 
     public static String getOpenId() {
         return Application.get().getSharedPreferences(OPEN_ID, Context.MODE_PRIVATE)
