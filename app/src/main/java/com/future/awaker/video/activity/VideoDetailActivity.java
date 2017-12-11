@@ -34,6 +34,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        setContentView(R.layout.container);
         String videoHtml = getIntent().getStringExtra(VIDEO_HTML);
         if (TextUtils.isEmpty(videoHtml)) {
             finish();
