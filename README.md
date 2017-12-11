@@ -10,14 +10,18 @@ Awaker
 Screenshots
 ===============
 
-![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker01.png)
-![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker02.png)
-![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker03.png)
-![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker04.png)
-![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker05.png)
-![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker06.png)
-![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker07.png)
-![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker08.png)
+<a href="gif/awaker01.png"><img src="gif/awaker01.png" width="30%"/></a> 
+<a href="gif/awaker02.png"><img src="gif/awaker02.png" width="30%"/></a> 
+<a href="gif/awaker03.png"><img src="gif/awaker03.png" width="30%"/></a>
+
+<a href="gif/awaker04.png"><img src="gif/awaker04.png" width="30%"/></a> 
+<a href="gif/awaker05.png"><img src="gif/awaker05.png" width="30%"/></a>
+<a href="gif/awaker06.png"><img src="gif/awaker06.png" width="30%"/></a>
+
+<a href="gif/awaker07.png"><img src="gif/awaker07.png" width="30%"/></a> 
+<a href="gif/awaker08.png"><img src="gif/awaker08.png" width="30%"/></a> 
+<a href="gif/awaker09.png"><img src="gif/awaker09.png" width="30%"/></a>
+
 
 
 
@@ -57,8 +61,7 @@ Screenshots
 *  优化了文章详情页
 *  添加了评论功能
 *  网络层与本地数据库层合并为仓库层，并使用poet动态生成代码，到达层与层之间代理自动化
-	  
-	
+
 
 
 Developed by
@@ -75,12 +78,12 @@ License
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-
+    
         http://www.apache.org/licenses/LICENSE-2.0
-
+    
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-	
+
