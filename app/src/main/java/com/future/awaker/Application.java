@@ -32,7 +32,7 @@ public class Application extends android.app.Application {
         initRealm();
         Account.get().initUserInfo();
 
-        if (ConstantUtils.isReleaseBuild() || ConstantUtils.isBetaBuild()) {
+        if (ConstantUtils.isReleaseBuild()) {
             Fabric.with(this, new Crashlytics());
         }
     }
