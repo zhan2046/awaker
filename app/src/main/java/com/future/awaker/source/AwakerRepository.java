@@ -1,8 +1,7 @@
 package com.future.awaker.source;
 
 import com.future.awaker.network.AwakerClient;
-import com.poet.compiler.awaker.AwakerRepositoryImpl;
-import com.poet.compiler.awaker.RemoteDataSourceImpl;
+import com.future.awaker.source.remote.RemoteDataSourceImpl;
 
 /**
  * Copyright ©2017 by ruzhan

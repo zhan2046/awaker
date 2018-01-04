@@ -77,8 +77,6 @@ dependencies {
     def glideVersion = '4.0.0'
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':awaker-annotation')
-    annotationProcessor project(':awaker-compiler')
 
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation "com.android.support:cardview-v7:$supportLibraryVersion"

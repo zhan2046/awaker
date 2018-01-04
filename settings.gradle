@@ -1,1 +1,1 @@
-include ':app', ':awaker-annotation', ':awaker-compiler'
+include ':app'

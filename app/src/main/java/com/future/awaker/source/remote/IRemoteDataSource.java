@@ -1,7 +1,5 @@
 package com.future.awaker.source.remote;
 
-import com.awaker.annotation.Delegate;
-import com.awaker.annotation.SingleDelegate;
 import com.future.awaker.data.BannerItem;
 import com.future.awaker.data.Comment;
 import com.future.awaker.data.NewDetail;
@@ -19,13 +17,7 @@ import io.reactivex.Flowable;
  * Copyright ©2017 by ruzhan
  */
 
-@SingleDelegate(
-        classNameImpl = "RemoteDataSourceImpl",
-        delegate = @Delegate(
-                delegatePackage = "com.future.awaker.network",
-                delegateClassName = "AwakerApi",
-                delegateSimpleName = "awakerApi"
-        ))
+
 public interface IRemoteDataSource {
 
     Flowable<HttpResult<List<BannerItem>>> getBanner(String token, String advType);
