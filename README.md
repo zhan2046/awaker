@@ -4,7 +4,7 @@ Awaker
 
 
 
-####    本App 采用 MVVM + RXJava2 + Retrofit + OKHttp + Material Design +AOP + Base + Glide + Realm构建，欢迎大家Star或Fork。
+####    本App 采用 MVVM + RXJava2 + Retrofit + OKHttp + Material Design + Base + Glide + Realm构建，欢迎大家Star或Fork。
 
 
 Screenshots
@@ -42,13 +42,11 @@ Screenshots
 
 使用的第三方开源库，感谢开源的力量
 ------
-* [apt-delegate](https://github.com/ruzhan123/apt-delegate)
 * [RxJava](https://github.com/ReactiveX/RxJava)
 * [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 * [okhttp](https://github.com/square/okhttp)
 * [retrofit](https://github.com/square/retrofit)
 * [glide](https://github.com/bumptech/glide)
-* [javapoet](https://github.com/square/javapoet)
 * [material-dialogs](https://github.com/afollestad/material-dialogs)
 
 
@@ -60,7 +58,6 @@ Screenshots
 *  应用初始化上线
 *  优化了文章详情页
 *  添加了评论功能
-*  网络层与本地数据库层合并为仓库层，并使用poet动态生成代码，到达层与层之间代理自动化
 
 
 
