@@ -40,12 +40,12 @@ task clean(type: Delete) {
 ext {
   // Sdk and tools
   minSdkVersion = 19
-  targetSdkVersion = 25
-  compileSdkVersion = 25
+  targetSdkVersion = 26
+  compileSdkVersion = 26
   buildToolsVersion = '26.0.2'
 
   // App dependencies
-  supportLibraryVersion = '25.3.1'
+  supportLibraryVersion = '26.1.0'
 
   keyAlias = 'awaker'
   keyPassword = 'awaker333333'

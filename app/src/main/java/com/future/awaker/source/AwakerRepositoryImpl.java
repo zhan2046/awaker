@@ -24,8 +24,8 @@ import io.realm.RealmResults;
  */
 
 public class AwakerRepositoryImpl implements IAwakerRepository {
-    private ILocalDataSource localDataSource;
 
+    private ILocalDataSource localDataSource;
     private IRemoteDataSource remoteDataSource;
 
     public AwakerRepositoryImpl(ILocalDataSource localDataSource,

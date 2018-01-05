@@ -1,6 +1,8 @@
 package com.future.awaker.news.fragment;
 
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
@@ -10,11 +12,14 @@ import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.News;
 import com.future.awaker.databinding.FragNewBinding;
+import com.future.awaker.db.entity.NewsEntity;
 import com.future.awaker.news.NewDetailActivity;
 import com.future.awaker.news.adapter.NewListAdapter;
-import com.future.awaker.news.viewmodel.NewViewModel;
+import com.future.awaker.news.viewmodel.NewListViewModel;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
+
+import java.util.List;
 
 /**
  * Created by ruzhan on 2017/7/6.
@@ -25,9 +30,11 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
 
     private static final String NEW_ID = "newId";
 
-    private NewViewModel newViewModel;
+    //private NewViewModel newViewModel;
     private NewListAdapter adapter;
     private boolean isFirst;
+
+    private NewListViewModel newListViewModel = new NewListViewModel();
 
     public static NewListFragment newInstance(int newId) {
         Bundle args = new Bundle();
@@ -45,10 +52,14 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
     @Override
     protected void initData() {
         int newId = getArguments().getInt(NEW_ID, 0);
-        newViewModel = new NewViewModel(newId);
-        setListViewModel(newViewModel);
+//        newViewModel = new NewViewModel(newId);
+//        setListViewModel(newViewModel);
+//
+//        binding.setViewModel(newViewModel);
 
-        binding.setViewModel(newViewModel);
+        newListViewModel.setNewId(newId);
+        setListViewModel(newListViewModel);
+        binding.setViewModel(newListViewModel);
 
         adapter = new NewListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
@@ -57,11 +68,25 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
                 StaggeredGridLayoutManager.VERTICAL));
 
         onRefresh();
+
+        newListViewModel.getNewEntitys().observe(this, new Observer<List<NewsEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<NewsEntity> newsEntities) {
+                if (newsEntities == null) {
+                    return;
+                }
+                List<News> newsList = NewsEntity.getNewsList(newsEntities);
+                if (newsList != null && !newsList.isEmpty()) {
+                    adapter.setData(newsList);
+                }
+            }
+        });
     }
 
     @Override
     public void onDestroyView() {
-        newViewModel.clear();
+        //newViewModel.clear();
+
         AwakerRepository.get().close();
         super.onDestroyView();
     }

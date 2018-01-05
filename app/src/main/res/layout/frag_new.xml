@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.future.awaker.news.viewmodel.NewViewModel" />
+            type="com.future.awaker.news.viewmodel.NewListViewModel" />
     </data>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -22,8 +22,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
-            android:clipToPadding="false"
-            app:news="@{viewModel.news}" />
+            android:clipToPadding="false" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
