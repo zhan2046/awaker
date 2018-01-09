@@ -10,7 +10,6 @@ import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.network.HttpResult;
 import com.future.awaker.source.AwakerRepository;
-import com.future.awaker.source.DataRepository;
 import com.future.awaker.util.LogUtils;
 
 import java.util.ArrayList;
@@ -29,17 +28,15 @@ public class NewListViewModel extends BaseListViewModel {
 
     private int newId;
     private MutableLiveData<List<News>> newsLiveData = new MutableLiveData<>();
-    private DataRepository repository;
 
     public NewListViewModel(int newId) {
         this.newId = newId;
-        repository = DataRepository.get();
 
         newsLiveData.setValue(null);
     }
 
     public void initLocalNews() {
-        repository.loadAllNewsEntitys()
+        AwakerRepository.get().loadAllNewsEntitys()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
@@ -103,7 +100,7 @@ public class NewListViewModel extends BaseListViewModel {
         List<NewsEntity> newsEntities =
                 NewsEntity.getNewsEntityList(localNewsList);
         if (newsEntities != null && !newsEntities.isEmpty()) {
-            repository.insertAll(newsEntities);
+            AwakerRepository.get().insertAll(newsEntities);
         }
         e.onComplete();
     }

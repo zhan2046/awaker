@@ -1,9 +1,8 @@
-package com.future.awaker.source;
+package com.future.awaker.source.local;
 
 import com.future.awaker.data.News;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
-import com.future.awaker.source.local.ILocalDataSource;
 import com.future.awaker.util.LogUtils;
 
 import java.util.HashMap;
@@ -23,9 +22,9 @@ import io.realm.RealmResults;
  * Copyright ©2017 by ruzhan
  */
 
-public final class RealmManager implements ILocalDataSource {
+public final class LocalDataSourceImpl implements ILocalDataSource {
 
-    private static final String TAG = RealmManager.class.getSimpleName();
+    private static final String TAG = LocalDataSourceImpl.class.getSimpleName();
 
     @SuppressWarnings("unchecked")
     @Override
