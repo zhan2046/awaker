@@ -37,6 +37,7 @@ public class NewListViewModel extends BaseListViewModel {
 
     public void initLocalNews() {
         AwakerRepository.get().loadAllNewsEntitys()
+                .map(NewsEntity::getNewsList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
@@ -45,8 +46,8 @@ public class NewListViewModel extends BaseListViewModel {
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setLocalNews(List<NewsEntity> newsEntities) {
-        List<News> localNewsList = NewsEntity.getNewsList(newsEntities);
+    private void setLocalNews(List<News> localNewsList) {
+        LogUtils.i("NewListViewModel", "setLocalNews: " + Thread.currentThread().getName());
         if (localNewsList != null && newsLiveData.getValue() == null) {
             newsLiveData.setValue(localNewsList);
         }
