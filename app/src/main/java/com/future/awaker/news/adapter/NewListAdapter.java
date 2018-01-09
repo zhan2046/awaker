@@ -22,10 +22,11 @@ import java.util.Objects;
 
 public class NewListAdapter extends RecyclerView.Adapter {
 
-    private static final int TYPE_NEW = 1001;
-
     private OnItemClickListener<News> listener;
+
     private List<News> newsList = new ArrayList<>();
+    private List<News> oldNewsList = new ArrayList<>();
+
     private NewDiffCallBack diffCallBack = new NewDiffCallBack();
 
     public NewListAdapter(OnItemClickListener<News> listener) {
@@ -41,18 +42,16 @@ public class NewListAdapter extends RecyclerView.Adapter {
             notifyDataSetChanged();
 
         } else {
-            List<News> oldNewses = new ArrayList<>(newsList);
+            oldNewsList.clear();
+            oldNewsList.addAll(newsList);
+
             newsList.clear();
             newsList.addAll(list);
-            diffCallBack.setData(oldNewses, newsList);
+
+            diffCallBack.setData(oldNewsList, newsList);
             DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
             diffResult.dispatchUpdatesTo(this);
         }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return TYPE_NEW;
     }
 
     @Override
@@ -67,10 +66,7 @@ public class NewListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        int viewType = getItemViewType(position);
-        if (viewType == TYPE_NEW) {
-            ((NewHolder) holder).bind(newsList.get(position));
-        }
+        ((NewHolder) holder).bind(newsList.get(position));
     }
 
     @Override
