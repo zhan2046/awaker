@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface NewsDao {
 
-    @Query("SELECT * FROM news_entity")
+    @Query("SELECT * FROM news_entity order by id desc")
     LiveData<List<NewsEntity>> loadAllNewsEntitys();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

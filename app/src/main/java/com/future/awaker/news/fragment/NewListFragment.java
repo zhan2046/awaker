@@ -1,8 +1,6 @@
 package com.future.awaker.news.fragment;
 
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
@@ -12,14 +10,11 @@ import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.News;
 import com.future.awaker.databinding.FragNewBinding;
-import com.future.awaker.db.entity.NewsEntity;
 import com.future.awaker.news.NewDetailActivity;
 import com.future.awaker.news.adapter.NewListAdapter;
 import com.future.awaker.news.viewmodel.NewListViewModel;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
-
-import java.util.List;
 
 /**
  * Created by ruzhan on 2017/7/6.
@@ -34,7 +29,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
     private NewListAdapter adapter;
     private boolean isFirst;
 
-    private NewListViewModel newListViewModel = new NewListViewModel();
+    private NewListViewModel newListViewModel;
 
     public static NewListFragment newInstance(int newId) {
         Bundle args = new Bundle();
@@ -57,6 +52,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
 //
 //        binding.setViewModel(newViewModel);
 
+        newListViewModel = new NewListViewModel();
         newListViewModel.setNewId(newId);
         setListViewModel(newListViewModel);
         binding.setViewModel(newListViewModel);
@@ -69,16 +65,9 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
 
         onRefresh();
 
-        newListViewModel.getNewEntitys().observe(this, new Observer<List<NewsEntity>>() {
-            @Override
-            public void onChanged(@Nullable List<NewsEntity> newsEntities) {
-                if (newsEntities == null) {
-                    return;
-                }
-                List<News> newsList = NewsEntity.getNewsList(newsEntities);
-                if (newsList != null && !newsList.isEmpty()) {
-                    adapter.setData(newsList);
-                }
+        newListViewModel.getNewsLiveData().observe(this, newsList -> {
+            if (newsList != null && !newsList.isEmpty()) {
+                adapter.setData(newsList);
             }
         });
     }

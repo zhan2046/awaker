@@ -12,6 +12,7 @@ import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.News;
 import com.future.awaker.databinding.ItemNewListGridBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,25 +25,26 @@ public class NewListAdapter extends RecyclerView.Adapter {
     private static final int TYPE_NEW = 1001;
 
     private OnItemClickListener<News> listener;
-    private List<News> news;
+    private List<News> newsList = new ArrayList<>();
     private NewDiffCallBack diffCallBack = new NewDiffCallBack();
 
     public NewListAdapter(OnItemClickListener<News> listener) {
         this.listener = listener;
     }
 
-    public void setData(List<News> news) {
-        if (news == null || news.isEmpty()) {
+    public void setData(List<News> list) {
+        if (list == null) {
             return;
         }
-        if (this.news == null || this.news.isEmpty()) {
-            this.news = news;
+        if (newsList.isEmpty()) {
+            newsList.addAll(list);
             notifyDataSetChanged();
 
         } else {
-            List<News> oldNewses = this.news;
-            this.news = news;
-            diffCallBack.setData(oldNewses, news);
+            List<News> oldNewses = new ArrayList<>(newsList);
+            newsList.clear();
+            newsList.addAll(list);
+            diffCallBack.setData(oldNewses, newsList);
             DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
             diffResult.dispatchUpdatesTo(this);
         }
@@ -67,13 +69,13 @@ public class NewListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         if (viewType == TYPE_NEW) {
-            ((NewHolder) holder).bind(news.get(position));
+            ((NewHolder) holder).bind(newsList.get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        return news == null ? 0 : news.size();
+        return newsList == null ? 0 : newsList.size();
     }
 
     public static class NewHolder extends RecyclerView.ViewHolder {
