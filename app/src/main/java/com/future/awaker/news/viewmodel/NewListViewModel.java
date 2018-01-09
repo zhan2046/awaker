@@ -1,7 +1,7 @@
 package com.future.awaker.news.viewmodel;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
+import android.arch.lifecycle.MutableLiveData;
 
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.News;
@@ -18,6 +18,7 @@ import java.util.List;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -27,84 +28,87 @@ public class NewListViewModel extends BaseListViewModel {
     private static final String TAG = "NewListViewModel";
 
     private int newId;
-    private MediatorLiveData<List<News>> newsLiveData = new MediatorLiveData<>();
+    private MutableLiveData<List<News>> newsLiveData = new MutableLiveData<>();
     private DataRepository repository;
 
-    public NewListViewModel() {
+    public NewListViewModel(int newId) {
+        this.newId = newId;
         repository = DataRepository.get();
 
         newsLiveData.setValue(null);
-        newsLiveData.addSource(repository.loadAllNewsEntitys(),
-                this::setLocalNewsEntities);
     }
 
-    private void setLocalNewsEntities(List<NewsEntity> newsEntities) {
-        if (newsEntities != null && !newsEntities.isEmpty() && newsLiveData.getValue() == null) {
-            List<News> localNewsList = NewsEntity.getNewsList(newsEntities);
-            if (localNewsList != null && newsLiveData.getValue() == null) {
-                newsLiveData.postValue(localNewsList);
-            }
+    public void initLocalNews() {
+        repository.loadAllNewsEntitys()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "initLocalNews doOnError: " + throwable.toString()))
+                .doOnNext(this::setLocalNews)
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
+    }
+
+    private void setLocalNews(List<NewsEntity> newsEntities) {
+        List<News> localNewsList = NewsEntity.getNewsList(newsEntities);
+        if (localNewsList != null && newsLiveData.getValue() == null) {
+            newsLiveData.setValue(localNewsList);
         }
-    }
-
-    public LiveData<List<News>> getNewsLiveData() {
-        return newsLiveData;
-    }
-
-    public void setNewId(int newId) {
-        this.newId = newId;
     }
 
     @Override
     public void refreshData(boolean refresh) {
         AwakerRepository.get().getNewList(TOKEN, page, newId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> {
-                    LogUtils.showLog(TAG, "refreshData doOnError called..." + throwable.toString());
-                    isError.set(throwable);
-                })
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "refreshData doOnError called..." + throwable.toString()))
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
                 .map(HttpResult::getData)
-                .doOnNext(news -> {
-                    List<News> newsList = newsLiveData.getValue();
-                    if (newsList == null) {
-                        newsList = new ArrayList<>();
-                    }
-                    if (refresh) {
-                        newsList.clear();
-                    }
-                    newsList.addAll(news);
-                    newsLiveData.setValue(newsList);
-
-                    // save to local db
-                    setLocalData(news);
-                })
+                .doOnNext(news -> refreshDataOnNext(news, refresh))
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setLocalData(List<News> news) {
+    private void refreshDataOnNext(List<News> news, boolean refresh) {
+        List<News> newsList = newsLiveData.getValue();
+        if (newsList == null) {
+            newsList = new ArrayList<>();
+        }
+        if (refresh) {
+            newsList.clear();
+        }
+        newsList.addAll(news);
+        newsLiveData.setValue(newsList);
+
+        // save news to local db
+        setNewsToLocalDb(news);
+    }
+
+    private void setNewsToLocalDb(List<News> news) {
         long time = System.currentTimeMillis();
-        Flowable.create(e -> {
-            LogUtils.showLog(TAG, "thread name:" + Thread.currentThread().getName());
-
-            List<News> localNewsList = new ArrayList<>(news);
-            List<NewsEntity> newsEntities =
-                    NewsEntity.getNewsEntityList(localNewsList);
-            if (newsEntities != null && !newsEntities.isEmpty()) {
-                repository.insertAll(newsEntities);
-            }
-            e.onComplete();
-
-        }, BackpressureStrategy.LATEST)
+        Flowable.create(e -> saveNewsToLocal(news, e), BackpressureStrategy.LATEST)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
-                        "doOnError setLocalData: " + throwable.toString()))
-                .doOnComplete(() -> {
-                    LogUtils.showLog(TAG,
-                            "setLocalData time:" + (System.currentTimeMillis() - time) + "/ms");
-                })
+                        "setNewsToLocalDb doOnError: " + throwable.toString()))
+                .doOnComplete(() -> LogUtils.showLog(TAG,
+                        "setNewsToLocalDb time:" +
+                                (System.currentTimeMillis() - time) + "/ms"))
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
+    }
+
+    private void saveNewsToLocal(List<News> news, FlowableEmitter e) {
+        LogUtils.showLog(TAG, "thread name:" + Thread.currentThread().getName());
+
+        List<News> localNewsList = new ArrayList<>(news);
+        List<NewsEntity> newsEntities =
+                NewsEntity.getNewsEntityList(localNewsList);
+        if (newsEntities != null && !newsEntities.isEmpty()) {
+            repository.insertAll(newsEntities);
+        }
+        e.onComplete();
+    }
+
+    public LiveData<List<News>> getNewsLiveData() {
+        return newsLiveData;
     }
 }

@@ -1,6 +1,7 @@
 package com.future.awaker.news.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
@@ -13,7 +14,6 @@ import com.future.awaker.databinding.FragNewBinding;
 import com.future.awaker.news.NewDetailActivity;
 import com.future.awaker.news.adapter.NewListAdapter;
 import com.future.awaker.news.viewmodel.NewListViewModel;
-import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 
 /**
@@ -25,11 +25,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
 
     private static final String NEW_ID = "newId";
 
-    //private NewViewModel newViewModel;
-    private NewListAdapter adapter;
     private boolean isFirst;
-
-    private NewListViewModel newListViewModel;
 
     public static NewListFragment newInstance(int newId) {
         Bundle args = new Bundle();
@@ -47,36 +43,30 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
     @Override
     protected void initData() {
         int newId = getArguments().getInt(NEW_ID, 0);
-//        newViewModel = new NewViewModel(newId);
-//        setListViewModel(newViewModel);
-//
-//        binding.setViewModel(newViewModel);
 
-        newListViewModel = new NewListViewModel();
-        newListViewModel.setNewId(newId);
+        NewListViewModel newListViewModel = new NewListViewModel(newId);
         setListViewModel(newListViewModel);
         binding.setViewModel(newListViewModel);
 
-        adapter = new NewListAdapter(this);
+        NewListAdapter adapter = new NewListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
 
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL));
-
-        onRefresh();
 
         newListViewModel.getNewsLiveData().observe(this, newsList -> {
             if (newsList != null && !newsList.isEmpty()) {
                 adapter.setData(newsList);
             }
         });
+
+        newListViewModel.initLocalNews();
+
+        onRefresh();
     }
 
     @Override
     public void onDestroyView() {
-        //newViewModel.clear();
-
-        AwakerRepository.get().close();
         super.onDestroyView();
     }
 

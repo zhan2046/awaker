@@ -1,12 +1,12 @@
 package com.future.awaker.source;
 
-import android.arch.lifecycle.LiveData;
-
 import com.future.awaker.Application;
 import com.future.awaker.db.AppDatabase;
 import com.future.awaker.db.entity.NewsEntity;
 
 import java.util.List;
+
+import io.reactivex.Flowable;
 
 
 public class DataRepository {
@@ -30,7 +30,7 @@ public class DataRepository {
         return INSTANCE;
     }
 
-    public LiveData<List<NewsEntity>> loadAllNewsEntitys() {
+    public Flowable<List<NewsEntity>> loadAllNewsEntitys() {
         return appDatabase.newsDao().loadAllNewsEntitys();
     }
 
