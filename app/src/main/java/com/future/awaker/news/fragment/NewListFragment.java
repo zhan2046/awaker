@@ -1,7 +1,6 @@
 package com.future.awaker.news.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
