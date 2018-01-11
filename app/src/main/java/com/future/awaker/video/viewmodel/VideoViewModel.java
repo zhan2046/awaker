@@ -18,6 +18,7 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -31,13 +32,15 @@ public class VideoViewModel extends BaseListViewModel {
     private int cat = Special.NORMAL;
     private MutableLiveData<List<Special>> specialLiveData = new MutableLiveData<>();
 
+    private Disposable localDisposable;
+
     public VideoViewModel() {
         cat = Special.NORMAL;
         specialLiveData.setValue(null);
     }
 
     public void initLocalSpecialListEntity() {
-        AwakerRepository.get().loadSpecialListEntity(String.valueOf(cat))
+        localDisposable = AwakerRepository.get().loadSpecialListEntity(String.valueOf(cat))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
@@ -49,6 +52,7 @@ public class VideoViewModel extends BaseListViewModel {
     private void setLocalSpecialListEntity(SpecialListEntity specialListEntity) {
         if (specialListEntity.specialList != null && specialLiveData.getValue() == null) {
             specialLiveData.setValue(specialListEntity.specialList);
+            localDisposable.dispose();
         }
     }
 

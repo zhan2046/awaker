@@ -19,6 +19,7 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -29,6 +30,8 @@ public class NewListViewModel extends BaseListViewModel {
     private int newId;
     private MutableLiveData<List<News>> newsLiveData = new MutableLiveData<>();
 
+    private Disposable localDisposable;
+
     public NewListViewModel(int newId) {
         this.newId = newId;
 
@@ -36,7 +39,7 @@ public class NewListViewModel extends BaseListViewModel {
     }
 
     public void initLocalNews() {
-        AwakerRepository.get().loadAllNewsEntitys()
+        localDisposable = AwakerRepository.get().loadAllNewsEntitys()
                 .map(NewsEntity::getNewsList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -49,6 +52,7 @@ public class NewListViewModel extends BaseListViewModel {
     private void setLocalNews(List<News> localNewsList) {
         if (localNewsList != null && newsLiveData.getValue() == null) {
             newsLiveData.setValue(localNewsList);
+            localDisposable.dispose();
         }
     }
 

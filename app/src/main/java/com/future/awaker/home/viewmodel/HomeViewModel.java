@@ -19,6 +19,7 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -32,12 +33,14 @@ public class HomeViewModel extends BaseViewModel {
     private String advType = ResUtils.getString(R.string.adv_type);
     private MutableLiveData<List<BannerItem>> bannerLiveData = new MutableLiveData<>();
 
+    private Disposable localDisposable;
+
     public HomeViewModel() {
         bannerLiveData.setValue(null);
     }
 
     public void initLocalBanners() {
-        AwakerRepository.get().loadAllBanners()
+        localDisposable = AwakerRepository.get().loadAllBanners()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
@@ -49,6 +52,7 @@ public class HomeViewModel extends BaseViewModel {
     private void setLocalBanners(List<BannerItem> banners) {
         if (banners != null && bannerLiveData.getValue() == null) {
             bannerLiveData.setValue(banners);
+            localDisposable.dispose();
         }
     }
 
