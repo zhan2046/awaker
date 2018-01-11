@@ -1,25 +1,26 @@
 package com.future.awaker.video.viewmodel;
 
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
+import android.arch.lifecycle.MutableLiveData;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.Special;
-import com.future.awaker.data.realm.SpecialPageRealm;
-import com.future.awaker.data.realm.SpecialRealm;
+import com.future.awaker.db.entity.SpecialListEntity;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
+import com.future.awaker.network.HttpResult;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.realm.RealmList;
-import io.realm.RealmResults;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ruzhan on 2017/7/6.
@@ -27,85 +28,84 @@ import io.realm.RealmResults;
 
 public class VideoViewModel extends BaseListViewModel {
 
-    private static final String TAG = VideoViewModel.class.getSimpleName();
+    private static final String TAG = "VideoViewModel";
 
-    public ObservableList<Special> specials = new ObservableArrayList<>();
     private int cat = Special.NORMAL;
-    private HashMap<String, String> map = new HashMap<>();
+    private MutableLiveData<List<Special>> specialLiveData = new MutableLiveData<>();
 
     public VideoViewModel() {
-        map.put(SpecialPageRealm.CAT, String.valueOf(cat));
+        cat = Special.NORMAL;
+        specialLiveData.setValue(null);
     }
 
-    public void setCat(int cat) {
-        this.cat = cat;
-        map.clear();
-        map.put(SpecialPageRealm.CAT, String.valueOf(cat));
+    public void initLocalSpecialListEntity() {
+        AwakerRepository.get().loadSpecialListEntity(String.valueOf(cat))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "initLocalSpecialListEntity doOnError: " + throwable.toString()))
+                .doOnNext(this::setLocalSpecialListEntity)
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    public void scrollToTop(RecyclerView recyclerView) {
-        if (isRefresh) {
-            LinearLayoutManager manager =
-                    (LinearLayoutManager) recyclerView.getLayoutManager();
-            manager.scrollToPosition(0);
+    private void setLocalSpecialListEntity(SpecialListEntity specialListEntity) {
+        if (specialListEntity.specialList != null && specialLiveData.getValue() == null) {
+            specialLiveData.setValue(specialListEntity.specialList);
         }
     }
 
     @Override
     public void refreshData(boolean refresh) {
-        if (refresh && specials.isEmpty()) {
-            getLocalSpecialList();
-        }
-        getRemoteSpecialList();
-    }
-
-    private void getRemoteSpecialList() {
-        disposable.add(AwakerRepository.get().getSpecialList(TOKEN, page, cat)
+        AwakerRepository.get().getSpecialList(TOKEN, page, cat)
+                .map(HttpResult::getData)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> isError.set(throwable))
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "refreshData doOnError called..." + throwable.toString()))
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(httpResult -> setRemoteSpecialList(httpResult.getData()))
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+                .doOnNext(specials -> refreshDataOnNext(specials, refresh))
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void getLocalSpecialList() {
-        disposable.add(AwakerRepository.get().getLocalRealm(SpecialPageRealm.class, map)
+    private void refreshDataOnNext(List<Special> specials, boolean refresh) {
+        List<Special> specialList = specialLiveData.getValue();
+        if (specialList == null) {
+            specialList = new ArrayList<>();
+        }
+        if (refresh) {
+            specialList.clear();
+        }
+        specialList.addAll(specials);
+        specialLiveData.setValue(specialList);
+
+        setSpecialListToLocalDb(specialList);
+    }
+
+    private void setSpecialListToLocalDb(List<Special> specials) {
+        Flowable.create(e -> saveSpecialListToLocal(new ArrayList<>(specials), e),
+                BackpressureStrategy.LATEST)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
-                .doOnSubscribe(disposable -> isRunning.set(true))
-                .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(realmResults -> {
-                    LogUtils.d("getLocalSpecialList" + realmResults.size());
-                    setLocalNewList(realmResults);
-                })
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "setSpecialListToLocalDb doOnError: " + throwable.toString()))
+                .doOnComplete(() -> LogUtils.showLog(TAG,
+                        "setSpecialListToLocalDb doOnComplete called..."))
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setRemoteSpecialList(List<Special> specialList) {
-        setDataList(specialList, specials);
-
-        if (!isEmpty.get()) {
-            // save to local
-            SpecialPageRealm specialPageRealm = new SpecialPageRealm();
-            RealmList<SpecialRealm> realmList =
-                    SpecialPageRealm.getSpecialRealmList(specials);
-            specialPageRealm.setCat(String.valueOf(cat));
-            specialPageRealm.setSpecialList(realmList);
-            AwakerRepository.get().updateLocalRealm(specialPageRealm);
+    private void saveSpecialListToLocal(List<Special> specials, FlowableEmitter e) {
+        if (specials != null) {
+            SpecialListEntity specialListEntity = new SpecialListEntity(String.valueOf(cat), specials);
+            AwakerRepository.get().insertAll(specialListEntity);
         }
+        e.onComplete();
     }
 
-    private void setLocalNewList(RealmResults realmResults) {
-        if (realmResults == null || realmResults.isEmpty()) {
-            return;
-        }
-        SpecialPageRealm specialPageRealm =
-                (SpecialPageRealm) realmResults.get(0);
-        if (specials.isEmpty()) {   // data is empty, network not back
-            RealmList<SpecialRealm> realmList = specialPageRealm.getSpecialList();
-            List<Special> specialList = SpecialPageRealm.getSpecialList(realmList);
-            setDataList(specialList, specials);
-        }
+    public void setCat(int cat) {
+        this.cat = cat;
+    }
+
+    public MutableLiveData<List<Special>> getSpecialLiveData() {
+        return specialLiveData;
     }
 }

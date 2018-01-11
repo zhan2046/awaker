@@ -15,6 +15,7 @@ import com.future.awaker.databinding.ItemLoadBinding;
 import com.future.awaker.databinding.ItemVideoListBinding;
 import com.future.awaker.video.viewmodel.VideoViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +30,10 @@ public class VideoListAdapter extends RecyclerView.Adapter {
 
     private VideoViewModel videoViewModel;
     private OnItemClickListener<Special> listener;
-    private List<Special> specials;
+
+    private List<Special> specialList = new ArrayList<>();
+    private List<Special> oldSpecialList = new ArrayList<>();
+
     private VideoDiffCallBack diffCallBack = new VideoDiffCallBack();
 
     public VideoListAdapter(VideoViewModel videoViewModel, OnItemClickListener<Special> listener) {
@@ -37,22 +41,22 @@ public class VideoListAdapter extends RecyclerView.Adapter {
         this.listener = listener;
     }
 
-    public VideoViewModel getVideoViewModel() {
-        return videoViewModel;
-    }
-
     public void setData(List<Special> list) {
-        if (list == null || list.isEmpty()) {
+        if (list == null) {
             return;
         }
-        if (this.specials == null || this.specials.isEmpty()) {
-            this.specials = list;
+        if (specialList.isEmpty()) {
+            specialList.addAll(list);
             notifyDataSetChanged();
 
         } else {
-            List<Special> oldSpecials = this.specials;
-            this.specials = list;
-            diffCallBack.setData(oldSpecials, list);
+            oldSpecialList.clear();
+            oldSpecialList.addAll(specialList);
+
+            specialList.clear();
+            specialList.addAll(list);
+
+            diffCallBack.setData(oldSpecialList, specialList);
             DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
             diffResult.dispatchUpdatesTo(this);
         }
@@ -60,7 +64,7 @@ public class VideoListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == specials.size()) {
+        if (position == specialList.size()) {
             return TYPE_LOADING;
         }
         return TYPE_VIDEO;
@@ -88,13 +92,13 @@ public class VideoListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         if (viewType == TYPE_VIDEO) {
-            ((VideoHolder) holder).bind(specials.get(position));
+            ((VideoHolder) holder).bind(specialList.get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        return specials == null ? 0 : specials.size() + 1;
+        return specialList == null ? 0 : specialList.size() + 1;
     }
 
     public static class VideoHolder extends RecyclerView.ViewHolder {

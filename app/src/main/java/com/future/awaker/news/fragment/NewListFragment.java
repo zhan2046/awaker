@@ -53,11 +53,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL));
 
-        newListViewModel.getNewsLiveData().observe(this, newsList -> {
-            if (newsList != null && !newsList.isEmpty()) {
-                adapter.setData(newsList);
-            }
-        });
+        newListViewModel.getNewsLiveData().observe(this, adapter::setData);
 
         newListViewModel.initLocalNews();
 

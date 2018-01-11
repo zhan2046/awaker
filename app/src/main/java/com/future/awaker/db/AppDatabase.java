@@ -11,9 +11,12 @@ import android.support.annotation.VisibleForTesting;
 
 import com.future.awaker.db.converter.DateConverter;
 import com.future.awaker.db.dao.NewsDao;
+import com.future.awaker.db.dao.SpecialListDao;
 import com.future.awaker.db.entity.NewsEntity;
+import com.future.awaker.db.entity.SpecialListEntity;
 
-@Database(entities = {NewsEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {NewsEntity.class, SpecialListEntity.class},
+        version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -23,6 +26,8 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
     public abstract NewsDao newsDao();
+
+    public abstract SpecialListDao specialListDao();
 
     private final MutableLiveData<Boolean> isDatabaseCreated = new MutableLiveData<>();
 

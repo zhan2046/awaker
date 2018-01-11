@@ -10,6 +10,7 @@ import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.data.UserInfo;
 import com.future.awaker.db.AppDatabase;
 import com.future.awaker.db.entity.NewsEntity;
+import com.future.awaker.db.entity.SpecialListEntity;
 import com.future.awaker.network.AwakerClient;
 import com.future.awaker.network.HttpResult;
 import com.future.awaker.source.local.ILocalDataSource;
@@ -54,6 +55,14 @@ public final class AwakerRepository implements ILocalDataSource, IRemoteDataSour
             }
         }
         return INSTANCE;
+    }
+
+    public Flowable<SpecialListEntity> loadSpecialListEntity(String id) {
+        return appDatabase.specialListDao().loadSpecialListEntity(id);
+    }
+
+    public void insertAll(SpecialListEntity specialListEntity) {
+        appDatabase.specialListDao().insertAll(specialListEntity);
     }
 
     public Flowable<List<NewsEntity>> loadAllNewsEntitys() {

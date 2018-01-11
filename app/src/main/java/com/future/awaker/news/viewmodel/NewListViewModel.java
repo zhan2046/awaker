@@ -47,7 +47,6 @@ public class NewListViewModel extends BaseListViewModel {
     }
 
     private void setLocalNews(List<News> localNewsList) {
-        LogUtils.i("NewListViewModel", "setLocalNews: " + Thread.currentThread().getName());
         if (localNewsList != null && newsLiveData.getValue() == null) {
             newsLiveData.setValue(localNewsList);
         }
@@ -82,21 +81,16 @@ public class NewListViewModel extends BaseListViewModel {
     }
 
     private void setNewsToLocalDb(List<News> news) {
-        long time = System.currentTimeMillis();
         Flowable.create(e -> saveNewsToLocal(news, e), BackpressureStrategy.LATEST)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
                         "setNewsToLocalDb doOnError: " + throwable.toString()))
-                .doOnComplete(() -> LogUtils.showLog(TAG,
-                        "setNewsToLocalDb time:" +
-                                (System.currentTimeMillis() - time) + "/ms"))
+                .doOnComplete(() -> {})
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
     private void saveNewsToLocal(List<News> news, FlowableEmitter e) {
-        LogUtils.showLog(TAG, "thread name:" + Thread.currentThread().getName());
-
         List<News> localNewsList = new ArrayList<>(news);
         List<NewsEntity> newsEntities =
                 NewsEntity.getNewsEntityList(localNewsList);

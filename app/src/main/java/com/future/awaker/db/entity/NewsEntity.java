@@ -6,7 +6,6 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import com.future.awaker.data.News;
-import com.future.awaker.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,7 @@ public class NewsEntity {
     @Embedded(prefix = "category_name")
     public CategoryNameEntity category_name;
 
-    public NewsEntity(String id, String uid, String title, String description, String category,
+    public NewsEntity(@NonNull String id, String uid, String title, String description, String category,
                       String status, String reason, String sort, String position, String cover,
                       String view, String comment, String collection, String dead_line,
                       String source, String create_time, String update_time,
@@ -141,7 +140,6 @@ public class NewsEntity {
     }
 
     public static List<News> getNewsList(List<NewsEntity> list) {
-        LogUtils.i("NewListViewModel", "getNewsList: " + Thread.currentThread().getName());
         if (list == null) {
             return null;
         }

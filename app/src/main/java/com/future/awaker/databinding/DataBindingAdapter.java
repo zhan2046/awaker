@@ -9,7 +9,6 @@ import com.future.awaker.data.Banner;
 import com.future.awaker.data.BannerItem;
 import com.future.awaker.data.Comment;
 import com.future.awaker.data.News;
-import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.home.adapter.HomeListAdapter;
 import com.future.awaker.imageloader.ImageLoader;
@@ -18,7 +17,6 @@ import com.future.awaker.news.adapter.HotCommentAdapter;
 import com.future.awaker.news.adapter.NewDetailAdapter;
 import com.future.awaker.news.adapter.NewListAdapter;
 import com.future.awaker.video.adapter.SpecialListAdapter;
-import com.future.awaker.video.adapter.VideoListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,16 +70,6 @@ public final class DataBindingAdapter {
             Banner banner = new Banner();
             banner.list = new ArrayList<>(itemList);
             ((HomeListAdapter) adapter).setBanner(banner);
-        }
-    }
-
-    @BindingAdapter({"specials"})
-    public static void setSpecials(RecyclerView recyclerView, List<Special> specials) {
-        RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter instanceof VideoListAdapter) {
-            VideoListAdapter videoListAdapter = (VideoListAdapter) adapter;
-            videoListAdapter.setData(new ArrayList<>(specials));
-            videoListAdapter.getVideoViewModel().scrollToTop(recyclerView);
         }
     }
 

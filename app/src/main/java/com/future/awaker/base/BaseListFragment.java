@@ -26,6 +26,8 @@ public class BaseListFragment<VB extends ViewDataBinding> extends BaseFragment<V
     protected boolean isStopRefresh;
     protected boolean isStopLoadMore;
 
+    protected boolean isRefresh;
+
     @Override
     protected int getLayout() {
         return R.layout.frag_base_list;
@@ -75,14 +77,16 @@ public class BaseListFragment<VB extends ViewDataBinding> extends BaseFragment<V
             listViewModel.refreshing.set(false);
             return;
         }
-        listViewModel.fetchData(true);
+        isRefresh = true;
+        listViewModel.fetchData(isRefresh);
     }
 
     public void onLoadMore() {
         if (isStopLoadMore || listViewModel == null) {
             return;
         }
-        listViewModel.fetchData(false);
+        isRefresh = false;
+        listViewModel.fetchData(isRefresh);
     }
 
     @Override

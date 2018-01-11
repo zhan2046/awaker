@@ -1,6 +1,9 @@
 package com.future.awaker.video.fragment;
 
 
+import android.arch.lifecycle.Observer;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -16,6 +19,8 @@ import com.future.awaker.video.SpecialListActivity;
 import com.future.awaker.video.adapter.VideoListAdapter;
 import com.future.awaker.video.viewmodel.VideoViewModel;
 
+import java.util.List;
+
 /**
  * Copyright ©2017 by ruzhan
  */
@@ -23,13 +28,12 @@ import com.future.awaker.video.viewmodel.VideoViewModel;
 public class VideoListFragment extends BaseListFragment<FragVideoBinding>
         implements OnItemClickListener<Special>, onPageSelectedListener {
 
-    private static final String TAG = VideoListFragment.class.getSimpleName();
+    private static final String TAG = "VideoListFragment";
 
     private static final int SCROLL_OFFSET_TIME = 350;
     private static final int MIN_OFFSET = 30;
 
     private VideoViewModel videoViewModel;
-    private VideoListAdapter adapter;
     private boolean isFirst;
 
     private long offsetTime;
@@ -48,11 +52,10 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding>
     @Override
     protected void initData() {
         videoViewModel = new VideoViewModel();
+        binding.setViewModel(videoViewModel);
         setListViewModel(videoViewModel);
 
-        binding.setViewModel(videoViewModel);
-
-        adapter = new VideoListAdapter(videoViewModel, this);
+        VideoListAdapter adapter = new VideoListAdapter(videoViewModel, this);
         binding.recyclerView.setAdapter(adapter);
 
         binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -62,6 +65,17 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding>
                 updateFab(dy);
             }
         });
+
+        videoViewModel.getSpecialLiveData().observe(this, specials -> {
+            if (isRefresh) {
+                LinearLayoutManager manager =
+                        (LinearLayoutManager) recyclerView.getLayoutManager();
+                manager.scrollToPosition(0);
+            }
+            adapter.setData(specials);
+        });
+
+        videoViewModel.initLocalSpecialListEntity();
     }
 
     private void updateFab(int dy) {
