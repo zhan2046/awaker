@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class DateConverter {
+public class RoomDataConverter {
     @TypeConverter
     public static Date toDate(Long timestamp) {
         return timestamp == null ? null : new Date(timestamp);
