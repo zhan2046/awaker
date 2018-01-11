@@ -56,8 +56,6 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
         newListViewModel.getNewsLiveData().observe(this, adapter::setData);
 
         newListViewModel.initLocalNews();
-
-        onRefresh();
     }
 
     @Override

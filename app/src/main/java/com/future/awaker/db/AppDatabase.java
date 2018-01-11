@@ -9,13 +9,15 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 
+import com.future.awaker.data.BannerItem;
 import com.future.awaker.db.converter.RoomDataConverter;
+import com.future.awaker.db.dao.BannerDao;
 import com.future.awaker.db.dao.NewsDao;
 import com.future.awaker.db.dao.SpecialListDao;
 import com.future.awaker.db.entity.NewsEntity;
 import com.future.awaker.db.entity.SpecialListEntity;
 
-@Database(entities = {NewsEntity.class, SpecialListEntity.class},
+@Database(entities = {NewsEntity.class, SpecialListEntity.class, BannerItem.class},
         version = 1, exportSchema = false)
 @TypeConverters(RoomDataConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
@@ -28,6 +30,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract NewsDao newsDao();
 
     public abstract SpecialListDao specialListDao();
+
+    public abstract BannerDao bannerDao();
 
     private final MutableLiveData<Boolean> isDatabaseCreated = new MutableLiveData<>();
 

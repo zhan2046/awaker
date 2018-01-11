@@ -26,7 +26,6 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding>
     private static final int SPAN_COUNT = 3;
 
     private HomeViewModel homeViewModel;
-    private HomeListAdapter adapter;
     private boolean isFirst;
 
     public static HomeListFragment newInstance() {
@@ -41,10 +40,10 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding>
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        homeViewModel = new HomeViewModel();
-        binding.setViewModel(homeViewModel);
 
-        adapter = new HomeListAdapter(this);
+        homeViewModel = new HomeViewModel();
+
+        HomeListAdapter adapter = new HomeListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
 
         GridLayoutManager manager = new GridLayoutManager(getActivity(), SPAN_COUNT);
@@ -56,6 +55,9 @@ public class HomeListFragment extends BaseFragment<FragHomeListBinding>
         });
         binding.recyclerView.setLayoutManager(manager);
         adapter.setData();
+
+        homeViewModel.getBannerLiveData().observe(this, adapter::setData);
+        homeViewModel.initLocalBanners();
     }
 
     @Override

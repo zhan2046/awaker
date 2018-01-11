@@ -1,25 +1,25 @@
 package com.future.awaker.home.viewmodel;
 
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
+import android.arch.lifecycle.MutableLiveData;
 
 import com.future.awaker.R;
 import com.future.awaker.base.viewmodel.BaseViewModel;
 import com.future.awaker.data.BannerItem;
-import com.future.awaker.data.realm.BannerItemRealm;
-import com.future.awaker.data.realm.BannerRealm;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
+import com.future.awaker.network.HttpResult;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 import com.future.awaker.util.ResUtils;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.realm.RealmList;
-import io.realm.RealmResults;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -30,68 +30,72 @@ public class HomeViewModel extends BaseViewModel {
     private static final String TAG = HomeViewModel.class.getSimpleName();
 
     private String advType = ResUtils.getString(R.string.adv_type);
-    public ObservableList<BannerItem> bannerItems = new ObservableArrayList<>();
-    private HashMap<String, String> map = new HashMap<>();
+    private MutableLiveData<List<BannerItem>> bannerLiveData = new MutableLiveData<>();
 
     public HomeViewModel() {
-        map.put(BannerRealm.ID, BannerRealm.ID_VALUE);
+        bannerLiveData.setValue(null);
+    }
+
+    public void initLocalBanners() {
+        AwakerRepository.get().loadAllBanners()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "initLocalBanners doOnError: " + throwable.toString()))
+                .doOnNext(this::setLocalBanners)
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
+    }
+
+    private void setLocalBanners(List<BannerItem> banners) {
+        if (banners != null && bannerLiveData.getValue() == null) {
+            bannerLiveData.setValue(banners);
+        }
     }
 
     public void getBanner() {
-        if (bannerItems.isEmpty()) {
-            getLocalBanner();
-        }
-        getRemoteBanner();
-    }
-
-    private void getRemoteBanner() {
-        disposable.add(AwakerRepository.get().getBanner(TOKEN, advType)
+        AwakerRepository.get().getBanner(TOKEN, advType)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> isError.set(throwable))
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "getBanner doOnError: " + throwable.toString()))
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(httpResult -> setRemoteBanner(httpResult.getData()))
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+                .map(HttpResult::getData)
+                .doOnNext(this::refreshDataOnNext)
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void getLocalBanner() {
-        disposable.add(AwakerRepository.get().getLocalRealm(BannerRealm.class, map)
+    private void refreshDataOnNext(List<BannerItem> news) {
+        List<BannerItem> bannerList = bannerLiveData.getValue();
+        if (bannerList == null) {
+            bannerList = new ArrayList<>();
+        }
+        bannerList.clear();
+        bannerList.addAll(news);
+        bannerLiveData.setValue(bannerList);
+
+        // save news to local db
+        setBannerToLocalDb(bannerList);
+    }
+
+    private void setBannerToLocalDb(List<BannerItem> bannerList) {
+        Flowable.create(e -> saveBannerToLocal(new ArrayList<>(bannerList), e),
+                BackpressureStrategy.LATEST)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
-                .doOnSubscribe(disposable -> isRunning.set(true))
-                .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(realmResults -> {
-                    LogUtils.d("getLocalBanner" + realmResults.size());
-                    setLocalBanner(realmResults);
-                })
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "setBannerToLocalDb doOnError: " + throwable.toString()))
+                .doOnComplete(() -> {})
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setRemoteBanner(List<BannerItem> bannerItemList) {
-        checkEmpty(bannerItemList);
-        if (!isEmpty.get()) {
-            // save to local
-            BannerRealm bannerRealm = new BannerRealm();
-            RealmList<BannerItemRealm> realmList =
-                    BannerRealm.getBannerItemRealmList(bannerItemList);
-            bannerRealm.setBanner_id(BannerRealm.ID_VALUE);
-            bannerRealm.setBannerItemList(realmList);
-            AwakerRepository.get().updateLocalRealm(bannerRealm);
-            setDataList(bannerItemList, bannerItems);
+    private void saveBannerToLocal(List<BannerItem> bannerList, FlowableEmitter e) {
+        if (bannerList != null && !bannerList.isEmpty()) {
+            AwakerRepository.get().insertAllBanners(bannerList);
         }
-
+        e.onComplete();
     }
 
-    private void setLocalBanner(RealmResults realmResults) {
-        if (realmResults == null || realmResults.isEmpty()) {
-            return;
-        }
-        BannerRealm bannerRealm =
-                (BannerRealm) realmResults.get(0);
-        if (bannerItems.isEmpty()) {   // data is empty, network not back
-            RealmList<BannerItemRealm> realmList = bannerRealm.getBannerItemList();
-            List<BannerItem> bannerItemList = BannerRealm.getBannerItemList(realmList);
-            setDataList(bannerItemList, bannerItems);
-        }
+    public MutableLiveData<List<BannerItem>> getBannerLiveData() {
+        return bannerLiveData;
     }
 }

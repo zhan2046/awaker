@@ -1,8 +1,6 @@
 package com.future.awaker.video.fragment;
 
 
-import android.arch.lifecycle.Observer;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -18,8 +16,6 @@ import com.future.awaker.util.LogUtils;
 import com.future.awaker.video.SpecialListActivity;
 import com.future.awaker.video.adapter.VideoListAdapter;
 import com.future.awaker.video.viewmodel.VideoViewModel;
-
-import java.util.List;
 
 /**
  * Copyright ©2017 by ruzhan

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.future.awaker.R;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.Banner;
+import com.future.awaker.data.BannerItem;
 import com.future.awaker.data.HomeItem;
 import com.future.awaker.databinding.ItemHomeBannerBinding;
 import com.future.awaker.databinding.ItemHomeListBinding;
@@ -35,10 +36,11 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         this.listener = listener;
     }
 
-    public void setBanner(Banner banner) {
-        if (banner == null) {
+    public void setData(List<BannerItem> list) {
+        if (list == null) {
             return;
         }
+        Banner banner  = new Banner(list);
         dataList.clear();
 
         dataList.add(banner);

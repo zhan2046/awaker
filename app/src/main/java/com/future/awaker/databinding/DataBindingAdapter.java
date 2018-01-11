@@ -5,12 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.future.awaker.data.Banner;
-import com.future.awaker.data.BannerItem;
 import com.future.awaker.data.Comment;
 import com.future.awaker.data.News;
 import com.future.awaker.data.SpecialDetail;
-import com.future.awaker.home.adapter.HomeListAdapter;
 import com.future.awaker.imageloader.ImageLoader;
 import com.future.awaker.news.adapter.CommentListAdapter;
 import com.future.awaker.news.adapter.HotCommentAdapter;
@@ -60,16 +57,6 @@ public final class DataBindingAdapter {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter instanceof NewListAdapter) {
             ((NewListAdapter) adapter).setData(new ArrayList<>(news));
-        }
-    }
-
-    @BindingAdapter({"homeBanner"})
-    public static void setHomeBanner(RecyclerView recyclerView, List<BannerItem> itemList) {
-        RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter instanceof HomeListAdapter) {
-            Banner banner = new Banner();
-            banner.list = new ArrayList<>(itemList);
-            ((HomeListAdapter) adapter).setBanner(banner);
         }
     }
 

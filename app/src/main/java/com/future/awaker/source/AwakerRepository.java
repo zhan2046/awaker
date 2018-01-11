@@ -57,6 +57,14 @@ public final class AwakerRepository implements ILocalDataSource, IRemoteDataSour
         return INSTANCE;
     }
 
+    public Flowable<List<BannerItem>> loadAllBanners() {
+        return appDatabase.bannerDao().loadAllBanners();
+    }
+
+    public void insertAllBanners(List<BannerItem> bannerItems) {
+        appDatabase.bannerDao().insertAllBanners(bannerItems);
+    }
+
     public Flowable<SpecialListEntity> loadSpecialListEntity(String id) {
         return appDatabase.specialListDao().loadSpecialListEntity(id);
     }

@@ -1,8 +1,6 @@
 package com.future.awaker.video.viewmodel;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.Special;
