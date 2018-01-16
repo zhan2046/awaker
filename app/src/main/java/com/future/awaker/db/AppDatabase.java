@@ -12,12 +12,12 @@ import android.support.annotation.VisibleForTesting;
 import com.future.awaker.data.BannerItem;
 import com.future.awaker.db.converter.RoomDataConverter;
 import com.future.awaker.db.dao.BannerDao;
-import com.future.awaker.db.dao.NewsDao;
+import com.future.awaker.db.dao.NewsListDao;
 import com.future.awaker.db.dao.SpecialListDao;
-import com.future.awaker.db.entity.NewsEntity;
+import com.future.awaker.db.entity.NewsListEntity;
 import com.future.awaker.db.entity.SpecialListEntity;
 
-@Database(entities = {NewsEntity.class, SpecialListEntity.class, BannerItem.class},
+@Database(entities = {NewsListEntity.class, SpecialListEntity.class, BannerItem.class},
         version = 1, exportSchema = false)
 @TypeConverters(RoomDataConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
@@ -27,7 +27,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
 
-    public abstract NewsDao newsDao();
+    public abstract NewsListDao newsDao();
 
     public abstract SpecialListDao specialListDao();
 

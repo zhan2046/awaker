@@ -5,18 +5,16 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.future.awaker.db.entity.NewsEntity;
-
-import java.util.List;
+import com.future.awaker.db.entity.NewsListEntity;
 
 import io.reactivex.Flowable;
 
 @Dao
-public interface NewsDao {
+public interface NewsListDao {
 
-    @Query("SELECT * FROM news_entity order by id desc")
-    Flowable<List<NewsEntity>> loadAllNewsEntitys();
+    @Query("SELECT * FROM news_list_entity WHERE id = :id")
+    Flowable<NewsListEntity> loadNewsListEntity(String id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<NewsEntity> newsEntities);
+    void insertNewsListEntity(NewsListEntity newsListEntity);
 }

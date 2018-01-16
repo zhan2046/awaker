@@ -88,7 +88,8 @@ public class HomeViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
                         "setBannerToLocalDb doOnError: " + throwable.toString()))
-                .doOnComplete(() -> {})
+                .doOnComplete(() -> {
+                })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 

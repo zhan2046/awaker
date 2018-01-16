@@ -40,7 +40,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         if (list == null) {
             return;
         }
-        Banner banner  = new Banner(list);
+        Banner banner = new Banner(list);
         dataList.clear();
 
         dataList.add(banner);

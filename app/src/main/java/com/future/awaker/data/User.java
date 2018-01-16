@@ -1,5 +1,7 @@
 package com.future.awaker.data;
 
+import android.arch.persistence.room.Ignore;
+
 import java.util.List;
 
 /**
@@ -18,5 +20,6 @@ public class User {
     public String title;
     public String score1;
     public String real_nickname;
+    @Ignore
     public List<RankLink> rank_link;
 }
