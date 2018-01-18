@@ -1,7 +1,6 @@
 package com.future.awaker.video.fragment;
 
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -74,7 +73,7 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding>
             }
         });
 
-        videoViewModel.initLocalSpecialListEntity();
+        videoViewModel.loadSpecialListEntity(String.valueOf(Special.NORMAL));
     }
 
     private void updateFab(int dy) {
@@ -119,6 +118,7 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding>
 
     public void setCat(int cat) {
         videoViewModel.setCat(cat);
+        videoViewModel.loadSpecialListEntity(String.valueOf(cat));
         onRefresh();
     }
 

@@ -52,8 +52,8 @@ public class HomeViewModel extends BaseViewModel {
     private void setLocalBanners(List<BannerItem> banners) {
         if (banners != null && bannerItemList.isEmpty()) {
             bannerLiveData.setValue(banners);
-            localDisposable.dispose();
         }
+        localDisposable.dispose();
     }
 
     public void getBanner() {

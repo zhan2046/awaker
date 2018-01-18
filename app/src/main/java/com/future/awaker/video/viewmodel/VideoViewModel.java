@@ -13,7 +13,9 @@ import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -36,28 +38,28 @@ public class VideoViewModel extends BaseListViewModel {
     private List<Special> specialList = new ArrayList<>();
     private MutableLiveData<RefreshListModel<Special>> specialLiveData = new MutableLiveData<>();
 
+    private Map<String, List<Special>> stringListMap = new HashMap<>();
+
     private Disposable localDisposable;
 
     public VideoViewModel() {
 
     }
 
-    public void initLocalSpecialListEntity() {
-        localDisposable = AwakerRepository.get().loadSpecialListEntity(String.valueOf(cat))
+    public void loadSpecialListEntity(String cat) {
+        localDisposable = AwakerRepository.get().loadSpecialListEntity(cat)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
                         "initLocalSpecialListEntity doOnError: " + throwable.toString()))
-                .doOnNext(this::setLocalSpecialListEntity)
+                .doOnNext(specialListEntity -> {
+                    if (specialListEntity.specialList != null && !stringListMap.containsKey(cat)) {
+                        refreshListModel.setRefreshType(specialListEntity.specialList);
+                        specialLiveData.setValue(refreshListModel);
+                    }
+                    localDisposable.dispose();
+                })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
-    }
-
-    private void setLocalSpecialListEntity(SpecialListEntity specialListEntity) {
-        if (specialListEntity.specialList != null && specialList.isEmpty()) {
-            refreshListModel.setRefreshType(specialListEntity.specialList);
-            specialLiveData.setValue(refreshListModel);
-            localDisposable.dispose();
-        }
     }
 
     @Override
@@ -84,6 +86,8 @@ public class VideoViewModel extends BaseListViewModel {
         specialList.addAll(specials);
         refreshListModel.setList(specialList);
         specialLiveData.setValue(refreshListModel);
+
+        stringListMap.put(String.valueOf(cat), specialList);
 
         setSpecialListToLocalDb(specialList);
     }

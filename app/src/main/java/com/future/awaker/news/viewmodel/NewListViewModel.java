@@ -52,8 +52,8 @@ public class NewListViewModel extends BaseListViewModel {
         if (localNewsList != null && newsList.isEmpty()) {
             refreshListModel.setRefreshType(localNewsList);
             newsLiveData.setValue(refreshListModel);
-            localDisposable.dispose();
         }
+        localDisposable.dispose();
     }
 
     @Override
