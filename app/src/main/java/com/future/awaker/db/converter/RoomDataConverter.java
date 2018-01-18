@@ -2,7 +2,6 @@ package com.future.awaker.db.converter;
 
 import android.arch.persistence.room.TypeConverter;
 
-import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -31,16 +30,5 @@ public class RoomDataConverter {
     @TypeConverter
     public static String toSpecialListJson(List<Special> specialList) {
         return new Gson().toJson(specialList);
-    }
-
-    @TypeConverter
-    public static List<News> toNewsList(String json) {
-        return new Gson().fromJson(json, new TypeToken<List<News>>() {
-        }.getType());
-    }
-
-    @TypeConverter
-    public static String toNewsListJson(List<News> newsList) {
-        return new Gson().toJson(newsList);
     }
 }

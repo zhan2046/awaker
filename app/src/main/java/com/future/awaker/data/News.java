@@ -2,13 +2,19 @@ package com.future.awaker.data;
 
 
 import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 /**
  * Copyright ©2017 by ruzhan
  */
 
+@Entity(tableName = "news")
 public class News {
 
+    @NonNull
+    @PrimaryKey
     public String id;
     public String uid;
     public String title;
@@ -40,7 +46,12 @@ public class News {
     public News() {
     }
 
-    public News(String id, String uid, String title, String description, String category, String status, String reason, String sort, String position, String cover, String view, String comment, String collection, String dead_line, String source, String create_time, String update_time, CoverUrl cover_url, String approval, String share_url, User user, String category_title, String category_color, CategoryName category_name) {
+    public News(@NonNull String id, String uid, String title, String description, String category,
+                String status, String reason, String sort, String position, String cover,
+                String view, String comment, String collection, String dead_line, String source,
+                String create_time, String update_time, CoverUrl cover_url, String approval,
+                String share_url, User user, String category_title, String category_color,
+                CategoryName category_name) {
         this.id = id;
         this.uid = uid;
         this.title = title;

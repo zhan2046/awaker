@@ -5,7 +5,6 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.News;
-import com.future.awaker.db.entity.NewsListEntity;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.network.HttpResult;
@@ -17,7 +16,6 @@ import java.util.List;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -28,18 +26,17 @@ public class NewListViewModel extends BaseListViewModel {
     private static final String TAG = "NewListViewModel";
 
     private int newId;
+    private List<News> newsList = new ArrayList<>();
     private MutableLiveData<List<News>> newsLiveData = new MutableLiveData<>();
 
     private Disposable localDisposable;
 
     public NewListViewModel(int newId) {
         this.newId = newId;
-
-        newsLiveData.setValue(null);
     }
 
     public void initLocalNews() {
-        localDisposable = AwakerRepository.get().loadNewsListEntity("1")
+        localDisposable = AwakerRepository.get().loadNewsList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
@@ -48,9 +45,9 @@ public class NewListViewModel extends BaseListViewModel {
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setLocalNewsList(NewsListEntity newsListEntity) {
-        if (newsListEntity != null && newsLiveData.getValue() == null) {
-            newsLiveData.setValue(newsListEntity.newsList);
+    private void setLocalNewsList(List<News> localNewsList) {
+        if (localNewsList != null && newsList.isEmpty()) {
+            newsLiveData.setValue(localNewsList);
             localDisposable.dispose();
         }
     }
@@ -64,15 +61,11 @@ public class NewListViewModel extends BaseListViewModel {
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
                 .map(HttpResult::getData)
-                .doOnNext(news -> refreshDataOnNext(news, refresh, page))
+                .doOnNext(news -> refreshDataOnNext(news, refresh))
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void refreshDataOnNext(List<News> news, boolean refresh, int page) {
-        List<News> newsList = newsLiveData.getValue();
-        if (newsList == null) {
-            newsList = new ArrayList<>();
-        }
+    private void refreshDataOnNext(List<News> news, boolean refresh) {
         if (refresh) {
             newsList.clear();
         }
@@ -80,11 +73,15 @@ public class NewListViewModel extends BaseListViewModel {
         newsLiveData.setValue(newsList);
 
         // save news to local db
-        setNewsToLocalDb(news, page);
+        setNewsToLocalDb(news);
     }
 
-    private void setNewsToLocalDb(List<News> news, int page) {
-        Flowable.create(e -> saveNewsToLocal(news, page, e), BackpressureStrategy.LATEST)
+    private void setNewsToLocalDb(List<News> news) {
+        Flowable.create(e -> {
+            AwakerRepository.get().insertNewsList(new ArrayList<>(news));
+            e.onComplete();
+
+        }, BackpressureStrategy.LATEST)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
@@ -92,14 +89,6 @@ public class NewListViewModel extends BaseListViewModel {
                 .doOnComplete(() -> {
                 })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
-    }
-
-    private void saveNewsToLocal(List<News> news, int page, FlowableEmitter e) {
-        List<News> localNewsList = new ArrayList<>(news);
-        NewsListEntity newsListEntity = new NewsListEntity(String.valueOf(page),
-                localNewsList);
-        AwakerRepository.get().insertNewsListEntity(newsListEntity);
-        e.onComplete();
     }
 
     public LiveData<List<News>> getNewsLiveData() {
