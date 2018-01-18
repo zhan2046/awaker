@@ -1,5 +1,8 @@
 package com.future.awaker;
 
+import android.content.Context;
+import android.support.multidex.MultiDex;
+
 import com.blankj.utilcode.util.Utils;
 import com.crashlytics.android.Crashlytics;
 import com.future.awaker.util.ConstantUtils;
@@ -21,6 +24,12 @@ public class Application extends android.app.Application {
 
     public static Application get() {
         return INSTANCE;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     @Override
