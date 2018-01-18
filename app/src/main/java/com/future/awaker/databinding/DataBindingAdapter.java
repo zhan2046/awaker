@@ -56,7 +56,7 @@ public final class DataBindingAdapter {
     public static void setNews(RecyclerView recyclerView, List<News> news) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter instanceof NewListAdapter) {
-            ((NewListAdapter) adapter).setData(new ArrayList<>(news));
+            ((NewListAdapter) adapter).setRefreshData(new ArrayList<>(news));
         }
     }
 

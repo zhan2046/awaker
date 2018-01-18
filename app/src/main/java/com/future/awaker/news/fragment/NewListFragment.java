@@ -1,6 +1,8 @@
 package com.future.awaker.news.fragment;
 
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
@@ -9,6 +11,7 @@ import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.News;
+import com.future.awaker.data.other.RefreshListModel;
 import com.future.awaker.databinding.FragNewBinding;
 import com.future.awaker.news.NewDetailActivity;
 import com.future.awaker.news.adapter.NewListAdapter;
@@ -53,7 +56,16 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL));
 
-        newListViewModel.getNewsLiveData().observe(this, adapter::setData);
+        newListViewModel.getNewsLiveData().observe(this, refreshListModel -> {
+            if (refreshListModel != null) {
+                if (RefreshListModel.REFRESH == refreshListModel.refreshType) {
+                    adapter.setRefreshData(refreshListModel.list);
+
+                } else if (RefreshListModel.UPDATE == refreshListModel.refreshType) {
+                    adapter.setUpdateData(refreshListModel.list);
+                }
+            }
+        });
 
         newListViewModel.initLocalNews();
     }

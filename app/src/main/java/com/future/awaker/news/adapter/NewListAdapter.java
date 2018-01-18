@@ -33,25 +33,28 @@ public class NewListAdapter extends RecyclerView.Adapter {
         this.listener = listener;
     }
 
-    public void setData(List<News> list) {
+    public void setRefreshData(List<News> list) {
         if (list == null) {
             return;
         }
-        if (newsList.isEmpty()) {
-            newsList.addAll(list);
-            notifyDataSetChanged();
+        newsList.clear();
+        newsList.addAll(list);
+        notifyDataSetChanged();
+    }
 
-        } else {
-            oldNewsList.clear();
-            oldNewsList.addAll(newsList);
-
-            newsList.clear();
-            newsList.addAll(list);
-
-            diffCallBack.setData(oldNewsList, newsList);
-            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
-            diffResult.dispatchUpdatesTo(this);
+    public void setUpdateData(List<News> list) {
+        if (list == null) {
+            return;
         }
+        oldNewsList.clear();
+        oldNewsList.addAll(newsList);
+
+        newsList.clear();
+        newsList.addAll(list);
+
+        diffCallBack.setData(oldNewsList, newsList);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @Override

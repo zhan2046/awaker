@@ -3,6 +3,7 @@ package com.future.awaker.data;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -43,6 +44,7 @@ public class News {
     @Embedded(prefix = "category_name")
     public CategoryName category_name;
 
+    @Ignore
     public News() {
     }
 

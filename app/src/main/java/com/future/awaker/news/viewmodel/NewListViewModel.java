@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.News;
+import com.future.awaker.data.other.RefreshListModel;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.network.HttpResult;
@@ -26,8 +27,10 @@ public class NewListViewModel extends BaseListViewModel {
     private static final String TAG = "NewListViewModel";
 
     private int newId;
+    private RefreshListModel<News> refreshListModel = new RefreshListModel<>();
+
     private List<News> newsList = new ArrayList<>();
-    private MutableLiveData<List<News>> newsLiveData = new MutableLiveData<>();
+    private MutableLiveData<RefreshListModel<News>> newsLiveData = new MutableLiveData<>();
 
     private Disposable localDisposable;
 
@@ -47,7 +50,8 @@ public class NewListViewModel extends BaseListViewModel {
 
     private void setLocalNewsList(List<News> localNewsList) {
         if (localNewsList != null && newsList.isEmpty()) {
-            newsLiveData.setValue(localNewsList);
+            refreshListModel.setRefreshType(localNewsList);
+            newsLiveData.setValue(refreshListModel);
             localDisposable.dispose();
         }
     }
@@ -68,9 +72,14 @@ public class NewListViewModel extends BaseListViewModel {
     private void refreshDataOnNext(List<News> news, boolean refresh) {
         if (refresh) {
             newsList.clear();
+            refreshListModel.setRefreshType();
+
+        } else {
+            refreshListModel.setUpdateType();
         }
         newsList.addAll(news);
-        newsLiveData.setValue(newsList);
+        refreshListModel.setList(newsList);
+        newsLiveData.setValue(refreshListModel);
 
         // save news to local db
         setNewsToLocalDb(news);
@@ -91,7 +100,7 @@ public class NewListViewModel extends BaseListViewModel {
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    public LiveData<List<News>> getNewsLiveData() {
+    public LiveData<RefreshListModel<News>> getNewsLiveData() {
         return newsLiveData;
     }
 }
