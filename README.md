@@ -4,7 +4,7 @@ Awaker
 
 
 
-####    本App 采用 MVVM + RXJava2 + Retrofit + OKHttp + Material Design + Base + Glide + Realm构建，欢迎大家Star或Fork。
+####    本App 采用 LiveData + Room + RXJava2 + Retrofit + OKHttp + Material Design + Base + Glide构建，欢迎大家Star或Fork。
 
 
 Screenshots
@@ -48,12 +48,15 @@ Screenshots
 * [retrofit](https://github.com/square/retrofit)
 * [glide](https://github.com/bumptech/glide)
 * [material-dialogs](https://github.com/afollestad/material-dialogs)
-
+* [android-architecture-components](https://github.com/googlesamples/android-architecture-components)
 
 
 
 版本记录
 ------
+#### 2018-1-18    v0.7
+*  添加 LiveData  Room，更新ViewModel
+
 #### 2017-9-13    v0.6
 *  应用初始化上线
 *  优化了文章详情页
