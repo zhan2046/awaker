@@ -10,6 +10,7 @@ import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.Special;
+import com.future.awaker.data.other.RefreshListModel;
 import com.future.awaker.databinding.FragVideoBinding;
 import com.future.awaker.home.HomeActivity;
 import com.future.awaker.util.LogUtils;
@@ -62,13 +63,15 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding>
             }
         });
 
-        videoViewModel.getSpecialLiveData().observe(this, specials -> {
-            if (isRefresh) {
-                LinearLayoutManager manager =
-                        (LinearLayoutManager) recyclerView.getLayoutManager();
-                manager.scrollToPosition(0);
+        videoViewModel.getSpecialLiveData().observe(this, refreshListModel -> {
+            if (refreshListModel != null) {
+                if (RefreshListModel.REFRESH == refreshListModel.refreshType) {
+                    adapter.setRefreshData(refreshListModel.list);
+
+                } else if (RefreshListModel.UPDATE == refreshListModel.refreshType) {
+                    adapter.setUpdateData(refreshListModel.list);
+                }
             }
-            adapter.setData(specials);
         });
 
         videoViewModel.initLocalSpecialListEntity();

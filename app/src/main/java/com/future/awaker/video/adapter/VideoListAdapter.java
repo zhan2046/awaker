@@ -41,25 +41,28 @@ public class VideoListAdapter extends RecyclerView.Adapter {
         this.listener = listener;
     }
 
-    public void setData(List<Special> list) {
+    public void setRefreshData(List<Special> list) {
         if (list == null) {
             return;
         }
-        if (specialList.isEmpty()) {
-            specialList.addAll(list);
-            notifyDataSetChanged();
+        specialList.clear();
+        specialList.addAll(list);
+        notifyDataSetChanged();
+    }
 
-        } else {
-            oldSpecialList.clear();
-            oldSpecialList.addAll(specialList);
-
-            specialList.clear();
-            specialList.addAll(list);
-
-            diffCallBack.setData(oldSpecialList, specialList);
-            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
-            diffResult.dispatchUpdatesTo(this);
+    public void setUpdateData(List<Special> list) {
+        if (list == null) {
+            return;
         }
+        oldSpecialList.clear();
+        oldSpecialList.addAll(specialList);
+
+        specialList.clear();
+        specialList.addAll(list);
+
+        diffCallBack.setData(oldSpecialList, specialList);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @Override

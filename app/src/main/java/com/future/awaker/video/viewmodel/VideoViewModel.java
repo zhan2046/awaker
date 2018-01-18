@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.Special;
+import com.future.awaker.data.other.RefreshListModel;
 import com.future.awaker.db.entity.SpecialListEntity;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
@@ -30,8 +31,10 @@ public class VideoViewModel extends BaseListViewModel {
     private static final String TAG = "VideoViewModel";
 
     private int cat = Special.NORMAL;
+    private RefreshListModel<Special> refreshListModel = new RefreshListModel<>();
+
     private List<Special> specialList = new ArrayList<>();
-    private MutableLiveData<List<Special>> specialLiveData = new MutableLiveData<>();
+    private MutableLiveData<RefreshListModel<Special>> specialLiveData = new MutableLiveData<>();
 
     private Disposable localDisposable;
 
@@ -51,7 +54,8 @@ public class VideoViewModel extends BaseListViewModel {
 
     private void setLocalSpecialListEntity(SpecialListEntity specialListEntity) {
         if (specialListEntity.specialList != null && specialList.isEmpty()) {
-            specialLiveData.setValue(specialListEntity.specialList);
+            refreshListModel.setRefreshType(specialListEntity.specialList);
+            specialLiveData.setValue(refreshListModel);
             localDisposable.dispose();
         }
     }
@@ -72,9 +76,14 @@ public class VideoViewModel extends BaseListViewModel {
     private void refreshDataOnNext(List<Special> specials, boolean refresh) {
         if (refresh) {
             specialList.clear();
+            refreshListModel.setRefreshType();
+
+        } else {
+            refreshListModel.setUpdateType();
         }
         specialList.addAll(specials);
-        specialLiveData.setValue(specialList);
+        refreshListModel.setList(specialList);
+        specialLiveData.setValue(refreshListModel);
 
         setSpecialListToLocalDb(specialList);
     }
@@ -103,7 +112,7 @@ public class VideoViewModel extends BaseListViewModel {
         this.cat = cat;
     }
 
-    public MutableLiveData<List<Special>> getSpecialLiveData() {
+    public MutableLiveData<RefreshListModel<Special>> getSpecialLiveData() {
         return specialLiveData;
     }
 }
