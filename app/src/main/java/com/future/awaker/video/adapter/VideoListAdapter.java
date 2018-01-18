@@ -31,7 +31,7 @@ public class VideoListAdapter extends RecyclerView.Adapter {
     private VideoViewModel videoViewModel;
     private OnItemClickListener<Special> listener;
 
-    private List<Special> specialList = new ArrayList<>();
+    private List<Special> newSpecialList = new ArrayList<>();
     private List<Special> oldSpecialList = new ArrayList<>();
 
     private VideoDiffCallBack diffCallBack = new VideoDiffCallBack();
@@ -45,8 +45,8 @@ public class VideoListAdapter extends RecyclerView.Adapter {
         if (list == null) {
             return;
         }
-        specialList.clear();
-        specialList.addAll(list);
+        newSpecialList.clear();
+        newSpecialList.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -55,19 +55,19 @@ public class VideoListAdapter extends RecyclerView.Adapter {
             return;
         }
         oldSpecialList.clear();
-        oldSpecialList.addAll(specialList);
+        oldSpecialList.addAll(newSpecialList);
 
-        specialList.clear();
-        specialList.addAll(list);
+        newSpecialList.clear();
+        newSpecialList.addAll(list);
 
-        diffCallBack.setData(oldSpecialList, specialList);
+        diffCallBack.setData(oldSpecialList, newSpecialList);
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
         diffResult.dispatchUpdatesTo(this);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == specialList.size()) {
+        if (position == newSpecialList.size()) {
             return TYPE_LOADING;
         }
         return TYPE_VIDEO;
@@ -95,13 +95,13 @@ public class VideoListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         if (viewType == TYPE_VIDEO) {
-            ((VideoHolder) holder).bind(specialList.get(position));
+            ((VideoHolder) holder).bind(newSpecialList.get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        return specialList == null ? 0 : specialList.size() + 1;
+        return newSpecialList.isEmpty() ? 0 : newSpecialList.size() + 1;
     }
 
     public static class VideoHolder extends RecyclerView.ViewHolder {
