@@ -17,7 +17,6 @@ import java.util.List;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -31,12 +30,13 @@ public class HomeViewModel extends BaseViewModel {
     private static final String TAG = HomeViewModel.class.getSimpleName();
 
     private String advType = ResUtils.getString(R.string.adv_type);
+    private List<BannerItem> bannerItemList = new ArrayList<>();
     private MutableLiveData<List<BannerItem>> bannerLiveData = new MutableLiveData<>();
 
     private Disposable localDisposable;
 
     public HomeViewModel() {
-        bannerLiveData.setValue(null);
+
     }
 
     public void initLocalBanners() {
@@ -50,7 +50,7 @@ public class HomeViewModel extends BaseViewModel {
     }
 
     private void setLocalBanners(List<BannerItem> banners) {
-        if (banners != null && bannerLiveData.getValue() == null) {
+        if (banners != null && bannerItemList.isEmpty()) {
             bannerLiveData.setValue(banners);
             localDisposable.dispose();
         }
@@ -68,21 +68,20 @@ public class HomeViewModel extends BaseViewModel {
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void refreshDataOnNext(List<BannerItem> news) {
-        List<BannerItem> bannerList = bannerLiveData.getValue();
-        if (bannerList == null) {
-            bannerList = new ArrayList<>();
-        }
-        bannerList.clear();
-        bannerList.addAll(news);
-        bannerLiveData.setValue(bannerList);
+    private void refreshDataOnNext(List<BannerItem> bannerItems) {
+        bannerItemList.clear();
+        bannerItemList.addAll(bannerItems);
+        bannerLiveData.setValue(bannerItemList);
 
         // save news to local db
-        setBannerToLocalDb(bannerList);
+        setBannerToLocalDb(bannerItems);
     }
 
     private void setBannerToLocalDb(List<BannerItem> bannerList) {
-        Flowable.create(e -> saveBannerToLocal(new ArrayList<>(bannerList), e),
+        Flowable.create(e -> {
+                    AwakerRepository.get().insertAllBanners(bannerList);
+                    e.onComplete();
+                },
                 BackpressureStrategy.LATEST)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -91,13 +90,6 @@ public class HomeViewModel extends BaseViewModel {
                 .doOnComplete(() -> {
                 })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
-    }
-
-    private void saveBannerToLocal(List<BannerItem> bannerList, FlowableEmitter e) {
-        if (bannerList != null && !bannerList.isEmpty()) {
-            AwakerRepository.get().insertAllBanners(bannerList);
-        }
-        e.onComplete();
     }
 
     public MutableLiveData<List<BannerItem>> getBannerLiveData() {

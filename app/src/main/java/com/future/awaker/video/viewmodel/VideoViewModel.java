@@ -30,13 +30,13 @@ public class VideoViewModel extends BaseListViewModel {
     private static final String TAG = "VideoViewModel";
 
     private int cat = Special.NORMAL;
+    private List<Special> specialList = new ArrayList<>();
     private MutableLiveData<List<Special>> specialLiveData = new MutableLiveData<>();
 
     private Disposable localDisposable;
 
     public VideoViewModel() {
-        cat = Special.NORMAL;
-        specialLiveData.setValue(null);
+
     }
 
     public void initLocalSpecialListEntity() {
@@ -50,7 +50,7 @@ public class VideoViewModel extends BaseListViewModel {
     }
 
     private void setLocalSpecialListEntity(SpecialListEntity specialListEntity) {
-        if (specialListEntity.specialList != null && specialLiveData.getValue() == null) {
+        if (specialListEntity.specialList != null && specialList.isEmpty()) {
             specialLiveData.setValue(specialListEntity.specialList);
             localDisposable.dispose();
         }
@@ -70,10 +70,6 @@ public class VideoViewModel extends BaseListViewModel {
     }
 
     private void refreshDataOnNext(List<Special> specials, boolean refresh) {
-        List<Special> specialList = specialLiveData.getValue();
-        if (specialList == null) {
-            specialList = new ArrayList<>();
-        }
         if (refresh) {
             specialList.clear();
         }

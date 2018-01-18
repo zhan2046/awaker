@@ -2,9 +2,7 @@ package com.future.awaker.util;
 
 import com.future.awaker.BuildConfig;
 
-/**
- * Copyright ©2017 by Teambition
- */
+
 
 public final class ConstantUtils {
 
