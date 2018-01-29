@@ -40,7 +40,7 @@ android {
 
         debug {
             versionNameSuffix 'd'
-            signingConfig signingConfigs.config
+
         }
 
         release {
