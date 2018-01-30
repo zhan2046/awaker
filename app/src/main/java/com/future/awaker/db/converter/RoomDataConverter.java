@@ -2,6 +2,7 @@ package com.future.awaker.db.converter;
 
 import android.arch.persistence.room.TypeConverter;
 
+import com.future.awaker.data.Comment;
 import com.future.awaker.data.Special;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,5 +31,16 @@ public class RoomDataConverter {
     @TypeConverter
     public static String toSpecialListJson(List<Special> specialList) {
         return new Gson().toJson(specialList);
+    }
+
+    @TypeConverter
+    public static List<Comment> toCommentList(String json) {
+        return new Gson().fromJson(json, new TypeToken<List<Comment>>() {
+        }.getType());
+    }
+
+    @TypeConverter
+    public static String toCommentListJson(List<Comment> commentList) {
+        return new Gson().toJson(commentList);
     }
 }

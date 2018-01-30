@@ -1,9 +1,7 @@
 package com.future.awaker.news.viewmodel;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.databinding.Bindable;
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableField;
-import android.databinding.ObservableList;
 
 import com.future.awaker.BR;
 import com.future.awaker.R;
@@ -11,9 +9,7 @@ import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.Comment;
 import com.future.awaker.data.Header;
 import com.future.awaker.data.NewDetail;
-import com.future.awaker.data.realm.CommentHotRealm;
-import com.future.awaker.data.realm.CommentRealm;
-import com.future.awaker.data.realm.NewDetailRealm;
+import com.future.awaker.db.entity.CommentEntity;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.news.listener.SendCommentListener;
@@ -21,12 +17,14 @@ import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 import com.future.awaker.util.ResUtils;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.realm.RealmList;
-import io.realm.RealmResults;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ruzhan on 2017/7/6.
@@ -36,20 +34,29 @@ public class NewDetailViewModel extends BaseListViewModel {
 
     private static final String TAG = NewDetailViewModel.class.getSimpleName();
 
-    public ObservableField<NewDetail> newDetail = new ObservableField<>();
-    public ObservableList<Comment> comments = new ObservableArrayList<>();
     public Header header = new Header();
 
     private String newId;
-    private HashMap<String, String> map = new HashMap<>();
-    private HashMap<String, String> commentMap = new HashMap<>();
     private String commentCount = "0";
 
     private SendCommentListener listener;
 
+    private MutableLiveData<NewDetail> newDetailLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Comment>> commentListLiveData = new MutableLiveData<>();
 
-    public NewDetailViewModel(SendCommentListener listener) {
+    private NewDetail newDetail;
+    private List<Comment> commentList = new ArrayList<>();
+
+    private Disposable localDisposable;
+    private Disposable localCommentDisposable;
+
+    public NewDetailViewModel(String newId, SendCommentListener listener) {
+        this.newId = newId;
+
         this.listener = listener;
+
+        newDetailLiveData.setValue(null);
+        commentListLiveData.setValue(null);
     }
 
     @Bindable
@@ -62,136 +69,115 @@ public class NewDetailViewModel extends BaseListViewModel {
         notifyPropertyChanged(BR.commentCount);
     }
 
-    public String getNewId() {
-        return newId;
+    public void initHeader(String title, String url) {
+        header.title = title;
+        header.url = url;
     }
 
-    public void setNewId(String newId) {
-        this.newId = newId;
-        map.put(NewDetailRealm.ID, newId + NewDetailRealm.DETAIL);
-        commentMap.put(CommentHotRealm.ID, newId + CommentHotRealm.COMMENT_HOT);
+    public void initLocalCommentList(String id) {
+        localCommentDisposable = AwakerRepository.get().loadCommentEntity(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "initLocalCommentList doOnError: " + throwable.toString()))
+                .doOnNext(this::setLocalCommentList)
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    public String getTitle() {
-        return header.title;
+    private void setLocalCommentList(CommentEntity localCommentList) {
+        if (localCommentList != null && commentList.isEmpty()) {
+            commentList.addAll(localCommentList.commentList);
+            commentListLiveData.setValue(commentList);
+        }
+        localCommentDisposable.dispose();
     }
 
-    public void setTitle(String title) {
-        this.header.title = title;
+    public void initLocalNewDetail(String id) {
+        localDisposable = AwakerRepository.get().loadNewsDetail(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "initLocalNewDetail doOnError: " + throwable.toString()))
+                .doOnNext(this::setLocalNewDetail)
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    public String getUrl() {
-        return header.url;
-    }
-
-    public void setUrl(String url) {
-        this.header.url = url;
+    private void setLocalNewDetail(NewDetail localNewDetail) {
+        if (localNewDetail != null && newDetail == null) {
+            newDetail = localNewDetail;
+            newDetailLiveData.setValue(newDetail);
+        }
+        localDisposable.dispose();
     }
 
     @Override
     public void refreshData(boolean refresh) {
-        if (refresh && newDetail.get() == null) {
-            getLocalNewDetail();
-        }
-        getRemoteNewDetail();
-
-
-    }
-
-    private void getLocalNewDetail() {
-        disposable.add(AwakerRepository.get().getLocalRealm(NewDetailRealm.class, map)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
-                .doOnSubscribe(disposable -> isRunning.set(true))
-                .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(realmResults -> {
-                    LogUtils.d("getLocalNewDetail" + realmResults.size());
-                    setLocalNewDetail(realmResults);
-                })
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
-    }
-
-    private void setLocalNewDetail(RealmResults realmResults) {
-        if (realmResults == null || realmResults.isEmpty()) {
-            return;
-        }
-        NewDetailRealm newDetailRealm = (NewDetailRealm) realmResults.get(0);
-        if (newDetail.get() == null) {   // data is empty, network not back
-            NewDetail newDetailItem = NewDetailRealm.setNewDetailRealm(newDetailRealm);
-            setDataObject(newDetailItem, newDetail);
-        }
-    }
-
-    private void getRemoteNewDetail() {
-        disposable.add(AwakerRepository.get().getNewDetail(TOKEN, newId)
+        AwakerRepository.get().getNewDetail(TOKEN, newId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(httpResult -> setRemoteNewDetail(httpResult.getData()))
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+                .doOnNext(httpResult -> setRefreshDataDoOnNext(httpResult.getData()))
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setRemoteNewDetail(NewDetail newDetailItem) {
-        setDataObject(newDetailItem, newDetail);
+    private void setRefreshDataDoOnNext(NewDetail remoteNewDetail) {
+        if (remoteNewDetail != null) {
+            newDetail = remoteNewDetail;
+            newDetailLiveData.setValue(newDetail);
 
-        if (!isEmpty.get()) {
-            // save to local
-            NewDetailRealm newDetailRealm = NewDetailRealm.setNewDetail(newDetailItem);
-            AwakerRepository.get().updateLocalRealm(newDetailRealm);
+            setNewDetailLocalDb(newDetail);
         }
+    }
+
+    private void setNewDetailLocalDb(NewDetail newDetail) {
+        Flowable.create(e -> {
+            AwakerRepository.get().insertNewsDetail(newDetail);
+            e.onComplete();
+
+        }, BackpressureStrategy.LATEST)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "setNewDetailLocalDb doOnError: " + throwable.toString()))
+                .doOnComplete(() -> {
+                })
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
     public void getHotCommentList() {
-        if (comments.isEmpty()) {
-            getLocalHotCommentList();
-        }
-        getRemoteHotCommentList();
-    }
-
-    public void getRemoteHotCommentList() {
-        disposable.add(AwakerRepository.get().getUpNewsComments(TOKEN, newId)
+        AwakerRepository.get().getUpNewsComments(TOKEN, newId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG, "remote doOnError: " + throwable.toString()))
-                .doOnNext(result -> setRemoteHotCommentList(result.getData()))
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+                .doOnNext(result -> setCommentListDoOnNext(result.getData()))
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setRemoteHotCommentList(List<Comment> commentList) {
-        if (commentList != null && !commentList.isEmpty()) {
-            comments.clear();
-            comments.addAll(commentList);
+    private void setCommentListDoOnNext(List<Comment> comments) {
+        if (comments != null) {
+            commentList.clear();
+            commentList.addAll(comments);
 
-            CommentHotRealm commentHotRealm = new CommentHotRealm();
-            commentHotRealm.setComment_hot_id(newId + CommentHotRealm.COMMENT_HOT);
-            RealmList<CommentRealm> realms = CommentHotRealm.getRealmList(commentList);
-            commentHotRealm.setCommentList(realms);
-            AwakerRepository.get().updateLocalRealm(commentHotRealm);
+            commentListLiveData.setValue(commentList);
+
+            setCommentListLocalDb(comments);
         }
     }
 
-    public void getLocalHotCommentList() {
-        disposable.add(AwakerRepository.get().getLocalRealm(CommentHotRealm.class, commentMap)
+    private void setCommentListLocalDb(List<Comment> comments) {
+        Flowable.create(e -> {
+            CommentEntity commentEntity = new CommentEntity(newId, comments);
+            AwakerRepository.get().insertCommentEntity(commentEntity);
+            e.onComplete();
+
+        }, BackpressureStrategy.LATEST)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
-                .doOnNext(realmResults -> {
-                    LogUtils.d("getLocalHotCommentList" + realmResults.size());
-                    setLocalHotCommentList(realmResults);
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "setNewDetailLocalDb doOnError: " + throwable.toString()))
+                .doOnComplete(() -> {
                 })
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
-    }
-
-    private void setLocalHotCommentList(RealmResults realmResults) {
-        if (realmResults == null || realmResults.isEmpty()) {
-            return;
-        }
-        CommentHotRealm commentHotRealm = (CommentHotRealm) realmResults.get(0);
-        if (comments.isEmpty()) {   // data is empty, network not back
-            RealmList<CommentRealm> commentRealms = commentHotRealm.getCommentList();
-            List<Comment> commentList = CommentHotRealm.getList(commentRealms);
-            comments.clear();
-            comments.addAll(commentList);
-        }
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
     public void sendNewsComment(String newId, String content, String open_id,
@@ -201,5 +187,13 @@ public class NewDetailViewModel extends BaseListViewModel {
                 .doOnError(throwable -> LogUtils.showLog(TAG, "remote doOnError: " + throwable.toString()))
                 .doOnNext(result -> listener.sendCommentSuc())
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+    }
+
+    public MutableLiveData<NewDetail> getNewDetailLiveData() {
+        return newDetailLiveData;
+    }
+
+    public MutableLiveData<List<Comment>> getCommentListLiveData() {
+        return commentListLiveData;
     }
 }

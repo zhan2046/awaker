@@ -2,7 +2,6 @@ package com.future.awaker.news.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -46,8 +45,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
     private static final String NEW_TITLE = "newTitle";
     private static final String NEW_URL = "newUrl";
 
-    private NewDetailViewModel viewModel = new NewDetailViewModel(this);
-    private NewDetailBack newDetailBack = new NewDetailBack();
+    private NewDetailViewModel viewModel;
     private NewDetailAdapter adapter;
     private String newId;
 
@@ -72,11 +70,11 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
         String newTitle = getArguments().getString(NEW_TITLE);
         String newUrl = getArguments().getString(NEW_URL);
 
+        binding.toolbar.setTitle(newTitle);
         setToolbar(binding.toolbar);
 
-        viewModel.setNewId(newId);
-        viewModel.setTitle(newTitle);
-        viewModel.setUrl(newUrl);
+        viewModel = new NewDetailViewModel(newId, this);
+        viewModel.initHeader(newTitle, newUrl);
 
         setListViewModel(viewModel);
         binding.setViewModel(viewModel);
@@ -84,12 +82,55 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
         adapter = new NewDetailAdapter(viewModel.header, this);
         recyclerView.setAdapter(adapter);
 
-        viewModel.newDetail.addOnPropertyChangedCallback(newDetailBack);
-
         initListener();
+        initLiveData();
+
+        viewModel.initLocalNewDetail(newId);
+        viewModel.initLocalCommentList(newId);
 
         onRefresh();
         viewModel.getHotCommentList();
+    }
+
+    private void initLiveData() {
+        viewModel.getNewDetailLiveData().observe(this, this::updateNewDetail);
+
+        viewModel.getCommentListLiveData().observe(this, comments -> {
+            adapter.setCommentList(comments);
+        });
+    }
+
+    private void updateNewDetail(NewDetail newDetail) {
+        if (newDetail == null) {
+            return;
+        }
+
+        User user = newDetail.user;
+        if (user != null) {
+            viewModel.header.userName = user.nickname;
+            viewModel.header.userUrl = user.avatar128;
+        }
+        viewModel.header.title = newDetail.title;
+        if (newDetail.cover_url != null) {
+            viewModel.header.url = newDetail.cover_url.ori;
+        }
+        viewModel.header.createTime = newDetail.create_time;
+
+        viewModel.setCommentCount(newDetail.comment);
+
+        String html = newDetail.content;
+        if (TextUtils.isEmpty(html)) {
+            return;
+        }
+        final String realHtml = html;
+        io.reactivex.Observable.create((ObservableOnSubscribe<List<NewEle>>) e -> {
+
+            List<NewEle> newEleList = HtmlParser.htmlToList(realHtml);
+            e.onNext(newEleList);
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(newEleList -> adapter.setData(newEleList, viewModel.header));
     }
 
     private void initListener() {
@@ -158,8 +199,8 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
     @Override
     public void onDestroy() {
         adapter.onDestroy();
-        viewModel.newDetail.removeOnPropertyChangedCallback(newDetailBack);
         viewModel.clear();
+
         super.onDestroy();
     }
 
@@ -193,43 +234,5 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
         binding.commentEt.setFocusable(false);
         binding.commentEt.setFocusableInTouchMode(true);
         KeyboardUtils.closeSoftInput(getActivity(), binding.commentEt);
-    }
-
-    private class NewDetailBack extends Observable.OnPropertyChangedCallback {
-
-        @Override
-        public void onPropertyChanged(Observable sender, int propertyId) {
-            NewDetail newDetail = viewModel.newDetail.get();
-            if (newDetail == null) {
-                return;
-            }
-
-            User user = newDetail.user;
-            if (user != null) {
-                viewModel.header.userName = user.nickname;
-                viewModel.header.userUrl = user.avatar128;
-            }
-            viewModel.header.title = newDetail.title;
-            if (newDetail.cover_url != null) {
-                viewModel.header.url = newDetail.cover_url.ori;
-            }
-            viewModel.header.createTime = newDetail.create_time;
-
-            viewModel.setCommentCount(newDetail.comment);
-
-            String html = newDetail.content;
-            if (TextUtils.isEmpty(html)) {
-                return;
-            }
-            final String realHtml = html;
-            io.reactivex.Observable.create((ObservableOnSubscribe<List<NewEle>>) e -> {
-
-                List<NewEle> newEleList = HtmlParser.htmlToList(realHtml);
-                e.onNext(newEleList);
-            })
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(newEleList -> adapter.setData(newEleList, viewModel.header));
-        }
     }
 }

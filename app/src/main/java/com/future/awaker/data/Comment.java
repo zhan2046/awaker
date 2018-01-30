@@ -1,6 +1,8 @@
 package com.future.awaker.data;
 
 
+import android.arch.persistence.room.Embedded;
+
 public class Comment {
 
     public String id;
@@ -21,7 +23,9 @@ public class Comment {
     public String sina_name;
     public String sina_avatar;
     public String sina_url;
+    @Embedded(prefix = "user")
     public User user;
+    @Embedded(prefix = "newstitle")
     public CommentTitle newstitle;
     public boolean isSelect;
 }
