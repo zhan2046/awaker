@@ -24,6 +24,7 @@ import com.future.awaker.news.listener.SendCommentListener;
 import com.future.awaker.news.viewmodel.NewDetailViewModel;
 import com.future.awaker.util.HtmlParser;
 import com.future.awaker.util.KeyboardUtils;
+import com.future.awaker.util.ResUtils;
 import com.future.awaker.video.activity.VideoDetailActivity;
 
 import java.util.List;
@@ -73,6 +74,9 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
         binding.toolbar.setTitle(newTitle);
         setToolbar(binding.toolbar);
 
+        String commentCountStr = ResUtils.getString(R.string.new_comment_count, "0");
+        binding.commentRightTv.setText(commentCountStr);
+
         viewModel = new NewDetailViewModel(newId, this);
         viewModel.initHeader(newTitle, newUrl);
 
@@ -116,7 +120,11 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
         }
         viewModel.header.createTime = newDetail.create_time;
 
-        viewModel.setCommentCount(newDetail.comment);
+        if (!TextUtils.isEmpty(newDetail.comment)) {
+            String commentCountStr = ResUtils.getString(R.string.new_comment_count,
+                    newDetail.comment);
+            binding.commentRightTv.setText(commentCountStr);
+        }
 
         String html = newDetail.content;
         if (TextUtils.isEmpty(html)) {

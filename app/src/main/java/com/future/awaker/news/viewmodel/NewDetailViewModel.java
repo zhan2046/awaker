@@ -1,10 +1,7 @@
 package com.future.awaker.news.viewmodel;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.databinding.Bindable;
 
-import com.future.awaker.BR;
-import com.future.awaker.R;
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.Comment;
 import com.future.awaker.data.Header;
@@ -15,7 +12,6 @@ import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.news.listener.SendCommentListener;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
-import com.future.awaker.util.ResUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +33,6 @@ public class NewDetailViewModel extends BaseListViewModel {
     public Header header = new Header();
 
     private String newId;
-    private String commentCount = "0";
 
     private SendCommentListener listener;
 
@@ -57,16 +52,6 @@ public class NewDetailViewModel extends BaseListViewModel {
 
         newDetailLiveData.setValue(null);
         commentListLiveData.setValue(null);
-    }
-
-    @Bindable
-    public String getCommentCount() {
-        return ResUtils.getString(R.string.new_comment_count, commentCount);
-    }
-
-    public void setCommentCount(String commentCount) {
-        this.commentCount = commentCount;
-        notifyPropertyChanged(BR.commentCount);
     }
 
     public void initHeader(String title, String url) {
