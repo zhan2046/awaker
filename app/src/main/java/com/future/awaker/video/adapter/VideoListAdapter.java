@@ -28,11 +28,13 @@ public class VideoListAdapter extends RecyclerView.Adapter {
     private static final int TYPE_LOADING = 1000;
     private static final int TYPE_VIDEO = 1001;
 
+    private static final String LOAD_MORE = "loadMore";
+
     private VideoViewModel videoViewModel;
     private OnItemClickListener<Special> listener;
 
-    private List<Special> newSpecialList = new ArrayList<>();
-    private List<Special> oldSpecialList = new ArrayList<>();
+    private List<Object> newSpecialList = new ArrayList<>();
+    private List<Object> oldSpecialList = new ArrayList<>();
 
     private VideoDiffCallBack diffCallBack = new VideoDiffCallBack();
 
@@ -47,6 +49,7 @@ public class VideoListAdapter extends RecyclerView.Adapter {
         }
         newSpecialList.clear();
         newSpecialList.addAll(list);
+        newSpecialList.add(LOAD_MORE);
         notifyDataSetChanged();
     }
 
@@ -59,6 +62,7 @@ public class VideoListAdapter extends RecyclerView.Adapter {
 
         newSpecialList.clear();
         newSpecialList.addAll(list);
+        newSpecialList.add(LOAD_MORE);
 
         diffCallBack.setData(oldSpecialList, newSpecialList);
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
@@ -67,7 +71,8 @@ public class VideoListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == newSpecialList.size()) {
+        Object object = newSpecialList.get(position);
+        if (object instanceof String) {
             return TYPE_LOADING;
         }
         return TYPE_VIDEO;
@@ -95,13 +100,13 @@ public class VideoListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         if (viewType == TYPE_VIDEO) {
-            ((VideoHolder) holder).bind(newSpecialList.get(position));
+            ((VideoHolder) holder).bind((Special) newSpecialList.get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        return newSpecialList.isEmpty() ? 0 : newSpecialList.size() + 1;
+        return newSpecialList.isEmpty() ? 0 : newSpecialList.size();
     }
 
     public static class VideoHolder extends RecyclerView.ViewHolder {
@@ -119,24 +124,46 @@ public class VideoListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private static class VideoDiffCallBack extends IDiffCallBack<Special> {
+    private static class VideoDiffCallBack extends IDiffCallBack<Object> {
 
         @Override
         public boolean isItemsTheSame(int oldItemPosition, int newItemPosition) {
-            Special oldObj = oldData.get(oldItemPosition);
-            Special newObj = newData.get(newItemPosition);
-            return Objects.equals(oldObj.id, newObj.id) &&
-                    Objects.equals(oldObj.title, newObj.title) &&
-                    Objects.equals(oldObj.cover, newObj.cover);
+            Object oldObj = oldData.get(oldItemPosition);
+            Object newObj = newData.get(newItemPosition);
+
+            if (oldObj instanceof Special && newObj instanceof Special) {
+                Special oldSpecial = (Special) oldObj;
+                Special newSpecial = (Special) newObj;
+                return Objects.equals(oldSpecial.id, newSpecial.id) &&
+                        Objects.equals(oldSpecial.title, newSpecial.title) &&
+                        Objects.equals(oldSpecial.cover, newSpecial.cover);
+
+            } else if (oldObj instanceof String && newObj instanceof String) {
+                String oldStr = (String) oldObj;
+                String newStr = (String) newObj;
+                return Objects.equals(oldStr, newStr);
+            }
+            return false;
         }
 
         @Override
         public boolean isContentsTheSame(int oldItemPosition, int newItemPosition) {
-            Special oldObj = oldData.get(oldItemPosition);
-            Special newObj = newData.get(newItemPosition);
-            return Objects.equals(oldObj.id, newObj.id) &&
-                    Objects.equals(oldObj.title, newObj.title) &&
-                    Objects.equals(oldObj.cover, newObj.cover);
+            Object oldObj = oldData.get(oldItemPosition);
+            Object newObj = newData.get(newItemPosition);
+
+            if (oldObj instanceof Special && newObj instanceof Special) {
+                Special oldSpecial = (Special) oldObj;
+                Special newSpecial = (Special) newObj;
+                return Objects.equals(oldSpecial.id, newSpecial.id) &&
+                        Objects.equals(oldSpecial.title, newSpecial.title) &&
+                        Objects.equals(oldSpecial.cover, newSpecial.cover);
+
+            } else if (oldObj instanceof String && newObj instanceof String) {
+                String oldStr = (String) oldObj;
+                String newStr = (String) newObj;
+                return Objects.equals(oldStr, newStr);
+            }
+            return false;
         }
     }
 }

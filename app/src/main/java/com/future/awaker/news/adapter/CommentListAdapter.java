@@ -56,8 +56,7 @@ public class CommentListAdapter extends RecyclerView.Adapter {
         }
         oldCommentList.clear();
         oldCommentList.addAll(commentList);
-        oldCommentList.add(LOAD_MORE);
-        
+
         commentList.clear();
         commentList.addAll(list);
         commentList.add(LOAD_MORE);
@@ -111,12 +110,18 @@ public class CommentListAdapter extends RecyclerView.Adapter {
         @Override
         public boolean isItemsTheSame(int oldItemPosition, int newItemPosition) {
             Object oldObj = oldData.get(oldItemPosition);
-            Object newsObj = newData.get(newItemPosition);
-            if (oldObj instanceof Comment && newsObj instanceof Comment) {
+            Object newObj = newData.get(newItemPosition);
+
+            if (oldObj instanceof Comment && newObj instanceof Comment) {
                 Comment oldComment = (Comment) oldObj;
-                Comment newComment = (Comment) newsObj;
+                Comment newComment = (Comment) newObj;
                 return Objects.equals(oldComment.id, newComment.id) &&
                         Objects.equals(oldComment.content, newComment.content);
+
+            } else if (oldObj instanceof String && newObj instanceof String) {
+                String oldStr = (String) oldObj;
+                String newStr = (String) newObj;
+                return Objects.equals(oldStr, newStr);
             }
             return false;
         }
@@ -124,12 +129,18 @@ public class CommentListAdapter extends RecyclerView.Adapter {
         @Override
         public boolean isContentsTheSame(int oldItemPosition, int newItemPosition) {
             Object oldObj = oldData.get(oldItemPosition);
-            Object newsObj = newData.get(newItemPosition);
-            if (oldObj instanceof Comment && newsObj instanceof Comment) {
+            Object newObj = newData.get(newItemPosition);
+
+            if (oldObj instanceof Comment && newObj instanceof Comment) {
                 Comment oldComment = (Comment) oldObj;
-                Comment newComment = (Comment) newsObj;
+                Comment newComment = (Comment) newObj;
                 return Objects.equals(oldComment.id, newComment.id) &&
                         Objects.equals(oldComment.content, newComment.content);
+
+            } else if (oldObj instanceof String && newObj instanceof String) {
+                String oldStr = (String) oldObj;
+                String newStr = (String) newObj;
+                return Objects.equals(oldStr, newStr);
             }
             return false;
         }
