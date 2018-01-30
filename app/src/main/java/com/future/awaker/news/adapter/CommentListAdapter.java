@@ -15,6 +15,7 @@ import com.future.awaker.databinding.ItemLoadBinding;
 import com.future.awaker.databinding.ItemNewDetailCommentBinding;
 import com.future.awaker.news.adapter.holder.NewDetailCommentHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +28,11 @@ public class CommentListAdapter extends RecyclerView.Adapter {
     private static final int TYPE_MORE = 1000;
     private static final int TYPE_ITEM = 1001;
 
-    private List<Comment> commentList;
+    private static final String LOAD_MORE = "loadMore";
+
+    private List<Object> commentList = new ArrayList<>();
+    private List<Object> oldCommentList = new ArrayList<>();
+
     private BaseListViewModel viewModel;
     private CommentDiffCallBack diffCallBack = new CommentDiffCallBack();
 
@@ -35,26 +40,37 @@ public class CommentListAdapter extends RecyclerView.Adapter {
         this.viewModel = viewModel;
     }
 
-    public void setData(List<Comment> comments) {
-        if (comments == null || comments.isEmpty()) {
+    public void setRefreshData(List<Comment> list) {
+        if (list == null) {
             return;
         }
-        if (commentList == null) {
-            commentList = comments;
-            notifyDataSetChanged();
+        commentList.clear();
+        commentList.addAll(list);
+        commentList.add(LOAD_MORE);
+        notifyDataSetChanged();
+    }
 
-        } else {
-            List<Comment> oldCommentList = commentList;
-            commentList = comments;
-            diffCallBack.setData(oldCommentList, comments);
-            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
-            diffResult.dispatchUpdatesTo(this);
+    public void setUpdateData(List<Comment> list) {
+        if (list == null) {
+            return;
         }
+        oldCommentList.clear();
+        oldCommentList.addAll(commentList);
+        oldCommentList.add(LOAD_MORE);
+        
+        commentList.clear();
+        commentList.addAll(list);
+        commentList.add(LOAD_MORE);
+
+        diffCallBack.setData(oldCommentList, commentList);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position >= commentList.size()) {
+        Object object = commentList.get(position);
+        if (object instanceof String) {
             return TYPE_MORE;
         }
         return TYPE_ITEM;
@@ -81,31 +97,41 @@ public class CommentListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         if (viewType == TYPE_ITEM) {
-            ((NewDetailCommentHolder) holder).bind(commentList.get(position));
+            ((NewDetailCommentHolder) holder).bind((Comment) commentList.get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        return commentList == null ? 0 : commentList.size() + 1;
+        return commentList == null ? 0 : commentList.size();
     }
 
-    private static class CommentDiffCallBack extends IDiffCallBack<Comment> {
+    private static class CommentDiffCallBack extends IDiffCallBack<Object> {
 
         @Override
         public boolean isItemsTheSame(int oldItemPosition, int newItemPosition) {
-            Comment oldObj = oldData.get(oldItemPosition);
-            Comment newsObj = newData.get(newItemPosition);
-            return Objects.equals(oldObj.id, newsObj.id) &&
-                    Objects.equals(oldObj.content, newsObj.content);
+            Object oldObj = oldData.get(oldItemPosition);
+            Object newsObj = newData.get(newItemPosition);
+            if (oldObj instanceof Comment && newsObj instanceof Comment) {
+                Comment oldComment = (Comment) oldObj;
+                Comment newComment = (Comment) newsObj;
+                return Objects.equals(oldComment.id, newComment.id) &&
+                        Objects.equals(oldComment.content, newComment.content);
+            }
+            return false;
         }
 
         @Override
         public boolean isContentsTheSame(int oldItemPosition, int newItemPosition) {
-            Comment oldObj = oldData.get(oldItemPosition);
-            Comment newsObj = newData.get(newItemPosition);
-            return Objects.equals(oldObj.id, newsObj.id) &&
-                    Objects.equals(oldObj.content, newsObj.content);
+            Object oldObj = oldData.get(oldItemPosition);
+            Object newsObj = newData.get(newItemPosition);
+            if (oldObj instanceof Comment && newsObj instanceof Comment) {
+                Comment oldComment = (Comment) oldObj;
+                Comment newComment = (Comment) newsObj;
+                return Objects.equals(oldComment.id, newComment.id) &&
+                        Objects.equals(oldComment.content, newComment.content);
+            }
+            return false;
         }
     }
 }

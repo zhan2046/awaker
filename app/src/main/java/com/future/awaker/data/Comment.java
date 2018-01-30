@@ -5,6 +5,8 @@ import android.arch.persistence.room.Embedded;
 
 public class Comment {
 
+    public static final String NEW_DETAIL = "new_detail";
+
     public String id;
     public String uid;
     public String app;

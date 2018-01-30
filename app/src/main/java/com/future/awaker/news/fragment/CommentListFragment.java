@@ -10,6 +10,7 @@ import com.future.awaker.Account;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
+import com.future.awaker.data.other.RefreshListModel;
 import com.future.awaker.databinding.FragCommentListBinding;
 import com.future.awaker.news.adapter.CommentListAdapter;
 import com.future.awaker.news.listener.SendCommentListener;
@@ -26,7 +27,8 @@ public class CommentListFragment extends BaseListFragment<FragCommentListBinding
 
     private static final String NEW_ID = "newId";
 
-    private CommentViewModel viewModel = new CommentViewModel(this);
+    private CommentListAdapter adapter;
+    private CommentViewModel viewModel;
     private String newId;
 
     public static CommentListFragment newInstance(String newId) {
@@ -45,19 +47,35 @@ public class CommentListFragment extends BaseListFragment<FragCommentListBinding
     @Override
     protected void initData() {
         newId = getArguments().getString(NEW_ID);
-        viewModel.setNewId(newId);
+
+        viewModel = new CommentViewModel(newId, this);
         setListViewModel(viewModel);
         binding.setViewModel(viewModel);
 
         binding.toolbar.setTitle(R.string.up_comment_more);
         setToolbar(binding.toolbar);
 
-        CommentListAdapter adapter = new CommentListAdapter(viewModel);
+        adapter = new CommentListAdapter(viewModel);
         recyclerView.setAdapter(adapter);
 
         initListener();
+        initLiveData();
 
+        viewModel.initLocalCommentList();
         onRefresh();
+    }
+
+    private void initLiveData() {
+        viewModel.getCommentLiveData().observe(this, refreshListModel -> {
+            if (refreshListModel != null) {
+                if (RefreshListModel.REFRESH == refreshListModel.refreshType) {
+                    adapter.setRefreshData(refreshListModel.list);
+
+                } else if (RefreshListModel.UPDATE == refreshListModel.refreshType) {
+                    adapter.setUpdateData(refreshListModel.list);
+                }
+            }
+        });
     }
 
     private void initListener() {

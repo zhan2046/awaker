@@ -1,24 +1,27 @@
 package com.future.awaker.news.viewmodel;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.Comment;
-import com.future.awaker.data.realm.CommentPageRealm;
-import com.future.awaker.data.realm.CommentRealm;
+import com.future.awaker.data.other.RefreshListModel;
+import com.future.awaker.db.entity.CommentEntity;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.news.listener.SendCommentListener;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.realm.RealmList;
-import io.realm.RealmResults;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -29,79 +32,102 @@ public class CommentViewModel extends BaseListViewModel {
     private static final String TAG = CommentViewModel.class.getSimpleName();
 
     private String newId;
-    public ObservableList<Comment> comments = new ObservableArrayList<>();
-    private HashMap<String, String> map = new HashMap<>();
-
     private SendCommentListener listener;
 
-    public CommentViewModel(SendCommentListener listener) {
+    private RefreshListModel<Comment> refreshListModel = new RefreshListModel<>();
+    private List<Comment> commentList = new ArrayList<>();
+    private MutableLiveData<RefreshListModel<Comment>> commentLiveData = new MutableLiveData<>();
+
+    private Disposable localDisposable;
+
+
+    public CommentViewModel(String newId, SendCommentListener listener) {
+        this.newId = newId;
         this.listener = listener;
+
+        commentLiveData.setValue(null);
     }
 
-    public void setNewId(String newId) {
-        this.newId = newId;
-        map.put(CommentPageRealm.ID, newId + CommentPageRealm.COMMENT_PAGE);
+    public void initLocalCommentList() {
+        localDisposable = AwakerRepository.get().loadCommentEntity(newId + Comment.NEW_DETAIL)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "initLocalCommentList doOnError: " + throwable.toString()))
+                .doOnNext(this::setLocalCommentList)
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
+    }
+
+    private void setLocalCommentList(CommentEntity commentEntity) {
+        if (commentEntity != null && commentList.isEmpty()) {
+            commentList.addAll(commentEntity.commentList);
+            refreshListModel.setRefreshType(commentList);
+            commentLiveData.setValue(refreshListModel);
+        }
+        localDisposable.dispose();
     }
 
     @Override
     public void refreshData(boolean refresh) {
-        if (refresh && comments.isEmpty()) {
-            getLocalCommentList();
-        }
-        getRemoteCommentList();
-    }
-
-    private void getRemoteCommentList() {
-        disposable.add(AwakerRepository.get().getNewsComments(TOKEN, newId, page)
+        AwakerRepository.get().getNewsComments(TOKEN, newId, page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(result -> setRemoteCommentList(result.getData()))
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+                .doOnNext(result -> setRefreshDataDoOnNext(refresh, result.getData()))
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setRemoteCommentList(List<Comment> commentList) {
-        setDataList(commentList, comments);
+    private void setRefreshDataDoOnNext(boolean refresh, List<Comment> comments) {
+        if (refresh) {
+            commentList.clear();
+            refreshListModel.setRefreshType();
 
-        if (!isEmpty.get()) {
-            CommentPageRealm commentPageRealm = new CommentPageRealm();
-            commentPageRealm.setComment_page_id(newId + CommentPageRealm.COMMENT_PAGE);
-            RealmList<CommentRealm> realms = CommentPageRealm.getRealmList(comments);
-            commentPageRealm.setCommentList(realms);
-            AwakerRepository.get().updateLocalRealm(commentPageRealm);
+        } else {
+            refreshListModel.setUpdateType();
         }
+
+        if (comments == null || comments.isEmpty()) {
+            isEmpty.set(true);
+
+        } else {
+            isEmpty.set(false);
+            commentList.addAll(comments);
+        }
+        refreshListModel.setList(commentList);
+        commentLiveData.setValue(refreshListModel);
+
+        setCommentListLocalDb(commentList);
     }
 
-    private void getLocalCommentList() {
-        disposable.add(AwakerRepository.get().getLocalRealm(CommentPageRealm.class, map)
+    private void setCommentListLocalDb(List<Comment> localComments) {
+        Flowable.create(e -> {
+            CommentEntity commentEntity = new CommentEntity(newId + Comment.NEW_DETAIL,
+                    localComments);
+            AwakerRepository.get().insertCommentEntity(commentEntity);
+            e.onComplete();
+
+        }, BackpressureStrategy.LATEST)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
-                .doOnNext(realmResults -> {
-                    LogUtils.d("getLocalCommentList" + realmResults.size());
-                    setLocalCommentList(realmResults);
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "setCommentListLocalDb doOnError: " + throwable.toString()))
+                .doOnComplete(() -> {
                 })
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
-    }
-
-    private void setLocalCommentList(RealmResults realmResults) {
-        if (realmResults == null || realmResults.isEmpty()) {
-            return;
-        }
-        CommentPageRealm commentPageRealm = (CommentPageRealm) realmResults.get(0);
-        if (comments.isEmpty()) {   // data is empty, network not back
-            RealmList<CommentRealm> commentRealms = commentPageRealm.getCommentList();
-            List<Comment> commentList = CommentPageRealm.getList(commentRealms);
-            setDataList(commentList, comments);
-        }
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
     public void sendNewsComment(String newId, String content, String open_id,
                                 String pid) {
         disposable.add(AwakerRepository.get().sendNewsComment(TOKEN, newId, content, open_id, pid)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> LogUtils.showLog(TAG, "remote doOnError: " + throwable.toString()))
+                .doOnError(throwable -> LogUtils.showLog(TAG, "remote doOnError: "
+                        + throwable.toString()))
                 .doOnNext(result -> listener.sendCommentSuc())
                 .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+    }
+
+    public MutableLiveData<RefreshListModel<Comment>> getCommentLiveData() {
+        return commentLiveData;
     }
 }

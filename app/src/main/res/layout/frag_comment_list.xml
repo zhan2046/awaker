@@ -94,7 +94,6 @@
                     android:layout_height="match_parent"
                     android:background="@color/grey300"
                     android:scrollbars="vertical"
-                    app:commentList="@{viewModel.comments}"
                     app:layoutManager="LinearLayoutManager"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </android.support.v4.widget.SwipeRefreshLayout>

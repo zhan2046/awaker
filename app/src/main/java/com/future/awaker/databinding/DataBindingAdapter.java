@@ -9,7 +9,6 @@ import com.future.awaker.data.Comment;
 import com.future.awaker.data.News;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.imageloader.ImageLoader;
-import com.future.awaker.news.adapter.CommentListAdapter;
 import com.future.awaker.news.adapter.HotCommentAdapter;
 import com.future.awaker.news.adapter.NewListAdapter;
 import com.future.awaker.video.adapter.SpecialListAdapter;
@@ -72,10 +71,7 @@ public final class DataBindingAdapter {
     public static void setCommentList(RecyclerView recyclerView,
                                       List<Comment> commentList) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter instanceof CommentListAdapter) {
-            ((CommentListAdapter) adapter).setData(new ArrayList<>(commentList));
-
-        } else if (adapter instanceof HotCommentAdapter) {
+        if (adapter instanceof HotCommentAdapter) {
             ((HotCommentAdapter) adapter).setData(new ArrayList<>(commentList));
         }
     }
