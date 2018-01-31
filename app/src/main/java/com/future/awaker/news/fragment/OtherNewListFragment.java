@@ -10,43 +10,43 @@ import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.News;
 import com.future.awaker.data.other.RefreshListModel;
-import com.future.awaker.databinding.FragNewBinding;
+import com.future.awaker.databinding.FragOtherNewBinding;
 import com.future.awaker.news.NewDetailActivity;
 import com.future.awaker.news.adapter.NewListAdapter;
-import com.future.awaker.news.viewmodel.NewListViewModel;
+import com.future.awaker.news.viewmodel.OtherNewListViewModel;
 import com.future.awaker.util.LogUtils;
 
 /**
  * Created by ruzhan on 2017/7/6.
  */
 
-public class NewListFragment extends BaseListFragment<FragNewBinding>
+public class OtherNewListFragment extends BaseListFragment<FragOtherNewBinding>
         implements OnItemClickListener<News>, onPageSelectedListener {
 
     private static final String NEW_ID = "newId";
 
     private boolean isFirst;
 
-    public static NewListFragment newInstance(int newId) {
+    public static OtherNewListFragment newInstance(int newId) {
         Bundle args = new Bundle();
         args.putInt(NEW_ID, newId);
-        NewListFragment fragment = new NewListFragment();
+        OtherNewListFragment fragment = new OtherNewListFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     protected int getLayout() {
-        return R.layout.frag_new;
+        return R.layout.frag_other_new;
     }
 
     @Override
     protected void initData() {
         int newId = getArguments().getInt(NEW_ID, 0);
 
-        NewListViewModel newListViewModel = new NewListViewModel(newId);
-        setListViewModel(newListViewModel);
-        binding.setViewModel(newListViewModel);
+        OtherNewListViewModel otherNewListViewModel = new OtherNewListViewModel(newId);
+        setListViewModel(otherNewListViewModel);
+        binding.setViewModel(otherNewListViewModel);
 
         NewListAdapter adapter = new NewListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
@@ -54,7 +54,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL));
 
-        newListViewModel.getNewsLiveData().observe(this, refreshListModel -> {
+        otherNewListViewModel.getNewsLiveData().observe(this, refreshListModel -> {
             if (refreshListModel != null) {
                 if (RefreshListModel.REFRESH == refreshListModel.refreshType) {
                     adapter.setRefreshData(refreshListModel.list);
@@ -65,7 +65,8 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
             }
         });
 
-        newListViewModel.initLocalNews();
+        otherNewListViewModel.initLocalNews();
+        onRefresh();
     }
 
     @Override

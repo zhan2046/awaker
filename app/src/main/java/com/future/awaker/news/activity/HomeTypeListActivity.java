@@ -12,8 +12,8 @@ import com.future.awaker.data.HomeItem;
 import com.future.awaker.databinding.ActivityNewListBinding;
 import com.future.awaker.news.fragment.HotNewsFragment;
 import com.future.awaker.news.fragment.HotReadNewsFragment;
-import com.future.awaker.news.fragment.NewListFragment;
 import com.future.awaker.news.fragment.NiceCommentFragment;
+import com.future.awaker.news.fragment.OtherNewListFragment;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -24,7 +24,7 @@ public class HomeTypeListActivity extends BaseActivity<ActivityNewListBinding> {
     private static final String NEW_ID = "newId";
     private static final String NEW_TITLE = "newTitle";
 
-    private NewListFragment newListFragment;
+    private OtherNewListFragment otherNewListFragment;
     private HotReadNewsFragment hotReadNewsFragment;
     private HotNewsFragment hotNewsFragment;
     private NiceCommentFragment niceCommentFragment;
@@ -79,10 +79,10 @@ public class HomeTypeListActivity extends BaseActivity<ActivityNewListBinding> {
                         "Hot_News_Fragment" + newId);
                 break;
             default:
-                if (newListFragment == null) {
-                    newListFragment = NewListFragment.newInstance(newId);
+                if (otherNewListFragment == null) {
+                    otherNewListFragment = OtherNewListFragment.newInstance(newId);
                 }
-                showFragment(newListFragment,
+                showFragment(otherNewListFragment,
                         "New_List_Fragment" + newId);
                 break;
         }
