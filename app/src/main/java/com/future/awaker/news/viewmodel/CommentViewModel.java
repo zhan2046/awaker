@@ -1,8 +1,6 @@
 package com.future.awaker.news.viewmodel;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
 
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.Comment;

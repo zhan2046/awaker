@@ -47,4 +47,12 @@ public class RefreshListModel<T> {
     public void setList(List<T> list) {
         this.list = list;
     }
+
+    public boolean isRefreshType() {
+        return REFRESH == refreshType;
+    }
+
+    public boolean isUpdateType() {
+        return UPDATE == refreshType;
+    }
 }

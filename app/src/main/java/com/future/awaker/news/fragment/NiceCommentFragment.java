@@ -18,7 +18,7 @@ import com.future.awaker.news.viewmodel.NiceCommentViewModel;
 public class NiceCommentFragment extends BaseListFragment<FragNiceCommentBinding>
         implements OnItemClickListener<Comment> {
 
-    private NiceCommentViewModel viewModel = new NiceCommentViewModel();
+    private NiceCommentViewModel viewModel;
 
     public static NiceCommentFragment newInstance() {
         return new NiceCommentFragment();
@@ -31,11 +31,26 @@ public class NiceCommentFragment extends BaseListFragment<FragNiceCommentBinding
 
     @Override
     protected void initData() {
+        viewModel = new NiceCommentViewModel();
         setListViewModel(viewModel);
         binding.setViewModel(viewModel);
 
         HotCommentAdapter adapter = new HotCommentAdapter(viewModel, this);
         recyclerView.setAdapter(adapter);
+
+        viewModel.getNiceCommentLiveData().observe(this, refreshListModel -> {
+            if (refreshListModel != null) {
+                if (refreshListModel.isRefreshType()) {
+                    adapter.setRefreshData(refreshListModel.list);
+
+                } else {
+                    adapter.setUpdateData(refreshListModel.list);
+
+                }
+            }
+        });
+
+        viewModel.initLocalNiceCommentList();
 
         onRefresh();
     }

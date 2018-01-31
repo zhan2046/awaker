@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.future.awaker.data.Comment;
 import com.future.awaker.data.News;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.imageloader.ImageLoader;
-import com.future.awaker.news.adapter.HotCommentAdapter;
 import com.future.awaker.news.adapter.NewListAdapter;
 import com.future.awaker.video.adapter.SpecialListAdapter;
 
@@ -64,15 +62,6 @@ public final class DataBindingAdapter {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter instanceof SpecialListAdapter) {
             ((SpecialListAdapter) adapter).setSpecialDetail(specialDetail);
-        }
-    }
-
-    @BindingAdapter({"commentList"})
-    public static void setCommentList(RecyclerView recyclerView,
-                                      List<Comment> commentList) {
-        RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter instanceof HotCommentAdapter) {
-            ((HotCommentAdapter) adapter).setData(new ArrayList<>(commentList));
         }
     }
 
