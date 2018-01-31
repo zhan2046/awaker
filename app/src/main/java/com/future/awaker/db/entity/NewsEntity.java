@@ -15,6 +15,7 @@ import java.util.List;
 @Entity(tableName = "news_entity")
 public class NewsEntity {
 
+    public static final String HOT_READ_NEWS_ALL = "hot_read_news_all";
     public static final String HOT_NEWS_ALL = "hot_news_all";
 
     @NonNull

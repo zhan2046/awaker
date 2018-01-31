@@ -1,23 +1,24 @@
 package com.future.awaker.news.viewmodel;
 
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
+import android.arch.lifecycle.MutableLiveData;
 
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.News;
-import com.future.awaker.data.realm.NewsPageRealm;
-import com.future.awaker.data.realm.NewsRealm;
+import com.future.awaker.data.other.RefreshListModel;
+import com.future.awaker.db.entity.NewsEntity;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.realm.RealmList;
-import io.realm.RealmResults;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -25,75 +26,89 @@ import io.realm.RealmResults;
 
 public class HotNewsViewModel extends BaseListViewModel {
 
-    private static final String TAG = HotNewsViewModel.class.getSimpleName();
-    private static final String ID_VALUE = "hot_news_all";
+    private static final String TAG = "HotNewsViewModel";
 
-    public ObservableList<News> news = new ObservableArrayList<>();
-    private HashMap<String, String> map = new HashMap<>();
+    private RefreshListModel<News> refreshListModel = new RefreshListModel<>();
+    private List<News> hotNewsList = new ArrayList<>();
+    private MutableLiveData<RefreshListModel<News>> hotNewsListLiveData = new MutableLiveData<>();
+
+    private Disposable localDisposable;
 
     public HotNewsViewModel() {
-        map.put(NewsPageRealm.ID, ID_VALUE);
+        hotNewsListLiveData.setValue(null);
+    }
+
+    public void initLocalHotList() {
+        localDisposable = AwakerRepository.get().loadNewsEntity(NewsEntity.HOT_NEWS_ALL)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "initLocalHotList doOnError: " + throwable.toString()))
+                .doOnNext(this::setLocalHotList)
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
+    }
+
+    private void setLocalHotList(NewsEntity newsEntity) {
+        if (newsEntity != null && hotNewsList.isEmpty()) {
+            hotNewsList.addAll(newsEntity.newsList);
+            refreshListModel.setRefreshType(hotNewsList);
+            hotNewsListLiveData.setValue(refreshListModel);
+        }
+        localDisposable.dispose();
     }
 
     @Override
     public void refreshData(boolean refresh) {
-        if (isRefresh && news.isEmpty()) {
-            getLocalHotNewsAll();
-        }
-        getRemoteHotNewsAll();
-    }
-
-    private void getRemoteHotNewsAll() {
-        disposable.add(AwakerRepository.get().getHotNewsAll(TOKEN, page, 0)
+        AwakerRepository.get().getHotNewsAll(TOKEN, page, 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(result -> setRemoteHotNewsAll(result.getData()))
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+                .doOnNext(result -> setRefreshDataDoOnNext(refresh, result.getData()))
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setRemoteHotNewsAll(List<News> newsList) {
-        setDataList(newsList, news);
+    private void setRefreshDataDoOnNext(boolean refresh, List<News> remoteNewsList) {
+        if (refresh) {
+            hotNewsList.clear();
+            refreshListModel.setRefreshType();
 
-        if (!isEmpty.get()) {
-            if (isRefresh) {
-                NewsPageRealm newsPageRealm = new NewsPageRealm();
-                newsPageRealm.setNews_page_id(ID_VALUE);
-                RealmList<NewsRealm> realmList = NewsPageRealm.getNewsRealmList(news);
-                newsPageRealm.setNewsList(realmList);
-                AwakerRepository.get().updateLocalRealm(newsPageRealm);
-            }
-
-            // only one page
-            isEmpty.set(true);
+        } else {
+            refreshListModel.setUpdateType();
         }
+
+        if (remoteNewsList == null || remoteNewsList.isEmpty()) {
+            isEmpty.set(true);
+
+        } else {
+            isEmpty.set(false);
+            hotNewsList.addAll(remoteNewsList);
+        }
+
+        refreshListModel.setList(hotNewsList);
+        hotNewsListLiveData.setValue(refreshListModel);
+
+        setHotListLocalDb(hotNewsList);
     }
 
-    private void getLocalHotNewsAll() {
-        disposable.add(AwakerRepository.get().getLocalRealm(NewsPageRealm.class, map)
+    private void setHotListLocalDb(List<News> localNewsList) {
+        Flowable.create(e -> {
+            NewsEntity newsEntity = new NewsEntity(NewsEntity.HOT_NEWS_ALL,
+                    localNewsList);
+            AwakerRepository.get().insertNewsEntity(newsEntity);
+            e.onComplete();
+
+        }, BackpressureStrategy.LATEST)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
-                .doOnSubscribe(disposable -> isRunning.set(true))
-                .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(realmResults -> {
-                    LogUtils.d("getLocalHotNewsAll" + realmResults.size());
-                    setLocalHotNewsAll(realmResults);
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "setHotListLocalDb doOnError: " + throwable.toString()))
+                .doOnComplete(() -> {
                 })
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setLocalHotNewsAll(RealmResults realmResults) {
-        if (realmResults == null || realmResults.isEmpty()) {
-            return;
-        }
-        NewsPageRealm newsPageRealm = (NewsPageRealm) realmResults.get(0);
-        if (news.isEmpty()) {   // data is empty, network not back
-            RealmList<NewsRealm> realmList = newsPageRealm.getNewsList();
-            List<News> newsList = NewsPageRealm.getNewsList(realmList);
-
-            news.addAll(newsList);
-            isEmpty.set(true);
-        }
+    public MutableLiveData<RefreshListModel<News>> getHotNewsListLiveData() {
+        return hotNewsListLiveData;
     }
 }

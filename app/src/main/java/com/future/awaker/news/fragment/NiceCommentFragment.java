@@ -62,7 +62,7 @@ public class NiceCommentFragment extends BaseListFragment<FragNiceCommentBinding
 
     @Override
     public void onDestroy() {
-        viewModel.clear();
+
         super.onDestroy();
     }
 

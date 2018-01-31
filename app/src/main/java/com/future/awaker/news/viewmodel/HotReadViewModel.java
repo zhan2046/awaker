@@ -44,7 +44,7 @@ public class HotReadViewModel extends BaseListViewModel {
     }
 
     public void initHotNewsList() {
-        localDisposable = AwakerRepository.get().loadNewsEntity(NewsEntity.HOT_NEWS_ALL)
+        localDisposable = AwakerRepository.get().loadNewsEntity(NewsEntity.HOT_READ_NEWS_ALL)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
@@ -98,7 +98,7 @@ public class HotReadViewModel extends BaseListViewModel {
 
     private void setHotNewsListLocalDb(List<News> localNewsList) {
         Flowable.create(e -> {
-            NewsEntity newsEntity = new NewsEntity(NewsEntity.HOT_NEWS_ALL,
+            NewsEntity newsEntity = new NewsEntity(NewsEntity.HOT_READ_NEWS_ALL,
                     localNewsList);
             AwakerRepository.get().insertNewsEntity(newsEntity);
             e.onComplete();

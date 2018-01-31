@@ -115,7 +115,7 @@ public class CommentListFragment extends BaseListFragment<FragCommentListBinding
 
     @Override
     public void onDestroy() {
-        viewModel.clear();
+
         super.onDestroy();
     }
 

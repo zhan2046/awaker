@@ -11,7 +11,6 @@ import com.future.awaker.databinding.FragNewHotBinding;
 import com.future.awaker.news.NewDetailActivity;
 import com.future.awaker.news.adapter.NewListAdapter;
 import com.future.awaker.news.viewmodel.HotNewsViewModel;
-import com.future.awaker.source.AwakerRepository;
 
 /**
  * Created by ruzhan on 2017/7/6.
@@ -43,6 +42,20 @@ public class HotNewsFragment extends BaseListFragment<FragNewHotBinding>
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL));
 
+        viewModel.getHotNewsListLiveData().observe(this, refreshListModel -> {
+            if (refreshListModel != null) {
+                if (refreshListModel.isRefreshType()) {
+                    adapter.setRefreshData(refreshListModel.list);
+
+                } else {
+                    adapter.setUpdateData(refreshListModel.list);
+
+                }
+            }
+        });
+
+
+        viewModel.initLocalHotList();
         onRefresh();
     }
 
@@ -53,8 +66,7 @@ public class HotNewsFragment extends BaseListFragment<FragNewHotBinding>
 
     @Override
     public void onDestroyView() {
-        viewModel.clear();
-        AwakerRepository.get().close();
+
         super.onDestroyView();
     }
 

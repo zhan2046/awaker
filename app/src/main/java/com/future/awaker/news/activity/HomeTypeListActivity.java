@@ -61,7 +61,7 @@ public class HomeTypeListActivity extends BaseActivity<ActivityNewListBinding> {
                     niceCommentFragment = NiceCommentFragment.newInstance();
                 }
                 showFragment(niceCommentFragment,
-                        NiceCommentFragment.class.getSimpleName());
+                        "Nice_Comment_Fragment" + newId);
 
                 break;
             case HomeItem.WEEK_NEW_READ:
@@ -69,21 +69,21 @@ public class HomeTypeListActivity extends BaseActivity<ActivityNewListBinding> {
                     hotReadNewsFragment = HotReadNewsFragment.newInstance();
                 }
                 showFragment(hotReadNewsFragment,
-                        HotReadNewsFragment.class.getSimpleName());
+                        "Hot_ReadNews_Fragment" + newId);
                 break;
             case HomeItem.WEEK_NEW_COMMENT:
                 if (hotNewsFragment == null) {
                     hotNewsFragment = HotNewsFragment.newInstance();
                 }
                 showFragment(hotNewsFragment,
-                        HotNewsFragment.class.getSimpleName());
+                        "Hot_News_Fragment" + newId);
                 break;
             default:
                 if (newListFragment == null) {
                     newListFragment = NewListFragment.newInstance(newId);
                 }
                 showFragment(newListFragment,
-                        NewListFragment.class.getSimpleName());
+                        "New_List_Fragment" + newId);
                 break;
         }
     }

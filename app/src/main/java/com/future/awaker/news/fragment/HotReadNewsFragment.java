@@ -11,7 +11,6 @@ import com.future.awaker.databinding.FragNewHotReadBinding;
 import com.future.awaker.news.NewDetailActivity;
 import com.future.awaker.news.adapter.NewListAdapter;
 import com.future.awaker.news.viewmodel.HotReadViewModel;
-import com.future.awaker.source.AwakerRepository;
 
 /**
  * Created by ruzhan on 2017/7/6.
@@ -66,8 +65,7 @@ public class HotReadNewsFragment extends BaseListFragment<FragNewHotReadBinding>
 
     @Override
     public void onDestroyView() {
-        viewModel.clear();
-        AwakerRepository.get().close();
+
         super.onDestroyView();
     }
 
