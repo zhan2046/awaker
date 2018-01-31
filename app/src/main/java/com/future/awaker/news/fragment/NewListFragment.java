@@ -66,6 +66,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
         });
 
         newListViewModel.initLocalNews();
+        onRefresh();
     }
 
     @Override
