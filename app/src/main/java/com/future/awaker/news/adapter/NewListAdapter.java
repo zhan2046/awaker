@@ -24,8 +24,8 @@ public class NewListAdapter extends RecyclerView.Adapter {
 
     private OnItemClickListener<News> listener;
 
-    private List<News> newsList = new ArrayList<>();
-    private List<News> oldNewsList = new ArrayList<>();
+    private List<Object> newsList = new ArrayList<>();
+    private List<Object> oldNewsList = new ArrayList<>();
 
     private NewDiffCallBack diffCallBack = new NewDiffCallBack();
 
@@ -69,7 +69,7 @@ public class NewListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((NewHolder) holder).bind(newsList.get(position));
+        ((NewHolder) holder).bind((News) newsList.get(position));
     }
 
     @Override
@@ -97,22 +97,34 @@ public class NewListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private static class NewDiffCallBack extends IDiffCallBack<News> {
+    private static class NewDiffCallBack extends IDiffCallBack<Object> {
 
         @Override
         public boolean isItemsTheSame(int oldItemPosition, int newItemPosition) {
-            News oldObj = oldData.get(oldItemPosition);
-            News newsObj = newData.get(newItemPosition);
-            return Objects.equals(oldObj.id, newsObj.id) &&
-                    Objects.equals(oldObj.title, newsObj.title);
+            Object oldObj = oldData.get(oldItemPosition);
+            Object newsObj = newData.get(newItemPosition);
+
+            if (oldObj instanceof News && newsObj instanceof News) {
+                News oldNews = (News) oldObj;
+                News newNews = (News) newsObj;
+                return Objects.equals(oldNews.id, newNews.id) &&
+                        Objects.equals(oldNews.title, newNews.title);
+            }
+            return false;
         }
 
         @Override
         public boolean isContentsTheSame(int oldItemPosition, int newItemPosition) {
-            News oldObj = oldData.get(oldItemPosition);
-            News newsObj = newData.get(newItemPosition);
-            return Objects.equals(oldObj.id, newsObj.id) &&
-                    Objects.equals(oldObj.title, newsObj.title);
+            Object oldObj = oldData.get(oldItemPosition);
+            Object newsObj = newData.get(newItemPosition);
+
+            if (oldObj instanceof News && newsObj instanceof News) {
+                News oldNews = (News) oldObj;
+                News newNews = (News) newsObj;
+                return Objects.equals(oldNews.id, newNews.id) &&
+                        Objects.equals(oldNews.title, newNews.title);
+            }
+            return false;
         }
     }
 }

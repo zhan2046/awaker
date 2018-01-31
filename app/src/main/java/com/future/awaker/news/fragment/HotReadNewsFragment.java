@@ -43,6 +43,19 @@ public class HotReadNewsFragment extends BaseListFragment<FragNewHotReadBinding>
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL));
 
+        viewModel.getHotNewsLiveData().observe(this, refreshListModel -> {
+            if (refreshListModel != null) {
+                if (refreshListModel.isRefreshType()) {
+                    adapter.setRefreshData(refreshListModel.list);
+
+                } else {
+                    adapter.setUpdateData(refreshListModel.list);
+
+                }
+            }
+        });
+
+        viewModel.initHotNewsList();
         onRefresh();
     }
 
