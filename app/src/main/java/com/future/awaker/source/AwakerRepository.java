@@ -15,36 +15,26 @@ import com.future.awaker.db.entity.SpecialListEntity;
 import com.future.awaker.db.entity.UserInfoEntity;
 import com.future.awaker.network.AwakerClient;
 import com.future.awaker.network.HttpResult;
-import com.future.awaker.source.local.ILocalDataSource;
-import com.future.awaker.source.local.LocalDataSourceImpl;
 import com.future.awaker.source.remote.IRemoteDataSource;
 import com.future.awaker.source.remote.RemoteDataSourceImpl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Flowable;
-import io.realm.RealmModel;
-import io.realm.RealmResults;
 
 /**
  * Copyright ©2017 by ruzhan
  */
 
-public final class AwakerRepository implements ILocalDataSource, IRemoteDataSource {
+public final class AwakerRepository implements IRemoteDataSource {
 
     private static AwakerRepository INSTANCE;
 
-    private ILocalDataSource localDataSource;
     private IRemoteDataSource remoteDataSource;
-
     private AppDatabase appDatabase;
 
     private AwakerRepository() {
-        localDataSource = new LocalDataSourceImpl();
         remoteDataSource = new RemoteDataSourceImpl(AwakerClient.get());
-
         appDatabase = AppDatabase.get(Application.get());
     }
 
@@ -121,31 +111,6 @@ public final class AwakerRepository implements ILocalDataSource, IRemoteDataSour
 
     public void insertNewsList(List<News> newsList) {
         appDatabase.newsDao().insertNewsList(newsList);
-    }
-
-    @Override
-    public Flowable<RealmResults> getLocalRealm(Class clazz, HashMap<String, String> map) {
-        return localDataSource.getLocalRealm(clazz, map);
-    }
-
-    @Override
-    public void updateLocalRealm(RealmModel realmModel) {
-        localDataSource.updateLocalRealm(realmModel);
-    }
-
-    @Override
-    public void deleteLocalRealm(Class clazz, Map<String, String> map) {
-        localDataSource.deleteLocalRealm(clazz, map);
-    }
-
-    @Override
-    public void clearAll() {
-        localDataSource.clearAll();
-    }
-
-    @Override
-    public void close() {
-        localDataSource.close();
     }
 
     @Override

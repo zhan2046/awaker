@@ -32,7 +32,6 @@ import com.future.awaker.databinding.ActivityHomeBinding;
 import com.future.awaker.home.adapter.HomeAdapter;
 import com.future.awaker.login.LoginActivity;
 import com.future.awaker.setting.SettingActivity;
-import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.ResUtils;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
@@ -132,7 +131,7 @@ public class HomeActivity extends AppCompatActivity {
                 .negativeColorRes(R.color.text_color)
                 .positiveColorRes(R.color.text_color)
                 .onPositive((dialog, which) -> {
-                    AwakerRepository.get().clearAll();
+                    // empty... - -
                     Toast.makeText(this, R.string.cache_clear_finish,
                             Toast.LENGTH_SHORT).show();
                 })
