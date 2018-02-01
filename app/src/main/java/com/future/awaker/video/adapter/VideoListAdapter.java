@@ -106,7 +106,7 @@ public class VideoListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return newSpecialList.isEmpty() ? 0 : newSpecialList.size();
+        return newSpecialList.size();
     }
 
     public static class VideoHolder extends RecyclerView.ViewHolder {

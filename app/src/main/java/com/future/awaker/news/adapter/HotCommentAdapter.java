@@ -105,7 +105,7 @@ public class HotCommentAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return commentList == null ? 0 : commentList.size();
+        return commentList.size();
     }
 
     private static class CommentDiffCallBack extends IDiffCallBack<Object> {

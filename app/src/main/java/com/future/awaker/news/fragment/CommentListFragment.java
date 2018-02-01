@@ -68,10 +68,10 @@ public class CommentListFragment extends BaseListFragment<FragCommentListBinding
     private void initLiveData() {
         viewModel.getCommentLiveData().observe(this, refreshListModel -> {
             if (refreshListModel != null) {
-                if (RefreshListModel.REFRESH == refreshListModel.refreshType) {
+                if (refreshListModel.isRefreshType()) {
                     adapter.setRefreshData(refreshListModel.list);
 
-                } else if (RefreshListModel.UPDATE == refreshListModel.refreshType) {
+                } else if (refreshListModel.isUpdateType()) {
                     adapter.setUpdateData(refreshListModel.list);
                 }
             }

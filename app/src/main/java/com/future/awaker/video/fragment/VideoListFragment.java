@@ -64,10 +64,10 @@ public class VideoListFragment extends BaseListFragment<FragVideoBinding>
 
         videoViewModel.getSpecialLiveData().observe(this, refreshListModel -> {
             if (refreshListModel != null) {
-                if (RefreshListModel.REFRESH == refreshListModel.refreshType) {
+                if (refreshListModel.isRefreshType()) {
                     adapter.setRefreshData(refreshListModel.list);
 
-                } else if (RefreshListModel.UPDATE == refreshListModel.refreshType) {
+                } else if (refreshListModel.isUpdateType()) {
                     adapter.setUpdateData(refreshListModel.list);
                 }
             }

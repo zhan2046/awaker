@@ -47,7 +47,7 @@ public class HotReadNewsFragment extends BaseListFragment<FragNewHotReadBinding>
                 if (refreshListModel.isRefreshType()) {
                     adapter.setRefreshData(refreshListModel.list);
 
-                } else {
+                } else if (refreshListModel.isUpdateType()) {
                     adapter.setUpdateData(refreshListModel.list);
 
                 }

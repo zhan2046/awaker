@@ -47,7 +47,7 @@ public class HotNewsFragment extends BaseListFragment<FragNewHotBinding>
                 if (refreshListModel.isRefreshType()) {
                     adapter.setRefreshData(refreshListModel.list);
 
-                } else {
+                } else if (refreshListModel.isUpdateType()) {
                     adapter.setUpdateData(refreshListModel.list);
 
                 }

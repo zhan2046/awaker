@@ -201,7 +201,7 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return dataList == null ? 0 : dataList.size();
+        return dataList.size();
     }
 
     public void onResume() {
