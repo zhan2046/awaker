@@ -55,8 +55,7 @@ Screenshots
 版本记录
 ------
 #### 2018-2-1    v0.8
-*  移除所有Realm相关，使用  Room 来代替
-*  
+*  完成持久层的全部替换 
 #### 2018-1-18    v0.7
 *  添加 LiveData  Room，更新ViewModel
 
