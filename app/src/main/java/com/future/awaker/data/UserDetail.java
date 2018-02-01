@@ -1,6 +1,8 @@
 package com.future.awaker.data;
 
 
+import android.arch.persistence.room.Embedded;
+
 /**
  * Copyright ©2017 by ruzhan
  */
@@ -25,6 +27,7 @@ public class UserDetail {
     public String title;
     public String fans;
     public String following;
+    @Embedded(prefix = "user_info_data_level")
     public Level level;
     public String now_shop_score;
     public int is_self;

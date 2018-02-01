@@ -5,15 +5,16 @@ import android.content.Context;
 import com.future.awaker.Account;
 import com.future.awaker.Application;
 import com.future.awaker.data.UserInfo;
-import com.future.awaker.data.realm.UserInfoRealm;
+import com.future.awaker.db.entity.UserInfoEntity;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 
-import java.util.HashMap;
-
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -21,7 +22,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public final class AccountHelper {
 
-    private static final String TAG = AccountHelper.class.getSimpleName();
+    private static final String TAG = "AccountHelper";
 
 
     public static final String OPEN_ID = "openId";
@@ -41,29 +42,49 @@ public final class AccountHelper {
     }
 
     public static void initUserInfo() {
-        HashMap<String, String> map = new HashMap<>();
-        map.put(UserInfoRealm.ID, UserInfoRealm.ID_VALUE);
-        AwakerRepository.get().getLocalRealm(UserInfoRealm.class, map)
+        AwakerRepository.get().loadUserInfoEntity(UserInfoEntity.ID)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> LogUtils.showLog(TAG,
-                        "doOnError: " + throwable.toString()))
-                .doOnNext(realmResults -> {
-                    LogUtils.d("initUserInfo: " + realmResults.size());
-                    Account.get().setLocalUserInfo(realmResults);
-
+                        "initLocalNews doOnError: " + throwable.toString()))
+                .doOnNext(userInfoEntity -> {
+                    if (userInfoEntity != null) {
+                        Account.get().setUserInfoToLocal(userInfoEntity.userInfo);
+                    }
                 })
                 .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
     public static void setUserInfoToLocal(UserInfo userInfo) {
-        UserInfoRealm userInfoRealm = UserInfoRealm.getUserInfoRealm(userInfo);
-        AwakerRepository.get().updateLocalRealm(userInfoRealm);
+        Flowable.create(e -> {
+            UserInfoEntity userInfoEntity = new UserInfoEntity(UserInfoEntity.ID, userInfo);
+            AwakerRepository.get().insertUserInfoEntity(userInfoEntity);
+            e.onComplete();
+
+        }, BackpressureStrategy.LATEST)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "setUserInfoToLocal doOnError: " + throwable.toString()))
+                .doOnComplete(() -> {
+                })
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
     public static void clearUserInfo() {
-        HashMap<String, String> map = new HashMap<>();
-        map.put(UserInfoRealm.ID, UserInfoRealm.ID_VALUE);
-        AwakerRepository.get().deleteLocalRealm(UserInfoRealm.class, map);
+        Flowable.create(e -> {
+            UserInfoEntity userInfoEntity = new UserInfoEntity(UserInfoEntity.ID, null);
+            AwakerRepository.get().insertUserInfoEntity(userInfoEntity);
+            e.onComplete();
+
+        }, BackpressureStrategy.LATEST)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "setUserInfoToLocal doOnError: " + throwable.toString()))
+                .doOnComplete(() -> {
+                })
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
     public static void setOpenIdToLocal(String openId) {

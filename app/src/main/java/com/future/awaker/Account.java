@@ -1,10 +1,7 @@
 package com.future.awaker;
 
 import com.future.awaker.data.UserInfo;
-import com.future.awaker.data.realm.UserInfoRealm;
 import com.future.awaker.helper.AccountHelper;
-
-import io.realm.RealmResults;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -44,16 +41,6 @@ public final class Account {
         AccountHelper.initUserInfo();
     }
 
-    public void setLocalUserInfo(RealmResults realmResults) {
-        if (realmResults == null || realmResults.isEmpty()) {
-            return;
-        }
-        UserInfoRealm userInfoRealm =
-                (UserInfoRealm) realmResults.get(0);
-        UserInfo userInfo = UserInfoRealm.getUserInfo(userInfoRealm);
-        setUserInfo(userInfo);
-    }
-
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
     }
@@ -64,6 +51,10 @@ public final class Account {
 
     public void setUserInfoToLocal(UserInfo userInfo) {
         this.userInfo = userInfo;
+        if (userInfo != null) {
+            setOpenIdToLocal(userInfo.data == null ? "" : userInfo.data.open_id);
+            setUserNameToLocal(userInfo.data_1 == null ? "" : userInfo.data_1.nickname);
+        }
         AccountHelper.setUserInfoToLocal(userInfo);
     }
 

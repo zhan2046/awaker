@@ -21,12 +21,14 @@ import com.future.awaker.db.dao.NewsDao;
 import com.future.awaker.db.dao.NewsListDao;
 import com.future.awaker.db.dao.SpecialDetailDao;
 import com.future.awaker.db.dao.SpecialListDao;
+import com.future.awaker.db.dao.UserInfoDao;
 import com.future.awaker.db.entity.CommentEntity;
 import com.future.awaker.db.entity.NewsEntity;
 import com.future.awaker.db.entity.SpecialListEntity;
+import com.future.awaker.db.entity.UserInfoEntity;
 
 @Database(entities = {News.class, SpecialListEntity.class, BannerItem.class, NewDetail.class,
-        CommentEntity.class, NewsEntity.class, SpecialDetail.class},
+        CommentEntity.class, NewsEntity.class, SpecialDetail.class, UserInfoEntity.class},
         version = 1, exportSchema = false)
 @TypeConverters(RoomDataConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
@@ -49,6 +51,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract NewsListDao newsListDao();
 
     public abstract SpecialDetailDao specialDetailDao();
+
+    public abstract UserInfoDao userInfoDao();
 
     private final MutableLiveData<Boolean> isDatabaseCreated = new MutableLiveData<>();
 
