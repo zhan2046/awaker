@@ -1,18 +1,10 @@
 package com.future.awaker.databinding;
 
 import android.databinding.BindingAdapter;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.future.awaker.data.News;
-import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.imageloader.ImageLoader;
-import com.future.awaker.news.adapter.NewListAdapter;
-import com.future.awaker.video.adapter.SpecialListAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ruzhan on 2017/7/15.
@@ -47,22 +39,4 @@ public final class DataBindingAdapter {
             ImageLoader.get().loadCropCircle(iv, resId);
         }
     }
-
-    @BindingAdapter({"news"})
-    public static void setNews(RecyclerView recyclerView, List<News> news) {
-        RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter instanceof NewListAdapter) {
-            ((NewListAdapter) adapter).setRefreshData(new ArrayList<>(news));
-        }
-    }
-
-    @BindingAdapter({"specialDetail"})
-    public static void setSpecialDetail(RecyclerView recyclerView,
-                                        SpecialDetail specialDetail) {
-        RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter instanceof SpecialListAdapter) {
-            ((SpecialListAdapter) adapter).setSpecialDetail(specialDetail);
-        }
-    }
-
 }
