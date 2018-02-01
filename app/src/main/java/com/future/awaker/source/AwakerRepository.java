@@ -58,6 +58,14 @@ public final class AwakerRepository implements ILocalDataSource, IRemoteDataSour
         return INSTANCE;
     }
 
+    public Flowable<SpecialDetail> loadSpecialDetail(String id) {
+        return appDatabase.specialDetailDao().loadSpecialDetail(id);
+    }
+
+    public void insertSpecialDetail(SpecialDetail specialDetail) {
+        appDatabase.specialDetailDao().insertSpecialDetail(specialDetail);
+    }
+
     public Flowable<NewsEntity> loadNewsEntity(String id) {
         return appDatabase.newsListDao().loadNewsEntity(id);
     }

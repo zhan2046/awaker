@@ -1,19 +1,19 @@
 package com.future.awaker.video.viewmodel;
 
-import android.databinding.Bindable;
+import android.arch.lifecycle.MutableLiveData;
 
 import com.future.awaker.base.viewmodel.BaseListViewModel;
 import com.future.awaker.data.SpecialDetail;
-import com.future.awaker.data.realm.SpecialDetailRealm;
 import com.future.awaker.network.EmptyConsumer;
 import com.future.awaker.network.ErrorConsumer;
 import com.future.awaker.source.AwakerRepository;
 import com.future.awaker.util.LogUtils;
 
-import java.util.HashMap;
-
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.realm.RealmResults;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ruzhan on 2017/7/15.
@@ -21,105 +21,75 @@ import io.realm.RealmResults;
 
 public class SpecialListViewModel extends BaseListViewModel {
 
-    private static final String TAG = SpecialListViewModel.class.getSimpleName();
+    private static final String TAG = "SpecialListViewModel";
 
     private String id;
-    private String title;
-    private String content;
-    private String url;
 
-    @Bindable
     private SpecialDetail specialDetail;
+    private MutableLiveData<SpecialDetail> specialDetailLiveData = new MutableLiveData<>();
 
-    private HashMap<String, String> map = new HashMap<>();
+    private Disposable localDisposable;
 
-    public SpecialDetail getSpecialDetail() {
-        return specialDetail;
-    }
-
-    public void setSpecialDetail(SpecialDetail specialDetail) {
-        this.specialDetail = specialDetail;
-        title = specialDetail.title;
-        url = specialDetail.cover;
-        content = specialDetail.content;
-        notifyChange();
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getTitle() {
-        if (specialDetail != null) {
-            return specialDetail.title;
-        }
-        return title;
-    }
-
-    public String getUrl() {
-        if (specialDetail != null) {
-            return specialDetail.cover;
-        }
-        return url;
-    }
-
-    public void setParams(String id, String title, String url) {
+    public SpecialListViewModel(String id) {
         this.id = id;
-        this.title = title;
-        this.url = url;
-        map.put(SpecialDetailRealm.ID, id);
+        specialDetailLiveData.setValue(null);
+    }
+
+    public void initLocalSpecialDetail() {
+        localDisposable = AwakerRepository.get().loadSpecialDetail(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "initLocalSpecialDetail doOnError: " + throwable.toString()))
+                .doOnNext(this::setLocalSpecialDetail)
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
+    }
+
+    private void setLocalSpecialDetail(SpecialDetail localSpecialDetail) {
+        if (localSpecialDetail != null && specialDetail == null) {
+            specialDetail = localSpecialDetail;
+            specialDetailLiveData.setValue(specialDetail);
+        }
+        localDisposable.dispose();
     }
 
     @Override
     public void refreshData(boolean refresh) {
-        if (isRefresh && specialDetail == null) {
-            getLocalSpecialDetail();
-        }
-        getRemoteSpecialDetail();
-    }
-
-    private void getRemoteSpecialDetail() {
-        disposable.add(AwakerRepository.get()
+        AwakerRepository.get()
                 .getSpecialDetail(TOKEN, id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> isError.set(throwable))
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
-                .doOnNext(result -> setRemoteSpecialDetail(result.getData()))
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+                .doOnNext(result -> setRefreshDataDoOnNext(refresh, result.getData()))
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setRemoteSpecialDetail(SpecialDetail specialDetail) {
-        checkEmpty(specialDetail);
-        if (!isEmpty.get()) {
-            if (isRefresh) {
-                // save to local
-                SpecialDetailRealm newDetailRealm = SpecialDetailRealm.setSpecialDetail(specialDetail);
-                AwakerRepository.get().updateLocalRealm(newDetailRealm);
-            }
-            setSpecialDetail(specialDetail);
+    private void setRefreshDataDoOnNext(boolean refresh, SpecialDetail remoteSpecialDetail) {
+        if (remoteSpecialDetail != null) {
+            specialDetail = remoteSpecialDetail;
+            specialDetailLiveData.setValue(specialDetail);
+
+            setSpecialDetailToLocalDb(specialDetail);
         }
     }
 
-    private void getLocalSpecialDetail() {
-        disposable.add(AwakerRepository.get().getLocalRealm(SpecialDetailRealm.class, map)
+    private void setSpecialDetailToLocalDb(SpecialDetail specialDetail) {
+        Flowable.create(e -> {
+            AwakerRepository.get().insertSpecialDetail(specialDetail);
+            e.onComplete();
+
+        }, BackpressureStrategy.LATEST)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> LogUtils.showLog(TAG, "doOnError: " + throwable.toString()))
-                .doOnNext(realmResults -> {
-                    LogUtils.d("getLocalSpecialDetail" + realmResults.size());
-                    setLocalSpecialDetail(realmResults);
+                .doOnError(throwable -> LogUtils.showLog(TAG,
+                        "setSpecialDetailToLocalDb doOnError: " + throwable.toString()))
+                .doOnComplete(() -> {
                 })
-                .subscribe(new EmptyConsumer(), new ErrorConsumer()));
+                .subscribe(new EmptyConsumer(), new ErrorConsumer());
     }
 
-    private void setLocalSpecialDetail(RealmResults realmResults) {
-        if (realmResults == null || realmResults.isEmpty()) {
-            return;
-        }
-        SpecialDetailRealm commentHotRealm = (SpecialDetailRealm) realmResults.get(0);
-        if (specialDetail == null) {   // data is empty, network not back
-            SpecialDetail specialDetail = SpecialDetailRealm.setSpecialDetailRealm(commentHotRealm);
-            setSpecialDetail(specialDetail);
-        }
+    public MutableLiveData<SpecialDetail> getSpecialDetailLiveData() {
+        return specialDetailLiveData;
     }
 }

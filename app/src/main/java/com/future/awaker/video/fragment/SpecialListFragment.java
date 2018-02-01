@@ -16,13 +16,13 @@ import com.future.awaker.video.viewmodel.SpecialListViewModel;
  * Created by ruzhan on 2017/7/15.
  */
 
-public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding> implements OnItemClickListener<News> {
+public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding>
+        implements OnItemClickListener<News> {
 
     private static final String ID = "id";
     private static final String TITLE = "title";
     private static final String URL = "url";
 
-    private SpecialListViewModel viewModel = new SpecialListViewModel();
     private String url;
 
     public static SpecialListFragment newInstance(String id, String title, String url) {
@@ -46,22 +46,26 @@ public class SpecialListFragment extends BaseListFragment<FragSpecialListBinding
         String title = getArguments().getString(TITLE);
         url = getArguments().getString(URL);
 
-        viewModel.setParams(id, title, url);
+        SpecialListViewModel viewModel = new SpecialListViewModel(id);
 
         setListViewModel(viewModel);
         binding.setViewModel(viewModel);
 
+        binding.toolbar.setTitle(title);
         setToolbar(binding.toolbar);
 
-        SpecialListAdapter adapter = new SpecialListAdapter(viewModel, this);
+        SpecialListAdapter adapter = new SpecialListAdapter(this, title, url);
         recyclerView.setAdapter(adapter);
 
+        viewModel.getSpecialDetailLiveData().observe(this, adapter::setSpecialDetail);
+
+        viewModel.initLocalSpecialDetail();
         onRefresh();
     }
 
     @Override
     public void onDestroy() {
-        viewModel.clear();
+
         super.onDestroy();
     }
 

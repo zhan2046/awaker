@@ -9,7 +9,6 @@ import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.base.listener.onPageSelectedListener;
 import com.future.awaker.data.Special;
-import com.future.awaker.data.other.RefreshListModel;
 import com.future.awaker.databinding.FragVideoBinding;
 import com.future.awaker.home.HomeActivity;
 import com.future.awaker.util.LogUtils;

@@ -13,7 +13,6 @@ import com.future.awaker.databinding.ItemSpecialListBinding;
 import com.future.awaker.databinding.ItemSpecialListHeaderBinding;
 import com.future.awaker.video.adapter.holder.SpecialListHeaderHolder;
 import com.future.awaker.video.adapter.holder.SpecialListHolder;
-import com.future.awaker.video.viewmodel.SpecialListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,20 +28,29 @@ public class SpecialListAdapter extends RecyclerView.Adapter {
     private static final int TYPE_HEADER = 1000;
     private static final int TYPE_ITEM = 1001;
 
-    private SpecialListViewModel viewModel;
     private OnItemClickListener<News> listener;
+    private String title;
+    private String imageUrl;
+    private String content;
+
     public List<Object> dataList = new ArrayList<>();
 
-    public SpecialListAdapter(SpecialListViewModel viewModel,
-                              OnItemClickListener<News> listener) {
-        this.viewModel = viewModel;
+    public SpecialListAdapter(OnItemClickListener<News> listener, String title, String imageUrl) {
         this.listener = listener;
+        this.title = title;
+        this.imageUrl = imageUrl;
+
+        dataList.add(HEADER);
     }
 
     public void setSpecialDetail(SpecialDetail specialDetail) {
         if (specialDetail == null) {
             return;
         }
+        title = specialDetail.title;
+        imageUrl = specialDetail.cover;
+        content = specialDetail.content;
+
         dataList.clear();
         dataList.add(HEADER);
         dataList.addAll(specialDetail.newslist);
@@ -64,8 +72,7 @@ public class SpecialListAdapter extends RecyclerView.Adapter {
             ItemSpecialListHeaderBinding binding =
                     DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                             R.layout.item_special_list_header, parent, false);
-            binding.setViewModel(viewModel);
-            return new SpecialListHeaderHolder(binding);
+            return new SpecialListHeaderHolder(binding, title, imageUrl);
 
         } else {
             ItemSpecialListBinding binding =
@@ -83,11 +90,14 @@ public class SpecialListAdapter extends RecyclerView.Adapter {
         int viewType = getItemViewType(position);
         if (viewType == TYPE_ITEM) {
             ((SpecialListHolder) holder).bind((News) dataList.get(position));
+
+        } else if (viewType == TYPE_HEADER) {
+            ((SpecialListHeaderHolder) holder).bind(title, imageUrl, content);
         }
     }
 
     @Override
     public int getItemCount() {
-        return dataList == null ? 0 : dataList.size();
+        return dataList.size();
     }
 }

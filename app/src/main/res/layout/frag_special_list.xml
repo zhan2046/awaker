@@ -25,7 +25,6 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 style="@style/Widget.Awaker.ToolBar"
-                app:title="@{viewModel.title}"
                 app:titleTextAppearance="@style/Toolbar.TitleText" />
         </android.support.design.widget.AppBarLayout>
 
@@ -44,8 +43,7 @@
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:specialDetail="@{viewModel.specialDetail}" />
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -1,68 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.future.awaker.video.viewmodel.SpecialListViewModel" />
-    </data>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:soulwolf="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:background="@color/f5"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/f5"
+        android:orientation="vertical">
 
         <net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout
-            soulwolf:datumRatio="datumWidth"
-            soulwolf:widthRatio="16"
-            soulwolf:heightRatio="9"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            soulwolf:datumRatio="datumWidth"
+            soulwolf:heightRatio="9"
+            soulwolf:widthRatio="16">
 
             <ImageView
-                android:scaleType="centerCrop"
+                android:id="@+id/image_iv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:imageUrl="@{viewModel.url}" />
+                android:scaleType="centerCrop" />
 
             <ImageView
-                android:src="@drawable/img_mask"
-                android:scaleType="fitXY"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/img_mask" />
         </net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout>
 
         <TextView
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:textSize="24sp"
-            android:textColor="#383838"
-            android:text="@{viewModel.title}"
+            android:id="@+id/title_tv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#FF383838"
+            android:textSize="24sp" />
 
         <TextView
-            android:ellipsize="end"
-            android:layout_margin="16dp"
-            android:lineSpacingExtra="15dp"
-            android:textSize="14sp"
-            android:textColor="#383838"
-            android:text="@{viewModel.content}"
+            android:id="@+id/content_tv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="15dp"
+            android:textColor="#FF383838"
+            android:textSize="14sp" />
 
         <View
-            android:background="@color/black12"
             android:layout_width="match_parent"
-            android:layout_height="0.3dp" />
+            android:layout_height="0.3dp"
+            android:background="@color/black12" />
     </LinearLayout>
 </layout>
 

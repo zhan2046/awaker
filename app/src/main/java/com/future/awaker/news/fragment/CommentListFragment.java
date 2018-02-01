@@ -10,7 +10,6 @@ import com.future.awaker.Account;
 import com.future.awaker.R;
 import com.future.awaker.base.BaseListFragment;
 import com.future.awaker.base.listener.DebouncingOnClickListener;
-import com.future.awaker.data.other.RefreshListModel;
 import com.future.awaker.databinding.FragCommentListBinding;
 import com.future.awaker.news.adapter.CommentListAdapter;
 import com.future.awaker.news.listener.SendCommentListener;

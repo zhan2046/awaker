@@ -43,7 +43,7 @@ public class VideoViewModel extends BaseListViewModel {
     private Disposable localDisposable;
 
     public VideoViewModel() {
-
+        specialLiveData.setValue(null);
     }
 
     public void loadSpecialListEntity(String cat) {
