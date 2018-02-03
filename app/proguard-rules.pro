@@ -152,6 +152,7 @@
 -keep class myjava.awt.datatransfer.** {*;}
 -keep class org.apache.harmony.awt.** {*;}
 -keep class org.apache.harmony.misc.** {*;}
+-dontwarn java.awt.**,javax.activation.**,java.beans.**
 
 
 -dontwarn com.allenliu.versionchecklib.**
