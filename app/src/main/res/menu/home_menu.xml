@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
-
         <item
             android:id="@+id/develop_desc"
             android:checkable="true"
@@ -11,16 +10,5 @@
             android:id="@+id/user_back"
             android:checkable="true"
             android:title="@string/user_back" />
-
-        <item
-            android:id="@+id/cache_clear"
-            android:checkable="true"
-            android:title="@string/cache_clear" />
-    </group>
-
-    <group>
-        <item
-            android:checkable="true"
-            android:title="@string/play_develop" />
     </group>
 </menu>

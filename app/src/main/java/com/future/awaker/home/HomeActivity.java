@@ -107,14 +107,8 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.develop_desc:
                     SettingActivity.launch(this, SettingActivity.DEVELOP_DESC);
                     break;
-                case R.id.cache_clear:
-                    handlerCacheClear();
-                    break;
                 case R.id.user_back:
                     SettingActivity.launch(this, SettingActivity.USER_BACK);
-                    break;
-                default:
-                    Toast.makeText(this, R.string.future_desc, Toast.LENGTH_SHORT).show();
                     break;
             }
             return true;
