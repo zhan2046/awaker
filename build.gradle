@@ -11,7 +11,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.0.1'
+    classpath 'com.android.tools.build:gradle:3.1.2'
     classpath 'io.fabric.tools:gradle:1.24.3'
 
     // NOTE: Do not place your application dependencies here; they belong
@@ -39,12 +39,12 @@ task clean(type: Delete) {
 ext {
   // Sdk and tools
   minSdkVersion = 19
-  targetSdkVersion = 26
-  compileSdkVersion = 26
-  buildToolsVersion = '27.0.2'
+  targetSdkVersion = 27
+  compileSdkVersion = 27
+  buildToolsVersion = '27.0.3'
 
   // App dependencies
-  supportLibraryVersion = '27.0.2'
+  supportLibraryVersion = '27.1.1'
 
   keyAlias = 'awaker'
   keyPassword = 'awaker333333'
