@@ -43,9 +43,6 @@ public class HomeActivity extends AppCompatActivity {
 
         setTitle(R.string.app_name);
         setSupportActionBar(binding.toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
         List<String> titles = Arrays.asList(ResUtils.getString(R.string.home),
                 ResUtils.getString(R.string.news),
