@@ -43,7 +43,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         if (videoDetailFragment == null) {
             videoDetailFragment = VideoDetailFragment.newInstance(videoHtml);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container_fl, videoDetailFragment, VideoDetailFragment.class.getSimpleName())
+                    .add(R.id.container, videoDetailFragment, VideoDetailFragment.class.getSimpleName())
                     .commit();
         }
     }

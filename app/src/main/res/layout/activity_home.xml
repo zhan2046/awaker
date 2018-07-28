@@ -3,136 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/f5">
 
-        <RelativeLayout
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/global_actionbar_size">
 
-            <android.support.design.widget.CoordinatorLayout
-                android:id="@+id/coordinator"
-                android:background="@color/f5"
+            <!-- Toolbar -->
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Widget.Awaker.ToolBar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="@dimen/global_actionbar_size"
+                app:titleTextAppearance="@style/Toolbar.TitleText" />
 
-                <android.support.design.widget.AppBarLayout
-                    android:id="@+id/appbar"
-                    android:minHeight="@dimen/global_actionbar_size"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <!-- Tabs -->
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                style="@style/Widget.Awaker.TabLayout"
+                app:tabIndicatorColor="@color/white"
+                app:tabSelectedTextColor="@color/text_white_87"
+                app:tabTextAppearance="@style/Toolbar.TabLayout"
+                app:tabTextColor="@color/text_white_50" />
+        </android.support.design.widget.AppBarLayout>
 
-                    <!-- Toolbar -->
-                    <android.support.v7.widget.Toolbar
-                        android:id="@+id/toolbar"
-                        style="@style/Widget.Awaker.ToolBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/global_actionbar_size"
-                        app:titleTextAppearance="@style/Toolbar.TitleText" />
-
-                    <!-- Tabs -->
-                    <android.support.design.widget.TabLayout
-                        android:id="@+id/tabs"
-                        app:tabTextColor="@color/text_white_50"
-                        app:tabSelectedTextColor="@color/text_white_87"
-                        app:tabIndicatorColor="@color/white"
-                        app:tabTextAppearance="@style/Toolbar.TabLayout"
-                        style="@style/Widget.Awaker.TabLayout" />
-                </android.support.design.widget.AppBarLayout>
-
-                <!-- View pager -->
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/viewpager"
-                    android:layout_below="@+id/appbar"
-                    android:background="@color/grey300"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-            </android.support.design.widget.CoordinatorLayout>
-
-            <!-- Your FAB implementation -->
-            <com.future.awaker.widget.Fab
-                android:id="@+id/fab"
-                style="@style/Widget.Awaker.Fab"
-                android:tint="@color/f5"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true" />
-
-            <!-- Overlay that dims the screen -->
-            <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
-                android:id="@+id/overlay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <!-- Circular reveal container for the sheet -->
-            <io.codetail.widget.RevealLinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end|bottom"
-                android:orientation="vertical">
-
-                <!-- Sheet that contains your items -->
-                <android.support.v7.widget.CardView
-                    android:id="@+id/fab_sheet"
-                    style="@style/Widget.Awaker.Sheet">
-
-                    <!-- Sheet items -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <!-- Recording -->
-                        <TextView
-                            android:id="@+id/fab_sheet_item_ufo"
-                            style="@style/TextAppearance.Awaker.Sheet.Item"
-                            android:text="@string/ufo_et" />
-
-                        <!-- Reminder -->
-                        <TextView
-                            android:id="@+id/fab_sheet_item_theory"
-                            style="@style/TextAppearance.Awaker.Sheet.Item"
-                            android:text="@string/conspiracy_theory" />
-
-                        <!-- Photo -->
-                        <TextView
-                            android:id="@+id/fab_sheet_item_spirit"
-                            style="@style/TextAppearance.Awaker.Sheet.Item"
-                            android:text="@string/spirit_awaker" />
-
-                        <TextView
-                            android:id="@+id/fab_sheet_item_free"
-                            style="@style/TextAppearance.Awaker.Sheet.Item"
-                            android:text="@string/free_energy" />
-
-                        <!-- Note -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/colorAccent">
-
-                            <TextView
-                                android:id="@+id/fab_sheet_item_normal"
-                                style="@style/TextAppearance.Awaker.Sheet.Item"
-                                android:text="@string/normal" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-            </io.codetail.widget.RevealLinearLayout>
-        </RelativeLayout>
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/navigation_view"
-            android:layout_width="wrap_content"
+        <!-- View pager -->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/layout_drawer_header"
-            app:menu="@menu/home_menu" />
-    </android.support.v4.widget.DrawerLayout>
+            android:layout_below="@+id/appbar"
+            android:background="@color/grey300"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

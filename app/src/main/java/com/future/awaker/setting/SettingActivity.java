@@ -51,7 +51,7 @@ public class SettingActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container_fl, userBackFragment,
+                .add(R.id.container, userBackFragment,
                         UserBackFragment.class.getSimpleName())
                 .commit();
     }
@@ -63,7 +63,7 @@ public class SettingActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container_fl, developDescFragment,
+                .add(R.id.container, developDescFragment,
                         DevelopDescFragment.class.getSimpleName())
                 .commit();
     }

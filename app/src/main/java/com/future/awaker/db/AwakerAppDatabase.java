@@ -31,12 +31,12 @@ import com.future.awaker.db.entity.UserInfoEntity;
         CommentEntity.class, NewsEntity.class, SpecialDetail.class, UserInfoEntity.class},
         version = 1, exportSchema = false)
 @TypeConverters(RoomDataConverter.class)
-public abstract class AppDatabase extends RoomDatabase {
+public abstract class AwakerAppDatabase extends RoomDatabase {
 
     @VisibleForTesting
     public static final String DATABASE_NAME = "awaker-db";
 
-    private static AppDatabase INSTANCE;
+    private static AwakerAppDatabase INSTANCE;
 
     public abstract NewsDao newsDao();
 
@@ -57,11 +57,11 @@ public abstract class AppDatabase extends RoomDatabase {
     private final MutableLiveData<Boolean> isDatabaseCreated = new MutableLiveData<>();
 
 
-    public static AppDatabase get(Context context) {
+    public static AwakerAppDatabase get(Context context) {
         if (INSTANCE == null) {
-            synchronized (AppDatabase.class) {
+            synchronized (AwakerAppDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
+                    INSTANCE = Room.databaseBuilder(context, AwakerAppDatabase.class, DATABASE_NAME)
                             .build();
                     INSTANCE.updateDatabaseCreated(context);
                 }

@@ -62,7 +62,8 @@ public class NiceCommentViewModel extends BaseListViewModel {
     public void refreshData(boolean refresh) {
         AwakerRepository.get().getHotComment(TOKEN)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> {})
+                .doOnError(throwable -> {
+                })
                 .doOnSubscribe(disposable -> isRunning.set(true))
                 .doOnTerminate(() -> isRunning.set(false))
                 .doOnNext(result -> setRefreshDataDoOnNext(refresh, result.getData()))

@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.webkit.WebView;
 
 
-
 public class NoScrollWebView extends WebView {
 
     public NoScrollWebView(Context context) {

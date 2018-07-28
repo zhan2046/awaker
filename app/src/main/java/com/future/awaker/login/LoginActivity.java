@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         }
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container_fl, loginFragment,
+                .add(R.id.container, loginFragment,
                         LoginFragment.class.getSimpleName())
                 .commit();
     }
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         }
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container_fl, registerFragment,
+                .add(R.id.container, registerFragment,
                         RegisterFragment.class.getSimpleName())
                 .commit();
     }

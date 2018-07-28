@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import com.blankj.utilcode.util.Utils;
 import com.crashlytics.android.Crashlytics;
 import com.future.awaker.util.ConstantUtils;
+import com.ruzhan.lion.App;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -33,7 +34,7 @@ public class Application extends android.app.Application {
         INSTANCE = this;
 
         Utils.init(Application.get());
-        Account.get().initUserInfo();
+        App.setApp(this);
 
         if (ConstantUtils.isReleaseBuild()) {
             Fabric.with(this, new Crashlytics());

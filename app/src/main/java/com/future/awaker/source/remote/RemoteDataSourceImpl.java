@@ -16,7 +16,6 @@ import io.reactivex.Flowable;
 import io.reactivex.schedulers.Schedulers;
 
 
-
 public class RemoteDataSourceImpl implements IRemoteDataSource {
 
     private AwakerApi awakerApi;

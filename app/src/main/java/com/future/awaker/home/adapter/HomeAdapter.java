@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.future.awaker.home.fragment.HomeListFragment;
 import com.future.awaker.news.fragment.NewListFragment;
-import com.future.awaker.video.fragment.VideoListFragment;
+import com.ruzhan.movie.MovieListFragment;
 
 import java.util.List;
 
@@ -23,33 +23,10 @@ public class HomeAdapter extends FragmentPagerAdapter {
     private List<String> titles;
     private HomeListFragment homeListFragment;
     private NewListFragment newListFragment;
-    private VideoListFragment videoListFragment;
 
     public HomeAdapter(FragmentManager fm, List<String> titles) {
         super(fm);
         this.titles = titles;
-    }
-
-    public void setCat(int cat) {
-        if (videoListFragment != null) {
-            videoListFragment.setCat(cat);
-        }
-    }
-
-    public Fragment getCurrentFrag(int position) {
-        Fragment fragment = null;
-        switch (position) {
-            case HOME:
-                fragment = homeListFragment;
-                break;
-            case NEW:
-                fragment = newListFragment;
-                break;
-            case VIDEO:
-                fragment = videoListFragment;
-                break;
-        }
-        return fragment;
     }
 
     @Override
@@ -65,8 +42,7 @@ public class HomeAdapter extends FragmentPagerAdapter {
                 fragment = newListFragment;
                 break;
             case VIDEO:
-                videoListFragment = VideoListFragment.newInstance();
-                fragment = videoListFragment;
+                fragment = MovieListFragment.newInstance();
                 break;
         }
         return fragment;

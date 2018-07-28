@@ -8,7 +8,7 @@ import com.future.awaker.data.News;
 import com.future.awaker.data.Special;
 import com.future.awaker.data.SpecialDetail;
 import com.future.awaker.data.UserInfo;
-import com.future.awaker.db.AppDatabase;
+import com.future.awaker.db.AwakerAppDatabase;
 import com.future.awaker.db.entity.CommentEntity;
 import com.future.awaker.db.entity.NewsEntity;
 import com.future.awaker.db.entity.SpecialListEntity;
@@ -31,11 +31,11 @@ public final class AwakerRepository implements IRemoteDataSource {
     private static AwakerRepository INSTANCE;
 
     private IRemoteDataSource remoteDataSource;
-    private AppDatabase appDatabase;
+    private AwakerAppDatabase awakerAppDatabase;
 
     private AwakerRepository() {
         remoteDataSource = new RemoteDataSourceImpl(AwakerClient.get());
-        appDatabase = AppDatabase.get(Application.get());
+        awakerAppDatabase = AwakerAppDatabase.get(Application.get());
     }
 
     public static AwakerRepository get() {
@@ -50,67 +50,67 @@ public final class AwakerRepository implements IRemoteDataSource {
     }
 
     public Flowable<UserInfoEntity> loadUserInfoEntity(String id) {
-        return appDatabase.userInfoDao().loadUserInfoEntity(id);
+        return awakerAppDatabase.userInfoDao().loadUserInfoEntity(id);
     }
 
     public void insertUserInfoEntity(UserInfoEntity userInfoEntity) {
-        appDatabase.userInfoDao().insertUserInfoEntity(userInfoEntity);
+        awakerAppDatabase.userInfoDao().insertUserInfoEntity(userInfoEntity);
     }
 
     public Flowable<SpecialDetail> loadSpecialDetail(String id) {
-        return appDatabase.specialDetailDao().loadSpecialDetail(id);
+        return awakerAppDatabase.specialDetailDao().loadSpecialDetail(id);
     }
 
     public void insertSpecialDetail(SpecialDetail specialDetail) {
-        appDatabase.specialDetailDao().insertSpecialDetail(specialDetail);
+        awakerAppDatabase.specialDetailDao().insertSpecialDetail(specialDetail);
     }
 
     public Flowable<NewsEntity> loadNewsEntity(String id) {
-        return appDatabase.newsListDao().loadNewsEntity(id);
+        return awakerAppDatabase.newsListDao().loadNewsEntity(id);
     }
 
     public void insertNewsEntity(NewsEntity newsEntity) {
-        appDatabase.newsListDao().insertNewsEntity(newsEntity);
+        awakerAppDatabase.newsListDao().insertNewsEntity(newsEntity);
     }
 
     public Flowable<CommentEntity> loadCommentEntity(String id) {
-        return appDatabase.commentListDao().loadCommentEntity(id);
+        return awakerAppDatabase.commentListDao().loadCommentEntity(id);
     }
 
     public void insertCommentEntity(CommentEntity commentEntity) {
-        appDatabase.commentListDao().insertCommentEntity(commentEntity);
+        awakerAppDatabase.commentListDao().insertCommentEntity(commentEntity);
     }
 
     public Flowable<NewDetail> loadNewsDetail(String id) {
-        return appDatabase.newDetailDao().loadNewsDetail(id);
+        return awakerAppDatabase.newDetailDao().loadNewsDetail(id);
     }
 
     public void insertNewsDetail(NewDetail newDetail) {
-        appDatabase.newDetailDao().insertNewsDetail(newDetail);
+        awakerAppDatabase.newDetailDao().insertNewsDetail(newDetail);
     }
 
     public Flowable<List<BannerItem>> loadAllBanners() {
-        return appDatabase.bannerDao().loadAllBanners();
+        return awakerAppDatabase.bannerDao().loadAllBanners();
     }
 
     public void insertAllBanners(List<BannerItem> bannerItems) {
-        appDatabase.bannerDao().insertAllBanners(bannerItems);
+        awakerAppDatabase.bannerDao().insertAllBanners(bannerItems);
     }
 
     public Flowable<SpecialListEntity> loadSpecialListEntity(String id) {
-        return appDatabase.specialListDao().loadSpecialListEntity(id);
+        return awakerAppDatabase.specialListDao().loadSpecialListEntity(id);
     }
 
     public void insertAll(SpecialListEntity specialListEntity) {
-        appDatabase.specialListDao().insertAll(specialListEntity);
+        awakerAppDatabase.specialListDao().insertAll(specialListEntity);
     }
 
     public Flowable<List<News>> loadNewsList() {
-        return appDatabase.newsDao().loadNewsList();
+        return awakerAppDatabase.newsDao().loadNewsList();
     }
 
     public void insertNewsList(List<News> newsList) {
-        appDatabase.newsDao().insertNewsList(newsList);
+        awakerAppDatabase.newsDao().insertNewsList(newsList);
     }
 
     @Override

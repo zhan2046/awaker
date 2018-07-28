@@ -3,7 +3,6 @@ package com.future.awaker.util;
 import com.future.awaker.BuildConfig;
 
 
-
 public final class ConstantUtils {
 
     public static final String BUILD_TYPE_RELEASE = "release";
