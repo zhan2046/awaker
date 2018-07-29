@@ -51,7 +51,7 @@ Screenshots
 版本记录 :zap:
 ------
 #### 2018-7-28    v0.9
-*  更新视频精选，接入Lion movie module，模块化集成 :muscle:
+*  更新视频精选，接入[Lion movie module](https://github.com/ruzhan123/Lion)，模块化集成 :muscle:
 #### 2018-2-1    v0.8
 *  完成持久层的全部替换 
 #### 2018-1-18    v0.7
