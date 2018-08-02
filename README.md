@@ -4,8 +4,7 @@ Awaker
 
 
 
-####    :tada::tada::tada: App 采用 LiveData + Room + RXJava2 + Retrofit + OKHttp + Material Design + Base + Glide构建，欢迎大家Star或Fork。
-
+####    :tada::tada::tada: LiveData + Room + RXJava2 + Retrofit + OKHttp + Material Design + Base + Glide build，welcome star or fork。
 
 Screenshots
 ===============
@@ -26,17 +25,17 @@ Screenshots
 
 
 
-扫描二维码下载 :zap:
+Download :zap:
 ------
 ![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker_download_image.png)
 
 
-[酷安下载](https://www.coolapk.com/apk/155953)
+[coolapk - (awaker app download)](https://www.coolapk.com/apk/155953)
 
-[fir下载](https://fir.im/r68b)
+[fir - (awaker app download)](https://fir.im/r68b)
 
 
-使用的第三方开源库，感谢开源的力量 :zap:
+Open Source :zap:
 ------
 * [RxJava](https://github.com/ReactiveX/RxJava)
 * [RxAndroid](https://github.com/ReactiveX/RxAndroid)
@@ -48,19 +47,19 @@ Screenshots
 
 
 
-版本记录 :zap:
+Version :zap:
 ------
 #### 2018-7-28    v0.9
-*  更新视频精选，接入[Lion movie module](https://github.com/ruzhan123/Lion)，模块化集成 :muscle:
+*  update video module，integrated [Lion movie module](https://github.com/ruzhan123/Lion) :muscle:
 #### 2018-2-1    v0.8
-*  完成持久层的全部替换 
+*  app local db finish
 #### 2018-1-18    v0.7
-*  添加 LiveData  Room，更新ViewModel
+*  add LiveData  Room，update ViewModel
 
 #### 2017-9-13    v0.6
-*  应用初始化上线
-*  优化了文章详情页
-*  添加了评论功能
+*  init app
+*  add article module
+*  add video module
 
 
 
