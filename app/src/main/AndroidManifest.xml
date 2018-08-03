@@ -21,7 +21,8 @@
         tools:replace="android:label">
 
         <activity
-            android:name=".main.MainActivity">
+            android:name=".main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,38 +35,47 @@
             android:value="${fabric_apikey}" />
 
         <activity
-            android:name=".home.HomeActivity" />
+            android:name=".home.HomeActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".news.activity.HomeTypeListActivity" />
+            android:name=".news.activity.HomeTypeListActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".news.NewDetailActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true" />
 
         <activity
             android:name=".news.activity.ImageDetailActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <activity
-            android:name=".video.SpecialListActivity" />
+            android:name=".video.SpecialListActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".video.activity.VideoDetailActivity"
+            android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:hardwareAccelerated="true" />
 
         <activity
-            android:name=".news.activity.CommentListActivity" />
+            android:name=".news.activity.CommentListActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".login.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
             android:name=".setting.SettingActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
 
     </application>

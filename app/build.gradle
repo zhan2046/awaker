@@ -27,7 +27,7 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
 
         versionCode gitVersionCode()
-        versionName "0.9.0"
+        versionName "0.9.1"
 
         manifestPlaceholders = [
                 fabric_apikey: rootProject.fabric_apikey
@@ -98,5 +98,5 @@ dependencies {
     implementation 'com.sun.mail:android-mail:1.5.5'
     implementation 'com.sun.mail:android-activation:1.5.5'
 
-    implementation 'com.github.ruzhan123.Lion:movie:0.1.7'
+    implementation 'com.github.ruzhan123.Lion:movie:0.1.8'
 }
