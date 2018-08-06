@@ -50,6 +50,8 @@ Open Source :zap:
 
 Version :zap:
 ------
+#### 2018-8-6    v0.9.2
+*  update awaker text font and load more ui style
 #### 2018-7-28    v0.9
 *  update video module，integrated [Lion movie module](https://github.com/ruzhan123/Lion) :muscle:
 #### 2018-2-1    v0.8
