@@ -27,7 +27,7 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
 
         versionCode gitVersionCode()
-        versionName "0.9.1"
+        versionName "0.9.2"
 
         manifestPlaceholders = [
                 fabric_apikey: rootProject.fabric_apikey
