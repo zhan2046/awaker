@@ -76,12 +76,14 @@ public final class HtmlParser {
 
                 String[] splitArr = removeLogo.split(NewEle.TAG_PERIOD);
                 for (String str : splitArr) {
-                    NewEle newEleText = new NewEle();
-                    newEleText.type = NewEle.TYPE_TEXT;
-                    String itemStr = str.concat(NewEle.TAG_PERIOD);
-                    newEleText.text = itemStr.trim();
-                    newEleText.html = outerHtml;
-                    newEleList.add(newEleText);
+                    if (str.length() > 1) {
+                        NewEle newEleText = new NewEle();
+                        newEleText.type = NewEle.TYPE_TEXT;
+                        String itemStr = str.concat(NewEle.TAG_PERIOD);
+                        newEleText.text = itemStr.trim();
+                        newEleText.html = outerHtml;
+                        newEleList.add(newEleText);
+                    }
                 }
 
             } else {
