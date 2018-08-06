@@ -98,5 +98,5 @@ dependencies {
     implementation 'com.sun.mail:android-mail:1.5.5'
     implementation 'com.sun.mail:android-activation:1.5.5'
 
-    implementation 'com.github.ruzhan123.Lion:movie:0.1.8'
+    implementation 'com.github.ruzhan123.Lion:movie:0.1.9'
 }
