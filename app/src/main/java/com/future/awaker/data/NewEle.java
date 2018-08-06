@@ -6,6 +6,9 @@ package com.future.awaker.data;
 
 public class NewEle {
 
+    public static final String TAG_PERIOD = "。";
+    public static final String TAG_LOGO = "觉醒字幕组";
+
     public static final String TAG_P = "p";
     public static final String TAG_IFRAME = "iframe";
     public static final String TAG_STRONG = "strong";

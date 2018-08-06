@@ -50,11 +50,7 @@ public final class HtmlParser {
                 String text = item.text();
                 if (!TextUtils.isEmpty(text)) {
                     //text
-                    NewEle newEleText = new NewEle();
-                    newEleText.type = NewEle.TYPE_TEXT;
-                    newEleText.text = text;
-                    newEleText.html = item.outerHtml();
-                    newEleList.add(newEleText);
+                    newEleList.addAll(handlerTextType(text, item.outerHtml()));
                 }
 
             } else if (NewEle.TAG_IFRAME.equals(tagName)) {
@@ -66,6 +62,34 @@ public final class HtmlParser {
                 newEleVideo.videoUrl = videoUrl;
                 newEleVideo.html = item.outerHtml();
                 newEleList.add(newEleVideo);
+            }
+        }
+        return newEleList;
+    }
+
+
+    public static List<NewEle> handlerTextType(String text, String outerHtml) {
+        List<NewEle> newEleList = new ArrayList<>();
+        if (!TextUtils.isEmpty(text)) {
+            String removeLogo = text.replaceAll(NewEle.TAG_LOGO, "");
+            if (removeLogo.contains(NewEle.TAG_PERIOD)) { // 存在多个句号，进行分割
+
+                String[] splitArr = removeLogo.split(NewEle.TAG_PERIOD);
+                for (String str : splitArr) {
+                    NewEle newEleText = new NewEle();
+                    newEleText.type = NewEle.TYPE_TEXT;
+                    String itemStr = str.concat(NewEle.TAG_PERIOD);
+                    newEleText.text = itemStr.trim();
+                    newEleText.html = outerHtml;
+                    newEleList.add(newEleText);
+                }
+
+            } else {
+                NewEle newEleText = new NewEle();
+                newEleText.type = NewEle.TYPE_TEXT;
+                newEleText.text = text.trim();
+                newEleText.html = outerHtml;
+                newEleList.add(newEleText);
             }
         }
         return newEleList;
