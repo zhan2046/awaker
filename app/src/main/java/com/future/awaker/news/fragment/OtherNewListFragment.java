@@ -1,6 +1,7 @@
 package com.future.awaker.news.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
@@ -50,8 +51,7 @@ public class OtherNewListFragment extends BaseListFragment<FragOtherNewBinding>
         NewListAdapter adapter = new NewListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
 
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
-                StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         otherNewListViewModel.getNewsLiveData().observe(this, refreshListModel -> {
             if (refreshListModel != null) {

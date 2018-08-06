@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.future.awaker.R;
+import com.future.awaker.base.EmptyHolder;
 import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.News;
+import com.future.awaker.databinding.ItemLoadBinding;
 import com.future.awaker.databinding.ItemNewListGridBinding;
+import com.future.awaker.databinding.ItemNewListGridLoadBinding;
 import com.ruzhan.lion.helper.FontHelper;
 
 import java.util.ArrayList;
@@ -23,12 +26,14 @@ import java.util.Objects;
 
 public class NewListAdapter extends RecyclerView.Adapter {
 
+    private static final String LOAD_MORE = "LOAD_MORE";
+
+    private static final int TYPE_NORMAL = 1000;
+    private static final int TYPE_LOAD_MORE = 1001;
+
     private OnItemClickListener<News> listener;
 
     private List<Object> newsList = new ArrayList<>();
-    private List<Object> oldNewsList = new ArrayList<>();
-
-    private NewDiffCallBack diffCallBack = new NewDiffCallBack();
 
     public NewListAdapter(OnItemClickListener<News> listener) {
         this.listener = listener;
@@ -40,6 +45,9 @@ public class NewListAdapter extends RecyclerView.Adapter {
         }
         newsList.clear();
         newsList.addAll(list);
+        if (list.size() >= 10) {
+            newsList.add(LOAD_MORE);
+        }
         notifyDataSetChanged();
     }
 
@@ -47,30 +55,50 @@ public class NewListAdapter extends RecyclerView.Adapter {
         if (list == null) {
             return;
         }
-        oldNewsList.clear();
-        oldNewsList.addAll(newsList);
-
-        newsList.clear();
+        newsList.remove(LOAD_MORE);
         newsList.addAll(list);
+        if (list.size() >= 10) {
+            newsList.add(LOAD_MORE);
+        }
+        notifyDataSetChanged();
+    }
 
-        diffCallBack.setData(oldNewsList, newsList);
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack, false);
-        diffResult.dispatchUpdatesTo(this);
+    @Override
+    public int getItemViewType(int position) {
+        Object obj = newsList.get(position);
+        if (obj instanceof String) {
+            return TYPE_LOAD_MORE;
+        }
+        return TYPE_NORMAL;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemNewListGridBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                R.layout.item_new_list_grid, parent, false);
-        NewHolder newHolder = new NewHolder(binding);
-        binding.setHolder(newHolder);
-        binding.setListener(listener);
-        return newHolder;
+        if (viewType == TYPE_LOAD_MORE) {
+            ItemNewListGridLoadBinding binding =
+            DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                    R.layout.item_new_list_grid_load, parent, false);
+            binding.moreTv.setTypeface(FontHelper.get().getLightTypeface());
+            return new EmptyHolder(binding);
+
+        } else {
+            ItemNewListGridBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                    R.layout.item_new_list_grid, parent, false);
+            NewHolder newHolder = new NewHolder(binding);
+            binding.setHolder(newHolder);
+            binding.setListener(listener);
+            return newHolder;
+        }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((NewHolder) holder).bind((News) newsList.get(position));
+        int viewType = getItemViewType(position);
+        if (viewType == TYPE_LOAD_MORE) {
+
+        } else {
+            ((NewHolder) holder).bind((News) newsList.get(position));
+        }
     }
 
     @Override
@@ -99,37 +127,6 @@ public class NewListAdapter extends RecyclerView.Adapter {
 
             binding.setNewsItem(bean);
             binding.executePendingBindings();
-        }
-    }
-
-    private static class NewDiffCallBack extends IDiffCallBack<Object> {
-
-        @Override
-        public boolean isItemsTheSame(int oldItemPosition, int newItemPosition) {
-            Object oldObj = oldData.get(oldItemPosition);
-            Object newsObj = newData.get(newItemPosition);
-
-            if (oldObj instanceof News && newsObj instanceof News) {
-                News oldNews = (News) oldObj;
-                News newNews = (News) newsObj;
-                return Objects.equals(oldNews.id, newNews.id) &&
-                        Objects.equals(oldNews.title, newNews.title);
-            }
-            return false;
-        }
-
-        @Override
-        public boolean isContentsTheSame(int oldItemPosition, int newItemPosition) {
-            Object oldObj = oldData.get(oldItemPosition);
-            Object newsObj = newData.get(newItemPosition);
-
-            if (oldObj instanceof News && newsObj instanceof News) {
-                News oldNews = (News) oldObj;
-                News newNews = (News) newsObj;
-                return Objects.equals(oldNews.id, newNews.id) &&
-                        Objects.equals(oldNews.title, newNews.title);
-            }
-            return false;
         }
     }
 }

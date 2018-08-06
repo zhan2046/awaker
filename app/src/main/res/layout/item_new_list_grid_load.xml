@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:soulwolf="http://schemas.android.com/apk/res-auto"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="@color/f5"
+        card_view:cardCornerRadius="2dp"
+        android:layout_margin="4dp">
+
+        <net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/f5"
+            soulwolf:datumRatio="datumWidth"
+            soulwolf:heightRatio="0.7"
+            soulwolf:widthRatio="1">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <com.pnikosis.materialishprogress.ProgressWheel
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_horizontal"
+                    wheel:barColor="@color/colorPrimary"
+                    wheel:barWidth="1.5dp"
+                    wheel:progressIndeterminate="true" />
+
+                <TextView
+                    android:id="@+id/more_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/loading_desc"
+                    android:textColor="#999999"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout>
+    </android.support.v7.widget.CardView>
+</layout>

@@ -1,5 +1,6 @@
 package com.future.awaker.news.fragment;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
@@ -10,6 +11,7 @@ import com.future.awaker.data.News;
 import com.future.awaker.databinding.FragNewHotReadBinding;
 import com.future.awaker.news.NewDetailActivity;
 import com.future.awaker.news.adapter.NewListAdapter;
+import com.future.awaker.news.adapter.OtherNewListAdapter;
 import com.future.awaker.news.viewmodel.HotReadViewModel;
 
 /**
@@ -20,7 +22,7 @@ public class HotReadNewsFragment extends BaseListFragment<FragNewHotReadBinding>
         implements OnItemClickListener<News> {
 
     private HotReadViewModel viewModel;
-    private NewListAdapter adapter;
+    private OtherNewListAdapter adapter;
 
     public static HotReadNewsFragment newInstance() {
         return new HotReadNewsFragment();
@@ -37,19 +39,14 @@ public class HotReadNewsFragment extends BaseListFragment<FragNewHotReadBinding>
         setListViewModel(viewModel);
         binding.setViewModel(viewModel);
 
-        adapter = new NewListAdapter(this);
+        adapter = new OtherNewListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
-                StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         viewModel.getHotNewsLiveData().observe(this, refreshListModel -> {
             if (refreshListModel != null) {
                 if (refreshListModel.isRefreshType()) {
                     adapter.setRefreshData(refreshListModel.list);
-
-                } else if (refreshListModel.isUpdateType()) {
-                    adapter.setUpdateData(refreshListModel.list);
-
                 }
             }
         });

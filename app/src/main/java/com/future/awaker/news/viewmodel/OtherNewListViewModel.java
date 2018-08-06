@@ -30,13 +30,13 @@ public class OtherNewListViewModel extends BaseListViewModel {
     private int newId;
     private RefreshListModel<News> refreshListModel = new RefreshListModel<>();
 
-    private List<News> newsList = new ArrayList<>();
     private MutableLiveData<RefreshListModel<News>> newsLiveData = new MutableLiveData<>();
 
     private Disposable localDisposable;
 
     public OtherNewListViewModel(int newId) {
         this.newId = newId;
+        newsLiveData.setValue(null);
     }
 
     public void initLocalNews() {
@@ -50,9 +50,8 @@ public class OtherNewListViewModel extends BaseListViewModel {
     }
 
     private void setLocalNewsList(NewsEntity newsEntity) {
-        if (newsEntity != null && newsList.isEmpty()) {
-            newsList.addAll(newsEntity.newsList);
-            refreshListModel.setRefreshType(newsList);
+        if (newsEntity != null && newsLiveData.getValue() == null) {
+            refreshListModel.setRefreshType(newsEntity.newsList);
             newsLiveData.setValue(refreshListModel);
         }
         localDisposable.dispose();
@@ -73,18 +72,18 @@ public class OtherNewListViewModel extends BaseListViewModel {
 
     private void refreshDataOnNext(List<News> news, boolean refresh) {
         if (refresh) {
-            newsList.clear();
             refreshListModel.setRefreshType();
 
         } else {
             refreshListModel.setUpdateType();
         }
-        newsList.addAll(news);
-        refreshListModel.setList(newsList);
-        newsLiveData.setValue(refreshListModel);
+        if (news != null) {
+            refreshListModel.setList(news);
+            newsLiveData.setValue(refreshListModel);
 
-        // save news to local db
-        setNewsToLocalDb(newsList);
+            // save news to local db
+            setNewsToLocalDb(news);
+        }
     }
 
     private void setNewsToLocalDb(List<News> news) {

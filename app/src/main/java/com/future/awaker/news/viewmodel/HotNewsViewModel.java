@@ -29,7 +29,6 @@ public class HotNewsViewModel extends BaseListViewModel {
     private static final String TAG = "HotNewsViewModel";
 
     private RefreshListModel<News> refreshListModel = new RefreshListModel<>();
-    private List<News> hotNewsList = new ArrayList<>();
     private MutableLiveData<RefreshListModel<News>> hotNewsListLiveData = new MutableLiveData<>();
 
     private Disposable localDisposable;
@@ -49,9 +48,8 @@ public class HotNewsViewModel extends BaseListViewModel {
     }
 
     private void setLocalHotList(NewsEntity newsEntity) {
-        if (newsEntity != null && hotNewsList.isEmpty()) {
-            hotNewsList.addAll(newsEntity.newsList);
-            refreshListModel.setRefreshType(hotNewsList);
+        if (newsEntity != null && hotNewsListLiveData.getValue() == null) {
+            refreshListModel.setRefreshType(newsEntity.newsList);
             hotNewsListLiveData.setValue(refreshListModel);
         }
         localDisposable.dispose();
@@ -70,25 +68,18 @@ public class HotNewsViewModel extends BaseListViewModel {
 
     private void setRefreshDataDoOnNext(boolean refresh, List<News> remoteNewsList) {
         if (refresh) {
-            hotNewsList.clear();
             refreshListModel.setRefreshType();
 
         } else {
             refreshListModel.setUpdateType();
         }
+        if (remoteNewsList != null) {
+            refreshListModel.setList(remoteNewsList);
+            hotNewsListLiveData.setValue(refreshListModel);
 
-        if (remoteNewsList == null || remoteNewsList.isEmpty()) {
-            isEmpty.set(true);
-
-        } else {
-            isEmpty.set(false);
-            hotNewsList.addAll(remoteNewsList);
+            // save news to local db
+            setHotListLocalDb(remoteNewsList);
         }
-
-        refreshListModel.setList(hotNewsList);
-        hotNewsListLiveData.setValue(refreshListModel);
-
-        setHotListLocalDb(hotNewsList);
     }
 
     private void setHotListLocalDb(List<News> localNewsList) {
