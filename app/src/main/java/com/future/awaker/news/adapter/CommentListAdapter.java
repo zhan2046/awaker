@@ -46,8 +46,10 @@ public class CommentListAdapter extends RecyclerView.Adapter {
             return;
         }
         commentList.clear();
-        commentList.addAll(list);
-        commentList.add(LOAD_MORE);
+        if (!list.isEmpty()) {
+            commentList.addAll(list);
+            commentList.add(LOAD_MORE);
+        }
         notifyDataSetChanged();
     }
 

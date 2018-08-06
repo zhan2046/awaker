@@ -85,17 +85,14 @@ public class CommentViewModel extends BaseListViewModel {
             refreshListModel.setUpdateType();
         }
 
-        if (comments == null || comments.isEmpty()) {
-            isEmpty.set(true);
+        isEmpty.set(!(comments != null && comments.size() >= PAGE_SIZE));
 
-        } else {
-            isEmpty.set(false);
+        if (comments != null) {
             commentList.addAll(comments);
+            refreshListModel.setList(commentList);
+            commentLiveData.setValue(refreshListModel);
+            setCommentListLocalDb(commentList);
         }
-        refreshListModel.setList(commentList);
-        commentLiveData.setValue(refreshListModel);
-
-        setCommentListLocalDb(commentList);
     }
 
     private void setCommentListLocalDb(List<Comment> localComments) {
