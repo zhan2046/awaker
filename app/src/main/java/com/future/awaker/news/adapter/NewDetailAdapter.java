@@ -49,6 +49,7 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
     private OnItemClickListener<NewEle> listener;
     private Header header;
     private List<NewEle> newEleList;
+    private ArrayList<String> imageUrlList = new ArrayList<>();
     private List<Comment> commentList;
 
     private List<NewDetailVideoHolder> videoHolders = new ArrayList<>();
@@ -59,12 +60,31 @@ public class NewDetailAdapter extends RecyclerView.Adapter {
         dataList.add(header);
     }
 
+    public ArrayList<String> getImageUrlList() {
+        return imageUrlList;
+    }
+
+    private ArrayList<String> setImageUrlList(List<NewEle> newEleList) {
+        imageUrlList.clear();
+        if (newEleList != null) {
+            for (NewEle ele : newEleList) {
+                if (NewEle.TYPE_IMG == ele.type) {
+                    imageUrlList.add(ele.imgUrl);
+                }
+            }
+        }
+        return imageUrlList;
+    }
+
     public void setData(List<NewEle> list, Header header) {
         if (list == null) {
             return;
         }
         dataList.clear();
         newEleList = list;
+
+        imageUrlList = setImageUrlList(newEleList);
+
         this.header = header;
 
         dataList.add(this.header);

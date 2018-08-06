@@ -18,7 +18,6 @@ import com.future.awaker.data.NewEle;
 import com.future.awaker.data.User;
 import com.future.awaker.databinding.FragNewDetailBinding;
 import com.future.awaker.news.activity.CommentListActivity;
-import com.future.awaker.news.activity.ImageDetailActivity;
 import com.future.awaker.news.adapter.NewDetailAdapter;
 import com.future.awaker.news.listener.SendCommentListener;
 import com.future.awaker.news.viewmodel.NewDetailViewModel;
@@ -27,7 +26,10 @@ import com.future.awaker.util.KeyboardUtils;
 import com.future.awaker.util.ResUtils;
 import com.future.awaker.video.activity.VideoDetailActivity;
 import com.ruzhan.lion.helper.FontHelper;
+import com.ruzhan.movie.ImageListModel;
+import com.ruzhan.movie.detail.ImageDetailActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.ObservableOnSubscribe;
@@ -49,6 +51,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
 
     private NewDetailViewModel viewModel;
     private NewDetailAdapter adapter;
+    private String newTitle;
     private String newId;
 
     public static NewDetailFragment newInstance(String newId, String newTitle, String newUrl) {
@@ -69,7 +72,7 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
     @Override
     protected void initData() {
         newId = getArguments().getString(NEW_ID);
-        String newTitle = getArguments().getString(NEW_TITLE);
+        newTitle = getArguments().getString(NEW_TITLE);
         String newUrl = getArguments().getString(NEW_URL);
 
         binding.commentRightTv.setTypeface(FontHelper.get().getLightTypeface());
@@ -226,8 +229,12 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
     public void onItemClick(View view, int position, NewEle bean) {
         if (bean != null) {
             if (NewEle.TYPE_IMG == bean.type) {
-                String imgUrl = bean.imgUrl;
-                ImageDetailActivity.launch(getContext(), imgUrl);
+                ArrayList<String> imageUrlList = adapter.getImageUrlList();
+                String imageUrl = bean.imgUrl;
+                ImageListModel imageListModel = new ImageListModel(newTitle,
+                        imageUrlList.indexOf(imageUrl), imageUrl, imageUrlList);
+                ImageDetailActivity.launch(getActivity(), imageListModel);
+
             } else if (NewEle.TYPE_VIDEO == bean.type) {
 
                 String videoUrl = bean.html;
