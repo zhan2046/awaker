@@ -61,6 +61,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/name_tv"
                     android:text="@{header.userName}"
                     android:maxLines="1"
                     android:ellipsize="end"
@@ -70,6 +71,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/time_tv"
                     android:text="@{header.createTime}"
                     android:layout_marginTop="8dp"
                     android:maxLines="1"

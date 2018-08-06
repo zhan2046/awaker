@@ -13,6 +13,7 @@
             android:layout_height="16dp" />
 
         <TextView
+            android:id="@+id/hot_title_tv"
             android:textStyle="bold"
             android:textColor="#FFEC6A5C"
             android:textSize="16sp"

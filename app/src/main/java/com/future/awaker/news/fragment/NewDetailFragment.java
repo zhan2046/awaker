@@ -26,6 +26,7 @@ import com.future.awaker.util.HtmlParser;
 import com.future.awaker.util.KeyboardUtils;
 import com.future.awaker.util.ResUtils;
 import com.future.awaker.video.activity.VideoDetailActivity;
+import com.ruzhan.lion.helper.FontHelper;
 
 import java.util.List;
 
@@ -70,6 +71,9 @@ public class NewDetailFragment extends BaseListFragment<FragNewDetailBinding>
         newId = getArguments().getString(NEW_ID);
         String newTitle = getArguments().getString(NEW_TITLE);
         String newUrl = getArguments().getString(NEW_URL);
+
+        binding.commentRightTv.setTypeface(FontHelper.get().getLightTypeface());
+        binding.commentEt.setTypeface(FontHelper.get().getLightTypeface());
 
         binding.toolbar.setTitle(newTitle);
         setToolbar(binding.toolbar);

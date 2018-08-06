@@ -7,6 +7,7 @@ import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.NewEle;
 import com.future.awaker.databinding.ItemNewDetailCommentMoreBinding;
+import com.ruzhan.lion.helper.FontHelper;
 
 /**
  * Created by ruzhan on 2017/7/15.
@@ -30,5 +31,6 @@ public class NewDetailCommentMoreHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
+        binding.moreTv.setTypeface(FontHelper.get().getLightTypeface());
     }
 }

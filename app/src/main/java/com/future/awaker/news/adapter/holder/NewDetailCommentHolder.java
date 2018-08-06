@@ -13,6 +13,7 @@ import com.future.awaker.databinding.ItemNewDetailCommentBinding;
 import com.future.awaker.imageloader.ImageLoader;
 import com.future.awaker.util.ResUtils;
 import com.future.awaker.util.UiUtils;
+import com.ruzhan.lion.helper.FontHelper;
 
 /**
  * Created by ruzhan on 2017/7/15.
@@ -40,6 +41,12 @@ public class NewDetailCommentHolder extends RecyclerView.ViewHolder {
                 binding.zanTv.setText(String.valueOf(newUp));
             }
         });
+
+        binding.nameTv.setTypeface(FontHelper.get().getBoldTypeface());
+        binding.areaTv.setTypeface(FontHelper.get().getLightTypeface());
+        binding.contentTv.setTypeface(FontHelper.get().getLightTypeface());
+        binding.timeTv.setTypeface(FontHelper.get().getLightTypeface());
+        binding.zanTv.setTypeface(FontHelper.get().getLightTypeface());
     }
 
     private void isSelect(boolean isSelect) {

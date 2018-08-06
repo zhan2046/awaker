@@ -2,11 +2,13 @@ package com.future.awaker.home.adapter.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.future.awaker.base.listener.DebouncingOnClickListener;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.HomeItem;
 import com.future.awaker.databinding.ItemHomeListBinding;
+import com.ruzhan.lion.helper.FontHelper;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -29,6 +31,7 @@ public class HomeListHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
+        binding.titleTv.setTypeface(FontHelper.get().getLightTypeface());
     }
 
     public void bind(HomeItem bean) {

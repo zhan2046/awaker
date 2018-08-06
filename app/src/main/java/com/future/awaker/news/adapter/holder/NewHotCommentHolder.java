@@ -14,6 +14,7 @@ import com.future.awaker.databinding.ItemNewHotCommentBinding;
 import com.future.awaker.imageloader.ImageLoader;
 import com.future.awaker.util.ResUtils;
 import com.future.awaker.util.UiUtils;
+import com.ruzhan.lion.helper.FontHelper;
 
 /**
  * Created by ruzhan on 2017/7/15.
@@ -55,6 +56,12 @@ public class NewHotCommentHolder extends RecyclerView.ViewHolder {
                 binding.zanTv.setText(String.valueOf(newUp));
             }
         });
+
+        binding.nameTv.setTypeface(FontHelper.get().getBoldTypeface());
+        binding.areaTv.setTypeface(FontHelper.get().getLightTypeface());
+        binding.contentTv.setTypeface(FontHelper.get().getLightTypeface());
+        binding.newTitleTv.setTypeface(FontHelper.get().getLightTypeface());
+        binding.zanTv.setTypeface(FontHelper.get().getLightTypeface());
     }
 
     public void bind(Comment bean) {

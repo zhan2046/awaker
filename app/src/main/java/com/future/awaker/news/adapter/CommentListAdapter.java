@@ -14,6 +14,7 @@ import com.future.awaker.data.Comment;
 import com.future.awaker.databinding.ItemLoadBinding;
 import com.future.awaker.databinding.ItemNewDetailCommentBinding;
 import com.future.awaker.news.adapter.holder.NewDetailCommentHolder;
+import com.ruzhan.lion.helper.FontHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +88,7 @@ public class CommentListAdapter extends RecyclerView.Adapter {
             ItemLoadBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                     R.layout.item_load, parent, false);
             binding.setViewModel(viewModel);
+            binding.moreTv.setTypeface(FontHelper.get().getLightTypeface());
             return new EmptyHolder(binding);
         }
         return null;

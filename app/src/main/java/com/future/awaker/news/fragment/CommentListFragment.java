@@ -15,6 +15,7 @@ import com.future.awaker.news.adapter.CommentListAdapter;
 import com.future.awaker.news.listener.SendCommentListener;
 import com.future.awaker.news.viewmodel.CommentViewModel;
 import com.future.awaker.util.KeyboardUtils;
+import com.ruzhan.lion.helper.FontHelper;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -51,6 +52,7 @@ public class CommentListFragment extends BaseListFragment<FragCommentListBinding
         setListViewModel(viewModel);
         binding.setViewModel(viewModel);
 
+        binding.commentEt.setTypeface(FontHelper.get().getLightTypeface());
         binding.toolbar.setTitle(R.string.up_comment_more);
         setToolbar(binding.toolbar);
 

@@ -40,11 +40,13 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/title_tv"
                 android:layout_marginTop="16dp"
                 android:text="@{bean.title}"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textColor="@color/text_color"
                 android:maxLines="1"
+                android:letterSpacing="0.09"
                 android:ellipsize="end"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"

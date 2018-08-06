@@ -11,6 +11,7 @@ import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.News;
 import com.future.awaker.databinding.ItemNewListGridBinding;
+import com.ruzhan.lion.helper.FontHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +85,10 @@ public class NewListAdapter extends RecyclerView.Adapter {
         public NewHolder(ItemNewListGridBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
+            binding.titleTv.setTypeface(FontHelper.get().getLightTypeface());
+            binding.categoryTv.setTypeface(FontHelper.get().getLightTypeface());
+            binding.commentTv.setTypeface(FontHelper.get().getLightTypeface());
         }
 
         public void bind(News bean) {

@@ -12,6 +12,7 @@
         android:layout_height="50dp">
 
         <TextView
+            android:id="@+id/more_tv"
             android:textSize="14sp"
             android:textColor="#99383838"
             android:text="@string/up_comment_click_more"
