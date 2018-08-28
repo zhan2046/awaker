@@ -35,35 +35,35 @@ public interface AwakerApi {
                                                 @Field("page") int page, @Field("id") int id);
 
     @FormUrlEncoded
-    @POST("news/getNewsDetail/id/{newId}")
+    @POST("news/getNewsDetail")
     Flowable<HttpResult<NewDetail>> getNewDetail(@Field("access_token") String token,
-                                                 @Path("newId") String newId);
+                                                 @Field("id") String newId);
 
     @FormUrlEncoded
-    @POST("news/getHotviewNewsAll")
+    @POST("news/getHotViewNewsAll")
     Flowable<HttpResult<List<News>>> getHotviewNewsAll(@Field("access_token") String token,
                                                        @Field("page") int page, @Field("id") int id);
 
     @FormUrlEncoded
-    @POST("news/getHotNewsAll")
+    @POST("news/getHotNewsWeek")
     Flowable<HttpResult<List<News>>> getHotNewsAll(@Field("access_token") String token,
                                                    @Field("page") int page, @Field("id") int id);
 
     // comment
 
     @FormUrlEncoded
-    @POST("news/getupNewsComments/id/{newId}")
+    @POST("news/getupNewsComments")
     Flowable<HttpResult<List<Comment>>> getUpNewsComments(@Field("access_token") String token,
-                                                          @Path("newId") String newId);
+                                                          @Field("id") String newId);
 
     @FormUrlEncoded
-    @POST("news/getNewsComments/id/{newId}")
+    @POST("news/getNewsComments")
     Flowable<HttpResult<List<Comment>>> getNewsComments(@Field("access_token") String token,
-                                                        @Path("newId") String newId,
+                                                        @Field("id") String newId,
                                                         @Field("page") int page);
 
     @FormUrlEncoded
-    @POST("news/hotComment")
+    @POST("news/GetHotComment")
     Flowable<HttpResult<List<Comment>>> getHotComment(@Field("access_token") String token);
 
     // video
@@ -74,15 +74,15 @@ public interface AwakerApi {
                                                        @Field("page") int page, @Field("cat") int cat);
 
     @FormUrlEncoded
-    @POST("special/getSpecialDetail/id/{id}")
+    @POST("special/getSpecialDetail")
     Flowable<HttpResult<SpecialDetail>> getSpecialDetail(@Field("access_token") String token,
-                                                         @Path("id") String id);
+                                                         @Field("id") String id);
 
 
     @FormUrlEncoded
-    @POST("news/sendNewsComment/id/{newId}")
+    @POST("news/sendNewsComment")
     Flowable<HttpResult<Object>> sendNewsComment(@Field("access_token") String token,
-                                                 @Path("newId") String newId,
+                                                 @Field("id") String newId,
                                                  @Field("content") String content,
                                                  @Field("open_id") String open_id,
                                                  @Field("pid") String pid);
