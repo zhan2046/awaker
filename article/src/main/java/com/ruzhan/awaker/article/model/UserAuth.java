@@ -1,0 +1,14 @@
+package com.ruzhan.awaker.article.model;
+
+/**
+ * Copyright ©2017 by ruzhan
+ */
+
+public class UserAuth {
+
+    public String uid;
+    public String username;
+    public String last_login_time;
+    public String role_id;
+    public String audit;
+}

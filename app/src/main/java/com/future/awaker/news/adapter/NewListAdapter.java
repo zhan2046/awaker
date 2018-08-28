@@ -1,24 +1,20 @@
 package com.future.awaker.news.adapter;
 
 import android.databinding.DataBindingUtil;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.future.awaker.R;
 import com.future.awaker.base.EmptyHolder;
-import com.future.awaker.base.IDiffCallBack;
 import com.future.awaker.base.listener.OnItemClickListener;
 import com.future.awaker.data.News;
-import com.future.awaker.databinding.ItemLoadBinding;
 import com.future.awaker.databinding.ItemNewListGridBinding;
 import com.future.awaker.databinding.ItemNewListGridLoadBinding;
 import com.ruzhan.lion.helper.FontHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -77,13 +73,13 @@ public class NewListAdapter extends RecyclerView.Adapter {
         if (viewType == TYPE_LOAD_MORE) {
             ItemNewListGridLoadBinding binding =
             DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                    R.layout.item_new_list_grid_load, parent, false);
+                    R.layout.awaker_article_item_new_list_grid_load, parent, false);
             binding.moreTv.setTypeface(FontHelper.get().getLightTypeface());
             return new EmptyHolder(binding);
 
         } else {
             ItemNewListGridBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                    R.layout.item_new_list_grid, parent, false);
+                    R.layout.awaker_article_item_new_list_grid, parent, false);
             NewHolder newHolder = new NewHolder(binding);
             binding.setHolder(newHolder);
             binding.setListener(listener);

@@ -110,7 +110,6 @@ class MainFragment : Fragment() {
         // this is gross but toolbar doesn't expose it's children to animate them :(
         val t = tool_bar.getChildAt(0)
         if (t != null && t is TextView) {
-            t.letterSpacing = 0.1f
             // fade in and space out the title.  Animating the letterSpacing performs horribly so
             // fake it by setting the desired letterSpacing then animating the scaleX ¯\_(ツ)_/¯
             t.alpha = 0f

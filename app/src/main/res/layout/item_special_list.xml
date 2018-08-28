@@ -50,7 +50,7 @@
                     app:imageUrl="@{newsItem.cover}" />
 
                 <ImageView
-                    android:src="@drawable/img_mask"
+                    android:src="@drawable/awaker_article_img_mask"
                     android:scaleType="fitXY"
                     android:layout_width="100dp"
                     android:layout_height="65dp" />

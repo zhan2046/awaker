@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">article</string>
+
+    <string name="awaker_article_all">全部资讯</string>
+    <string name="awaker_article_week_hot_read">每周热读</string>
+    <string name="awaker_article_week_hot_write">每周热评</string>
+    <string name="awaker_article_spiritual_awakening">灵性觉醒</string>
+    <string name="awaker_article_scientific_exploration">科学探索</string>
+    <string name="awaker_article_ufo">UFO</string>
+    <string name="awaker_article_free_energy">自由能源</string>
+    <string name="awaker_article_unsolved_puzzle">未解之谜</string>
+    <string name="awaker_article_crop_circles">麦田圈</string>
+    <string name="awaker_article_reverse_gene">反转基因</string>
+    <string name="awaker_article_abnormal_event">异常事件</string>
+    <string name="awaker_article_conspiracy_theory">阴谋论</string>
+    <string name="awaker_article_masonic">共济会</string>
+    <string name="awaker_article_crucial_moment">关键时刻</string>
+    <string name="awaker_article_other">其他</string>
+
+    <string name="awaker_article_comment_count">%1$s 跟帖</string>
+
 </resources>

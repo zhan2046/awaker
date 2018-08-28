@@ -40,7 +40,7 @@ public class OtherNewListAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemNewListGridBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                R.layout.item_new_list_grid, parent, false);
+                R.layout.awaker_article_item_new_list_grid, parent, false);
         NewListAdapter.NewHolder newHolder = new NewListAdapter.NewHolder(binding);
         binding.setHolder(newHolder);
         binding.setListener(listener);

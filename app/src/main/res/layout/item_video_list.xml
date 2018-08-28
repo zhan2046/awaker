@@ -50,7 +50,7 @@
                     app:imageUrl="@{specialItem.cover}" />
 
                 <ImageView
-                    android:src="@drawable/img_mask"
+                    android:src="@drawable/awaker_article_img_mask"
                     android:scaleType="fitXY"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />

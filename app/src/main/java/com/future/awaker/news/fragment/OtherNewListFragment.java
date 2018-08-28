@@ -81,7 +81,7 @@ public class OtherNewListFragment extends BaseListFragment<FragOtherNewBinding>
 
     @Override
     public void onPageSelected(int position) {
-        LogUtils.d("NewListFragment onPageSelected");
+        LogUtils.d("ArticleNewAllFragment onPageSelected");
         if (!isFirst) {
             onRefresh();
             isFirst = true;

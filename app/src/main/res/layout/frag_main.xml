@@ -7,8 +7,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
-        android:background="@color/light_grey"
+        android:layout_height="45dp"
+        android:background="@color/awaker_article_white"
         android:outlineProvider="none"
         android:title="@string/app_name"
         app:layout_scrollFlags="scroll|enterAlways"
@@ -17,11 +17,10 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:background="@color/light_grey"
         app:itemIconTint="@color/selector_bottom_item_tint"
-        app:itemTextColor="@color/selector_bottom_item_tint"
         app:menu="@menu/home_navigation" />
 
     <FrameLayout

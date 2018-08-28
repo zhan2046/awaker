@@ -31,8 +31,8 @@ public class GlideImpl implements IImageLoader {
         GlideApp.with(imageView.getContext())
                 .load(url)
                 .transition(normalTransitionOptions)
-                .placeholder(R.drawable.image_mark)
-                .error(R.drawable.image_mark)
+                .placeholder(R.drawable.awaker_article_image_mark)
+                .error(R.drawable.awaker_article_image_mark)
                 .into(imageView);
     }
 
@@ -88,8 +88,8 @@ public class GlideImpl implements IImageLoader {
                 .load(url)
                 .thumbnail(SIZE_MULTIPLIER)
                 .transition(normalTransitionOptions)
-                .placeholder(R.drawable.image_mark)
-                .error(R.drawable.image_mark)
+                .placeholder(R.drawable.awaker_article_image_mark)
+                .error(R.drawable.awaker_article_image_mark)
                 .into(imageView);
     }
 
@@ -99,8 +99,8 @@ public class GlideImpl implements IImageLoader {
                 .load(url)
                 .transition(normalTransitionOptions)
                 .transform(new MultiTransformation<>(new CircleCrop()))
-                .placeholder(R.drawable.image_circle_mark)
-                .error(R.drawable.image_circle_mark)
+                .placeholder(R.drawable.awaker_article_image_circle_mark)
+                .error(R.drawable.awaker_article_image_circle_mark)
                 .into(imageView);
     }
 
@@ -110,8 +110,8 @@ public class GlideImpl implements IImageLoader {
                 .load(resId)
                 .transition(normalTransitionOptions)
                 .transform(new MultiTransformation<>(new CircleCrop()))
-                .placeholder(R.drawable.image_circle_mark)
-                .error(R.drawable.image_circle_mark)
+                .placeholder(R.drawable.awaker_article_image_circle_mark)
+                .error(R.drawable.awaker_article_image_circle_mark)
                 .into(imageView);
     }
 }

@@ -32,7 +32,7 @@ public class NewListFragment extends BaseListFragment<FragNewBinding>
 
     @Override
     protected int getLayout() {
-        return R.layout.frag_new;
+        return R.layout.awaker_article_frag_new_all;
     }
 
     @Override

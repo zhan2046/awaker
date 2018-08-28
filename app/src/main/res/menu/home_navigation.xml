@@ -3,11 +3,9 @@
 
     <item
         android:id="@+id/article"
-        android:icon="@drawable/ic_like"
-        android:title="@string/article" />
+        android:icon="@drawable/ic_like" />
 
     <item
         android:id="@+id/movie"
-        android:icon="@drawable/ic_video"
-        android:title="@string/movie" />
+        android:icon="@drawable/ic_video" />
 </menu>
