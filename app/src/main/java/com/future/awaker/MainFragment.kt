@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.TextView
 import com.ruzhan.awaker.article.ArticleHomeFragment
+import com.ruzhan.awaker.article.comment.ArticleHotCommentFragment
 import com.ruzhan.lion.util.AnimUtils
 import com.ruzhan.movie.MovieListFragment
 import kotlinx.android.synthetic.main.frag_main.*
@@ -27,6 +28,7 @@ class MainFragment : Fragment() {
     private val fragmentMap = HashMap<String, Fragment>()
 
     private var articleHomeFragment: ArticleHomeFragment? = null
+    private var articleHotCommentFragment: ArticleHotCommentFragment? = null
     private var movieListFragment: MovieListFragment? = null
 
 
@@ -85,6 +87,19 @@ class MainFragment : Fragment() {
                     transaction.show(frag)
                 }
 
+            }
+            R.id.comment -> {
+                fragTag = "ArticleHotCommentFragment"
+                frag = fragmentMap[fragTag]
+
+                if (frag == null) {
+                    frag = ArticleHotCommentFragment.newInstance()
+                    articleHotCommentFragment = frag
+                    transaction.add(R.id.container, frag, fragTag)
+
+                } else {
+                    transaction.show(frag)
+                }
             }
             R.id.movie -> {
                 fragTag = "MovieListFragment"
