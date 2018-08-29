@@ -64,9 +64,11 @@ class ArticleNewDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
             dataList.addAll(it)
 
-            dataList.add(COMMENT_TITLE)
-            commentList?.let { dataList.addAll(it) }
-            dataList.add(COMMENT_MORE)
+            commentList?.let {
+                dataList.add(COMMENT_TITLE)
+                dataList.addAll(it)
+                dataList.add(COMMENT_MORE)
+            }
             notifyDataSetChanged()
         }
     }
@@ -78,11 +80,12 @@ class ArticleNewDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
             header?.let { dataList.add(it) }
 
-            newEleList?.let { dataList.addAll(it) }
-
-            dataList.add(COMMENT_TITLE)
-            dataList.addAll(it)
-            dataList.add(COMMENT_MORE)
+            newEleList?.let {
+                dataList.addAll(it)
+                dataList.add(COMMENT_TITLE)
+                dataList.addAll(it)
+                dataList.add(COMMENT_MORE)
+            }
             notifyDataSetChanged()
         }
     }
