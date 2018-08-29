@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.ruzhan.awaker.article.OnFragmentLoadListener
 import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.News
 import com.ruzhan.awaker.article.news.ArticleNewDetailActivity
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.awaker_article_frag_new_hot_read.*
 /**
  * Created by ruzhan123 on 2018/8/29.
  */
-class ArticleWeekHotReadFragment : Fragment() {
+class ArticleWeekHotReadFragment : Fragment(), OnFragmentLoadListener {
 
     companion object {
 
@@ -79,8 +80,9 @@ class ArticleWeekHotReadFragment : Fragment() {
                         }
                     }
                 })
+    }
 
-
+    override fun startLoadData() {
         articleWeekHotReadViewModel.loadLocalHotNewsList()
         articleWeekHotReadViewModel.getWeekHotReadNews(RequestStatus.REFRESH)
     }

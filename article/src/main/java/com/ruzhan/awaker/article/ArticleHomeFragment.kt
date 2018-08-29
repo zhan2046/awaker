@@ -1,7 +1,10 @@
 package com.ruzhan.awaker.article
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
@@ -25,6 +28,12 @@ class ArticleHomeFragment : Fragment() {
 
     private lateinit var articleHomeAdapter: ArticleHomeAdapter
 
+    private var currentPosition: Int = 0
+    private var onFragmentLoadListener: OnFragmentLoadListener? = null
+
+    private val fragmentLoadTask: FragmentLoadTask = FragmentLoadTask()
+    private val handler: Handler = Handler(Looper.getMainLooper())
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.awaker_article_frag_home, container, false)
     }
@@ -43,6 +52,23 @@ class ArticleHomeFragment : Fragment() {
 
         tabs.tabMode = android.support.design.widget.TabLayout.MODE_SCROLLABLE
         tabs.setupWithViewPager(view_pager)
+
+        view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                handler.removeCallbacks(fragmentLoadTask)
+                onFragmentLoadListener = articleHomeAdapter.getOnFragmentLoadListener(position)
+                handler.postDelayed(fragmentLoadTask, 600)
+            }
+        })
     }
 
     private fun getTitleList(): List<String> {
@@ -68,6 +94,24 @@ class ArticleHomeFragment : Fragment() {
     private fun setToolbar(toolbar: Toolbar) {
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(toolbar)
+    }
+
+    inner class FragmentLoadTask: Runnable {
+
+        private var position: Int = 0
+
+        fun setPosition(pos: Int) {
+            position = pos
+        }
+
+        override fun run() {
+            onFragmentLoadListener?.startLoadData()
+        }
+    }
+
+    override fun onDestroy() {
+        handler.removeCallbacks(fragmentLoadTask)
+        super.onDestroy()
     }
 }
 

@@ -7,12 +7,15 @@ import com.ruzhan.awaker.article.news.ArticleNewAllFragment
 import com.ruzhan.awaker.article.news.OtherArticleNewAllFragment
 import com.ruzhan.awaker.article.week.ArticleWeekHotCommentFragment
 import com.ruzhan.awaker.article.week.ArticleWeekHotReadFragment
+import java.lang.ref.WeakReference
 
 /**
  * Created by ruzhan123 on 2018/8/28.
  */
 class ArticleHomeAdapter(fm: FragmentManager, private val titleList: List<String>)
     : FragmentStatePagerAdapter(fm) {
+
+    private val fragMap: HashMap<Int, WeakReference<OnFragmentLoadListener>> = HashMap()
 
     override fun getItem(position: Int): Fragment {
         lateinit var frag: Fragment
@@ -33,6 +36,9 @@ class ArticleHomeAdapter(fm: FragmentManager, private val titleList: List<String
             13 -> frag = OtherArticleNewAllFragment.newInstance(10) // 关键时刻
             14 -> frag = OtherArticleNewAllFragment.newInstance(7) // 其他
         }
+        if (frag is OnFragmentLoadListener) {
+            fragMap[position] = WeakReference<OnFragmentLoadListener>(frag)
+        }
         return frag
     }
 
@@ -42,5 +48,15 @@ class ArticleHomeAdapter(fm: FragmentManager, private val titleList: List<String
 
     override fun getPageTitle(position: Int): CharSequence? {
         return titleList[position]
+    }
+
+    fun getOnFragmentLoadListener(position: Int): OnFragmentLoadListener? {
+        var listener: OnFragmentLoadListener? = null
+        val weakRefValue = fragMap[position]
+        weakRefValue?.let {
+            val realValue = it.get()
+            realValue?.let { listener = it }
+        }
+        return listener
     }
 }

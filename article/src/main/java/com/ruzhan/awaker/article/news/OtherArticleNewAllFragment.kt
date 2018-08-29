@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.ruzhan.awaker.article.OnFragmentLoadListener
 import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.News
 import com.ruzhan.lion.helper.OnRefreshHelper
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.awaker_article_frag_new_all.*
  * Created by ruzhan on 2017/7/6.
  */
 
-class OtherArticleNewAllFragment : Fragment() {
+class OtherArticleNewAllFragment : Fragment(), OnFragmentLoadListener {
 
     companion object {
 
@@ -54,9 +55,6 @@ class OtherArticleNewAllFragment : Fragment() {
 
         otherArticleNewAllViewModel = ViewModelProviders.of(this).get(OtherArticleNewAllViewModel::class.java)
         initLiveData()
-
-        otherArticleNewAllViewModel.loadLocalOtherNews(newId.toString())
-        otherArticleNewAllViewModel.getOtherNewsList(RequestStatus.REFRESH, newId.toString())
     }
 
     private fun initRecyclerView() {
@@ -110,5 +108,10 @@ class OtherArticleNewAllFragment : Fragment() {
                         }
                     }
                 })
+    }
+
+    override fun startLoadData() {
+        otherArticleNewAllViewModel.loadLocalOtherNews(newId.toString())
+        otherArticleNewAllViewModel.getOtherNewsList(RequestStatus.REFRESH, newId.toString())
     }
 }

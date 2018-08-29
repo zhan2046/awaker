@@ -39,6 +39,9 @@ class OtherArticleNewAllViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun loadLocalOtherNews(newId: String) {
+        if (requestStatusLiveData.value != null) {
+            return
+        }
         disposable = AwakerRepository.get().loadNewsEntity(newId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

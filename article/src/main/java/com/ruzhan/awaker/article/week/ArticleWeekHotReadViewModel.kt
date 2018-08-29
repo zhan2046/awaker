@@ -34,6 +34,9 @@ class ArticleWeekHotReadViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun loadLocalHotNewsList() {
+        if (requestStatusLiveData.value != null) {
+            return
+        }
         disposable = AwakerRepository.get().loadNewsEntity(NewsEntity.HOT_READ_NEWS_ALL)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
