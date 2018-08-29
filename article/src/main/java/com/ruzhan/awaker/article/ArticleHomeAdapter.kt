@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.ruzhan.awaker.article.news.ArticleNewAllFragment
+import com.ruzhan.awaker.article.week.ArticleWeekHotReadFragment
 
 /**
  * Created by ruzhan123 on 2018/8/28.
@@ -15,7 +16,7 @@ class ArticleHomeAdapter(fm: FragmentManager, private val titleList: List<String
         lateinit var frag: Fragment
         when (position) {
             0 -> frag = ArticleNewAllFragment.newInstance()
-            1 -> frag = ArticleNewAllFragment.newInstance()
+            1 -> frag = ArticleWeekHotReadFragment.newInstance()
             2 -> frag = ArticleNewAllFragment.newInstance()
             3 -> frag = ArticleNewAllFragment.newInstance()
             4 -> frag = ArticleNewAllFragment.newInstance()

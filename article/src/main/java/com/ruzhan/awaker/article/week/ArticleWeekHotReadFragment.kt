@@ -1,4 +1,4 @@
-package com.ruzhan.awaker.article.news
+package com.ruzhan.awaker.article.week
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -10,45 +10,35 @@ import android.view.View
 import android.view.ViewGroup
 import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.News
+import com.ruzhan.awaker.article.news.ArticleNewDetailActivity
 import com.ruzhan.lion.helper.OnRefreshHelper
 import com.ruzhan.lion.listener.OnItemClickListener
 import com.ruzhan.lion.model.LoadStatus
 import com.ruzhan.lion.model.RequestStatus
-import kotlinx.android.synthetic.main.awaker_article_frag_new_all.*
+import kotlinx.android.synthetic.main.awaker_article_frag_new_hot_read.*
 
 /**
- * Created by ruzhan on 2017/7/6.
+ * Created by ruzhan123 on 2018/8/29.
  */
-
-class ArticleNewAllFragment : Fragment() {
+class ArticleWeekHotReadFragment : Fragment() {
 
     companion object {
 
         @JvmStatic
-        fun newInstance() = ArticleNewAllFragment()
+        fun newInstance() = ArticleWeekHotReadFragment()
     }
 
-    private lateinit var articleNewAllViewModel: ArticleNewAllViewModel
-    private lateinit var articleNewAllAdapter: ArticleNewAllAdapter
+    private lateinit var articleWeekHotReadAdapter: ArticleWeekHotReadAdapter
+    private lateinit var articleWeekHotReadViewModel: ArticleWeekHotReadViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.awaker_article_frag_new_all, container, false)
+        return inflater.inflate(R.layout.awaker_article_frag_new_hot_read, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView()
-
-        articleNewAllViewModel = ViewModelProviders.of(this).get(ArticleNewAllViewModel::class.java)
-        initLiveData()
-
-        articleNewAllViewModel.loadLocalNews()
-        articleNewAllViewModel.getNewsAllList(RequestStatus.REFRESH)
-    }
-
-    private fun initRecyclerView() {
-        articleNewAllAdapter = ArticleNewAllAdapter(object : OnItemClickListener<News> {
+        articleWeekHotReadAdapter = ArticleWeekHotReadAdapter(object : OnItemClickListener<News> {
             override fun onItemClick(position: Int, bean: News, itemView: View) {
                 activity?.let {
                     val url = if (bean.cover_url == null) "" else bean.cover_url.ori
@@ -56,47 +46,42 @@ class ArticleNewAllFragment : Fragment() {
                 }
             }
         })
-
-        recycler_view.adapter = articleNewAllAdapter
-
         val manager = GridLayoutManager(activity, 2)
-        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-
-            override fun getSpanSize(position: Int): Int {
-                return articleNewAllAdapter.getSpanSize(position)
-            }
-        }
         recycler_view.layoutManager = manager
+        recycler_view.adapter = articleWeekHotReadAdapter
 
         OnRefreshHelper.setOnRefreshStatusListener(swipe_refresh, recycler_view, object :
                 OnRefreshHelper.OnRefreshStatusListener {
 
             override fun onRefresh() {
-                articleNewAllViewModel.getNewsAllList(RequestStatus.REFRESH)
+                articleWeekHotReadViewModel.getWeekHotReadNews(RequestStatus.REFRESH)
             }
 
             override fun onLoadMore() {
-                articleNewAllViewModel.getNewsAllList(RequestStatus.LOAD_MORE)
+
             }
         })
-    }
 
-    private fun initLiveData() {
-        articleNewAllViewModel.loadStatusLiveData.observe(this@ArticleNewAllFragment,
+        articleWeekHotReadViewModel = ViewModelProviders.of(this).get(ArticleWeekHotReadViewModel::class.java)
+
+        articleWeekHotReadViewModel.loadStatusLiveData.observe(this@ArticleWeekHotReadFragment,
                 Observer { loadStatus ->
                     loadStatus?.let {
                         swipe_refresh.isRefreshing = LoadStatus.LOADING == loadStatus
                     }
                 })
 
-        articleNewAllViewModel.requestStatusLiveData.observe(this@ArticleNewAllFragment,
+        articleWeekHotReadViewModel.requestStatusLiveData.observe(this@ArticleWeekHotReadFragment,
                 Observer { requestStatus ->
                     requestStatus?.let {
                         when (requestStatus.refreshStatus) {
-                            RequestStatus.REFRESH -> articleNewAllAdapter.setRefreshData(requestStatus.data)
-                            RequestStatus.LOAD_MORE -> articleNewAllAdapter.setLoadMoreData(requestStatus.data)
+                            RequestStatus.REFRESH -> articleWeekHotReadAdapter.setRefreshData(requestStatus.data)
                         }
                     }
                 })
+
+
+        articleWeekHotReadViewModel.loadLocalHotNewsList()
+        articleWeekHotReadViewModel.getWeekHotReadNews(RequestStatus.REFRESH)
     }
 }
