@@ -30,7 +30,7 @@
             android:scaleType="centerCrop" />
 
         <ImageView
-            android:background="#66FFFFFF"
+            android:background="#AAFFFFFF"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

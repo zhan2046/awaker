@@ -7,12 +7,10 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        style="@style/Widget.Awaker.Article.ToolBar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/awaker_article_white"
-        android:elevation="3dp"
-        app:titleTextAppearance="@style/Awaker.Article.Toolbar.TitleText" >
+        android:elevation="3dp">
 
         <FrameLayout
             android:background="@color/awaker_article_white"

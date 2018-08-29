@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="awaker_article_colorPrimary">#FFF5F5F5</color>
+    <color name="awaker_article_colorPrimaryDark">#66757575</color>
+    <color name="awaker_article_colorAccent">#FF1E88E5</color>
+
     <color name="awaker_article_color">#FF2196F3</color>
 
     <color name="awaker_article_white">#FFFFFFFF</color>

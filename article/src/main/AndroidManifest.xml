@@ -6,12 +6,12 @@
         <activity
             android:name=".news.ArticleNewDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Lion.MovieDetail" />
+            android:theme="@style/Awaker.Article" />
 
         <activity
             android:name=".comment.ArticleCommentListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Lion.MovieDetail" />
+            android:theme="@style/Awaker.Article" />
 
     </application>
 </manifest>

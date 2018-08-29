@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/awaker_article_white"
+    android:background="@color/awaker_article_white_f5"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/space_large_64">
+    android:layout_height="@dimen/space_large_96">
 
     <LinearLayout
-        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/space_normal_16"
+        android:layout_gravity="top|center_horizontal"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -32,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/awaker_article_text_color"
-            android:textSize="@dimen/text_small_14" />
+            android:textSize="@dimen/text_small_12" />
     </LinearLayout>
 
 </FrameLayout>

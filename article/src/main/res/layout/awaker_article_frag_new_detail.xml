@@ -16,13 +16,14 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Widget.Awaker.Article.ToolBar"
-            app:titleTextAppearance="@style/Awaker.Article.Toolbar.TitleText" />
+            app:titleTextAppearance="@style/Awaker.Article.Toolbar.TitleText"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_scrollFlags="exitUntilCollapsed" />
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/appbar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout

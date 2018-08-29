@@ -32,7 +32,7 @@ class ArticleHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        title_tv.typeface = FontHelper.get().getLightTypeface()
+        title_tv.typeface = FontHelper.get().getBoldTypeface()
         title_tv.text = resources.getString(R.string.awaker_article_news_title)
         setToolbar(toolbar)
 

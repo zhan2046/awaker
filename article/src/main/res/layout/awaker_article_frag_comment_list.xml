@@ -16,6 +16,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Widget.Awaker.Article.ToolBar"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_scrollFlags="exitUntilCollapsed"
             app:titleTextAppearance="@style/Awaker.Article.Toolbar.TitleText" />
     </android.support.design.widget.AppBarLayout>
 

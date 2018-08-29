@@ -15,12 +15,11 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            style="@style/Widget.Awaker.Article.ToolBar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            app:layout_scrollFlags="scroll|enterAlways"
             android:background="@color/awaker_article_white"
-            android:elevation="0dp"
-            app:titleTextAppearance="@style/Awaker.Article.Toolbar.TitleText" >
+            android:elevation="0dp">
 
             <FrameLayout
                 android:background="@color/awaker_article_white"

@@ -17,7 +17,7 @@ class ArticleNewDetailVideoHolder(itemView: View, private val listener: OnItemCl
     private lateinit var newEle: NewEle
 
     init {
-        itemView.video_desc_tv.typeface = FontHelper.get().getLightTypeface()
+        itemView.video_desc_tv.typeface = FontHelper.get().getBoldTypeface()
 
         itemView.root_cv.setOnClickListener { listener.onItemClick(adapterPosition, newEle, it) }
     }
