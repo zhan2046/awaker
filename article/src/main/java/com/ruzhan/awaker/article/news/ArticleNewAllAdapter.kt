@@ -80,7 +80,7 @@ class ArticleNewAllAdapter(private var listener: OnItemClickListener<News>)
         return dataList.size
     }
 
-    fun getSpanSize(position : Int) : Int {
+    fun getSpanSize(position: Int): Int {
         var spanSize = 1
         when (getItemViewType(position)) {
             TYPE_NORMAL -> spanSize = 1

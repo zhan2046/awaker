@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.awaker_article_item_new_detail_comment_tit
 /**
  * Created by ruzhan123 on 2018/8/29.
  */
-class ArticleNewDetailCommentTitleHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class ArticleNewDetailCommentTitleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     init {
         itemView.hot_title_tv.typeface = FontHelper.get().getLightTypeface()

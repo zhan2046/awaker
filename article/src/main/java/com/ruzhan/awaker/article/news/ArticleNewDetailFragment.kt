@@ -5,15 +5,20 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.ruzhan.awaker.article.R
+import com.ruzhan.awaker.article.comment.ArticleCommentListActivity
 import com.ruzhan.awaker.article.model.Header
 import com.ruzhan.awaker.article.model.NewDetail
 import com.ruzhan.awaker.article.model.NewEle
 import com.ruzhan.awaker.article.util.HtmlParser
+import com.ruzhan.awaker.article.util.KeyboardUtils
 import com.ruzhan.awaker.article.util.ResUtils
 import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.helper.OnRefreshHelper
@@ -33,13 +38,15 @@ import kotlinx.android.synthetic.main.awaker_article_frag_new_detail.*
 /**
  * Created by ruzhan123 on 2018/8/29.
  */
-class ArticleNewDetailFragment: Fragment() {
+class ArticleNewDetailFragment : Fragment() {
 
     companion object {
 
         private const val NEW_ID = "newId"
         private const val NEW_TITLE = "newTitle"
         private const val NEW_URL = "newUrl"
+
+        private const val RESET_EDIT_VALUE = 30
 
         @JvmStatic
         fun newInstance(newId: String, title: String, imageUrl: String): ArticleNewDetailFragment {
@@ -88,47 +95,80 @@ class ArticleNewDetailFragment: Fragment() {
         header.title = title
         header.url = imageUrl
 
+        initRecyclerView()
+
+        articleNewDetailViewModel = ViewModelProviders.of(this)
+                .get(ArticleNewDetailViewModel::class.java)
+
+        initLiveData()
+        initListener()
+
+        articleNewDetailViewModel.loadLocalNewDetail(newId)
+        articleNewDetailViewModel.loadLocalCommentList(newId)
+
+        articleNewDetailViewModel.getNewDetail(RequestStatus.REFRESH, newId)
+        articleNewDetailViewModel.getHotCommentList(newId)
+    }
+
+    private fun setToolbar(toolbar: Toolbar?) {
+        if (toolbar == null) {
+            return
+        }
+        val activity = activity as AppCompatActivity?
+        activity!!.setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener(View.OnClickListener { activity.onBackPressed() })
+
+        val actionBar = activity.supportActionBar
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true)
+            actionBar.setDisplayHomeAsUpEnabled(true)
+        }
+    }
+
+    private fun initRecyclerView() {
         articleNewDetailAdapter = ArticleNewDetailAdapter(
-            object : OnItemClickListener<NewEle> { // image
+                object : OnItemClickListener<NewEle> { // image
 
-                override fun onItemClick(position: Int, bean: NewEle, itemView: View) {
-                    val imageUrlList = articleNewDetailAdapter.getImageUrlList()
-                    val imageUrl = bean.imgUrl
-                    val imageListModel = ImageListModel(title, imageUrlList.indexOf(imageUrl),
-                            imageUrl, imageUrlList)
+                    override fun onItemClick(position: Int, bean: NewEle, itemView: View) {
+                        val imageUrlList = articleNewDetailAdapter.getImageUrlList()
+                        val imageUrl = bean.imgUrl
+                        val imageListModel = ImageListModel(title, imageUrlList.indexOf(imageUrl),
+                                imageUrl, imageUrlList)
 
-                    activity?.let {
-                        ImageDetailActivity.launch(it, imageListModel)
+                        activity?.let {
+                            ImageDetailActivity.launch(it, imageListModel)
+                        }
                     }
-                }
-    },
-            object : OnItemClickListener<NewEle> { // video
+                },
+                object : OnItemClickListener<NewEle> { // video
 
-                override fun onItemClick(position: Int, bean: NewEle, itemView: View) {
-                    Flowable.create<String>({ e ->
-                        val playUrl = HtmlParser.htmlToVideoUrl(bean.html)
-                        e.onNext(playUrl)
-                        e.onComplete()
+                    override fun onItemClick(position: Int, bean: NewEle, itemView: View) {
+                        Flowable.create<String>({ e ->
+                            val playUrl = HtmlParser.htmlToVideoUrl(bean.html)
+                            e.onNext(playUrl)
+                            e.onComplete()
 
-                    }, BackpressureStrategy.LATEST)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doOnError(Throwable::printStackTrace)
-                            .doOnNext { url ->
-                                activity?.let {
-                                    WebVideoActivity.launch(it, url)
+                        }, BackpressureStrategy.LATEST)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnError(Throwable::printStackTrace)
+                                .doOnNext { url ->
+                                    activity?.let {
+                                        WebVideoActivity.launch(it, url)
+                                    }
                                 }
-                            }
-                            .doOnComplete { }
-                            .subscribe(Subscriber.create())
-                }
-            },
-            object : OnItemClickListener<String> { // comment more
+                                .doOnComplete { }
+                                .subscribe(Subscriber.create())
+                    }
+                },
+                object : OnItemClickListener<String> { // comment more
 
-                override fun onItemClick(position: Int, bean: String, itemView: View) {
-                    //CommentListActivity.launch(activity, newId)
-                }
-            })
+                    override fun onItemClick(position: Int, bean: String, itemView: View) {
+                        activity?.let {
+                            ArticleCommentListActivity.launch(it, newId)
+                        }
+                    }
+                })
 
         articleNewDetailAdapter.setHeaderData(header)
         recycler_view.adapter = articleNewDetailAdapter
@@ -144,9 +184,9 @@ class ArticleNewDetailFragment: Fragment() {
 
             }
         })
+    }
 
-        articleNewDetailViewModel = ViewModelProviders.of(this)
-                .get(ArticleNewDetailViewModel::class.java)
+    private fun initLiveData() {
         articleNewDetailViewModel.loadStatusLiveData.observe(this@ArticleNewDetailFragment,
                 Observer { loadStatus ->
                     loadStatus?.let {
@@ -178,25 +218,54 @@ class ArticleNewDetailFragment: Fragment() {
                     }
                 })
 
-        articleNewDetailViewModel.loadLocalNewDetail(newId)
-        articleNewDetailViewModel.loadLocalCommentList(newId)
+        articleNewDetailViewModel.sendCommentLiveData.observe(this@ArticleNewDetailFragment,
+                Observer { comment ->
+                    comment?.let {
+                        val str = resources.getString(R.string.awaker_article_comment_suc)
+                        Toast.makeText(context, str + "", Toast.LENGTH_LONG).show()
+                        comment_et.setText("")
+                        comment_et.isFocusable = false
+                        comment_et.isFocusableInTouchMode = true
 
-        articleNewDetailViewModel.getNewDetail(RequestStatus.REFRESH, newId)
-        articleNewDetailViewModel.getHotCommentList(newId)
+                        activity?.let { KeyboardUtils.closeSoftInput(it, comment_et) }
+                        articleNewDetailViewModel.getHotCommentList(newId)
+                    }
+                })
     }
 
-    private fun setToolbar(toolbar: Toolbar?) {
-        if (toolbar == null) {
-            return
-        }
-        val activity = activity as AppCompatActivity?
-        activity!!.setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener(View.OnClickListener { activity.onBackPressed() })
+    private fun initListener() {
+        send_iv.setOnClickListener(View.OnClickListener {
+            val content = comment_et.text.toString().trim()
+            if (TextUtils.isEmpty(content)) {
+                return@OnClickListener
+            }
+            articleNewDetailViewModel.sendNewsComment(newId, content, "", "")
+        })
 
-        val actionBar = activity.supportActionBar
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true)
-            actionBar.setDisplayHomeAsUpEnabled(true)
+        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (Math.abs(dy) > RESET_EDIT_VALUE && comment_et.isFocusable) {
+                    comment_et.setText("")
+                    comment_et.isFocusable = false
+                    comment_et.isFocusableInTouchMode = true
+                    activity?.let { KeyboardUtils.closeSoftInput(it, comment_et) }
+                }
+            }
+        })
+
+        comment_et.setOnClickListener {
+            comment_et.isFocusable = true
+            comment_et.requestFocus()
+        }
+
+        comment_right_tv.setOnClickListener {
+            activity?.let { ArticleCommentListActivity.launch(it, newId) }
+        }
+
+        comment_et.setOnFocusChangeListener { _, hasFocus ->
+            send_iv.visibility = if (hasFocus) View.VISIBLE else View.GONE
+            comment_right_tv.visibility = if (hasFocus) View.GONE else View.VISIBLE
         }
     }
 

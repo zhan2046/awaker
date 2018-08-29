@@ -8,11 +8,11 @@ import com.ruzhan.awaker.article.news.ArticleNewAllFragment
 /**
  * Created by ruzhan123 on 2018/8/28.
  */
-class ArticleHomeAdapter(fm : FragmentManager, private val titleList: List<String>)
+class ArticleHomeAdapter(fm: FragmentManager, private val titleList: List<String>)
     : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
-        lateinit var frag : Fragment
+        lateinit var frag: Fragment
         when (position) {
             0 -> frag = ArticleNewAllFragment.newInstance()
             1 -> frag = ArticleNewAllFragment.newInstance()

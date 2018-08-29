@@ -38,9 +38,16 @@ class ArticleNewAllFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecyclerView()
+
         articleNewAllViewModel = ViewModelProviders.of(this).get(ArticleNewAllViewModel::class.java)
+        initLiveData()
 
+        articleNewAllViewModel.loadLocalNews()
+        articleNewAllViewModel.getNewsAllList(RequestStatus.REFRESH)
+    }
 
+    private fun initRecyclerView() {
         articleNewAllAdapter = ArticleNewAllAdapter(object : OnItemClickListener<News> {
             override fun onItemClick(position: Int, bean: News, itemView: View) {
                 activity?.let {
@@ -72,25 +79,24 @@ class ArticleNewAllFragment : Fragment() {
                 articleNewAllViewModel.getNewsAllList(RequestStatus.LOAD_MORE)
             }
         })
+    }
 
+    fun initLiveData() {
         articleNewAllViewModel.loadStatusLiveData.observe(this@ArticleNewAllFragment,
                 Observer { loadStatus ->
-            loadStatus?.let {
-                swipe_refresh.isRefreshing = LoadStatus.LOADING == loadStatus
-            }
-        })
+                    loadStatus?.let {
+                        swipe_refresh.isRefreshing = LoadStatus.LOADING == loadStatus
+                    }
+                })
 
         articleNewAllViewModel.requestStatusLiveData.observe(this@ArticleNewAllFragment,
                 Observer { requestStatus ->
-            requestStatus?.let {
-                when (requestStatus.refreshStatus) {
-                    RequestStatus.REFRESH -> articleNewAllAdapter.setRefreshData(requestStatus.data)
-                    RequestStatus.LOAD_MORE -> articleNewAllAdapter.setLoadMoreData(requestStatus.data)
-                }
-            }
-        })
-
-        articleNewAllViewModel.loadLocalNews()
-        articleNewAllViewModel.getNewsAllList(RequestStatus.REFRESH)
+                    requestStatus?.let {
+                        when (requestStatus.refreshStatus) {
+                            RequestStatus.REFRESH -> articleNewAllAdapter.setRefreshData(requestStatus.data)
+                            RequestStatus.LOAD_MORE -> articleNewAllAdapter.setLoadMoreData(requestStatus.data)
+                        }
+                    }
+                })
     }
 }

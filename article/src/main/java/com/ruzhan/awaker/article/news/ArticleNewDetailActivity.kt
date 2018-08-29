@@ -9,7 +9,7 @@ import com.ruzhan.awaker.article.R
 /**
  * Created by ruzhan123 on 2018/8/29.
  */
-class ArticleNewDetailActivity: AppCompatActivity() {
+class ArticleNewDetailActivity : AppCompatActivity() {
 
     companion object {
 

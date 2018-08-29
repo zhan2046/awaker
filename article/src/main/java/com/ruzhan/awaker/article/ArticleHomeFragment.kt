@@ -9,7 +9,6 @@ import com.ruzhan.awaker.article.util.ResUtils
 import kotlinx.android.synthetic.main.awaker_article_frag_home.*
 
 
-
 /**
  * Created by ruzhan123 on 2018/8/28.
  */
@@ -39,7 +38,7 @@ class ArticleHomeFragment : Fragment() {
         tabs.setupWithViewPager(view_pager)
     }
 
-    private fun getTitleList() : List<String> {
+    private fun getTitleList(): List<String> {
         val titleArr = ArrayList<String>()
         titleArr.add(ResUtils.getString(R.string.awaker_article_all))
         titleArr.add(ResUtils.getString(R.string.awaker_article_week_hot_read))

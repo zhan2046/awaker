@@ -8,5 +8,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/Lion.MovieDetail" />
 
+        <activity
+            android:name=".comment.ArticleCommentListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Lion.MovieDetail" />
+
     </application>
 </manifest>

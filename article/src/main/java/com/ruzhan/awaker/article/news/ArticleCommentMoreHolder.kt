@@ -2,7 +2,6 @@ package com.ruzhan.awaker.article.news
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.ruzhan.awaker.article.model.NewEle
 import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.listener.OnItemClickListener
 import kotlinx.android.synthetic.main.awaker_article_item_comment_more.view.*

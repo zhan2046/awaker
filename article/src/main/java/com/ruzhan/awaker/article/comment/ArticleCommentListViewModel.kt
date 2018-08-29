@@ -1,9 +1,10 @@
-package com.ruzhan.awaker.article.news
+package com.ruzhan.awaker.article.comment
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
-import com.ruzhan.awaker.article.model.News
+import com.ruzhan.awaker.article.db.entity.CommentEntity
+import com.ruzhan.awaker.article.model.Comment
 import com.ruzhan.awaker.article.source.AwakerRepository
 import com.ruzhan.awaker.article.util.ConstantUtils
 import com.ruzhan.lion.model.LoadStatus
@@ -14,23 +15,23 @@ import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 /**
- * Created by ruzhan123 on 2018/8/28.
+ * Created by ruzhan123 on 2018/8/29.
  */
-class ArticleNewAllViewModel(app: Application) : AndroidViewModel(app) {
+class ArticleCommentListViewModel(app: Application) : AndroidViewModel(app) {
 
     companion object {
 
-        const val NEW_ID: Int = 0
+        private const val SEND_COMMENT = "SEND_COMMENT"
     }
 
-    private val requestStatus: RequestStatus<List<News>> = RequestStatus()
+    private val requestStatus: RequestStatus<List<Comment>> = RequestStatus()
     private var page: Int = 1
 
     val loadStatusLiveData: MutableLiveData<LoadStatus> = MutableLiveData()
-    val requestStatusLiveData: MutableLiveData<RequestStatus<List<News>>> = MutableLiveData()
+    val sendCommentLiveData: MutableLiveData<String> = MutableLiveData()
+    val requestStatusLiveData: MutableLiveData<RequestStatus<List<Comment>>> = MutableLiveData()
 
     private var disposable: Disposable? = null
 
@@ -38,15 +39,15 @@ class ArticleNewAllViewModel(app: Application) : AndroidViewModel(app) {
         requestStatusLiveData.value = null
     }
 
-    fun loadLocalNews() {
-        disposable = AwakerRepository.get().loadNewsList()
+    fun loadLocalCommentList(newId: String) {
+        disposable = AwakerRepository.get().loadCommentEntity(newId + Comment.NEW_DETAIL)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)
-                .doOnNext { newsList ->
+                .doOnNext { commentEntity ->
                     if (requestStatusLiveData.value == null) {
                         requestStatus.refreshStatus = RequestStatus.REFRESH
-                        requestStatus.data = newsList
+                        requestStatus.data = commentEntity.commentList
                         requestStatusLiveData.value = requestStatus
                     }
                     disposable?.dispose()
@@ -54,7 +55,7 @@ class ArticleNewAllViewModel(app: Application) : AndroidViewModel(app) {
                 .subscribe({ }, { })
     }
 
-    fun getNewsAllList(refreshStatus: Int) {
+    fun getCommentList(refreshStatus: Int, newId: String) {
         if (requestStatus.isNetworkRequest) return
 
         requestStatus.isNetworkRequest = true
@@ -64,9 +65,9 @@ class ArticleNewAllViewModel(app: Application) : AndroidViewModel(app) {
 
         page = if (RequestStatus.REFRESH == requestStatus.refreshStatus) 1 else (++page)
 
-        AwakerRepository.get().getNewList(ConstantUtils.TOKEN, page, NEW_ID)
+        AwakerRepository.get().getNewsComments(ConstantUtils.TOKEN, newId, page)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError {}
+                .doOnError(Throwable::printStackTrace)
                 .doOnSubscribe {
                     if (RequestStatus.REFRESH == requestStatus.refreshStatus) {
                         loadStatusLiveData.value = LoadStatus.LOADING
@@ -77,21 +78,33 @@ class ArticleNewAllViewModel(app: Application) : AndroidViewModel(app) {
                     loadStatusLiveData.value = LoadStatus.LOADED
                     requestStatus.isNetworkRequest = false
                 }
-                .doOnNext { newsList ->
-                    requestStatus.data = newsList
+                .doOnNext { commentList ->
+                    requestStatus.data = commentList
                     requestStatusLiveData.value = requestStatus
 
-                    newsList?.let { setNewsToLocalDb(newsList) }
+                    commentList?.let { setCommentListLocalDb(commentList, newId) }
                 }
                 .subscribe(Subscriber.create())
     }
 
-    private fun setNewsToLocalDb(localNewsList: List<News>) {
+    fun sendNewsComment(newId: String, content: String, open_id: String,
+                        pid: String) {
+        AwakerRepository.get().sendNewsComment(ConstantUtils.TOKEN, newId, content, open_id, pid)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(Throwable::printStackTrace)
+                .doOnNext { sendCommentLiveData.value = SEND_COMMENT }
+                .subscribe(Subscriber.create())
+    }
+
+    private fun setCommentListLocalDb(localComments: List<Comment>, newId: String) {
         Flowable.create<Any>({ e ->
-            AwakerRepository.get().insertNewsList(ArrayList<News>(localNewsList))
+            val commentEntity = CommentEntity(newId + Comment.NEW_DETAIL,
+                    localComments)
+            AwakerRepository.get().insertCommentEntity(commentEntity)
             e.onComplete()
 
         }, BackpressureStrategy.LATEST)
+                .subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)

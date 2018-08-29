@@ -24,12 +24,18 @@ import io.reactivex.schedulers.Schedulers
  */
 class ArticleNewDetailViewModel(app: Application) : AndroidViewModel(app) {
 
+    companion object {
+        private const val SEND_COMMENT = "SEND_COMMENT"
+    }
+
     private val requestStatus: RequestStatus<NewDetail> = RequestStatus()
 
     val loadStatusLiveData: MutableLiveData<LoadStatus> = MutableLiveData()
     val requestStatusLiveData: MutableLiveData<RequestStatus<NewDetail>> = MutableLiveData()
     val commentsLiveData: MutableLiveData<List<Comment>> = MutableLiveData()
     val newElesLiveData: MutableLiveData<List<NewEle>> = MutableLiveData()
+    val sendCommentLiveData: MutableLiveData<String> = MutableLiveData()
+
 
     private var disposable: Disposable? = null
     private var commentDisposable: Disposable? = null
@@ -113,6 +119,15 @@ class ArticleNewDetailViewModel(app: Application) : AndroidViewModel(app) {
                 .subscribe(Subscriber.create())
     }
 
+    fun sendNewsComment(newId: String, content: String, open_id: String,
+                        pid: String) {
+        AwakerRepository.get().sendNewsComment(ConstantUtils.TOKEN, newId, content, open_id, pid)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(Throwable::printStackTrace)
+                .doOnNext { sendCommentLiveData.value = SEND_COMMENT }
+                .subscribe(Subscriber.create())
+    }
+
     private fun setNewDetailLocalDb(newDetail: NewDetail) {
         Flowable.create<Any>({ e ->
             AwakerRepository.get().insertNewsDetail(newDetail)
@@ -150,7 +165,7 @@ class ArticleNewDetailViewModel(app: Application) : AndroidViewModel(app) {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)
-                .doOnNext { newEleList->
+                .doOnNext { newEleList ->
                     newElesLiveData.value = newEleList
                 }
                 .doOnComplete { }
