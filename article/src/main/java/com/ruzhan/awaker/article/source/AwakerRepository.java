@@ -22,7 +22,6 @@ import com.ruzhan.awaker.article.source.remote.RemoteDataSourceImpl;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**

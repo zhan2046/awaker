@@ -12,7 +12,6 @@ import com.ruzhan.awaker.article.model.UserInfo;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Maybe;
 import io.reactivex.Single;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

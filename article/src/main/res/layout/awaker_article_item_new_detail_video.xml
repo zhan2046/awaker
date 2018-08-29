@@ -30,21 +30,27 @@
             android:scaleType="centerCrop" />
 
         <ImageView
+            android:background="#66FFFFFF"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/awaker_article_img_mask" />
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/awaker_article_player_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/video_desc_tv"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="@dimen/space_small_4"
+            android:layout_marginBottom="@dimen/space_small_2"
             android:background="?attr/selectableItemBackground"
             android:gravity="center"
             android:text="@string/awaker_article_full_player"
-            android:textColor="@color/awaker_article_white_f5"
-            android:textSize="14sp" />
+            android:textColor="@color/awaker_article_text_color"
+            android:textSize="@dimen/text_small_14" />
     </net.soulwolf.widget.ratiolayout.widget.RatioFrameLayout>
 
 </android.support.v7.widget.CardView>

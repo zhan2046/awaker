@@ -13,7 +13,6 @@ import com.ruzhan.awaker.article.network.HttpResult;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**

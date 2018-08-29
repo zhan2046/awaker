@@ -3,7 +3,6 @@ package com.ruzhan.awaker.article.comment
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
-import android.util.Log
 import com.ruzhan.awaker.article.db.entity.CommentEntity
 import com.ruzhan.awaker.article.model.Comment
 import com.ruzhan.awaker.article.source.AwakerRepository
