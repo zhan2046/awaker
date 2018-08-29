@@ -2,10 +2,13 @@ package com.ruzhan.awaker.article
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ruzhan.awaker.article.util.ResUtils
+import com.ruzhan.lion.helper.FontHelper
 import kotlinx.android.synthetic.main.awaker_article_frag_home.*
 
 
@@ -28,6 +31,10 @@ class ArticleHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        title_tv.typeface = FontHelper.get().getLightTypeface()
+        title_tv.text = resources.getString(R.string.awaker_article_news_title)
+        setToolbar(toolbar)
 
         val titleList = getTitleList()
 
@@ -56,6 +63,11 @@ class ArticleHomeFragment : Fragment() {
         titleArr.add(ResUtils.getString(R.string.awaker_article_crucial_moment))
         titleArr.add(ResUtils.getString(R.string.awaker_article_other))
         return titleArr
+    }
+
+    private fun setToolbar(toolbar: Toolbar) {
+        val activity = activity as AppCompatActivity
+        activity.setSupportActionBar(toolbar)
     }
 }
 

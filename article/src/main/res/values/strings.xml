@@ -28,4 +28,8 @@
     <string name="awaker_article_comment_suc">评论成功</string>
     <string name="awaker_article_loading_desc">正在加载</string>
     <string name="awaker_article_loaded_desc">没有更多了</string>
+
+    <string name="awaker_article_news_title">资讯揭露</string>
+    <string name="awaker_article_comment_title">热门评论</string>
+    <string name="awaker_article_movie_title">视频精选</string>
 </resources>

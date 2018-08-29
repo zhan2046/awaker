@@ -4,17 +4,22 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.Comment
 import com.ruzhan.awaker.article.news.ArticleNewDetailActivity
+import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.helper.OnRefreshHelper
 import com.ruzhan.lion.listener.OnItemClickListener
 import com.ruzhan.lion.model.LoadStatus
 import com.ruzhan.lion.model.RequestStatus
-import kotlinx.android.synthetic.main.awaker_article_frag_comment_list.*
+import com.ruzhan.lion.util.AnimUtils
+import kotlinx.android.synthetic.main.awaker_article_frag_nice_comment.*
 
 /**
  * Created by ruzhan123 on 2018/8/29.
@@ -37,6 +42,10 @@ class ArticleHotCommentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        title_tv.typeface = FontHelper.get().getLightTypeface()
+        title_tv.text = resources.getString(R.string.awaker_article_comment_title)
+        setToolbar(toolbar)
 
         articleHotCommentAdapter = ArticleHotCommentAdapter(object : OnItemClickListener<Comment> {
             override fun onItemClick(position: Int, bean: Comment, itemView: View) {
@@ -64,6 +73,20 @@ class ArticleHotCommentFragment : Fragment() {
 
         articleHotCommentViewModel.loadLocalCommentList()
         articleHotCommentViewModel.getHotCommentList(RequestStatus.REFRESH)
+
+        title_tv.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                title_tv.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
+                title_tv.alpha = 0f
+                title_tv.scaleX = 0.8f
+
+                title_tv.animate()
+                        .alpha(1f)
+                        .scaleX(1f)
+                        .setDuration(900).interpolator = AnimUtils.getFastOutSlowInInterpolator(activity)
+            }
+        })
     }
 
     private fun initLiveData() {
@@ -82,5 +105,10 @@ class ArticleHotCommentFragment : Fragment() {
                         }
                     }
                 })
+    }
+
+    private fun setToolbar(toolbar: Toolbar) {
+        val activity = activity as AppCompatActivity
+        activity.setSupportActionBar(toolbar)
     }
 }
