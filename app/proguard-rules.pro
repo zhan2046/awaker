@@ -35,7 +35,7 @@
 -keep class com.ruzhan.lion.db.entity.** { *; }
 
 
--keep com.ruzhan.awaker.article.model.** { *; }
+-keep class com.ruzhan.awaker.article.model.** { *; }
 -keep class com.ruzhan.awaker.article.db.** { *; }
 
 -keep public class android.support.design.widget.BottomNavigationView { *; }
