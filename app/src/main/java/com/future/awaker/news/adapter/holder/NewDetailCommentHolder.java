@@ -27,7 +27,7 @@ public class NewDetailCommentHolder extends RecyclerView.ViewHolder {
     public NewDetailCommentHolder(ItemNewDetailCommentBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
-        UiUtils.setTint(itemView.getContext(), R.mipmap.zan, R.color.grey_zan,
+        UiUtils.setTint(itemView.getContext(), R.mipmap.awaker_article_zan, R.color.grey_zan,
                 binding.zanIv);
 
         binding.zanLl.setOnClickListener(new DebouncingOnClickListener() {
@@ -35,7 +35,7 @@ public class NewDetailCommentHolder extends RecyclerView.ViewHolder {
             public void doClick(View v) {
                 comment.isSelect = !comment.isSelect;
                 int color = comment.isSelect ? R.color.blue_zan : R.color.grey_zan;
-                UiUtils.setTint(itemView.getContext(), R.mipmap.zan, color, binding.zanIv);
+                UiUtils.setTint(itemView.getContext(), R.mipmap.awaker_article_zan, color, binding.zanIv);
                 int up = Integer.valueOf(comment.up);
                 int newUp = comment.isSelect ? (up + 1) : up;
                 binding.zanTv.setText(String.valueOf(newUp));
@@ -51,7 +51,7 @@ public class NewDetailCommentHolder extends RecyclerView.ViewHolder {
 
     private void isSelect(boolean isSelect) {
         int color = isSelect ? R.color.blue_zan : R.color.grey_zan;
-        UiUtils.setTint(itemView.getContext(), R.mipmap.zan, color, binding.zanIv);
+        UiUtils.setTint(itemView.getContext(), R.mipmap.awaker_article_zan, color, binding.zanIv);
         int up = Integer.valueOf(comment.up);
         int newUp = isSelect ? (up + 1) : up;
         binding.zanTv.setText(String.valueOf(newUp));

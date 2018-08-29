@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/awaker_article_white_f5"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.Awaker.Article.ToolBar"
+            app:titleTextAppearance="@style/Awaker.Article.Toolbar.TitleText" />
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:id="@+id/comment_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/awaker_article_white_f5">
+
+            <FrameLayout
+                android:id="@+id/comment_right_fl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/send_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:paddingBottom="@dimen/space_normal_16"
+                    android:paddingEnd="@dimen/space_normal_16"
+                    android:paddingStart="@dimen/space_normal_16"
+                    android:paddingTop="@dimen/space_normal_16"
+                    android:src="@mipmap/awaker_article_ic_send_text_gray"
+                    android:visibility="gone"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/comment_right_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingBottom="@dimen/space_normal_16"
+                    android:paddingEnd="@dimen/space_normal_16"
+                    android:paddingStart="@dimen/space_normal_16"
+                    android:paddingTop="@dimen/space_normal_16"
+                    android:textColor="@color/awaker_article_themePrimaryDark"
+                    android:textSize="12sp" />
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/comment_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/space_normal_16"
+                android:layout_toStartOf="@+id/comment_right_fl"
+                android:gravity="center_vertical"
+                android:hint="@string/awaker_article_add_comment"
+                android:inputType="textMultiLine"
+                android:lineSpacingExtra="@dimen/space_small_1"
+                android:maxLines="6"
+                android:paddingEnd="@dimen/space_small_1"
+                android:paddingStart="@dimen/space_small_1"
+                android:textColor="@color/awaker_article_text_color"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/awaker_article_text_size_small_1"
+                android:theme="@style/Awaker.Article.CommentEditText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/awaker_article_divider_height"
+                android:background="@color/awaker_article_black12" />
+        </RelativeLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/comment_rl">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/awaker_article_white_f5"
+                android:keepScreenOn="true"
+                android:scrollbars="vertical"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

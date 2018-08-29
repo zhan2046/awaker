@@ -1,2 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ruzhan.awaker.article" />
+    package="com.ruzhan.awaker.article" >
+
+    <application>
+
+        <activity
+            android:name=".news.ArticleNewDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Lion.MovieDetail" />
+
+    </application>
+</manifest>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="awaker_article_divider_height">0.3dp</dimen>
+
+    <dimen name="awaker_article_text_size_small_2">12sp</dimen>
+    <dimen name="awaker_article_text_size_small_1">14sp</dimen>
+    <dimen name="awaker_article_text_size_normal">16sp</dimen>
+</resources>

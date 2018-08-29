@@ -82,7 +82,7 @@
 
                 <ImageView
                     android:id="@+id/zan_iv"
-                    android:src="@mipmap/zan"
+                    android:src="@mipmap/awaker_article_zan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

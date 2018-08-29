@@ -33,7 +33,7 @@ public class NewHotCommentHolder extends RecyclerView.ViewHolder {
         this.binding = binding;
         this.listener = listener;
 
-        UiUtils.setTint(itemView.getContext(), R.mipmap.zan, R.color.grey_zan,
+        UiUtils.setTint(itemView.getContext(), R.mipmap.awaker_article_zan, R.color.grey_zan,
                 binding.zanIv);
 
         binding.rootCard.setOnClickListener(new DebouncingOnClickListener() {
@@ -50,7 +50,7 @@ public class NewHotCommentHolder extends RecyclerView.ViewHolder {
             public void doClick(View v) {
                 isSelect = !isSelect;
                 int color = isSelect ? R.color.blue_zan : R.color.grey_zan;
-                UiUtils.setTint(itemView.getContext(), R.mipmap.zan, color, binding.zanIv);
+                UiUtils.setTint(itemView.getContext(), R.mipmap.awaker_article_zan, color, binding.zanIv);
                 int up = Integer.valueOf(comment.up);
                 int newUp = isSelect ? (up + 1) : up;
                 binding.zanTv.setText(String.valueOf(newUp));

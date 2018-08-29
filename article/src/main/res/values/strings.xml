@@ -18,5 +18,10 @@
     <string name="awaker_article_other">其他</string>
 
     <string name="awaker_article_comment_count">%1$s 跟帖</string>
-
+    <string name="awaker_article_add_comment">添加评论</string>
+    <string name="awaker_article_new_comment_count">评论( %1$s )</string>
+    <string name="awaker_article_full_player">点击查看视频</string>
+    <string name="awaker_article_up_comment_title">热门评论</string>
+    <string name="awaker_article_up_comment_guest">觉醒访客</string>
+    <string name="awaker_article_up_comment_click_more">查看更多评论</string>
 </resources>

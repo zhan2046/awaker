@@ -8,7 +8,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.News
 import com.ruzhan.lion.helper.OnRefreshHelper
@@ -45,7 +44,8 @@ class ArticleNewAllFragment : Fragment() {
         articleNewAllAdapter = ArticleNewAllAdapter(object : OnItemClickListener<News> {
             override fun onItemClick(position: Int, bean: News, itemView: View) {
                 activity?.let {
-                    Toast.makeText(activity, "" + bean.title, Toast.LENGTH_LONG).show()
+                    val url = if (bean.cover_url == null) "" else bean.cover_url.ori
+                    ArticleNewDetailActivity.launch(it, bean.id, bean.title, url)
                 }
             }
         })
@@ -93,9 +93,4 @@ class ArticleNewAllFragment : Fragment() {
         articleNewAllViewModel.loadLocalNews()
         articleNewAllViewModel.getNewsAllList(RequestStatus.REFRESH)
     }
-
-//    fun onItemClick(view: View, position: Int, bean: News) {
-//        val url = if (bean.cover_url == null) "" else bean.cover_url.ori
-//        NewDetailActivity.launch(getContext(), bean.id, bean.title, url)
-//    }
 }

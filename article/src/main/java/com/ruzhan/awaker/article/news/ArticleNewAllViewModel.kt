@@ -4,8 +4,6 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import com.ruzhan.awaker.article.model.News
-import com.ruzhan.awaker.article.network.EmptyConsumer
-import com.ruzhan.awaker.article.network.ErrorConsumer
 import com.ruzhan.awaker.article.source.AwakerRepository
 import com.ruzhan.awaker.article.util.ConstantUtils
 import com.ruzhan.lion.model.LoadStatus
@@ -25,7 +23,7 @@ class ArticleNewAllViewModel(app: Application) : AndroidViewModel(app) {
 
     companion object {
 
-        private const val NEW_ID: Int = 0
+        const val NEW_ID: Int = 0
     }
 
     private val requestStatus: RequestStatus<List<News>> = RequestStatus()
@@ -98,6 +96,6 @@ class ArticleNewAllViewModel(app: Application) : AndroidViewModel(app) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError {}
                 .doOnComplete { }
-                .subscribe(EmptyConsumer(), ErrorConsumer())
+                .subscribe(Subscriber.create())
     }
 }

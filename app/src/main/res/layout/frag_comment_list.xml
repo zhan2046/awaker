@@ -54,7 +54,7 @@
                     android:paddingEnd="@dimen/space_normal"
                     android:paddingStart="@dimen/space_normal"
                     android:paddingTop="@dimen/space_normal"
-                    android:src="@mipmap/ic_send_text_gray" />
+                    android:src="@mipmap/awaker_article_ic_send_text_gray" />
 
                 <EditText
                     android:id="@+id/comment_et"

@@ -29,7 +29,7 @@ class ArticleNewAllHolder(itemView: View, private var listener: OnItemClickListe
         news = bean
 
         itemView.title_tv.text = news.title
-        itemView.category_tv.text = news.category
+        itemView.category_tv.text = news.category_title
 
         val commentStr = String.format(itemView.resources
                 .getString(R.string.awaker_article_comment_count), bean.comment)

@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Widget.Awaker.Article.ToolBar" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">@style/ThemeOverlay.Awaker.Article.ActionBar</item>
+        <item name="popupTheme">@style/Awaker.Article.ThemeOverlay.MaterialSheetFab.ActionBar.Popup</item>
+        <item name="layout_scrollFlags">scroll|enterAlways</item>
+    </style>
+
+    <style name="Awaker.Article.Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Awaker.Article.ThemeOverlay.MaterialSheetFab.ActionBar.Popup" parent="ThemeOverlay.AppCompat.Light" />
+
+
     <style name="Widget.Awaker.Article.TabLayout" parent="">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
@@ -19,6 +35,11 @@
 
     <style name="Awaker.Article.Toolbar.TabLayout" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Awaker.Article.CommentEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/awaker_article_grey_zan</item>
+        <item name="colorControlActivated">@color/awaker_article_grey_zan</item>
     </style>
 
 </resources>
