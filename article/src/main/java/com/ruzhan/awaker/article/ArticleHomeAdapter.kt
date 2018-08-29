@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.ruzhan.awaker.article.news.ArticleNewAllFragment
+import com.ruzhan.awaker.article.news.OtherArticleNewAllFragment
 import com.ruzhan.awaker.article.week.ArticleWeekHotCommentFragment
 import com.ruzhan.awaker.article.week.ArticleWeekHotReadFragment
 
@@ -16,21 +17,21 @@ class ArticleHomeAdapter(fm: FragmentManager, private val titleList: List<String
     override fun getItem(position: Int): Fragment {
         lateinit var frag: Fragment
         when (position) {
-            0 -> frag = ArticleNewAllFragment.newInstance()
-            1 -> frag = ArticleWeekHotReadFragment.newInstance()
-            2 -> frag = ArticleWeekHotCommentFragment.newInstance()
-            3 -> frag = ArticleNewAllFragment.newInstance()
-            4 -> frag = ArticleNewAllFragment.newInstance()
-            5 -> frag = ArticleNewAllFragment.newInstance()
-            6 -> frag = ArticleNewAllFragment.newInstance()
-            7 -> frag = ArticleNewAllFragment.newInstance()
-            8 -> frag = ArticleNewAllFragment.newInstance()
-            9 -> frag = ArticleNewAllFragment.newInstance()
-            10 -> frag = ArticleNewAllFragment.newInstance()
-            11 -> frag = ArticleNewAllFragment.newInstance()
-            12 -> frag = ArticleNewAllFragment.newInstance()
-            13 -> frag = ArticleNewAllFragment.newInstance()
-            14 -> frag = ArticleNewAllFragment.newInstance()
+            0 -> frag = ArticleNewAllFragment.newInstance() // 全部资讯
+            1 -> frag = ArticleWeekHotReadFragment.newInstance() // 每周热读
+            2 -> frag = ArticleWeekHotCommentFragment.newInstance() // 每周热评
+            3 -> frag = OtherArticleNewAllFragment.newInstance(409) // 灵性觉醒
+            4 -> frag = OtherArticleNewAllFragment.newInstance(6) // 科学探索
+            5 -> frag = OtherArticleNewAllFragment.newInstance(1) // UFO
+            6 -> frag = OtherArticleNewAllFragment.newInstance(27) // 自由能源
+            7 -> frag = OtherArticleNewAllFragment.newInstance(408) // 未解之谜
+            8 -> frag = OtherArticleNewAllFragment.newInstance(4) // 麦田圈
+            9 -> frag = OtherArticleNewAllFragment.newInstance(153) // 反转基因
+            10 -> frag = OtherArticleNewAllFragment.newInstance(13) // 异常事件
+            11 -> frag = OtherArticleNewAllFragment.newInstance(5) // 阴谋论
+            12 -> frag = OtherArticleNewAllFragment.newInstance(320) // 共济会
+            13 -> frag = OtherArticleNewAllFragment.newInstance(10) // 关键时刻
+            14 -> frag = OtherArticleNewAllFragment.newInstance(7) // 其他
         }
         return frag
     }
