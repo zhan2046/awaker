@@ -22,6 +22,8 @@ import com.ruzhan.awaker.article.source.remote.RemoteDataSourceImpl;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -145,8 +147,8 @@ public final class AwakerRepository implements IRemoteDataSource {
     }
 
     @Override
-    public Flowable<HttpResult<List<Comment>>> getNewsComments(String token, String newId,
-                                                               int page) {
+    public Single<HttpResult<List<Comment>>> getNewsComments(String token, String newId,
+                                                             int page) {
         return remoteDataSource.getNewsComments(token, newId, page);
     }
 

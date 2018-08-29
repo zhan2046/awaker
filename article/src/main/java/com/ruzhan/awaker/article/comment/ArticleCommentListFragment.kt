@@ -104,6 +104,13 @@ class ArticleCommentListFragment : Fragment() {
                     }
                 })
 
+        articleCommentListViewModel.emptyDataLiveData.observe(this@ArticleCommentListFragment,
+                Observer { result ->
+                    result?.let {
+                        articleCommentListAdapter.setLoadMore(false)
+                    }
+                })
+
         articleCommentListViewModel.sendCommentLiveData.observe(this@ArticleCommentListFragment,
                 Observer { comment ->
                     comment?.let {

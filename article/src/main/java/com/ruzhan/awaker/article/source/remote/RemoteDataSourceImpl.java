@@ -14,6 +14,8 @@ import com.ruzhan.awaker.article.network.HttpResult;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -61,7 +63,7 @@ public class RemoteDataSourceImpl implements IRemoteDataSource {
     }
 
     @Override
-    public Flowable<HttpResult<List<Comment>>> getNewsComments(String token, String newId, int page) {
+    public Single<HttpResult<List<Comment>>> getNewsComments(String token, String newId, int page) {
         return awakerApi.getNewsComments(token, newId, page)
                 .subscribeOn(Schedulers.io());
     }

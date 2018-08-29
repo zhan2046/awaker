@@ -13,6 +13,8 @@ import com.ruzhan.awaker.article.network.HttpResult;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 /**
  * Copyright ©2017 by ruzhan
@@ -33,8 +35,8 @@ public interface IRemoteDataSource {
 
     Flowable<HttpResult<List<Comment>>> getUpNewsComments(String token, String newId);
 
-    Flowable<HttpResult<List<Comment>>> getNewsComments(String token, String newId,
-                                                        int page);
+    Single<HttpResult<List<Comment>>> getNewsComments(String token, String newId,
+                                                      int page);
 
     Flowable<HttpResult<List<News>>> getHotviewNewsAll(String token, int page, int id);
 

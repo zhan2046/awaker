@@ -3,6 +3,7 @@ package com.ruzhan.awaker.article.comment
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
+import android.util.Log
 import com.ruzhan.awaker.article.db.entity.CommentEntity
 import com.ruzhan.awaker.article.model.Comment
 import com.ruzhan.awaker.article.source.AwakerRepository
@@ -24,6 +25,7 @@ class ArticleCommentListViewModel(app: Application) : AndroidViewModel(app) {
     companion object {
 
         private const val SEND_COMMENT = "SEND_COMMENT"
+        private const val EMPTY_DATA = "EMPTY_DATA"
     }
 
     private val requestStatus: RequestStatus<List<Comment>> = RequestStatus()
@@ -31,12 +33,15 @@ class ArticleCommentListViewModel(app: Application) : AndroidViewModel(app) {
 
     val loadStatusLiveData: MutableLiveData<LoadStatus> = MutableLiveData()
     val sendCommentLiveData: MutableLiveData<String> = MutableLiveData()
+    val emptyDataLiveData: MutableLiveData<String> = MutableLiveData()
     val requestStatusLiveData: MutableLiveData<RequestStatus<List<Comment>>> = MutableLiveData()
 
     private var disposable: Disposable? = null
 
     init {
         requestStatusLiveData.value = null
+        emptyDataLiveData.value = null
+        sendCommentLiveData.value = null
     }
 
     fun loadLocalCommentList(newId: String) {
@@ -67,22 +72,26 @@ class ArticleCommentListViewModel(app: Application) : AndroidViewModel(app) {
 
         AwakerRepository.get().getNewsComments(ConstantUtils.TOKEN, newId, page)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(Throwable::printStackTrace)
+                .doOnError{ throwable -> throwable.printStackTrace() }
                 .doOnSubscribe {
                     if (RequestStatus.REFRESH == requestStatus.refreshStatus) {
                         loadStatusLiveData.value = LoadStatus.LOADING
                     }
                 }
-                .map { result -> result.data }
                 .doFinally {
                     loadStatusLiveData.value = LoadStatus.LOADED
                     requestStatus.isNetworkRequest = false
                 }
-                .doOnNext { commentList ->
-                    requestStatus.data = commentList
-                    requestStatusLiveData.value = requestStatus
+                .doOnSuccess { result ->
+                    val commentList = result.data
+                    if (commentList == null) {
+                        emptyDataLiveData.value = EMPTY_DATA
 
-                    commentList?.let { setCommentListLocalDb(commentList, newId) }
+                    } else {
+                        requestStatus.data = commentList
+                        requestStatusLiveData.value = requestStatus
+                        setCommentListLocalDb(commentList, newId)
+                    }
                 }
                 .subscribe(Subscriber.create())
     }

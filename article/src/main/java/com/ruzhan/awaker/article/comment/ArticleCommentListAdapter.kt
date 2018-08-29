@@ -46,6 +46,11 @@ class ArticleCommentListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         }
     }
 
+    fun setLoadMore(isLoad: Boolean) {
+        isLoadMore = isLoad
+        notifyDataSetChanged()
+    }
+
     override fun getItemViewType(position: Int): Int {
         val obj = dataList[position]
         return if (obj is String) {
