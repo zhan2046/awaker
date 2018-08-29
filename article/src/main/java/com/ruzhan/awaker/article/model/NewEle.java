@@ -11,6 +11,7 @@ public class NewEle {
 
     public static final String TAG_P = "p";
     public static final String TAG_IFRAME = "iframe";
+    public static final String TAG_EMBED = "embed";
     public static final String TAG_STRONG = "strong";
 
     public static final String IMG = "img";

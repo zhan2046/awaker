@@ -12,11 +12,22 @@ import android.view.ViewGroup
 import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.Header
 import com.ruzhan.awaker.article.model.NewDetail
+import com.ruzhan.awaker.article.model.NewEle
+import com.ruzhan.awaker.article.util.HtmlParser
 import com.ruzhan.awaker.article.util.ResUtils
 import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.helper.OnRefreshHelper
+import com.ruzhan.lion.listener.OnItemClickListener
 import com.ruzhan.lion.model.LoadStatus
 import com.ruzhan.lion.model.RequestStatus
+import com.ruzhan.lion.rx.Subscriber
+import com.ruzhan.movie.ImageListModel
+import com.ruzhan.movie.detail.ImageDetailActivity
+import com.ruzhan.movie.video.WebVideoActivity
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.awaker_article_frag_new_detail.*
 
 /**
@@ -77,7 +88,48 @@ class ArticleNewDetailFragment: Fragment() {
         header.title = title
         header.url = imageUrl
 
-        articleNewDetailAdapter = ArticleNewDetailAdapter()
+        articleNewDetailAdapter = ArticleNewDetailAdapter(
+            object : OnItemClickListener<NewEle> { // image
+
+                override fun onItemClick(position: Int, bean: NewEle, itemView: View) {
+                    val imageUrlList = articleNewDetailAdapter.getImageUrlList()
+                    val imageUrl = bean.imgUrl
+                    val imageListModel = ImageListModel(title, imageUrlList.indexOf(imageUrl),
+                            imageUrl, imageUrlList)
+
+                    activity?.let {
+                        ImageDetailActivity.launch(it, imageListModel)
+                    }
+                }
+    },
+            object : OnItemClickListener<NewEle> { // video
+
+                override fun onItemClick(position: Int, bean: NewEle, itemView: View) {
+                    Flowable.create<String>({ e ->
+                        val playUrl = HtmlParser.htmlToVideoUrl(bean.html)
+                        e.onNext(playUrl)
+                        e.onComplete()
+
+                    }, BackpressureStrategy.LATEST)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnError(Throwable::printStackTrace)
+                            .doOnNext { url ->
+                                activity?.let {
+                                    WebVideoActivity.launch(it, url)
+                                }
+                            }
+                            .doOnComplete { }
+                            .subscribe(Subscriber.create())
+                }
+            },
+            object : OnItemClickListener<String> { // comment more
+
+                override fun onItemClick(position: Int, bean: String, itemView: View) {
+                    //CommentListActivity.launch(activity, newId)
+                }
+            })
+
         articleNewDetailAdapter.setHeaderData(header)
         recycler_view.adapter = articleNewDetailAdapter
 

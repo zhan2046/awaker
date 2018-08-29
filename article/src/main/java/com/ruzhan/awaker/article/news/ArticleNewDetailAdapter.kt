@@ -7,12 +7,16 @@ import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.Comment
 import com.ruzhan.awaker.article.model.Header
 import com.ruzhan.awaker.article.model.NewEle
+import com.ruzhan.lion.listener.OnItemClickListener
 import java.util.*
 
 /**
  * Created by ruzhan123 on 2018/8/29.
  */
-class ArticleNewDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ArticleNewDetailAdapter(private val imageListener: OnItemClickListener<NewEle>,
+                              private val videoListener: OnItemClickListener<NewEle>,
+                              private val commentMoreListener: OnItemClickListener<String>)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
 
@@ -59,6 +63,8 @@ class ArticleNewDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         list?.let {
             newEleList = it
             dataList.clear()
+
+            imageUrlList = setImageUrlList(newEleList)
 
             header?.let { dataList.add(it) }
 
@@ -138,10 +144,12 @@ class ArticleNewDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                     .inflate(R.layout.awaker_article_item_new_detail_text, parent, false))
 
             TYPE_IMG -> viewHolder = ArticleNewDetailImgHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.awaker_article_item_new_detail_img, parent, false))
+                    .inflate(R.layout.awaker_article_item_new_detail_img, parent, false),
+                    imageListener)
 
             TYPE_VIDEO -> viewHolder = ArticleNewDetailVideoHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.awaker_article_item_new_detail_video, parent, false))
+                    .inflate(R.layout.awaker_article_item_new_detail_video, parent, false),
+                    videoListener)
 
             TYPE_COMMENT_TITLE -> viewHolder = ArticleNewDetailCommentTitleHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.awaker_article_item_new_detail_comment_title, parent, false))
@@ -150,7 +158,8 @@ class ArticleNewDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                     .inflate(R.layout.awaker_article_item_new_detail_comment, parent, false))
 
             TYPE_COMMENT_MORE -> viewHolder = ArticleCommentMoreHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.awaker_article_item_comment_more, parent, false))
+                    .inflate(R.layout.awaker_article_item_comment_more, parent, false),
+                    commentMoreListener)
 
             TYPE_HEADER -> viewHolder = ArticleNewDetailHeaderHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.awaker_article_item_new_detail_header, parent, false))
@@ -167,7 +176,13 @@ class ArticleNewDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         when (viewType) {
             TYPE_TEXT -> (holder as ArticleNewDetailTextHolder).bind(dataList[position] as NewEle)
             TYPE_IMG -> (holder as ArticleNewDetailImgHolder).bind(dataList[position] as NewEle)
-            TYPE_VIDEO -> (holder as ArticleNewDetailVideoHolder).bind(dataList[position] as NewEle)
+            TYPE_VIDEO -> {
+                val newEle = dataList[position] as NewEle
+                header?.let {
+                    newEle.imgUrl = it.url
+                }
+                (holder as ArticleNewDetailVideoHolder).bind(newEle)
+            }
             TYPE_COMMENT_ITEM -> (holder as ArticleNewCommentHolder).bind(dataList[position] as Comment)
             TYPE_HEADER -> (holder as ArticleNewDetailHeaderHolder).bind(dataList[position] as Header)
         }

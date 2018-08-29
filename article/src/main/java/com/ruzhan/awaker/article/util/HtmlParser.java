@@ -53,7 +53,8 @@ public final class HtmlParser {
                     newEleList.addAll(handlerTextType(text, item.outerHtml()));
                 }
 
-            } else if (NewEle.TAG_IFRAME.equals(tagName)) {
+            } else if (NewEle.TAG_IFRAME.equals(tagName)
+                    || NewEle.TAG_EMBED.equals(tagName)) {
                 //video
                 String videoUrl = item.attr(NewEle.SRC);
 
@@ -65,6 +66,26 @@ public final class HtmlParser {
             }
         }
         return newEleList;
+    }
+
+    public static String htmlToVideoUrl(String html) {
+        String url = "";
+        if (!TextUtils.isEmpty(html)) {
+            // iframe
+            Document document = Jsoup.parseBodyFragment(html);
+            Element iFrameElement = document.select("iframe").first();
+            if (iFrameElement != null) {
+                url = iFrameElement.attr(NewEle.SRC);
+            }
+            // embed
+            if (TextUtils.isEmpty(url)) {
+                Element embedElement = document.select("embed").first();
+                if (embedElement != null) {
+                    url = embedElement.attr(NewEle.SRC);
+                }
+            }
+        }
+        return url;
     }
 
 
