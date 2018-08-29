@@ -14,7 +14,7 @@
         app:tabTextAppearance="@style/Awaker.Article.Toolbar.TabLayout"
         app:tabIndicatorColor="@color/awaker_article_color"
         app:tabSelectedTextColor="@color/awaker_article_color"
-        app:tabTextColor="@color/awaker_article_text_grey" />
+        app:tabTextColor="@color/normal_grey" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

@@ -7,20 +7,22 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:background="@color/awaker_article_white"
         android:outlineProvider="none"
         android:title="@string/app_name"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:titleTextColor="@color/dark_icon" />
+        app:titleTextAppearance="@style/Awaker.Article.Toolbar.TitleText"
+        app:titleTextColor="@color/awaker_article_text_color" />
 
-    <android.support.design.widget.BottomNavigationView
+    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/light_grey"
+        android:background="@color/awaker_article_white_f5"
         app:itemIconTint="@color/selector_bottom_item_tint"
+        app:itemTextColor="@color/text_color"
         app:menu="@menu/home_navigation" />
 
     <FrameLayout

@@ -40,6 +40,9 @@ class MainFragment : Fragment() {
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(tool_bar)
 
+        bottom_navigation.setTextVisibility(false)
+        bottom_navigation.enableAnimation(false)
+
         bottom_navigation.setOnNavigationItemSelectedListener {
             if (bottom_navigation.selectedItemId != it.itemId) {
                 replaceFragment(it.itemId)

@@ -36,6 +36,8 @@ dependencies {
 
     api 'com.github.ruzhan123.Lion:movie:0.1.10'
 
+    api 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
+
     // ViewModel and LiveData
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 

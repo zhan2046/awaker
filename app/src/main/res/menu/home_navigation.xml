@@ -3,9 +3,16 @@
 
     <item
         android:id="@+id/article"
-        android:icon="@drawable/ic_like" />
+        android:title=""
+        android:icon="@drawable/awaker_article_news_menu" />
+
+    <item
+        android:id="@+id/comment"
+        android:title=""
+        android:icon="@drawable/awaker_article_comment_menu" />
 
     <item
         android:id="@+id/movie"
-        android:icon="@drawable/ic_video" />
+        android:title=""
+        android:icon="@drawable/awaker_article_movie_menu2" />
 </menu>
