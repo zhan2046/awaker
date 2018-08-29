@@ -34,6 +34,15 @@
 -keep class com.ruzhan.lion.model.** { *; }
 -keep class com.ruzhan.lion.db.entity.** { *; }
 
+
+-keep com.ruzhan.awaker.article.model.** { *; }
+-keep class com.ruzhan.awaker.article.db.** { *; }
+
+-keep public class android.support.design.widget.BottomNavigationView { *; }
+-keep public class android.support.design.internal.BottomNavigationMenuView { *; }
+-keep public class android.support.design.internal.BottomNavigationPresenter { *; }
+-keep public class android.support.design.internal.BottomNavigationItemView { *; }
+
 #-------------------------------------------------------------------------
 
 #---------------------------------2.第三方包-------------------------------
