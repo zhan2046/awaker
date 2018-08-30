@@ -52,9 +52,11 @@ class ArticleNewDetailAdapter(private val imageListener: OnItemClickListener<New
 
             newEleList?.let { dataList.addAll(it) }
 
-            dataList.add(COMMENT_TITLE)
-            commentList?.let { dataList.addAll(it) }
-            dataList.add(COMMENT_MORE)
+            commentList?.let {
+                dataList.add(COMMENT_TITLE)
+                dataList.addAll(it)
+                dataList.add(COMMENT_MORE)
+            }
             notifyDataSetChanged()
         }
     }

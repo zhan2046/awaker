@@ -47,6 +47,10 @@
 
 #---------------------------------2.第三方包-------------------------------
 
+# tencent x5
+-dontwarn com.tencent.smtt.**
+-keep class com.tencent.smtt.** { *; }
+
 #jsoup
 -keep class org.jsoup.** { *; }
 
