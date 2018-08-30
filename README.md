@@ -17,10 +17,6 @@ Screenshots
 <a href="gif/awaker05.png"><img src="gif/awaker05.png" width="30%"/></a>
 <a href="gif/awaker06.png"><img src="gif/awaker06.png" width="30%"/></a>
 
-<a href="gif/awaker07.png"><img src="gif/awaker07.png" width="30%"/></a> 
-<a href="gif/awaker08.png"><img src="gif/awaker08.png" width="30%"/></a> 
-<a href="gif/awaker09.png"><img src="gif/awaker09.png" width="30%"/></a>
-
 
 
 
@@ -50,6 +46,8 @@ Open Source :zap:
 
 Version :zap:
 ------
+#### 2018-8-30    v0.9.5
+*  add awaker article module kotlin code, change golbal ui
 #### 2018-8-6    v0.9.2
 *  update awaker text font and load more ui style
 #### 2018-7-28    v0.9
