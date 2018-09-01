@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private var mainFragment : MainFragment? = null
+    private var mainFragment: MainFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

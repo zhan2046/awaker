@@ -46,7 +46,7 @@ class ArticleMovieListFragment : Fragment() {
                     .commit()
         }
 
-        title_tv.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+        title_tv.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 title_tv.viewTreeObserver.removeOnGlobalLayoutListener(this)
 

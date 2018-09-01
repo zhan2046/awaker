@@ -58,7 +58,7 @@ class ArticleHotCommentViewModel(app: Application) : AndroidViewModel(app) {
 
         AwakerRepository.get().getHotComment(ConstantUtils.TOKEN)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError{ throwable -> throwable.printStackTrace() }
+                .doOnError { throwable -> throwable.printStackTrace() }
                 .doOnSubscribe {
                     if (RequestStatus.REFRESH == requestStatus.refreshStatus) {
                         loadStatusLiveData.value = LoadStatus.LOADING

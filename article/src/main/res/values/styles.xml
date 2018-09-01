@@ -18,7 +18,9 @@
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">?attr/colorPrimary</item>
         <item name="android:theme">@style/ThemeOverlay.Awaker.Article.ActionBar</item>
-        <item name="popupTheme">@style/Awaker.Article.ThemeOverlay.MaterialSheetFab.ActionBar.Popup</item>
+        <item name="popupTheme">
+            @style/Awaker.Article.ThemeOverlay.MaterialSheetFab.ActionBar.Popup
+        </item>
         <item name="layout_scrollFlags">scroll|enterAlways</item>
     </style>
 

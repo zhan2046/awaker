@@ -28,9 +28,6 @@
 #-------------------------------------------定制化区域----------------------------------------------
 #---------------------------------1.实体类---------------------------------
 
--keep class com.future.awaker.data.** { *; }
--keep class com.future.awaker.db.** { *; }
-
 -keep class com.ruzhan.lion.model.** { *; }
 -keep class com.ruzhan.lion.db.entity.** { *; }
 

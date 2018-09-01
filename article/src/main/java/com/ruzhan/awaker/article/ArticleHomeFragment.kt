@@ -96,7 +96,7 @@ class ArticleHomeFragment : Fragment() {
         activity.setSupportActionBar(toolbar)
     }
 
-    inner class FragmentLoadTask: Runnable {
+    inner class FragmentLoadTask : Runnable {
 
         private var position: Int = 0
 

@@ -1,10 +1,5 @@
 package com.future.awaker.email;
 
-import android.util.Log;
-
-import com.future.awaker.R;
-import com.future.awaker.util.ResUtils;
-
 import java.io.File;
 import java.util.Date;
 import java.util.Properties;
@@ -199,7 +194,6 @@ public class MailSender {
             message.saveChanges();
 
         } catch (Exception e) {
-            Log.e("TAG", ResUtils.getString(R.string.create_mail_fail));
             e.printStackTrace();
         }
         // 返回生成的邮件

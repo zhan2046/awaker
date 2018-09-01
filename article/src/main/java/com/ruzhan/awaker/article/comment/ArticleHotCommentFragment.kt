@@ -74,7 +74,7 @@ class ArticleHotCommentFragment : Fragment() {
         articleHotCommentViewModel.loadLocalCommentList()
         articleHotCommentViewModel.getHotCommentList(RequestStatus.REFRESH)
 
-        title_tv.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+        title_tv.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 title_tv.viewTreeObserver.removeOnGlobalLayoutListener(this)
 

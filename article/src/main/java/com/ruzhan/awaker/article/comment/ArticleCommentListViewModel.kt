@@ -71,7 +71,7 @@ class ArticleCommentListViewModel(app: Application) : AndroidViewModel(app) {
 
         AwakerRepository.get().getNewsComments(ConstantUtils.TOKEN, newId, page)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError{ throwable -> throwable.printStackTrace() }
+                .doOnError { throwable -> throwable.printStackTrace() }
                 .doOnSubscribe {
                     if (RequestStatus.REFRESH == requestStatus.refreshStatus) {
                         loadStatusLiveData.value = LoadStatus.LOADING

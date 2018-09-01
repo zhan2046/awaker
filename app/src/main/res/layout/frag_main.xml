@@ -11,7 +11,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/awaker_article_white_f5"
         app:itemIconTint="@color/selector_bottom_item_tint"
-        app:itemTextColor="@color/text_color"
+        app:itemTextColor="@color/awaker_article_text_color"
         app:menu="@menu/home_navigation" />
 
     <View

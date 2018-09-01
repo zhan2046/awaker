@@ -82,21 +82,4 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation project(':article')
-
-    // ViewModel and LiveData
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
-
-    // Room
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
-
-    // core ui
-    implementation 'com.gordonwong:material-sheet-fab:1.2.1'
-
-    implementation 'com.pnikosis:materialish-progress:1.1'
-    implementation 'com.just.agentweb:agentweb:1.2.6'
-    implementation 'org.jsoup:jsoup:1.10.3'
-    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
-
-    implementation 'com.sun.mail:android-mail:1.5.5'
-    implementation 'com.sun.mail:android-activation:1.5.5'
 }

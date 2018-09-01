@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:wheel="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:wheel="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/awaker_article_white_f5"
     android:layout_width="match_parent"

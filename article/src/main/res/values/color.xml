@@ -23,5 +23,6 @@
     <color name="awaker_article_black12">#1F000000</color>
 
     <color name="awaker_article_image_mark">#FFE0E0E0</color>
+    <color name="awaker_article_normal_grey">#FF757575</color>
 
 </resources>
