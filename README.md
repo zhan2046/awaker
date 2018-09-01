@@ -4,7 +4,7 @@ Awaker
 
 
 
-####    :tada::tada::tada: LiveData + Room + RXJava2 + Retrofit + OKHttp + Material Design + Base + Glide build，welcome star or fork。
+####    :tada::tada::tada: Kotlin + LiveData + Room + RXJava2 + Retrofit + OKHttp + Material Design + Glide build，welcome star or fork。
 
 Screenshots
 ===============
