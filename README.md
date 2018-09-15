@@ -47,7 +47,7 @@ Open Source :zap:
 Version :zap:
 ------
 #### 2018-8-30    v0.9.5
-*  add awaker article module kotlin code, change golbal ui
+*  add awaker article module kotlin code, change global ui
 #### 2018-8-6    v0.9.2
 *  update awaker text font and load more ui style
 #### 2018-7-28    v0.9
