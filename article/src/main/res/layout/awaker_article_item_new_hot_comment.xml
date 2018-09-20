@@ -66,46 +66,17 @@
             android:textColor="#383838"
             android:textSize="14sp" />
 
-        <LinearLayout
-            android:id="@+id/zan_ll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/content_tv"
-            android:orientation="horizontal"
-            android:paddingBottom="8dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp">
-
-            <ImageView
-                android:id="@+id/zan_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/awaker_article_zan" />
-
-            <TextView
-                android:id="@+id/zan_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="#80383838"
-                android:textSize="13sp" />
-        </LinearLayout>
-
         <TextView
             android:id="@+id/new_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/zan_ll"
+            android:layout_below="@+id/content_tv"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_toEndOf="@+id/icon_iv"
             android:ellipsize="end"
             android:textColor="#FFEC6A5C"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <View
             android:layout_width="match_parent"

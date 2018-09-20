@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             soulwolf:datumRatio="datumWidth"
-            soulwolf:heightRatio="7.5"
+            soulwolf:heightRatio="6.5"
             soulwolf:widthRatio="16">
 
             <TextView
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="2dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -74,20 +74,6 @@
                     android:layout_marginStart="8dp"
                     android:layout_weight="2"
                     android:ellipsize="end"
-                    android:letterSpacing="0.09"
-                    android:maxLines="1"
-                    android:textColor="#99383838"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/comment_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:gravity="end"
                     android:letterSpacing="0.09"
                     android:maxLines="1"
                     android:textColor="#99383838"

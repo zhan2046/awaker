@@ -8,7 +8,6 @@ import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.imageloader.ImageLoader
 import com.ruzhan.awaker.article.model.Comment
 import com.ruzhan.awaker.article.util.ResUtils
-import com.ruzhan.awaker.article.util.UiUtils
 import com.ruzhan.lion.helper.FontHelper
 import kotlinx.android.synthetic.main.awaker_article_item_new_detail_comment.view.*
 
@@ -20,22 +19,9 @@ class ArticleNewCommentHolder(itemView: View) : RecyclerView.ViewHolder(itemView
     private lateinit var comment: Comment
 
     init {
-        UiUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, R.color.awaker_article_grey_zan,
-                itemView.zan_iv)
-
-        itemView.zan_ll.setOnClickListener {
-            comment.isSelect = !comment.isSelect
-            val color = if (comment.isSelect) R.color.awaker_article_blue_zan else R.color.awaker_article_grey_zan
-            UiUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, color, itemView.zan_iv)
-            val up = Integer.valueOf(comment.up)
-            val newUp = if (comment.isSelect) up + 1 else up
-            itemView.zan_tv.text = newUp.toString()
-        }
-
         itemView.name_tv.typeface = FontHelper.get().getBoldTypeface()
         itemView.area_tv.typeface = FontHelper.get().getLightTypeface()
         itemView.content_tv.typeface = FontHelper.get().getLightTypeface()
-        itemView.zan_tv.typeface = FontHelper.get().getLightTypeface()
         itemView.time_tv.typeface = FontHelper.get().getLightTypeface()
     }
 
@@ -45,8 +31,6 @@ class ArticleNewCommentHolder(itemView: View) : RecyclerView.ViewHolder(itemView
         itemView.content_tv.text = bean.content
         itemView.time_tv.text = bean.create_time
         itemView.area_tv.text = "( " + bean.area + " )"
-        itemView.zan_tv.text = bean.up
-        isSelect(comment.isSelect)
 
         val user = bean.user
         if (user != null) {
@@ -74,13 +58,5 @@ class ArticleNewCommentHolder(itemView: View) : RecyclerView.ViewHolder(itemView
             itemView.name_tv.setTextColor(Color.parseColor("#FF60C5BA"))
             ImageLoader.get().loadCropCircle(itemView.icon_iv, bean.sina_avatar)
         }
-    }
-
-    private fun isSelect(isSelect: Boolean) {
-        val color = if (isSelect) R.color.awaker_article_blue_zan else R.color.awaker_article_grey_zan
-        UiUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, color, itemView.zan_iv)
-        val up = Integer.valueOf(comment.up)
-        val newUp = if (isSelect) up + 1 else up
-        itemView.zan_tv.text = newUp.toString()
     }
 }
