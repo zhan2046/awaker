@@ -4,7 +4,7 @@ Awaker
 
 
 
-####    :tada::tada::tada: Kotlin + LiveData + Room + RXJava2 + Retrofit + OKHttp + Material Design + Glide build，welcome star or fork。
+####    deprecated
 
 Screenshots
 ===============
@@ -23,11 +23,6 @@ Screenshots
 
 Download :zap:
 ------
-![](https://github.com/ruzhan123/awaker/raw/master/gif/awaker_download_image.png)
-
-
-[coolapk - (awaker app download)](https://www.coolapk.com/apk/155953)
-
 [fir - (awaker app download)](https://fir.im/r68b)
 
 

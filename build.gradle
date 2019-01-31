@@ -52,5 +52,5 @@ ext {
   keyAlias = 'awaker'
   keyPassword = 'awaker333333'
   storePassword = 'awaker333'
-  fabric_apikey = '12ab04d353eb4145843e593e7bd1b513116d2177'
+  fabric_apikey = ''
 }
