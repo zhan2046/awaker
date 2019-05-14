@@ -1,12 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
-def static gitVersionCode() {
-    def cmd = 'git rev-list HEAD --first-parent --count'
-    cmd.execute().text.trim().toInteger()
-}
 
 android {
 
@@ -26,12 +20,8 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
 
-        versionCode gitVersionCode()
-        versionName "0.9.6"
-
-        manifestPlaceholders = [
-                fabric_apikey: rootProject.fabric_apikey
-        ]
+        versionCode rootProject.gitCommitCount
+        versionName rootProject.gitTag
 
         multiDexEnabled true
     }
@@ -78,7 +68,6 @@ android {
 }
 
 dependencies {
-
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation project(':article')
