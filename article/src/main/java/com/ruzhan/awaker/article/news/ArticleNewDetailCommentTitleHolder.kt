@@ -5,9 +5,6 @@ import android.view.View
 import com.ruzhan.lion.helper.FontHelper
 import kotlinx.android.synthetic.main.awaker_article_item_new_detail_comment_title.view.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleNewDetailCommentTitleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     init {

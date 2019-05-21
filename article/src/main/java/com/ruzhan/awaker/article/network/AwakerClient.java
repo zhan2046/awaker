@@ -4,10 +4,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public final class AwakerClient {
 
     private static final String HOST = "http://www.awaker.cn/api/";

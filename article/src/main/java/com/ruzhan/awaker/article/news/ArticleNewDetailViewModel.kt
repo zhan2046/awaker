@@ -19,9 +19,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleNewDetailViewModel(app: Application) : AndroidViewModel(app) {
 
     companion object {

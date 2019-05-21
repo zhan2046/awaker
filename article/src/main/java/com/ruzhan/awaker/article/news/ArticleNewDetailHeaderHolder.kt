@@ -7,9 +7,6 @@ import com.ruzhan.awaker.article.model.Header
 import com.ruzhan.lion.helper.FontHelper
 import kotlinx.android.synthetic.main.awaker_article_item_new_detail_header.view.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleNewDetailHeaderHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     init {

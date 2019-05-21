@@ -7,10 +7,6 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public final class AnimatorUtils {
 
     private static final long REVEAL_DURATION = 800;

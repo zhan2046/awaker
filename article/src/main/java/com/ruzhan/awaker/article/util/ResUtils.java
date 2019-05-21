@@ -4,11 +4,6 @@ import android.graphics.drawable.Drawable;
 
 import com.ruzhan.awaker.article.App;
 
-
-/**
- * Created by ruzhan on 2017/7/6.
- */
-
 public final class ResUtils {
 
     public static final int INVALID_COLOR = -1;

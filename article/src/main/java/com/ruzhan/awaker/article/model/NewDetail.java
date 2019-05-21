@@ -6,10 +6,6 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 @Entity(tableName = "new_detail")
 public class NewDetail {
 

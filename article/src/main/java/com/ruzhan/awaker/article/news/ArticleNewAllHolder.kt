@@ -9,9 +9,6 @@ import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.listener.OnItemClickListener
 import kotlinx.android.synthetic.main.awaker_article_item_new_list_grid.view.*
 
-/**
- * Created by ruzhan123 on 2018/8/28.
- */
 class ArticleNewAllHolder(itemView: View, private var listener: OnItemClickListener<News>)
     : RecyclerView.ViewHolder(itemView) {
 

@@ -1,9 +1,5 @@
 package com.ruzhan.awaker.article.model;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public class Special {
 
     public static final int NORMAL = 0;

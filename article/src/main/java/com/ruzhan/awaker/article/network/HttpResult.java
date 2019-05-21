@@ -2,10 +2,6 @@ package com.ruzhan.awaker.article.network;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public class HttpResult<T> {
 
     @SerializedName("info")

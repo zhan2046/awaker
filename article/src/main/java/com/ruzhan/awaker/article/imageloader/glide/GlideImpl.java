@@ -15,10 +15,6 @@ import com.ruzhan.awaker.article.R;
 import com.ruzhan.awaker.article.imageloader.IImageLoader;
 import com.ruzhan.lion.glide.GlideApp;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public class GlideImpl implements IImageLoader {
 
     private static final float SIZE_MULTIPLIER = 0.3f;

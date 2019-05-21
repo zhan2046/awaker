@@ -1,6 +1,5 @@
 package com.ruzhan.awaker.article.source.remote;
 
-
 import com.ruzhan.awaker.article.model.BannerItem;
 import com.ruzhan.awaker.article.model.Comment;
 import com.ruzhan.awaker.article.model.NewDetail;
@@ -14,10 +13,6 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
-
-/**
- * Copyright ©2017 by ruzhan
- */
 
 
 public interface IRemoteDataSource {

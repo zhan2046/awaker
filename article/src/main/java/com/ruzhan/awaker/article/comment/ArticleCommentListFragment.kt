@@ -20,9 +20,6 @@ import com.ruzhan.lion.model.LoadStatus
 import com.ruzhan.lion.model.RequestStatus
 import kotlinx.android.synthetic.main.awaker_article_frag_comment_list.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleCommentListFragment : Fragment() {
 
     companion object {

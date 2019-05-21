@@ -10,9 +10,6 @@ import com.ruzhan.awaker.article.model.NewEle
 import com.ruzhan.lion.listener.OnItemClickListener
 import java.util.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleNewDetailAdapter(private val imageListener: OnItemClickListener<NewEle>,
                               private val videoListener: OnItemClickListener<NewEle>,
                               private val commentMoreListener: OnItemClickListener<String>)

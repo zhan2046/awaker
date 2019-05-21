@@ -10,10 +10,6 @@ import com.ruzhan.awaker.article.db.converter.RoomDataConverter;
 
 import java.util.List;
 
-/**
- * Created by ruzhan on 2017/7/15.
- */
-
 @Entity(tableName = "special_detail")
 public class SpecialDetail {
 

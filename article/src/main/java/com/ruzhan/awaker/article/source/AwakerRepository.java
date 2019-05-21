@@ -1,6 +1,5 @@
 package com.ruzhan.awaker.article.source;
 
-
 import com.ruzhan.awaker.article.App;
 import com.ruzhan.awaker.article.db.AwakerArticleAppDatabase;
 import com.ruzhan.awaker.article.db.entity.CommentEntity;
@@ -23,10 +22,6 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
-
-/**
- * Copyright ©2017 by ruzhan
- */
 
 public final class AwakerRepository implements IRemoteDataSource {
 

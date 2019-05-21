@@ -4,10 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public final class KeyboardUtils {
 
     private KeyboardUtils() {

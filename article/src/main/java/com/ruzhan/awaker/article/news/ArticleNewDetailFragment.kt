@@ -35,9 +35,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.awaker_article_frag_new_detail.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleNewDetailFragment : Fragment() {
 
     companion object {

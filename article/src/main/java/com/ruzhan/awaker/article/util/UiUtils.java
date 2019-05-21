@@ -12,10 +12,6 @@ import android.widget.ImageView;
 
 import com.ruzhan.awaker.article.App;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public final class UiUtils {
 
     private UiUtils() {

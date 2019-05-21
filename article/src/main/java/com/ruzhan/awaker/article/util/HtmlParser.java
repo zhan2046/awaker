@@ -12,10 +12,6 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ruzhan on 2017/7/15.
- */
-
 public final class HtmlParser {
 
     private HtmlParser() {

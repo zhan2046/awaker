@@ -14,10 +14,6 @@ import com.ruzhan.awaker.article.util.ResUtils
 import com.ruzhan.lion.helper.FontHelper
 import kotlinx.android.synthetic.main.awaker_article_frag_home.*
 
-
-/**
- * Created by ruzhan123 on 2018/8/28.
- */
 class ArticleHomeFragment : Fragment() {
 
     companion object {

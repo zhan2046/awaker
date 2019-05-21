@@ -3,10 +3,6 @@ package com.ruzhan.awaker.article.network;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public class EmptyConsumer implements Consumer<Object> {
 
     @Override

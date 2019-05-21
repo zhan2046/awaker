@@ -16,9 +16,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleWeekHotCommentViewModel(app: Application) : AndroidViewModel(app) {
 
     private val requestStatus: RequestStatus<List<News>> = RequestStatus()

@@ -8,9 +8,6 @@ import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.listener.OnItemClickListener
 import kotlinx.android.synthetic.main.awaker_article_item_new_detail_video.view.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleNewDetailVideoHolder(itemView: View, private val listener: OnItemClickListener<NewEle>)
     : RecyclerView.ViewHolder(itemView) {
 

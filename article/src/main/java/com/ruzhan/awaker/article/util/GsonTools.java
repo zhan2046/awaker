@@ -6,10 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public final class GsonTools {
 
     private GsonTools() {

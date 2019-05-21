@@ -5,10 +5,6 @@ import android.support.multidex.MultiDex;
 
 import com.blankj.utilcode.util.Utils;
 
-/**
- * Created by ruzhan on 2017/7/6.
- */
-
 public class App extends android.app.Application {
 
     private static App INSTANCE;

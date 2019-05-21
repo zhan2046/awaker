@@ -9,9 +9,6 @@ import com.ruzhan.awaker.article.news.ArticleNewAllHolder
 import com.ruzhan.lion.listener.OnItemClickListener
 import java.util.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleWeekHotReadAdapter(private val listener: OnItemClickListener<News>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

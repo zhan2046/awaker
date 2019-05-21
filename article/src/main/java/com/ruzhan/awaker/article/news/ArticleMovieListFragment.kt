@@ -14,9 +14,6 @@ import com.ruzhan.lion.util.AnimUtils
 import com.ruzhan.movie.MovieListFragment
 import kotlinx.android.synthetic.main.awaker_article_movie.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleMovieListFragment : Fragment() {
 
     companion object {
@@ -59,7 +56,6 @@ class ArticleMovieListFragment : Fragment() {
                         .setDuration(900).interpolator = AnimUtils.getFastOutSlowInInterpolator(activity)
             }
         })
-
     }
 
     private fun setToolbar(toolbar: Toolbar) {

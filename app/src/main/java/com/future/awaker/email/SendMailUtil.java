@@ -4,11 +4,6 @@ import android.support.annotation.NonNull;
 
 import java.io.File;
 
-/**
- * Copyright ©2017 by ruzhan
- * <p>
- * 发送邮件
- */
 
 public class SendMailUtil {
 

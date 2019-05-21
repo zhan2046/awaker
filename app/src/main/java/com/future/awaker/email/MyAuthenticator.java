@@ -3,11 +3,6 @@ package com.future.awaker.email;
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 
-/**
- * Copyright ©2017 by ruzhan
- * <p>
- * 认证类
- */
 
 public class MyAuthenticator extends Authenticator {
 

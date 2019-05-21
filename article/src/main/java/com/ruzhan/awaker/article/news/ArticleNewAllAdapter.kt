@@ -1,6 +1,5 @@
 package com.ruzhan.awaker.article.news
 
-
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,10 +9,6 @@ import com.ruzhan.awaker.article.util.ConstantUtils
 import com.ruzhan.lion.listener.OnItemClickListener
 import com.ruzhan.lion.ui.LoadMoreHolder
 import java.util.*
-
-/**
- * Copyright ©2017 by ruzhan
- */
 
 class ArticleNewAllAdapter(private var listener: OnItemClickListener<News>)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

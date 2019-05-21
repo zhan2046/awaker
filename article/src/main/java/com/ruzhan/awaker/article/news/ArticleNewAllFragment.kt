@@ -16,10 +16,6 @@ import com.ruzhan.lion.model.LoadStatus
 import com.ruzhan.lion.model.RequestStatus
 import kotlinx.android.synthetic.main.awaker_article_frag_new_all.*
 
-/**
- * Created by ruzhan on 2017/7/6.
- */
-
 class ArticleNewAllFragment : Fragment() {
 
     companion object {

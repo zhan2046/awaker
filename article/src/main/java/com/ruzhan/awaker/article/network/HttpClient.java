@@ -2,10 +2,6 @@ package com.ruzhan.awaker.article.network;
 
 import okhttp3.OkHttpClient;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public class HttpClient {
 
     private static HttpClient httpClient;

@@ -14,9 +14,6 @@ import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.listener.OnItemClickListener
 import kotlinx.android.synthetic.main.awaker_article_item_new_hot_comment.view.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleHotCommentHolder(itemView: View, private val listener: OnItemClickListener<Comment>)
     : RecyclerView.ViewHolder(itemView) {
 

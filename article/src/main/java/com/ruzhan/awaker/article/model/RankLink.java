@@ -1,10 +1,5 @@
 package com.ruzhan.awaker.article.model;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
-
 public class RankLink {
 
     public String id;

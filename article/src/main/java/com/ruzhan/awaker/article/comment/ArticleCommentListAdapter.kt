@@ -9,9 +9,6 @@ import com.ruzhan.awaker.article.news.ArticleNewCommentHolder
 import com.ruzhan.awaker.article.util.ConstantUtils
 import java.util.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleCommentListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {

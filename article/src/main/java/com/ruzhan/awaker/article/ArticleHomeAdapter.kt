@@ -9,9 +9,6 @@ import com.ruzhan.awaker.article.week.ArticleWeekHotCommentFragment
 import com.ruzhan.awaker.article.week.ArticleWeekHotReadFragment
 import java.lang.ref.WeakReference
 
-/**
- * Created by ruzhan123 on 2018/8/28.
- */
 class ArticleHomeAdapter(fm: FragmentManager, private val titleList: List<String>)
     : FragmentStatePagerAdapter(fm) {
 

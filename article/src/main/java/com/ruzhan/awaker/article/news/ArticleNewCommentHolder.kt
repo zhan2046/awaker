@@ -12,9 +12,6 @@ import com.ruzhan.awaker.article.util.UiUtils
 import com.ruzhan.lion.helper.FontHelper
 import kotlinx.android.synthetic.main.awaker_article_item_new_detail_comment.view.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleNewCommentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private lateinit var comment: Comment

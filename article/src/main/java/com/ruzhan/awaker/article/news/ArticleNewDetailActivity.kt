@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.ruzhan.awaker.article.R
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleNewDetailActivity : AppCompatActivity() {
 
     companion object {

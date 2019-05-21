@@ -1,9 +1,5 @@
 package com.ruzhan.awaker.article.model;
 
-/**
- * Created by ruzhan on 2017/7/16.
- */
-
 public class Header {
 
     public String url;

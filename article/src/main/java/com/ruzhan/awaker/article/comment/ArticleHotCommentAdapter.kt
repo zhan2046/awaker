@@ -8,9 +8,6 @@ import com.ruzhan.awaker.article.model.Comment
 import com.ruzhan.lion.listener.OnItemClickListener
 import java.util.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleHotCommentAdapter(private val listener: OnItemClickListener<Comment>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val dataList = ArrayList<Any>()

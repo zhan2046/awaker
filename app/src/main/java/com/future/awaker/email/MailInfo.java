@@ -2,12 +2,6 @@ package com.future.awaker.email;
 
 import java.util.Properties;
 
-/**
- * Copyright ©2017 by ruzhan
- * <p>
- * 代表一个即将被发送的邮件
- */
-
 public class MailInfo {
 
     private static final String MAIL_SMTP_HOST = "mail.smtp.host";

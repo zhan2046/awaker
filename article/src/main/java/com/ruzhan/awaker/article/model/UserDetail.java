@@ -3,10 +3,6 @@ package com.ruzhan.awaker.article.model;
 
 import android.arch.persistence.room.Embedded;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public class UserDetail {
 
     public String uid;

@@ -21,9 +21,6 @@ import com.ruzhan.lion.model.RequestStatus
 import com.ruzhan.lion.util.AnimUtils
 import kotlinx.android.synthetic.main.awaker_article_frag_nice_comment.*
 
-/**
- * Created by ruzhan123 on 2018/8/29.
- */
 class ArticleHotCommentFragment : Fragment() {
 
     companion object {

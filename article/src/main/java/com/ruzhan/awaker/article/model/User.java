@@ -4,10 +4,6 @@ import android.arch.persistence.room.Ignore;
 
 import java.util.List;
 
-/**
- * Copyright ©2017 by ruzhan
- */
-
 public class User {
 
     public String avatar32;

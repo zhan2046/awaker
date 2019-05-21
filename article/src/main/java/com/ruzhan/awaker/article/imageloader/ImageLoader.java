@@ -1,11 +1,6 @@
 package com.ruzhan.awaker.article.imageloader;
 
-
 import com.ruzhan.awaker.article.imageloader.glide.GlideImpl;
-
-/**
- * Copyright ©2017 by ruzhan
- */
 
 public final class ImageLoader {
 

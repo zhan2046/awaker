@@ -21,11 +21,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
-/**
- * Copyright ©2017 by ruzhan
- * <p>
- * 邮件发送类
- */
 
 public class MailSender {
 
