@@ -23,8 +23,6 @@ dependencies {
     // RxJava support for Room
     implementation "android.arch.persistence.room:rxjava2:${versions.room}"
 
-    implementation "com.github.bumptech.glide:glide:${versions.glide}"
-    kapt "com.github.bumptech.glide:compiler:${versions.glide}"
     //rx
     implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava2}"
     implementation "io.reactivex.rxjava2:rxandroid:${versions.rxandroid}"
