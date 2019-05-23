@@ -1,11 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: '../core_dependencies.gradle'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-
-
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
@@ -34,14 +35,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api 'com.github.ruzhan123.Lion:movie:0.2.1'
-
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
-
-    api 'com.pnikosis:materialish-progress:1.1'
-    api 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
-    api 'org.jsoup:jsoup:1.11.3'
-    api 'com.sun.mail:android-mail:1.5.5'
-    api 'com.sun.mail:android-activation:1.5.5'
+    implementation ('com.github.ruzhan123.Lion:movie:0.2.1') {
+        exclude group: 'com.android.support'
+    }
+    implementation ('com.pnikosis:materialish-progress:1.1') {
+        exclude group: 'com.android.support'
+    }
+    implementation 'org.jsoup:jsoup:1.11.3'
 }
