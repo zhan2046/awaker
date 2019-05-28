@@ -29,17 +29,17 @@ public final class HtmlParser {
         Elements all = document.getAllElements();
         for (Element item : all) {
             String tagName = item.tagName();
-            if (NewEle.TAG_P.equals(tagName)) {
+            if (NewEle.Companion.getTAG_P().equals(tagName)) {
                 //text ot img
-                Element elementImg = item.getElementsByTag(NewEle.IMG).first();
+                Element elementImg = item.getElementsByTag(NewEle.Companion.getIMG()).first();
                 if (elementImg != null) {
                     //img
-                    String imgUrl = elementImg.attr(NewEle.SRC);
+                    String imgUrl = elementImg.attr(NewEle.Companion.getSRC());
 
                     NewEle newEleImg = new NewEle();
-                    newEleImg.type = NewEle.TYPE_IMG;
-                    newEleImg.imgUrl = imgUrl;
-                    newEleImg.html = item.outerHtml();
+                    newEleImg.setType(NewEle.Companion.getTYPE_IMG());
+                    newEleImg.setImgUrl(imgUrl);
+                    newEleImg.setHtml(item.outerHtml());
                     newEleList.add(newEleImg);
                 }
 
@@ -49,15 +49,15 @@ public final class HtmlParser {
                     newEleList.addAll(handlerTextType(text, item.outerHtml()));
                 }
 
-            } else if (NewEle.TAG_IFRAME.equals(tagName)
-                    || NewEle.TAG_EMBED.equals(tagName)) {
+            } else if (NewEle.Companion.getTAG_IFRAME().equals(tagName)
+                    || NewEle.Companion.getTAG_EMBED().equals(tagName)) {
                 //video
-                String videoUrl = item.attr(NewEle.SRC);
+                String videoUrl = item.attr(NewEle.Companion.getSRC());
 
                 NewEle newEleVideo = new NewEle();
-                newEleVideo.type = NewEle.TYPE_VIDEO;
-                newEleVideo.videoUrl = videoUrl;
-                newEleVideo.html = item.outerHtml();
+                newEleVideo.setType(NewEle.Companion.getTYPE_VIDEO());
+                newEleVideo.setVideoUrl(videoUrl);
+                newEleVideo.setHtml(item.outerHtml());
                 newEleList.add(newEleVideo);
             }
         }
@@ -71,13 +71,13 @@ public final class HtmlParser {
             Document document = Jsoup.parseBodyFragment(html);
             Element iFrameElement = document.select("iframe").first();
             if (iFrameElement != null) {
-                url = iFrameElement.attr(NewEle.SRC);
+                url = iFrameElement.attr(NewEle.Companion.getSRC());
             }
             // embed
             if (TextUtils.isEmpty(url)) {
                 Element embedElement = document.select("embed").first();
                 if (embedElement != null) {
-                    url = embedElement.attr(NewEle.SRC);
+                    url = embedElement.attr(NewEle.Companion.getSRC());
                 }
             }
         }
@@ -88,26 +88,26 @@ public final class HtmlParser {
     public static List<NewEle> handlerTextType(String text, String outerHtml) {
         List<NewEle> newEleList = new ArrayList<>();
         if (!TextUtils.isEmpty(text)) {
-            String removeLogo = text.replaceAll(NewEle.TAG_LOGO, "");
-            if (removeLogo.contains(NewEle.TAG_PERIOD)) { // 存在多个句号，进行分割
+            String removeLogo = text.replaceAll(NewEle.Companion.getTAG_LOGO(), "");
+            if (removeLogo.contains(NewEle.Companion.getTAG_PERIOD())) { // 存在多个句号，进行分割
 
-                String[] splitArr = removeLogo.split(NewEle.TAG_PERIOD);
+                String[] splitArr = removeLogo.split(NewEle.Companion.getTAG_PERIOD());
                 for (String str : splitArr) {
                     if (str.length() > 1) {
                         NewEle newEleText = new NewEle();
-                        newEleText.type = NewEle.TYPE_TEXT;
-                        String itemStr = str.concat(NewEle.TAG_PERIOD);
-                        newEleText.text = itemStr.trim();
-                        newEleText.html = outerHtml;
+                        newEleText.setType(NewEle.Companion.getTYPE_TEXT());
+                        String itemStr = str.concat(NewEle.Companion.getTAG_PERIOD());
+                        newEleText.setText(itemStr.trim());
+                        newEleText.setHtml(outerHtml);
                         newEleList.add(newEleText);
                     }
                 }
 
             } else {
                 NewEle newEleText = new NewEle();
-                newEleText.type = NewEle.TYPE_TEXT;
-                newEleText.text = text.trim();
-                newEleText.html = outerHtml;
+                newEleText.setType(NewEle.Companion.getTYPE_TEXT());
+                newEleText.setText(text.trim());
+                newEleText.setHtml(outerHtml);
                 newEleList.add(newEleText);
             }
         }

@@ -58,7 +58,7 @@ class OtherArticleNewAllFragment : Fragment(), OnFragmentLoadListener {
             override fun onItemClick(position: Int, bean: News, itemView: View) {
                 activity?.let {
                     val url = if (bean.cover_url == null) "" else bean.cover_url.ori
-                    ArticleNewDetailActivity.launch(it, bean.id, bean.title, url)
+                    ArticleNewDetailActivity.launch(it, bean.id, bean.title, url!!)
                 }
             }
         })

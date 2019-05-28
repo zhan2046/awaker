@@ -69,7 +69,7 @@ class ArticleHotCommentViewModel(app: Application) : AndroidViewModel(app) {
                 .doOnNext { commentList ->
                     requestStatus.data = commentList
                     requestStatusLiveData.value = requestStatus
-                    setHotCommentLocalDb(commentList)
+                    setHotCommentLocalDb(commentList!!)
                 }
                 .subscribe(Subscriber.create())
     }

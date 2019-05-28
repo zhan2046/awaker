@@ -18,7 +18,7 @@ public final class UiUtils {
     }
 
     public static Context getContext() {
-        return App.get();
+        return App.Companion.get();
     }
 
     /**

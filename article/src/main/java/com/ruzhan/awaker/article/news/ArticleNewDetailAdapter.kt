@@ -104,7 +104,7 @@ class ArticleNewDetailAdapter(private val imageListener: OnItemClickListener<New
         if (newEleList != null) {
             for (ele in newEleList) {
                 if (NewEle.TYPE_IMG == ele.type) {
-                    imageUrlList.add(ele.imgUrl)
+                    imageUrlList.add(ele.imgUrl!!)
                 }
             }
         }

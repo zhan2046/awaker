@@ -47,7 +47,7 @@ class ArticleHotCommentFragment : Fragment() {
         articleHotCommentAdapter = ArticleHotCommentAdapter(object : OnItemClickListener<Comment> {
             override fun onItemClick(position: Int, bean: Comment, itemView: View) {
                 activity?.let {
-                    ArticleNewDetailActivity.launch(it, bean.row_id, bean.newstitle.title, "")
+                    ArticleNewDetailActivity.launch(it, bean.row_id, bean.newstitle.title!!, "")
                 }
             }
         })

@@ -130,7 +130,7 @@ class ArticleNewDetailFragment : Fragment() {
                         val imageUrlList = articleNewDetailAdapter.getImageUrlList()
                         val imageUrl = bean.imgUrl
                         val imageListModel = ImageListModel(title, imageUrlList.indexOf(imageUrl),
-                                imageUrl, imageUrlList)
+                                imageUrl!!, imageUrlList)
 
                         activity?.let {
                             ImageDetailActivity.launch(it, imageListModel)

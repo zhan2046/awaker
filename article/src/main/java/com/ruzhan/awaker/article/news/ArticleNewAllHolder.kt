@@ -33,7 +33,7 @@ class ArticleNewAllHolder(itemView: View, private var listener: OnItemClickListe
         itemView.comment_tv.text = commentStr
 
         news.cover_url?.let {
-            ImageLoader.get().load(itemView.icon_iv, it.ori)
+            ImageLoader.get().load(itemView.icon_iv, it.ori!!)
         }
     }
 }
