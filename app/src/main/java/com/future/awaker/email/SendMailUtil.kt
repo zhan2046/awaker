@@ -5,14 +5,14 @@ import java.io.File
 
 object SendMailUtil {
 
-    private val EMAIL_TITLE = "来自 (awaker android app) 用户反馈"
+    private const val EMAIL_TITLE = "来自 (awaker android app) 用户反馈"
 
     //qq
-    private val HOST = "smtp.qq.com"
-    private val PORT = "587"
-    private val FROM_ADD = "ruzhan666@foxmail.com" // 发送方邮箱
-    private val FROM_PSW = "mmrhffjtghlsdjjd" // 发送方邮箱授权码
-    private val TO_ADD = "dev19921116@gmail.com" // 发到哪个邮件去
+    private const val HOST = "smtp.qq.com"
+    private const val PORT = "587"
+    private const val FROM_ADD = "ruzhan666@foxmail.com" // 发送方邮箱
+    private const val FROM_PSW = "mmrhffjtghlsdjjd" // 发送方邮箱授权码
+    private const val TO_ADD = "dev19921116@gmail.com" // 发到哪个邮件去
 
     fun send(file: File, contentData: String) {
         val mailInfo = createMail(contentData)

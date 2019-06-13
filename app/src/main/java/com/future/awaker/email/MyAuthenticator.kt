@@ -6,10 +6,8 @@ import javax.mail.PasswordAuthentication
 
 class MyAuthenticator : Authenticator {
 
-    internal var userName: String? = null
-    internal var password: String? = null
-
-    constructor() {}
+    private var userName: String? = null
+    private var password: String? = null
 
     constructor(username: String, password: String) {
         this.userName = username

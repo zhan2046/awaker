@@ -10,9 +10,6 @@ import com.ruzhan.awaker.article.comment.ArticleHotCommentFragment
 import com.ruzhan.awaker.article.news.ArticleMovieListFragment
 import kotlinx.android.synthetic.main.frag_main.*
 
-/**
- * Created by ruzhan123 on 2018/8/28.
- */
 class MainFragment : Fragment() {
 
     companion object {

@@ -29,11 +29,11 @@ class MailInfo {
 
     companion object {
 
-        private val MAIL_SMTP_HOST = "mail.smtp.host"
-        private val MAIL_SMTP_PORT = "mail.smtp.port"
-        private val MAIL_SMTP_AUTH = "mail.smtp.auth"
+        private const val MAIL_SMTP_HOST = "mail.smtp.host"
+        private const val MAIL_SMTP_PORT = "mail.smtp.port"
+        private const val MAIL_SMTP_AUTH = "mail.smtp.auth"
 
-        private val TRUE = "true"
-        private val FALSE = "false"
+        private const val TRUE = "true"
+        private const val FALSE = "false"
     }
 }
