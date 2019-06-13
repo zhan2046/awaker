@@ -2,6 +2,7 @@ package com.ruzhan.day.source
 
 import com.ruzhan.day.DayApi
 import com.ruzhan.day.DayClient
+import com.ruzhan.day.model.DayNewModel
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
@@ -24,7 +25,7 @@ class DayRepository(private val dayApi: DayApi) {
         }
     }
 
-    fun getDayNewList(page: Int, ver: String, appVer: String): Single<Any> {
+    fun getDayNewList(page: Int, ver: String, appVer: String): Single<List<DayNewModel>> {
         return dayApi.getDayNewList(page, ver, appVer)
                 .subscribeOn(Schedulers.io())
     }
