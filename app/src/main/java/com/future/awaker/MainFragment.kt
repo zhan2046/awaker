@@ -5,9 +5,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ruzhan.awaker.article.ArticleHomeFragment
 import com.ruzhan.awaker.article.comment.ArticleHotCommentFragment
 import com.ruzhan.awaker.article.news.ArticleMovieListFragment
+import com.ruzhan.day.DayNewFragment
 import kotlinx.android.synthetic.main.frag_main.*
 
 class MainFragment : Fragment() {
@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
 
     private val fragmentMap = HashMap<String, Fragment>()
 
-    private var articleHomeFragment: ArticleHomeFragment? = null
+    private var dayNewFragment: DayNewFragment? = null
     private var articleHotCommentFragment: ArticleHotCommentFragment? = null
     private var articleMovieListFragment: ArticleMovieListFragment? = null
 
@@ -58,12 +58,12 @@ class MainFragment : Fragment() {
 
         when (tabId) {
             R.id.article -> {
-                fragTag = "ArticleHomeFragment"
+                fragTag = "DayNewFragment"
                 frag = fragmentMap[fragTag]
 
                 if (frag == null) {
-                    frag = ArticleHomeFragment.newInstance()
-                    articleHomeFragment = frag
+                    frag = DayNewFragment.newInstance()
+                    dayNewFragment = frag
                     transaction.add(R.id.container, frag, fragTag)
 
                 } else {
