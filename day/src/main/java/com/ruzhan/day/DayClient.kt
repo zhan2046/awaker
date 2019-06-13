@@ -1,28 +1,30 @@
-package com.ruzhan.awaker.article.network
+package com.ruzhan.day
 
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object AwakerClient {
+object DayClient {
 
-    private const val HOST = "http://www.awaker.cn/api/"
+    private const val HOST = "http://idaily-cdn.appcloudcdn.com/api/"
+    private var api: DayApi? = null
 
-    private var api: AwakerApi? = null
-
-    fun get(): AwakerApi {
+    fun get(): DayApi {
+        var api = api
         if (api == null) {
-            synchronized(AwakerClient::class.java) {
+            synchronized(DayClient::class.java) {
                 if (api == null) {
                     val client = Retrofit.Builder().baseUrl(HOST)
-                            .client(HttpClient.getHttpClient())
+                            .client(OkHttpClient.Builder().build())
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .build()
-                    api = client.create(AwakerApi::class.java)
+                    api = client.create(DayApi::class.java)
+                    this.api = api
                 }
             }
         }
-        return api!!
+        return this.api!!
     }
 }
