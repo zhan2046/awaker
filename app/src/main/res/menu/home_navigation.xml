@@ -7,11 +7,6 @@
         android:icon="@drawable/awaker_article_news_menu" />
 
     <item
-        android:id="@+id/comment"
-        android:title=""
-        android:icon="@drawable/awaker_article_comment_menu" />
-
-    <item
         android:id="@+id/movie"
         android:title=""
         android:icon="@drawable/awaker_article_movie_menu2" />
