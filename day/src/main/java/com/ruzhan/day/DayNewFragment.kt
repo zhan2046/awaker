@@ -7,6 +7,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.ruzhan.common.TitleHelper
+import com.ruzhan.day.adapter.DayNewAdapter
+import com.ruzhan.lion.helper.FontHelper
+import kotlinx.android.synthetic.main.day_frag_new.*
 
 class DayNewFragment : Fragment() {
 
@@ -17,20 +21,38 @@ class DayNewFragment : Fragment() {
     }
 
     private var dayViewModel: DayViewModel? = null
+    private val dayNewAdapter = DayNewAdapter()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.day_frag_new, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        titleTv.typeface = FontHelper.get().getBoldTypeface()
+        titleTv.text = resources.getString(R.string.common_title_name)
+        TitleHelper.setToolbar(toolbar, activity)
+
+        recyclerView.adapter = dayNewAdapter
+
+        initLiveData()
+        initListener()
+        dayViewModel?.getDayNewList(1)
+    }
+
+    private fun initListener() {
+        TitleHelper.setTitleScaleAnim(titleTv)
+    }
+
+    private fun initLiveData() {
         val dayViewModel = ViewModelProviders.of(this).get(DayViewModel::class.java)
         this.dayViewModel = dayViewModel
         dayViewModel.dayNewLiveData.observe(this, Observer { dayNewList ->
             if (dayNewList != null) {
-
+                dayNewAdapter.setData(dayNewList)
             }
         })
-        dayViewModel.getDayNewList(1)
     }
 }

@@ -1,7 +1,7 @@
 package com.ruzhan.day.source
 
-import com.ruzhan.day.DayApi
-import com.ruzhan.day.DayClient
+import com.ruzhan.day.network.DayApi
+import com.ruzhan.day.network.DayClient
 import com.ruzhan.day.model.DayNewModel
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

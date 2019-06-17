@@ -36,9 +36,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':common')
-    implementation ('com.github.ruzhan123.Lion:movie:0.2.2') {
-        exclude group: 'com.android.support'
-    }
     implementation ('com.pnikosis:materialish-progress:1.1') {
         exclude group: 'com.android.support'
     }

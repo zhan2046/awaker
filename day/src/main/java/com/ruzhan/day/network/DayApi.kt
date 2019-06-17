@@ -1,4 +1,4 @@
-package com.ruzhan.day
+package com.ruzhan.day.network
 
 import com.ruzhan.day.model.DayNewModel
 import io.reactivex.Single

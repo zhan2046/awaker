@@ -1,4 +1,4 @@
-package com.ruzhan.day
+package com.ruzhan.day.network
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -21,10 +21,10 @@ object DayClient {
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .build()
                     api = client.create(DayApi::class.java)
-                    this.api = api
+                    DayClient.api = api
                 }
             }
         }
-        return this.api!!
+        return DayClient.api!!
     }
 }

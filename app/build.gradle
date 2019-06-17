@@ -72,9 +72,6 @@ dependencies {
     implementation project(':common')
     implementation project(':article')
     implementation project(':day')
-    implementation ('com.github.ruzhan123.Lion:movie:0.2.2') {
-        exclude group: 'com.android.support'
-    }
     implementation ('com.github.ittianyu:BottomNavigationViewEx:1.2.4') {
         exclude group: 'com.android.support'
     }
