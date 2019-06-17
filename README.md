@@ -2,29 +2,12 @@
 Awaker
 ===============
 
-
-
 ####    deprecated
 
 Screenshots
 ===============
 
-<a href="gif/awaker01.png"><img src="gif/awaker01.png" width="30%"/></a> 
-<a href="gif/awaker02.png"><img src="gif/awaker02.png" width="30%"/></a> 
 <a href="gif/awaker03.png"><img src="gif/awaker03.png" width="30%"/></a>
-
-<a href="gif/awaker04.png"><img src="gif/awaker04.png" width="30%"/></a> 
-<a href="gif/awaker05.png"><img src="gif/awaker05.png" width="30%"/></a>
-<a href="gif/awaker06.png"><img src="gif/awaker06.png" width="30%"/></a>
-
-
-
-
-
-Download :zap:
-------
-[fir - (awaker app download)](https://fir.im/r68b)
-
 
 Open Source :zap:
 ------
