@@ -69,8 +69,12 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
+    implementation project(':common')
     implementation project(':article')
     implementation project(':day')
+    implementation ('com.github.ruzhan123.Lion:movie:0.2.2') {
+        exclude group: 'com.android.support'
+    }
     implementation 'com.sun.mail:android-mail:1.5.5'
     implementation 'com.sun.mail:android-activation:1.5.5'
     implementation ('com.github.ittianyu:BottomNavigationViewEx:1.2.4') {

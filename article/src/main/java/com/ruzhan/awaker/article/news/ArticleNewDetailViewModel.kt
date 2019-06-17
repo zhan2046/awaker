@@ -8,8 +8,8 @@ import com.ruzhan.awaker.article.model.Comment
 import com.ruzhan.awaker.article.model.NewDetail
 import com.ruzhan.awaker.article.model.NewEle
 import com.ruzhan.awaker.article.source.AwakerRepository
-import com.ruzhan.awaker.article.util.ConstantUtils
 import com.ruzhan.awaker.article.util.HtmlParser
+import com.ruzhan.common.util.ConstantUtils
 import com.ruzhan.lion.model.LoadStatus
 import com.ruzhan.lion.model.RequestStatus
 import com.ruzhan.lion.rx.Subscriber

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.News
-import com.ruzhan.awaker.article.util.ConstantUtils
+import com.ruzhan.common.util.ConstantUtils
 import com.ruzhan.lion.listener.OnItemClickListener
 import com.ruzhan.lion.ui.LoadMoreHolder
 import java.util.*

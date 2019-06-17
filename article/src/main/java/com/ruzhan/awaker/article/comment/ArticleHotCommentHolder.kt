@@ -7,9 +7,9 @@ import android.text.TextUtils
 import android.view.View
 import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.Comment
-import com.ruzhan.awaker.article.util.ResUtils
-import com.ruzhan.awaker.article.util.UiUtils
 import com.ruzhan.common.imageloader.ImageLoader
+import com.ruzhan.common.util.CommonUtils
+import com.ruzhan.common.util.ResUtils
 import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.listener.OnItemClickListener
 import kotlinx.android.synthetic.main.awaker_article_item_new_hot_comment.view.*
@@ -20,7 +20,7 @@ class ArticleHotCommentHolder(itemView: View, private val listener: OnItemClickL
     private lateinit var comment: Comment
 
     init {
-        UiUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, R.color.awaker_article_grey_zan,
+        CommonUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, R.color.awaker_article_grey_zan,
                 itemView.zan_iv)
 
         itemView.root_card.setOnClickListener { listener.onItemClick(adapterPosition, comment, it) }
@@ -28,7 +28,7 @@ class ArticleHotCommentHolder(itemView: View, private val listener: OnItemClickL
         itemView.zan_ll.setOnClickListener {
             comment.isSelect = !comment.isSelect
             val color = if (comment.isSelect) R.color.awaker_article_blue_zan else R.color.awaker_article_grey_zan
-            UiUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, color, itemView.zan_iv)
+            CommonUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, color, itemView.zan_iv)
             val up = Integer.valueOf(comment.up)
             val newUp = if (comment.isSelect) up + 1 else up
             itemView.zan_tv.text = newUp.toString()
@@ -83,7 +83,7 @@ class ArticleHotCommentHolder(itemView: View, private val listener: OnItemClickL
 
     private fun isSelect(isSelect: Boolean) {
         val color = if (isSelect) R.color.awaker_article_blue_zan else R.color.awaker_article_grey_zan
-        UiUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, color, itemView.zan_iv)
+        CommonUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, color, itemView.zan_iv)
         val up = Integer.valueOf(comment.up)
         val newUp = if (isSelect) up + 1 else up
         itemView.zan_tv.text = newUp.toString()

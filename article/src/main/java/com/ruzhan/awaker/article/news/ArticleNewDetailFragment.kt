@@ -18,8 +18,8 @@ import com.ruzhan.awaker.article.model.Header
 import com.ruzhan.awaker.article.model.NewDetail
 import com.ruzhan.awaker.article.model.NewEle
 import com.ruzhan.awaker.article.util.HtmlParser
-import com.ruzhan.awaker.article.util.KeyboardUtils
-import com.ruzhan.awaker.article.util.ResUtils
+import com.ruzhan.common.util.KeyboardUtils
+import com.ruzhan.common.util.ResUtils
 import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.helper.OnRefreshHelper
 import com.ruzhan.lion.listener.OnItemClickListener

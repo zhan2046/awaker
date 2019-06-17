@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.Comment
 import com.ruzhan.awaker.article.news.ArticleNewCommentHolder
-import com.ruzhan.awaker.article.util.ConstantUtils
+import com.ruzhan.common.util.ConstantUtils
 import java.util.*
 
 class ArticleCommentListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

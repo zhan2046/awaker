@@ -1,23 +1,16 @@
 package com.ruzhan.awaker.article.source
 
-import com.ruzhan.awaker.article.App
 import com.ruzhan.awaker.article.db.AwakerArticleAppDatabase
 import com.ruzhan.awaker.article.db.entity.CommentEntity
 import com.ruzhan.awaker.article.db.entity.NewsEntity
 import com.ruzhan.awaker.article.db.entity.SpecialListEntity
 import com.ruzhan.awaker.article.db.entity.UserInfoEntity
-import com.ruzhan.awaker.article.model.BannerItem
-import com.ruzhan.awaker.article.model.Comment
-import com.ruzhan.awaker.article.model.NewDetail
-import com.ruzhan.awaker.article.model.News
-import com.ruzhan.awaker.article.model.Special
-import com.ruzhan.awaker.article.model.SpecialDetail
-import com.ruzhan.awaker.article.model.UserInfo
+import com.ruzhan.awaker.article.model.*
 import com.ruzhan.awaker.article.network.AwakerClient
 import com.ruzhan.awaker.article.network.HttpResult
 import com.ruzhan.awaker.article.source.remote.IRemoteDataSource
 import com.ruzhan.awaker.article.source.remote.RemoteDataSourceImpl
-
+import com.ruzhan.common.util.CommonUtils
 import io.reactivex.Flowable
 import io.reactivex.Single
 
@@ -28,7 +21,7 @@ class AwakerRepository private constructor() : IRemoteDataSource {
 
     init {
         remoteDataSource = RemoteDataSourceImpl(AwakerClient.get())
-        awakerArticleAppDatabase = AwakerArticleAppDatabase.get(App.get())
+        awakerArticleAppDatabase = AwakerArticleAppDatabase.get(CommonUtils.getContext())
     }
 
     fun loadUserInfoEntity(id: String): Flowable<UserInfoEntity> {

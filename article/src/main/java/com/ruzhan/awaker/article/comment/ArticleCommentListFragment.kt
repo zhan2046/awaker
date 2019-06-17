@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.ruzhan.awaker.article.R
-import com.ruzhan.awaker.article.util.KeyboardUtils
+import com.ruzhan.common.util.KeyboardUtils
 import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.helper.OnRefreshHelper
 import com.ruzhan.lion.model.LoadStatus

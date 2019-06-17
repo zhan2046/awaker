@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ruzhan.awaker.article.util.ResUtils
+import com.ruzhan.common.util.ResUtils
 import com.ruzhan.lion.helper.FontHelper
 import kotlinx.android.synthetic.main.awaker_article_frag_home.*
 
