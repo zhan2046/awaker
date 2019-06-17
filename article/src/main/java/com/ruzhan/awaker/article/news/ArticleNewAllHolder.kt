@@ -3,7 +3,7 @@ package com.ruzhan.awaker.article.news
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.ruzhan.awaker.article.R
-import com.ruzhan.awaker.article.imageloader.ImageLoader
+import com.ruzhan.common.imageloader.ImageLoader
 import com.ruzhan.awaker.article.model.News
 import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.listener.OnItemClickListener

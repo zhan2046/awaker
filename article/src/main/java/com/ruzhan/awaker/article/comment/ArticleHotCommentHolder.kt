@@ -6,10 +6,10 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import com.ruzhan.awaker.article.R
-import com.ruzhan.awaker.article.imageloader.ImageLoader
 import com.ruzhan.awaker.article.model.Comment
 import com.ruzhan.awaker.article.util.ResUtils
 import com.ruzhan.awaker.article.util.UiUtils
+import com.ruzhan.common.imageloader.ImageLoader
 import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.listener.OnItemClickListener
 import kotlinx.android.synthetic.main.awaker_article_item_new_hot_comment.view.*

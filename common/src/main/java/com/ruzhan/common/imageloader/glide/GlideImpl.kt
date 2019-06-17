@@ -1,4 +1,4 @@
-package com.ruzhan.awaker.article.imageloader.glide
+package com.ruzhan.common.imageloader.glide
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -11,7 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.ruzhan.awaker.article.imageloader.IImageLoader
+import com.ruzhan.common.imageloader.IImageLoader
 import com.ruzhan.common.R
 import com.ruzhan.lion.glide.GlideApp
 

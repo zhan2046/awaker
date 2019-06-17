@@ -1,6 +1,6 @@
-package com.ruzhan.awaker.article.imageloader
+package com.ruzhan.common.imageloader
 
-import com.ruzhan.awaker.article.imageloader.glide.GlideImpl
+import com.ruzhan.common.imageloader.glide.GlideImpl
 
 object ImageLoader {
 

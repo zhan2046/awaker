@@ -1,4 +1,4 @@
-package com.ruzhan.awaker.article.imageloader
+package com.ruzhan.common.imageloader
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
