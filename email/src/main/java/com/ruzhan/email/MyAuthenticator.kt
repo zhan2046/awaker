@@ -1,4 +1,4 @@
-package com.future.awaker.email
+package com.ruzhan.email
 
 import javax.mail.Authenticator
 import javax.mail.PasswordAuthentication

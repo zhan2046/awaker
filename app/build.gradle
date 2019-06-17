@@ -75,8 +75,6 @@ dependencies {
     implementation ('com.github.ruzhan123.Lion:movie:0.2.2') {
         exclude group: 'com.android.support'
     }
-    implementation 'com.sun.mail:android-mail:1.5.5'
-    implementation 'com.sun.mail:android-activation:1.5.5'
     implementation ('com.github.ittianyu:BottomNavigationViewEx:1.2.4') {
         exclude group: 'com.android.support'
     }

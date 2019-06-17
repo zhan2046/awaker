@@ -1,6 +1,6 @@
-package com.future.awaker.email
+package com.ruzhan.email
 
-import java.util.Properties
+import java.util.*
 
 class MailInfo {
 

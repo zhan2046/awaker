@@ -1,4 +1,4 @@
-package com.future.awaker.email
+package com.ruzhan.email
 
 import java.io.File
 
