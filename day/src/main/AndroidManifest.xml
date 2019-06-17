@@ -2,8 +2,5 @@
     package="com.ruzhan.day">
 
     <application>
-        <activity
-            android:name=".DayNewActivity"
-            android:screenOrientation="portrait" />
     </application>
 </manifest>

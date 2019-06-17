@@ -16,13 +16,11 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
         private const val APP_VER = "36"
     }
 
-    val throwableLiveData = MutableLiveData<Throwable>()
     val dayNewLiveData = MutableLiveData<List<DayNewModel>>()
 
     fun getDayNewList(page: Int) {
         DayRepository.get().getDayNewList(page, VER, APP_VER)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError { throwable -> throwableLiveData.value = throwable }
                 .doOnSuccess { dayNewList -> dayNewLiveData.value = dayNewList }
                 .subscribe(Subscriber.create())
     }

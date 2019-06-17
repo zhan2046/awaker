@@ -18,7 +18,8 @@
         android:label="awaker"
         android:supportsRtl="true"
         android:theme="@style/Awaker.Article"
-        tools:replace="android:label">
+        tools:replace="android:label"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <activity
             android:name=".MainActivity"
