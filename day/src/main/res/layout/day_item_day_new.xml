@@ -36,7 +36,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
-        android:background="@drawable/shape_day_new_tag_bg"
+        android:background="@drawable/day_shape_day_new_tag_bg"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"

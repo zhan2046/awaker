@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">day</string>
-    <string name="common_title_name">iDaily</string>
+    <string name="day_common_title_name">iDaily</string>
 </resources>
