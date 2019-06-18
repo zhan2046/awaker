@@ -14,6 +14,7 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
     private lateinit var dayNewModel: DayNewModel
 
     init {
+        itemView.titleTv.typeface = FontHelper.get().getBoldTypeface()
         itemView.tagTv.typeface = FontHelper.get().getLightTypeface()
         itemView.contentTv.typeface = FontHelper.get().getLightTypeface()
 
@@ -32,6 +33,7 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
         if (tags != null && tags.isNotEmpty()) {
             tagStr = tags[0].name ?: ""
         }
+        itemView.titleTv.text = bean.title
         itemView.tagTv.text = tagStr
         itemView.contentTv.text = bean.content
     }

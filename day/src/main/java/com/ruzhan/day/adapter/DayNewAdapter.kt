@@ -21,8 +21,13 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var onItemClickListener: OnItemClickListener<DayNewModel>? = null
 
-    fun setData(list: List<DayNewModel>) {
+    fun setRefreshData(list: List<DayNewModel>) {
         dataList.clear()
+        dataList.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    fun setLoadMoreData(list: List<DayNewModel>) {
         dataList.addAll(list)
         notifyDataSetChanged()
     }

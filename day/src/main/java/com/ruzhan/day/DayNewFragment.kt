@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.ruzhan.common.TitleHelper
 import com.ruzhan.day.adapter.DayNewAdapter
 import com.ruzhan.lion.helper.FontHelper
+import com.ruzhan.lion.helper.OnRefreshHelper
 import kotlinx.android.synthetic.main.day_frag_new.*
 
 class DayNewFragment : Fragment() {
@@ -20,7 +21,7 @@ class DayNewFragment : Fragment() {
         fun newInstance() = DayNewFragment()
     }
 
-    private var dayViewModel: DayViewModel? = null
+    private lateinit var dayViewModel: DayViewModel
     private val dayNewAdapter = DayNewAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +31,8 @@ class DayNewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val dayViewModel = ViewModelProviders.of(this).get(DayViewModel::class.java)
+        this.dayViewModel = dayViewModel
 
         titleTv.typeface = FontHelper.get().getBoldTypeface()
         titleTv.text = resources.getString(R.string.common_title_name)
@@ -39,19 +42,37 @@ class DayNewFragment : Fragment() {
 
         initLiveData()
         initListener()
-        dayViewModel?.getDayNewList(1)
+        dayViewModel.refreshDayNewList()
     }
 
     private fun initListener() {
         TitleHelper.setTitleScaleAnim(titleTv)
+        OnRefreshHelper.setOnRefreshStatusListener(swipeRefreshLayout, recyclerView,
+                object : OnRefreshHelper.OnRefreshStatusListener {
+                    override fun onLoadMore() {
+                        dayViewModel.refreshDayNewList()
+                    }
+
+                    override fun onRefresh() {
+                        dayViewModel.loadMoreDayNewList()
+                    }
+                })
     }
 
     private fun initLiveData() {
-        val dayViewModel = ViewModelProviders.of(this).get(DayViewModel::class.java)
-        this.dayViewModel = dayViewModel
-        dayViewModel.dayNewLiveData.observe(this, Observer { dayNewList ->
+        dayViewModel.refreshDayNewLiveData.observe(this, Observer { dayNewList ->
             if (dayNewList != null) {
-                dayNewAdapter.setData(dayNewList)
+                dayNewAdapter.setRefreshData(dayNewList)
+            }
+        })
+        dayViewModel.loadMoreDayNewLiveData.observe(this, Observer { dayNewList ->
+            if (dayNewList != null) {
+                dayNewAdapter.setLoadMoreData(dayNewList)
+            }
+        })
+        dayViewModel.loadStatusLiveData.observe(this, Observer { isLoadStatus ->
+            if (isLoadStatus != null) {
+                swipeRefreshLayout.isRefreshing = isLoadStatus
             }
         })
     }
