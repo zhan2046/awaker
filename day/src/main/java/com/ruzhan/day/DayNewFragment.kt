@@ -46,7 +46,7 @@ class DayNewFragment : Fragment() {
     }
 
     private fun initListener() {
-        TitleHelper.setTitleScaleAnim(titleTv)
+        TitleHelper.setAlphaScaleAnimate(titleTv)
         OnRefreshHelper.setOnRefreshStatusListener(swipeRefreshLayout, recyclerView,
                 object : OnRefreshHelper.OnRefreshStatusListener {
                     override fun onLoadMore() {

@@ -39,6 +39,6 @@ class ArticleMovieListFragment : Fragment() {
                     .add(R.id.container, movieListFragment, "MovieListFragment")
                     .commit()
         }
-        TitleHelper.setTitleScaleAnim(title_tv)
+        TitleHelper.setAlphaScaleAnimate(title_tv)
     }
 }

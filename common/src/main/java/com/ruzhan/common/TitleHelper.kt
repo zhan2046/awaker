@@ -10,6 +10,10 @@ import com.ruzhan.lion.util.AnimUtils
 object TitleHelper {
 
     private const val DURATION = 900L
+    private const val START_ALPHA = 0f
+    private const val END_ALPHA = 1f
+    private const val START_SCALE_X = 0.8f
+    private const val END_SCALE_X = 1f
 
     fun setToolbar(toolbar: Toolbar, activity: Activity?) {
         if (activity is AppCompatActivity) {
@@ -17,16 +21,18 @@ object TitleHelper {
         }
     }
 
-    fun setTitleScaleAnim(titleTv: View) {
-        titleTv.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+    fun setAlphaScaleAnimate(tagView: View) {
+        tagView.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                titleTv.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                titleTv.alpha = 0f
-                titleTv.scaleX = 0.8f
-                titleTv.animate()
-                        .alpha(1f)
-                        .scaleX(1f)
-                        .setDuration(DURATION).interpolator = AnimUtils.getFastOutSlowInInterpolator(titleTv.context)
+                tagView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                tagView.alpha = START_ALPHA
+                tagView.scaleX = START_SCALE_X
+                tagView.animate()
+                        .alpha(END_ALPHA)
+                        .scaleX(END_SCALE_X)
+                        .setDuration(DURATION).interpolator =
+                        AnimUtils.getFastOutSlowInInterpolator(tagView.context)
             }
         })
     }
