@@ -1,32 +1,44 @@
 package com.ruzhan.day.source
 
+import com.ruzhan.common.util.CommonUtils
+import com.ruzhan.database.CommonAppDatabase
+import com.ruzhan.database.CommonModel
+import com.ruzhan.day.model.DayNewModel
 import com.ruzhan.day.network.DayApi
 import com.ruzhan.day.network.DayClient
-import com.ruzhan.day.model.DayNewModel
+import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class DayRepository(private val dayApi: DayApi) {
+class DayRepository {
 
     companion object {
 
         private var INSTANCE: DayRepository? = null
 
         @JvmStatic
-        fun get(): DayRepository {
-            if (INSTANCE == null) {
-                synchronized(DayRepository::class.java) {
-                    if (INSTANCE == null) {
-                        INSTANCE = DayRepository(DayClient.get())
-                    }
-                }
-            }
-            return INSTANCE!!
+        fun get(): DayRepository = INSTANCE ?: synchronized(DayRepository::class) {
+            INSTANCE ?: DayRepository().also { INSTANCE = it }
         }
+    }
+
+    private val commonAppDatabase: CommonAppDatabase by lazy {
+        CommonAppDatabase.invoke(CommonUtils.getContext())
+    }
+    private val dayApi: DayApi by lazy {
+        DayClient.get()
     }
 
     fun getDayNewList(page: Int, ver: String, appVer: String): Single<List<DayNewModel>> {
         return dayApi.getDayNewList(page, ver, appVer)
                 .subscribeOn(Schedulers.io())
+    }
+
+    fun getCommonModel(id: String): Flowable<CommonModel> {
+        return commonAppDatabase.commonDao().getCommonModel(id)
+    }
+
+    fun getCommonModel(commonModel: CommonModel) {
+        return commonAppDatabase.commonDao().insertCommonModel(commonModel)
     }
 }
