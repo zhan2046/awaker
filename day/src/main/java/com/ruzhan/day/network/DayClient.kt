@@ -13,7 +13,7 @@ object DayClient {
     fun get(): DayApi {
         var api = api
         if (api == null) {
-            synchronized(DayClient::class.java) {
+            synchronized(DayClient::class) {
                 if (api == null) {
                     val client = Retrofit.Builder().baseUrl(HOST)
                             .client(OkHttpClient.Builder().build())

@@ -34,11 +34,11 @@ class DayRepository {
                 .subscribeOn(Schedulers.io())
     }
 
-    fun getCommonModel(id: String): Flowable<CommonModel> {
+    fun getCommonModel(id: Int): Flowable<CommonModel> {
         return commonAppDatabase.commonDao().getCommonModel(id)
     }
 
-    fun getCommonModel(commonModel: CommonModel) {
+    fun insertCommonModel(commonModel: CommonModel) {
         return commonAppDatabase.commonDao().insertCommonModel(commonModel)
     }
 }

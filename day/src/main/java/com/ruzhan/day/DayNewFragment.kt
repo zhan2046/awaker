@@ -42,6 +42,7 @@ class DayNewFragment : Fragment() {
 
         initLiveData()
         initListener()
+        dayViewModel.getLocalDayList()
         dayViewModel.refreshDayNewList()
     }
 

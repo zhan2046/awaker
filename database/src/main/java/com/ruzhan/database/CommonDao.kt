@@ -10,7 +10,7 @@ import io.reactivex.Flowable
 interface CommonDao {
 
     @Query("SELECT * FROM common_model WHERE id LIKE :id")
-    fun getCommonModel(id: String): Flowable<CommonModel>
+    fun getCommonModel(id: Int): Flowable<CommonModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCommonModel(commonModel: CommonModel)
