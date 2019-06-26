@@ -69,6 +69,7 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
             else -> START_PAGE
         }
         DayRepository.get().getDayNewList(currentPage, VER, APP_VER)
+                .map { dayNewList -> filterNullTagList(ArrayList(dayNewList)) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { loadStatusLiveData.value = true }
                 .doFinally {
@@ -85,6 +86,19 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
                     }
                 }
                 .subscribe(Subscriber.create())
+    }
+
+    private fun filterNullTagList(dayNewList: ArrayList<DayNewModel>): List<DayNewModel> {
+        val removeList = ArrayList<DayNewModel>()
+        for (dayNew in dayNewList) {
+            if (dayNew.tags == null) {
+                removeList.add(dayNew)
+            }
+        }
+        if (removeList.isNotEmpty()) {
+            dayNewList.removeAll(removeList)
+        }
+        return dayNewList
     }
 
     fun getLocalDayList() {
