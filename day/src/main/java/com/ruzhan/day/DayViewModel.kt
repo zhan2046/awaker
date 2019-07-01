@@ -12,6 +12,7 @@ import com.ruzhan.day.source.DayRepository
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
@@ -38,6 +39,9 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
 
     private val gson = Gson()
     private var insetDayListFlowable: Flowable<Any>? = null
+
+    private var insetDisposable: Disposable? = null
+    private var localDisposable: Disposable? = null
 
     init {
         insetDayListFlowable = Flowable.create<Any>({ e ->
@@ -102,7 +106,7 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun getLocalDayList() {
-        DayRepository.get().getCommonModel(DAY_LIST_ID)
+        localDisposable = DayRepository.get().getCommonModel(DAY_LIST_ID)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)
                 .doOnNext { commonModel ->
@@ -116,19 +120,20 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
                             }
                         }
                     }
+                    localDisposable?.dispose()
                 }
-                .subscribe(Subscriber.create())
+                .subscribe({}, {})
     }
 
     private fun insetDayListToDb() {
         val insetDayListFlowable = insetDayListFlowable
         if (insetDayListFlowable != null) {
-            insetDayListFlowable.debounce(DEBOUNCE_DURATION, TimeUnit.MILLISECONDS)
+            insetDisposable = insetDayListFlowable.debounce(DEBOUNCE_DURATION, TimeUnit.MILLISECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(Throwable::printStackTrace)
-                    .doOnComplete { }
-                    .subscribe(Subscriber.create())
+                    .doOnComplete { insetDisposable?.dispose() }
+                    .subscribe({}, {})
         }
     }
 }
