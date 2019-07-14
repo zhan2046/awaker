@@ -1,11 +1,9 @@
-package com.ruzhan.day.source
+package com.ruzhan.day.network
 
 import com.ruzhan.common.util.CommonUtils
 import com.ruzhan.database.CommonAppDatabase
 import com.ruzhan.database.CommonModel
 import com.ruzhan.day.model.DayNewModel
-import com.ruzhan.day.network.DayApi
-import com.ruzhan.day.network.DayClient
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +16,9 @@ class DayRepository {
 
         @JvmStatic
         fun get(): DayRepository = INSTANCE ?: synchronized(DayRepository::class) {
-            INSTANCE ?: DayRepository().also { INSTANCE = it }
+            INSTANCE ?: DayRepository().also {
+                INSTANCE = it
+            }
         }
     }
 

@@ -8,7 +8,7 @@ import com.google.gson.reflect.TypeToken
 import com.ruzhan.common.Subscriber
 import com.ruzhan.database.CommonModel
 import com.ruzhan.day.model.DayNewModel
-import com.ruzhan.day.source.DayRepository
+import com.ruzhan.day.network.DayRepository
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers

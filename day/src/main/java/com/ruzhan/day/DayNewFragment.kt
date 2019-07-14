@@ -37,7 +37,6 @@ class DayNewFragment : Fragment() {
         titleTv.typeface = FontHelper.get().getBoldTypeface()
         titleTv.text = resources.getString(R.string.day_common_title_name)
         TitleHelper.setToolbar(toolbar, activity)
-
         recyclerView.adapter = dayNewAdapter
 
         initLiveData()
