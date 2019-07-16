@@ -9,7 +9,7 @@ import android.content.Context
 abstract class CommonAppDatabase : RoomDatabase() {
 
     companion object {
-        private const val DB_NAME = "common.db"
+        private const val DB_NAME = "awakercommon.db"
         @Volatile
         private var INSTANCE: CommonAppDatabase? = null
 
