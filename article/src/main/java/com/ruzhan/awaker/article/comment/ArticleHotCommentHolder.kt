@@ -5,9 +5,9 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
+import com.awaker.imageloader.ImageLoader
 import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.Comment
-import com.ruzhan.common.imageloader.ImageLoader
 import com.ruzhan.common.util.CommonUtils
 import com.ruzhan.common.util.ResUtils
 import com.ruzhan.lion.helper.FontHelper
