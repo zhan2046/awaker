@@ -4,15 +4,10 @@ import javax.mail.Authenticator
 import javax.mail.PasswordAuthentication
 
 
-class MyAuthenticator : Authenticator {
+class MyAuthenticator(username: String, password: String) : Authenticator() {
 
-    private var userName: String? = null
-    private var password: String? = null
-
-    constructor(username: String, password: String) {
-        this.userName = username
-        this.password = password
-    }
+    private var userName: String? = username
+    private var password: String? = password
 
     override fun getPasswordAuthentication(): PasswordAuthentication {
         return PasswordAuthentication(userName, password)
