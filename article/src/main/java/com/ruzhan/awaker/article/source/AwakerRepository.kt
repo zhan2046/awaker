@@ -10,7 +10,7 @@ import com.ruzhan.awaker.article.network.AwakerClient
 import com.ruzhan.awaker.article.network.HttpResult
 import com.ruzhan.awaker.article.source.remote.IRemoteDataSource
 import com.ruzhan.awaker.article.source.remote.RemoteDataSourceImpl
-import com.ruzhan.common.util.CommonUtils
+import com.ruzhan.common.util.ResUtils
 import io.reactivex.Flowable
 import io.reactivex.Single
 
@@ -21,7 +21,7 @@ class AwakerRepository private constructor() : IRemoteDataSource {
 
     init {
         remoteDataSource = RemoteDataSourceImpl(AwakerClient.get())
-        awakerArticleAppDatabase = AwakerArticleAppDatabase.get(CommonUtils.getContext())
+        awakerArticleAppDatabase = AwakerArticleAppDatabase.get(ResUtils.getContext())
     }
 
     fun loadUserInfoEntity(id: String): Flowable<UserInfoEntity> {

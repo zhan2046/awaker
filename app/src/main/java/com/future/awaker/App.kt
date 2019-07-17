@@ -2,9 +2,8 @@ package com.future.awaker
 
 import android.content.Context
 import android.support.multidex.MultiDex
-
 import com.blankj.utilcode.util.Utils
-import com.ruzhan.common.util.CommonUtils
+import com.ruzhan.common.util.ResUtils
 
 class App : android.app.Application() {
 
@@ -15,18 +14,8 @@ class App : android.app.Application() {
 
     override fun onCreate() {
         super.onCreate()
-        INSTANCE = this
-        CommonUtils.setApplication(this)
+        ResUtils.init(this)
         com.ruzhan.lion.App.setApp(this)
         Utils.init(this)
-    }
-
-    companion object {
-
-        private var INSTANCE: App? = null
-
-        fun get(): App? {
-            return INSTANCE
-        }
     }
 }

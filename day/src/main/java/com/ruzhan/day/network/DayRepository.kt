@@ -1,6 +1,6 @@
 package com.ruzhan.day.network
 
-import com.ruzhan.common.util.CommonUtils
+import com.ruzhan.common.util.ResUtils
 import com.ruzhan.database.CommonAppDatabase
 import com.ruzhan.database.CommonModel
 import com.ruzhan.day.model.DayNewModel
@@ -23,7 +23,7 @@ class DayRepository {
     }
 
     private val commonAppDatabase: CommonAppDatabase by lazy {
-        CommonAppDatabase.invoke(CommonUtils.getContext())
+        CommonAppDatabase.invoke(ResUtils.getContext())
     }
     private val dayApi: DayApi by lazy {
         DayClient.get()

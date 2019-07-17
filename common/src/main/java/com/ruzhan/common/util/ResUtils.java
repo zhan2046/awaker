@@ -1,18 +1,28 @@
 package com.ruzhan.common.util;
 
+import android.app.Application;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.widget.ImageView;
 
 public final class ResUtils {
 
     private static final int INVALID_COLOR = -1;
 
+    private static Application APPLICATION;
+
     private ResUtils() {
         // do nothing
     }
 
-    private static Context getContext() {
-        return CommonUtils.getContext();
+    public static void init(Application application) {
+        APPLICATION = application;
+    }
+
+    public static Context getContext() {
+        return APPLICATION;
     }
 
     public static String getString(int strId) {
@@ -48,5 +58,12 @@ public final class ResUtils {
             return null;
         }
         return getContext().getResources().getDrawable(drawableId);
+    }
+
+    public static void setTint(Context context, int DrawableRes, int tintColor, ImageView imageView) {
+        Drawable up = ContextCompat.getDrawable(context, DrawableRes);
+        Drawable drawableUp = DrawableCompat.wrap(up);
+        DrawableCompat.setTint(drawableUp, ContextCompat.getColor(context, tintColor));
+        imageView.setImageDrawable(drawableUp);
     }
 }

@@ -8,7 +8,6 @@ import android.view.View
 import com.awaker.imageloader.ImageLoader
 import com.ruzhan.awaker.article.R
 import com.ruzhan.awaker.article.model.Comment
-import com.ruzhan.common.util.CommonUtils
 import com.ruzhan.common.util.ResUtils
 import com.ruzhan.lion.helper.FontHelper
 import com.ruzhan.lion.listener.OnItemClickListener
@@ -20,7 +19,7 @@ class ArticleHotCommentHolder(itemView: View, private val listener: OnItemClickL
     private lateinit var comment: Comment
 
     init {
-        CommonUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, R.color.awaker_article_grey_zan,
+        ResUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, R.color.awaker_article_grey_zan,
                 itemView.zan_iv)
 
         itemView.root_card.setOnClickListener { listener.onItemClick(adapterPosition, comment, it) }
@@ -28,7 +27,7 @@ class ArticleHotCommentHolder(itemView: View, private val listener: OnItemClickL
         itemView.zan_ll.setOnClickListener {
             comment.isSelect = !comment.isSelect
             val color = if (comment.isSelect) R.color.awaker_article_blue_zan else R.color.awaker_article_grey_zan
-            CommonUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, color, itemView.zan_iv)
+            ResUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, color, itemView.zan_iv)
             val up = Integer.valueOf(comment.up)
             val newUp = if (comment.isSelect) up + 1 else up
             itemView.zan_tv.text = newUp.toString()
@@ -83,7 +82,7 @@ class ArticleHotCommentHolder(itemView: View, private val listener: OnItemClickL
 
     private fun isSelect(isSelect: Boolean) {
         val color = if (isSelect) R.color.awaker_article_blue_zan else R.color.awaker_article_grey_zan
-        CommonUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, color, itemView.zan_iv)
+        ResUtils.setTint(itemView.context, R.mipmap.awaker_article_zan, color, itemView.zan_iv)
         val up = Integer.valueOf(comment.up)
         val newUp = if (isSelect) up + 1 else up
         itemView.zan_tv.text = newUp.toString()
