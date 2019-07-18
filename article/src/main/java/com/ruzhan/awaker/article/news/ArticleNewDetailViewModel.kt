@@ -154,7 +154,7 @@ class ArticleNewDetailViewModel(app: Application) : AndroidViewModel(app) {
 
     fun articleHtmlToModelList(html: String) {
         Flowable.create<List<NewEle>>({ e ->
-            val newEleList = HtmlParser.htmlToList(html)
+            val newEleList = HtmlParser.htmlToList(html) ?: ArrayList()
             e.onNext(newEleList)
             e.onComplete()
 

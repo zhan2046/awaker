@@ -141,8 +141,8 @@ class ArticleNewDetailFragment : Fragment() {
 
                     override fun onItemClick(position: Int, bean: NewEle, itemView: View) {
                         Flowable.create<String>({ e ->
-                            val playUrl = HtmlParser.htmlToVideoUrl(bean.html)
-                            e.onNext(playUrl)
+                            val playUrl = HtmlParser.htmlToVideoUrl(bean.html!!)
+                            e.onNext(playUrl!!)
                             e.onComplete()
 
                         }, BackpressureStrategy.LATEST)
