@@ -3,6 +3,7 @@ package com.awaker.imageloader
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import com.bumptech.glide.Glide
 
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.MultiTransformation
@@ -10,6 +11,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 
 class GlideImpl : IImageLoader {
@@ -19,20 +21,28 @@ class GlideImpl : IImageLoader {
         private const val SIZE_MULTIPLIER = 0.3f
     }
 
+    private val requestOptions = RequestOptions()
+            .placeholder(R.drawable.awaker_article_image_mark)
+            .error(R.drawable.awaker_article_image_mark)
+
+    private val circleCropRequestOptions = RequestOptions()
+            .placeholder(R.drawable.awaker_article_image_mark)
+            .error(R.drawable.awaker_article_image_mark)
+            .transform(MultiTransformation<Bitmap>(CircleCrop()))
+
     private val normalTransitionOptions = DrawableTransitionOptions()
             .crossFade()
 
     override fun load(imageView: ImageView, url: String) {
-        AwakerGlideApp.with(imageView.context)
+        Glide.with(imageView.context)
                 .load(url)
                 .transition(normalTransitionOptions)
-                .placeholder(R.drawable.awaker_article_image_mark)
-                .error(R.drawable.awaker_article_image_mark)
+                .apply(requestOptions)
                 .into(imageView)
     }
 
     override fun load(imageView: ImageView, url: String, listener: RequestListener<Drawable>) {
-        AwakerGlideApp.with(imageView.context)
+        Glide.with(imageView.context)
                 .load(url)
                 .transition(normalTransitionOptions)
                 .listener(object : RequestListener<Drawable> {
@@ -50,7 +60,7 @@ class GlideImpl : IImageLoader {
     }
 
     override fun load(imageView: ImageView, resId: Int, listener: RequestListener<Drawable>) {
-        AwakerGlideApp.with(imageView.context)
+        Glide.with(imageView.context)
                 .load(resId)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any,
@@ -72,32 +82,27 @@ class GlideImpl : IImageLoader {
     }
 
     override fun loadThumb(imageView: ImageView, url: String) {
-        AwakerGlideApp.with(imageView.context)
+        Glide.with(imageView.context)
                 .load(url)
                 .thumbnail(SIZE_MULTIPLIER)
                 .transition(normalTransitionOptions)
-                .placeholder(R.drawable.awaker_article_image_mark)
-                .error(R.drawable.awaker_article_image_mark)
+                .apply(requestOptions)
                 .into(imageView)
     }
 
     override fun loadCropCircle(imageView: ImageView, url: String) {
-        AwakerGlideApp.with(imageView.context)
+        Glide.with(imageView.context)
                 .load(url)
                 .transition(normalTransitionOptions)
-                .transform(MultiTransformation<Bitmap>(CircleCrop()))
-                .placeholder(R.drawable.awaker_article_image_circle_mark)
-                .error(R.drawable.awaker_article_image_circle_mark)
+                .apply(circleCropRequestOptions)
                 .into(imageView)
     }
 
     override fun loadCropCircle(imageView: ImageView, resId: Int) {
-        AwakerGlideApp.with(imageView.context)
+        Glide.with(imageView.context)
                 .load(resId)
                 .transition(normalTransitionOptions)
-                .transform(MultiTransformation<Bitmap>(CircleCrop()))
-                .placeholder(R.drawable.awaker_article_image_circle_mark)
-                .error(R.drawable.awaker_article_image_circle_mark)
+                .apply(circleCropRequestOptions)
                 .into(imageView)
     }
 }
