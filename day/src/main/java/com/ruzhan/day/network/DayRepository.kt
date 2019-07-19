@@ -23,7 +23,7 @@ class DayRepository {
     }
 
     private val commonAppDatabase: CommonAppDatabase by lazy {
-        CommonAppDatabase.invoke(ResUtils.getContext())
+        CommonAppDatabase.invoke(ResUtils.context)
     }
     private val dayApi: DayApi by lazy {
         DayClient.get()

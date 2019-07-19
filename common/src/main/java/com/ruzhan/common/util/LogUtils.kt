@@ -9,7 +9,7 @@ object LogUtils {
     var isDebug: Boolean = false
 
     init {
-        isDebug = ConstantUtils.isDebugBuild()
+        isDebug = ConstantUtils.isDebugBuild
     }
 
     //for error log

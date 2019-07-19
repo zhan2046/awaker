@@ -21,7 +21,7 @@ class AwakerRepository private constructor() : IRemoteDataSource {
 
     init {
         remoteDataSource = RemoteDataSourceImpl(AwakerClient.get())
-        awakerArticleAppDatabase = AwakerArticleAppDatabase.get(ResUtils.getContext())
+        awakerArticleAppDatabase = AwakerArticleAppDatabase.get(ResUtils.context)
     }
 
     fun loadUserInfoEntity(id: String): Flowable<UserInfoEntity> {
