@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ruzhan.awaker.article.news.ArticleMovieListFragment
 import com.ruzhan.day.DayNewFragment
+import com.ruzhan.movie.home.MovieListFragment
 import kotlinx.android.synthetic.main.frag_main.*
 
 class MainFragment : Fragment() {
@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
     private val fragmentMap = HashMap<String, Fragment>()
 
     private var dayNewFragment: DayNewFragment? = null
-    private var articleMovieListFragment: ArticleMovieListFragment? = null
+    private var movieListFragment: MovieListFragment? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.frag_main, container, false)
@@ -69,12 +69,12 @@ class MainFragment : Fragment() {
 
             }
             R.id.movie -> {
-                fragTag = "ArticleMovieListFragment"
+                fragTag = "movieListFragment"
                 frag = fragmentMap[fragTag]
 
                 if (frag == null) {
-                    frag = ArticleMovieListFragment.newInstance()
-                    articleMovieListFragment = frag
+                    frag = MovieListFragment.newInstance()
+                    movieListFragment = frag
                     transaction.add(R.id.container, frag, fragTag)
 
                 } else {

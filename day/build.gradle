@@ -34,4 +34,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':common')
+    implementation ('com.github.ruzhan123.Lion:font:0.2.3') {
+        exclude group: 'com.android.support'
+    }
 }

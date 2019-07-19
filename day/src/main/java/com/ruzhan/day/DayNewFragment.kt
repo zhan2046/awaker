@@ -7,10 +7,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.lion.font.FontHelper
+import com.ruzhan.common.OnRefreshHelper
 import com.ruzhan.common.TitleHelper
 import com.ruzhan.day.adapter.DayNewAdapter
-import com.ruzhan.lion.helper.FontHelper
-import com.ruzhan.lion.helper.OnRefreshHelper
 import kotlinx.android.synthetic.main.day_frag_new.*
 
 class DayNewFragment : Fragment() {

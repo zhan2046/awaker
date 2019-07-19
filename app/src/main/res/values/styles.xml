@@ -1,3 +1,12 @@
 <resources>
+    <style name="Awaker.Article" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/awaker_article_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/awaker_article_colorPrimaryDark</item>
+        <item name="colorAccent">@color/awaker_article_colorAccent</item>
 
+        <item name="android:windowBackground">@color/awaker_article_white_f5</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
+    </style>
 </resources>

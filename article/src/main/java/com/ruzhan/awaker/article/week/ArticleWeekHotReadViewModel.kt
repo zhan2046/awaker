@@ -7,9 +7,6 @@ import com.ruzhan.awaker.article.db.entity.NewsEntity
 import com.ruzhan.awaker.article.model.News
 import com.ruzhan.awaker.article.source.AwakerRepository
 import com.ruzhan.common.util.ConstantUtils
-import com.ruzhan.lion.model.LoadStatus
-import com.ruzhan.lion.model.RequestStatus
-import com.ruzhan.lion.rx.Subscriber
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers

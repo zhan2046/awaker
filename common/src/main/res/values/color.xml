@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#FFF5F5F5</color>
+    <color name="colorPrimaryDark">#66757575</color>
+    <color name="colorAccent">#FF1E88E5</color>
 
+    <color name="background_light">#FFFAFAFA</color> <!-- grey 50 -->
+    <color name="normal_grey">#FF757575</color>
+    <color name="mid_grey">#40808080</color>
+    <color name="light_grey">#FFF5F5F5</color>
+    <color name="grey300">#FFE0E0E0</color>
+    <color name="scrim">#99323232</color>
+    <color name="dark_icon">#99000000</color> <!-- 60% black-->
+
+    <color name="text_primary_dark">#de000000</color> <!-- 87% -->
+    <color name="text_secondary_dark">#8a000000</color> <!-- 54% -->
+    <color name="text_tertiary_dark">#61000000</color> <!-- 38% -->
+    <color name="text_primary_light">#ffffffff</color>
+    <color name="text_secondary_light">#b3ffffff</color> <!-- 70% -->
+    <color name="text_disabled_light">#4dffffff</color> <!-- 30% -->
+    <color name="ripple_light">#99ffffff</color>
+    <color name="ripple_dark">@color/mid_grey</color>
+
+    <array name="loading_placeholders_grey">
+        <item>#FFE0E0E0</item>
+        <item>#FFBDBDBD</item>
+        <item>#FF9E9E9E</item>
+    </array>
 </resources>
