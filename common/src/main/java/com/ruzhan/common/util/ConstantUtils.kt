@@ -6,9 +6,9 @@ object ConstantUtils {
 
     const val TOKEN = "f32b30c2a289bfca2c9857ffc5871ac8"
 
-    const val BUILD_TYPE_RELEASE = "release"
-    const val BUILD_TYPE_BETA = "beta"
-    const val BUILD_TYPE_DEBUG = "debug"
+    private const val BUILD_TYPE_RELEASE = "release"
+    private const val BUILD_TYPE_BETA = "beta"
+    private const val BUILD_TYPE_DEBUG = "debug"
 
     const val PAGE_SIZE = 10
 
