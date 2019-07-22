@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="H,4:3"
+        app:layout_constraintDimensionRatio="H,5:3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTv" />
@@ -52,7 +52,7 @@
         android:paddingRight="8dp"
         android:paddingBottom="4dp"
         android:textColor="#A0A0A0"
-        android:textSize="12sp"
+        android:textSize="11sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/picIv" />
 
@@ -69,7 +69,7 @@
         android:letterSpacing="0.09"
         android:lineSpacingExtra="4dp"
         android:textColor="#222222"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tagTv" />
