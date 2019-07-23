@@ -5,7 +5,7 @@ import java.io.File
 
 object SendMailUtil {
 
-    private const val EMAIL_TITLE = "来自 (awaker android app) 用户反馈"
+    private const val EMAIL_TITLE = "来自 xxx 用户反馈"
 
     //qq
     private const val HOST = "smtp.qq.com"
