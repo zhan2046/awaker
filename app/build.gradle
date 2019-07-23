@@ -31,11 +31,6 @@ android {
 
     buildTypes {
 
-        debug {
-            versionNameSuffix 'd'
-
-        }
-
         release {
             minifyEnabled true
             shrinkResources true
