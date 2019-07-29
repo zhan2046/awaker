@@ -62,11 +62,13 @@ class DayNewFragment : Fragment() {
     private fun initLiveData() {
         dayViewModel.refreshDayNewLiveData.observe(this, Observer { dayNewList ->
             if (dayNewList != null) {
+                progressBar.visibility = View.GONE
                 dayNewAdapter.setRefreshData(dayNewList)
             }
         })
         dayViewModel.loadMoreDayNewLiveData.observe(this, Observer { dayNewList ->
             if (dayNewList != null) {
+                progressBar.visibility = View.GONE
                 dayNewAdapter.setLoadMoreData(dayNewList)
             }
         })
