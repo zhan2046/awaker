@@ -37,16 +37,16 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
     val loadMoreDayNewLiveData = MutableLiveData<List<DayNewModel>>().also { it.value = null }
     val loadStatusLiveData = MutableLiveData<Boolean>()
 
-    private val gson = Gson()
-    private var insetDayListFlowable: Flowable<Any>? = null
+    private val mainGSon = Gson()
+    private var insetDayListFlow: Flowable<Any>? = null
 
     private var insetDisposable: Disposable? = null
     private var localDisposable: Disposable? = null
 
     init {
-        insetDayListFlowable = Flowable.create<Any>({ e ->
+        insetDayListFlow = Flowable.create<Any>({ e ->
             val newList = refreshDayNewLiveData.value
-            val dayListJson = gson.toJson(newList)
+            val dayListJson = mainGSon.toJson(newList)
             val commonModel = CommonModel(DAY_LIST_ID, dayListJson)
             DayRepository.get().insertCommonModel(commonModel)
             e.onComplete()
@@ -113,7 +113,7 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
                     if (commonModel != null) {
                         val content = commonModel.content
                         if (content.isNotBlank()) {
-                            val dayNewList: List<DayNewModel> = gson.fromJson(content,
+                            val dayNewList: List<DayNewModel> = mainGSon.fromJson(content,
                                     object : TypeToken<List<DayNewModel>>() {}.type)
                             if (refreshDayNewLiveData.value == null) {
                                 refreshDayNewLiveData.value = dayNewList
@@ -126,9 +126,9 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun insetDayListToDb() {
-        val insetDayListFlowable = insetDayListFlowable
-        if (insetDayListFlowable != null) {
-            insetDisposable = insetDayListFlowable.debounce(DEBOUNCE_DURATION, TimeUnit.MILLISECONDS)
+        val insetDayListFlow = insetDayListFlow
+        if (insetDayListFlow != null) {
+            insetDisposable = insetDayListFlow.debounce(DEBOUNCE_DURATION, TimeUnit.MILLISECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(Throwable::printStackTrace)

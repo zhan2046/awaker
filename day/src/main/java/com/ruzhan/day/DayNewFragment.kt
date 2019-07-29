@@ -73,7 +73,7 @@ class DayNewFragment : Fragment() {
             }
         })
         dayViewModel.loadStatusLiveData.observe(this, Observer { isLoadStatus ->
-            if (isLoadStatus != null) {
+            if (isLoadStatus != null && !isLoadStatus) {
                 swipeRefreshLayout.isRefreshing = isLoadStatus
             }
         })
