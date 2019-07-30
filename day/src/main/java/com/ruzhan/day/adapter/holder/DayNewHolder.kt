@@ -1,6 +1,5 @@
 package com.ruzhan.day.adapter.holder
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.awaker.imageloader.ImageLoader
 import com.lion.font.FontHelper
@@ -9,7 +8,7 @@ import com.ruzhan.day.model.DayNewModel
 import kotlinx.android.synthetic.main.day_item_day_new.view.*
 
 class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) :
-        RecyclerView.ViewHolder(itemView) {
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     private lateinit var dayNewModel: DayNewModel
 

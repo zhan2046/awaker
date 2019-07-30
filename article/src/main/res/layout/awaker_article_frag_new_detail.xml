@@ -109,7 +109,7 @@
                 android:background="@color/awaker_article_white_f5"
                 android:keepScreenOn="true"
                 android:scrollbars="vertical"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>

@@ -1,6 +1,6 @@
 package com.ruzhan.awaker.article.model;
 
-import android.arch.persistence.room.Ignore;
+import androidx.room.Ignore;
 
 import java.util.List;
 

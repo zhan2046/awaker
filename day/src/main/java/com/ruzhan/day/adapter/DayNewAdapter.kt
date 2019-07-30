@@ -1,6 +1,5 @@
 package com.ruzhan.day.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.ruzhan.common.EmptyHolder
@@ -9,7 +8,7 @@ import com.ruzhan.day.R
 import com.ruzhan.day.adapter.holder.DayNewHolder
 import com.ruzhan.day.model.DayNewModel
 
-class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DayNewAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
 
     companion object {
 
@@ -39,7 +38,7 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         return when (viewType) {
             TYPE_DAY_NEW -> DayNewHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.day_item_day_new, parent, false),
@@ -52,7 +51,7 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount(): Int = dataList.size
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             TYPE_DAY_NEW -> {
                 val bean = dataList[position] as DayNewModel

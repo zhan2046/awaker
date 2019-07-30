@@ -1,7 +1,7 @@
 package com.ruzhan.awaker.article.model;
 
 
-import android.arch.persistence.room.Embedded;
+import androidx.room.Embedded;
 
 public class UserDetail {
 

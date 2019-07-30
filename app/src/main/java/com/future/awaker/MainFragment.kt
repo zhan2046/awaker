@@ -1,14 +1,13 @@
 package com.future.awaker
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ruzhan.day.DayNewFragment
 import kotlinx.android.synthetic.main.frag_main.*
 
-class MainFragment : Fragment() {
+class MainFragment : androidx.fragment.app.Fragment() {
 
     companion object {
 
@@ -16,7 +15,7 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private val fragmentMap = HashMap<String, Fragment>()
+    private val fragmentMap = HashMap<String, androidx.fragment.app.Fragment>()
 
     private var dayNewFragment: DayNewFragment? = null
     private var movieContentFragment: MovieContentFragment? = null
@@ -28,8 +27,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bottom_navigation.setTextVisibility(false)
-        bottom_navigation.enableAnimation(false)
+        //bottom_navigation.setTextVisibility(false)
+        //bottom_navigation.enableAnimation(false)
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             if (bottom_navigation.selectedItemId != it.itemId) {
@@ -50,7 +49,7 @@ class MainFragment : Fragment() {
         }
 
         var fragTag: String? = null
-        var frag: Fragment? = null
+        var frag: androidx.fragment.app.Fragment? = null
 
         when (tabId) {
             R.id.article -> {

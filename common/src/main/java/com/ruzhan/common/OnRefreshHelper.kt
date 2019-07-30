@@ -1,23 +1,21 @@
 package com.ruzhan.common
 
-import android.support.v4.content.ContextCompat
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 
 object OnRefreshHelper {
 
-    fun setOnRefreshStatusListener(swipeRefresh: SwipeRefreshLayout, recyclerView: RecyclerView,
+    fun setOnRefreshStatusListener(swipeRefresh: androidx.swiperefreshlayout.widget.SwipeRefreshLayout, recyclerView: androidx.recyclerview.widget.RecyclerView,
                                    listener: OnRefreshStatusListener) {
         swipeRefresh.setOnRefreshListener { listener.onRefresh() }
         swipeRefresh.setColorSchemeColors(ContextCompat.getColor(recyclerView.context,
                 R.color.colorAccent))
 
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+        recyclerView.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (isLoadMore(recyclerView!!, newState)) {
+                if (isLoadMore(recyclerView, newState)) {
                     listener.onLoadMore()
                 }
             }
@@ -25,25 +23,25 @@ object OnRefreshHelper {
     }
 
 
-    fun isLoadMore(recyclerView: RecyclerView, newState: Int): Boolean {
+    fun isLoadMore(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int): Boolean {
         val adapter = recyclerView.adapter
         if (adapter != null) {
             val layoutManager = recyclerView.layoutManager
-            val lastPosition = layoutManagerToLastPosition(layoutManager)
+            val lastPosition = layoutManagerToLastPosition(layoutManager!!)
             val adapterCount = adapter.itemCount
             val refreshPosition = adapterCount - 1
             return lastPosition > 0 && lastPosition >= refreshPosition &&
-                    (newState == RecyclerView.SCROLL_STATE_IDLE || newState == RecyclerView.SCROLL_STATE_SETTLING)
+                    (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE || newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_SETTLING)
         }
         return false
     }
 
-    private fun layoutManagerToLastPosition(layoutManager: RecyclerView.LayoutManager): Int {
+    private fun layoutManagerToLastPosition(layoutManager: androidx.recyclerview.widget.RecyclerView.LayoutManager): Int {
         var lastPosition = 0
-        if (layoutManager is LinearLayoutManager) {
+        if (layoutManager is androidx.recyclerview.widget.LinearLayoutManager) {
             lastPosition = layoutManager.findLastCompletelyVisibleItemPosition()
 
-        } else if (layoutManager is StaggeredGridLayoutManager) {
+        } else if (layoutManager is androidx.recyclerview.widget.StaggeredGridLayoutManager) {
             val lastPositions = IntArray(layoutManager.spanCount)
             layoutManager.findLastVisibleItemPositions(lastPositions)
             lastPosition = findMax(lastPositions)

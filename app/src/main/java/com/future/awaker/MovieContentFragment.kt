@@ -1,7 +1,6 @@
 package com.future.awaker
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import com.ruzhan.common.TitleHelper
 import com.ruzhan.movie.home.MovieListFragment
 import kotlinx.android.synthetic.main.frag_movie_content.*
 
-class MovieContentFragment : Fragment() {
+class MovieContentFragment : androidx.fragment.app.Fragment() {
 
     companion object {
 

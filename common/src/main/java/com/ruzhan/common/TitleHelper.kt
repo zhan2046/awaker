@@ -2,12 +2,12 @@ package com.ruzhan.common
 
 import android.app.Activity
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
 import android.view.animation.Interpolator
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 
 object TitleHelper {
 

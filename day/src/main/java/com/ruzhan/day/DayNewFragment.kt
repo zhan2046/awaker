@@ -1,19 +1,18 @@
 package com.ruzhan.day
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.lion.font.FontHelper
 import com.ruzhan.common.OnRefreshHelper
 import com.ruzhan.common.TitleHelper
 import com.ruzhan.day.adapter.DayNewAdapter
 import kotlinx.android.synthetic.main.day_frag_new.*
 
-class DayNewFragment : Fragment() {
+class DayNewFragment : androidx.fragment.app.Fragment() {
 
     companion object {
 

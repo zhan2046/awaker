@@ -1,7 +1,7 @@
 package com.future.awaker
 
 import android.content.Context
-import android.support.multidex.MultiDex
+import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.Utils
 import com.lion.font.FontHelper
 import com.ruzhan.common.util.ResUtils

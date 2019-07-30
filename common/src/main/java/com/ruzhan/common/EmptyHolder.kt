@@ -1,6 +1,5 @@
 package com.ruzhan.common
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 
-class EmptyHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+class EmptyHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
