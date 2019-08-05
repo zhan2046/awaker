@@ -53,11 +53,6 @@ task clean(type: Delete) {
 }
 
 ext {
-    // Sdk and tools
-    minSdkVersion = 21
-    targetSdkVersion = 28
-    compileSdkVersion = 28
-
     keyAlias = 'awaker'
     keyPassword = 'awaker333333'
     storePassword = 'awaker333'

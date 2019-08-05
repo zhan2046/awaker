@@ -16,12 +16,12 @@ android {
         }
     }
 
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdkVersion versions.compileSdk
 
     defaultConfig {
         applicationId "com.future.awaker"
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
 
         versionCode rootProject.gitCommitCount
         versionName rootProject.gitTag
