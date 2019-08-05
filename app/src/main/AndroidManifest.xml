@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Awaker.Article"
         tools:replace="android:label"
-        tools:ignore="GoogleAppIndexingWarning">
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <activity
             android:name=".MainActivity"

@@ -57,7 +57,6 @@ ext {
     minSdkVersion = 21
     targetSdkVersion = 28
     compileSdkVersion = 28
-    supportLibraryVersion = '27.1.1'
 
     keyAlias = 'awaker'
     keyPassword = 'awaker333333'
