@@ -21,6 +21,14 @@ buildscript {
             'keyAlias'        : 'awaker',
             'keyPassword'     : 'awaker333333',
             'storePassword'   : 'awaker333',
+            'applicationId'   : 'com.future.awaker',
+    ]
+
+    ext.config = [
+            'applicationId'   : 'com.future.awaker',
+            'keyAlias'        : 'awaker',
+            'keyPassword'     : 'awaker333333',
+            'storePassword'   : 'awaker333',
     ]
 
     repositories {

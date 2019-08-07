@@ -9,17 +9,17 @@ android {
 
     signingConfigs {
         config {
-            keyAlias versions.keyAlias
-            keyPassword versions.keyPassword
+            keyAlias config.keyAlias
+            keyPassword config.keyPassword
             storeFile file('keystore/awaker.jks')
-            storePassword versions.storePassword
+            storePassword config.storePassword
         }
     }
 
     compileSdkVersion versions.compileSdk
 
     defaultConfig {
-        applicationId "com.future.awaker"
+        applicationId config.applicationId
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
 
