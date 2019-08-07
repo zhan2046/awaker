@@ -6,7 +6,7 @@ import com.blankj.utilcode.util.Utils
 import com.lion.font.FontHelper
 import com.ruzhan.common.util.ResUtils
 
-class App : android.app.Application() {
+class MainApplication : android.app.Application() {
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
