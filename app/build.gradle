@@ -9,10 +9,10 @@ android {
 
     signingConfigs {
         config {
-            keyAlias rootProject.keyAlias
-            keyPassword rootProject.keyPassword
+            keyAlias versions.keyAlias
+            keyPassword versions.keyPassword
             storeFile file('keystore/awaker.jks')
-            storePassword rootProject.storePassword
+            storePassword versions.storePassword
         }
     }
 

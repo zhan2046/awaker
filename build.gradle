@@ -17,6 +17,10 @@ buildscript {
             'retrofit'        : '2.4.0',
             'utilcode'        : '1.17.2',
             'kotlin'          : '1.2.51',
+
+            'keyAlias'        : 'awaker',
+            'keyPassword'     : 'awaker333333',
+            'storePassword'   : 'awaker333',
     ]
 
     repositories {
@@ -53,10 +57,6 @@ task clean(type: Delete) {
 }
 
 ext {
-    keyAlias = 'awaker'
-    keyPassword = 'awaker333333'
-    storePassword = 'awaker333'
-
     // query git for the SHA, Tag and commit count. Use these to automate versioning.
     gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
     gitTag = 'git describe --tags'.execute([], project.rootDir).text.trim()
