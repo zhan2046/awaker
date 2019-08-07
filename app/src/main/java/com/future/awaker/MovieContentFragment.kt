@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.lion.font.FontHelper
 import com.ruzhan.common.TitleHelper
 import com.ruzhan.movie.home.MovieListFragment
 import kotlinx.android.synthetic.main.frag_movie_content.*
 
-class MovieContentFragment : androidx.fragment.app.Fragment() {
+class MovieContentFragment : Fragment() {
 
     companion object {
 

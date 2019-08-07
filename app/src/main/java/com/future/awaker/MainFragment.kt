@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.ruzhan.day.DayNewFragment
 import kotlinx.android.synthetic.main.frag_main.*
 
-class MainFragment : androidx.fragment.app.Fragment() {
+class MainFragment : Fragment() {
 
     companion object {
 
@@ -15,7 +16,7 @@ class MainFragment : androidx.fragment.app.Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private val fragmentMap = HashMap<String, androidx.fragment.app.Fragment>()
+    private val fragmentMap = HashMap<String, Fragment>()
 
     private var dayNewFragment: DayNewFragment? = null
     private var movieContentFragment: MovieContentFragment? = null
@@ -26,31 +27,23 @@ class MainFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //bottom_navigation.setTextVisibility(false)
-        //bottom_navigation.enableAnimation(false)
-
-        bottom_navigation.setOnNavigationItemSelectedListener {
-            if (bottom_navigation.selectedItemId != it.itemId) {
+        bottomNavigationView.setOnNavigationItemSelectedListener {
+            if (bottomNavigationView.selectedItemId != it.itemId) {
                 replaceFragment(it.itemId)
             }
             true
         }
-
         replaceFragment(R.id.article)
     }
 
     private fun replaceFragment(tabId: Int) {
         val fm = childFragmentManager
         val transaction = fm.beginTransaction()
-
         for (frag in fragmentMap.values) {
             transaction.hide(frag)
         }
-
         var fragTag: String? = null
-        var frag: androidx.fragment.app.Fragment? = null
-
+        var frag: Fragment? = null
         when (tabId) {
             R.id.article -> {
                 fragTag = "DayNewFragment"
@@ -83,7 +76,6 @@ class MainFragment : androidx.fragment.app.Fragment() {
         if (fragTag != null && frag != null) {
             fragmentMap[fragTag] = frag
         }
-
         if (!fm.isDestroyed) {
             transaction.commitAllowingStateLoss()
         }

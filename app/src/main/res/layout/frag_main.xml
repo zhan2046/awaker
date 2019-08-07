@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-        android:id="@+id/bottom_navigation"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="?attr/actionBarSize"
+        app:labelVisibilityMode="unlabeled"
+        android:layout_gravity="start|center_vertical"
         android:background="@color/awaker_article_white_f5"
         app:itemIconTint="@color/selector_bottom_item_tint"
-        app:itemTextColor="@color/awaker_article_text_color"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/home_navigation" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_above="@+id/bottom_navigation"
-        android:background="@color/awaker_article_text_grey33" />
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_navigation" />
-</RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_above="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/awaker_article_text_grey33"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toBottomOf="@+id/container" />
+</androidx.constraintlayout.widget.ConstraintLayout>
