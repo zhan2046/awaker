@@ -11,7 +11,7 @@ buildscript {
             'multidex'        : '2.0.0',
             'lifecycle'       : '2.0.0',
             'room'            : '2.0.0',
-            'glide'           : '4.7.1',
+            'glide'           : '4.9.0',
             'rxjava2'         : '2.1.13',
             'rxandroid'       : '2.0.1',
             'retrofit'        : '2.4.0',
