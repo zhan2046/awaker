@@ -17,13 +17,17 @@ object SendMailUtil {
     fun send(file: File, contentData: String) {
         val mailInfo = createMail(contentData)
         val sms = MailSender()
-        Thread { sms.sendFileMail(mailInfo, file) }.start()
+        sms.executeOnDiskIO(Runnable {
+            sms.sendFileMail(mailInfo, file)
+        })
     }
 
     fun send(contentData: String) {
         val mailInfo = createMail(contentData)
         val sms = MailSender()
-        Thread { sms.sendTextMail(mailInfo) }.start()
+        sms.executeOnDiskIO(Runnable {
+            sms.sendTextMail(mailInfo)
+        })
     }
 
     private fun createMail(contentData: String): MailInfo {

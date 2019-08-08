@@ -2,6 +2,9 @@ package com.ruzhan.email
 
 import java.io.File
 import java.util.*
+import java.util.concurrent.Executors
+import java.util.concurrent.ThreadFactory
+import java.util.concurrent.atomic.AtomicInteger
 import javax.activation.DataHandler
 import javax.activation.FileDataSource
 import javax.mail.*
@@ -12,6 +15,7 @@ class MailSender {
 
     companion object {
 
+        private const val THREAD_COUNT = 2
         private const val TEXT_HTML_UTF8 = "text/html;charset=UTF-8"
         private const val MIXED = "mixed"
 
@@ -60,6 +64,22 @@ class MailSender {
         }
     }
 
+    private val diskIO = Executors.newFixedThreadPool(THREAD_COUNT, object : ThreadFactory {
+        private val THREAD_NAME_STEM = "arch_disk_io_%d"
+
+        private val mThreadId = AtomicInteger(0)
+
+        override fun newThread(r: Runnable): Thread {
+            val t = Thread(r)
+            t.name = String.format(THREAD_NAME_STEM, mThreadId.getAndIncrement())
+            return t
+        }
+    })
+
+    fun executeOnDiskIO(runnable: Runnable) {
+        diskIO.execute(runnable)
+    }
+
     fun sendTextMail(mailInfo: MailInfo): Boolean {
         // 判断是否需要身份认证
         var authenticator: MyAuthenticator? = null
@@ -101,12 +121,12 @@ class MailSender {
 
     fun sendFileMail(info: MailInfo, file: File): Boolean {
         val attachmentMail = createAttachmentMail(info, file)
-        try {
+        return try {
             Transport.send(attachmentMail!!)
-            return true
+            true
         } catch (e: MessagingException) {
             e.printStackTrace()
-            return false
+            false
         }
     }
 
