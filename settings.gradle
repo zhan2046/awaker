@@ -1,1 +1,1 @@
-include ':app', ':day', ':common', ':email', ':database', ':imageloader'
+include ':app', ':day', ':common', ':email', ':database', ':imageloader', ':dayjson'
