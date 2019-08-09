@@ -28,6 +28,7 @@ object DayJsonMain {
     }
 
     private fun handleDayNewList() {
+        println("=== handleDayNewList call... ===")
         val disposable = DayRepository.get()
                 .getDayNewList(1, "android", "36")
                 .doOnError { e ->
@@ -50,7 +51,7 @@ object DayJsonMain {
 
         dayListFile = File(createJsonFile, DAY)
         println("movieListFile:${dayListFile.absolutePath}")
-        println("======= initCreateJsonFile finish !!! =========")
+        println("initCreateJsonFile end ... ")
     }
 
     private fun dayNewModelListJsonFile(dayNewModelList: List<DayNewModel>,
@@ -62,5 +63,6 @@ object DayJsonMain {
         val fileJson = mainGSon.toJson(httpResult)
         val isKeyPageSuccess = JsonFileIOUtils.writeFileFromString(filePath, fileJson)
         println("isKeyPageSuccess:$isKeyPageSuccess, filePath:$filePath")
+        println("filePath: " + File(filePath).exists())
     }
 }

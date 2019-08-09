@@ -23,3 +23,9 @@ tasks.withType(JavaCompile) {
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
+
+task execute(type:JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "com.feature.dayjson.DayJsonMain"
+    args "arg1", "arg2"
+}
