@@ -54,8 +54,9 @@ object DayJsonMain {
         println("initCreateJsonFile end ... ")
     }
 
-    private fun dayNewModelListJsonFile(dayNewModelList: List<DayNewModel>,
+    private fun dayNewModelListJsonFile(list: List<DayNewModel>,
                                     rootPath: String, mainGSon: Gson) {
+        val dayNewModelList = handleNewModelList(list)
         val filePath = File(File(rootPath),
                 "1".plus(FILE_TYPE)).absolutePath
         val httpResult = HttpResult(CODE_SUCCESS,
@@ -64,5 +65,15 @@ object DayJsonMain {
         val isKeyPageSuccess = JsonFileIOUtils.writeFileFromString(filePath, fileJson)
         println("isKeyPageSuccess:$isKeyPageSuccess, filePath:$filePath")
         println("filePath: " + File(filePath).exists())
+    }
+
+    private fun handleNewModelList(list: List<DayNewModel>): ArrayList<DayNewModel> {
+        val newList = ArrayList<DayNewModel>()
+        for (item in list) {
+            if (!newList.contains(item)) {
+                newList.add(item)
+            }
+        }
+        return newList
     }
 }
