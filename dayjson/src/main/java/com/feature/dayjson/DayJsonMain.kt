@@ -43,7 +43,7 @@ object DayJsonMain {
 
     private fun initCreateJsonFile() {
         println("initCreateJsonFile call...")
-        val userDirFile = File(System.getProperty(USER_DIR))
+        val userDirFile = File(System.getProperty(USER_DIR)).parentFile
         println("userDirFile:${userDirFile.absolutePath}")
 
         val createJsonFile = File(File(userDirFile, JSON), API)
