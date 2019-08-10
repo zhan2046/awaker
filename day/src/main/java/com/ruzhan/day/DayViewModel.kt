@@ -12,6 +12,7 @@ import com.ruzhan.day.network.DayRepository
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -42,6 +43,7 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
 
     private var insetDisposable: Disposable? = null
     private var localDisposable: Disposable? = null
+    private val compositeDisposable = CompositeDisposable()
 
     init {
         insetDayListFlow = Flowable.create<Any>({ e ->
@@ -123,6 +125,7 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
                     localDisposable?.dispose()
                 }
                 .subscribe({}, {})
+        compositeDisposable.add(localDisposable!!)
     }
 
     private fun insetDayListToDb() {
@@ -134,6 +137,12 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
                     .doOnError(Throwable::printStackTrace)
                     .doOnComplete { insetDisposable?.dispose() }
                     .subscribe({}, {})
+            compositeDisposable.add(insetDisposable!!)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }
