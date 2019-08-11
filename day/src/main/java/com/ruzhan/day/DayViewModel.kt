@@ -38,12 +38,17 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
     val loadMoreDayNewLiveData = MutableLiveData<List<DayNewModel>>().also { it.value = null }
     val loadStatusLiveData = MutableLiveData<Boolean>()
 
+    val tagListLiveData = MutableLiveData<List<String>>()
+
     private val mainGSon = Gson()
     private var insetDayListFlow: Flowable<Any>? = null
 
     private var insetDisposable: Disposable? = null
     private var localDisposable: Disposable? = null
     private val compositeDisposable = CompositeDisposable()
+
+    private val refreshDayTagMap = HashMap<String, ArrayList<DayNewModel>>()
+    private val loadMoreDayTagMap = HashMap<String, ArrayList<DayNewModel>>()
 
     init {
         insetDayListFlow = Flowable.create<Any>({ e ->
@@ -85,10 +90,14 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
                 .doOnSuccess { dayNewList ->
                     when (status) {
                         REFRESH -> {
+                            refreshDayTagList(dayNewList)
                             refreshDayNewLiveData.value = dayNewList
                             insetDayListToDb()
                         }
-                        LOAD_MORE -> loadMoreDayNewLiveData.value = dayNewList
+                        LOAD_MORE -> {
+                            loadMoreDayTagList(dayNewList)
+                            loadMoreDayNewLiveData.value = dayNewList
+                        }
                     }
                 }
                 .subscribe(Subscriber.create())
@@ -119,6 +128,7 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
                                     object : TypeToken<List<DayNewModel>>() {}.type)
                             if (refreshDayNewLiveData.value == null) {
                                 refreshDayNewLiveData.value = dayNewList
+                                refreshDayTagList(dayNewList)
                             }
                         }
                     }
@@ -139,6 +149,51 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
                     .subscribe({}, {})
             compositeDisposable.add(insetDisposable!!)
         }
+    }
+
+    private fun refreshDayTagList(list: List<DayNewModel>) {
+        handleDayTagList(list, refreshDayTagMap, REFRESH)
+    }
+
+    private fun loadMoreDayTagList(list: List<DayNewModel>) {
+        handleDayTagList(list, loadMoreDayTagMap, LOAD_MORE)
+    }
+
+    private fun handleDayTagList(list: List<DayNewModel>,
+                                 dayTagMap: HashMap<String, ArrayList<DayNewModel>>,
+                                 status: String) {
+        dayTagMap.clear()
+        for (item in list) {
+            val tags = item.tags
+            if (tags != null && tags.isNotEmpty()) {
+                val tagsModel = tags[0]
+                val tagName = tagsModel.name
+                if (tagName != null) {
+                    val tagNameList = tagName.split(" · ")
+                    if (tagNameList.isNotEmpty()) {
+                        val tagKey = tagNameList[tagNameList.size - 1]
+                        val tagValue =if (!dayTagMap.containsKey(tagKey))
+                            ArrayList() else dayTagMap.getValue(tagKey)
+                        if (!tagValue.contains(item)) {
+                            tagValue.add(item)
+                        }
+                        dayTagMap[tagKey] = tagValue
+                    }
+                }
+            }
+        }
+        if (status == REFRESH) {
+            val tagList = dayTagMap.keys
+            tagListLiveData.value = ArrayList(tagList)
+        }
+    }
+
+    fun getRefreshTagDayModelList(tag: String): List<DayNewModel>? {
+        return refreshDayTagMap[tag]
+    }
+
+    fun getLoadMoreTagDayModelList(tag: String): List<DayNewModel>? {
+        return loadMoreDayTagMap[tag]
     }
 
     override fun onCleared() {

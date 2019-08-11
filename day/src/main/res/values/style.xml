@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ThemeOverlay.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">#EE383838</item>
+        <item name="colorControlNormal">#EE383838</item>
+        <item name="colorControlHighlight">#8fff</item>
+        <item name="colorControlActivated">#EE383838</item>
+    </style>
+
+    <style name="TabLayout.TextSize" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

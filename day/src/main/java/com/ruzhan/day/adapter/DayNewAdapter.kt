@@ -20,15 +20,19 @@ class DayNewAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<androidx
 
     var onItemClickListener: OnItemClickListener<DayNewModel>? = null
 
-    fun setRefreshData(list: List<DayNewModel>) {
-        dataList.clear()
-        dataList.addAll(list)
-        notifyDataSetChanged()
+    fun setRefreshData(list: List<DayNewModel>?) {
+        if (list != null) {
+            dataList.clear()
+            dataList.addAll(list)
+            notifyDataSetChanged()
+        }
     }
 
-    fun setLoadMoreData(list: List<DayNewModel>) {
-        dataList.addAll(list)
-        notifyDataSetChanged()
+    fun setLoadMoreData(list: List<DayNewModel>?) {
+        if (list != null) {
+            dataList.addAll(list)
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
