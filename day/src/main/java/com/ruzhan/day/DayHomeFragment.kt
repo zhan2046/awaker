@@ -29,7 +29,7 @@ class DayHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val dayViewModel = ViewModelProviders.of(this)
+        val dayViewModel = ViewModelProviders.of(activity!!)
                 .get(DayViewModel::class.java)
         initData()
         initLiveData(dayViewModel)

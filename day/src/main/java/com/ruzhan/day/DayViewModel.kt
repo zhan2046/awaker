@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.ruzhan.common.Subscriber
+import com.ruzhan.common.util.ResUtils
 import com.ruzhan.database.CommonModel
 import com.ruzhan.day.model.DayNewModel
 import com.ruzhan.day.network.DayRepository
@@ -15,7 +16,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 
 class DayViewModel(app: Application) : AndroidViewModel(app) {
@@ -47,8 +50,14 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
     private var localDisposable: Disposable? = null
     private val compositeDisposable = CompositeDisposable()
 
-    private val refreshDayTagMap = HashMap<String, ArrayList<DayNewModel>>()
-    private val loadMoreDayTagMap = HashMap<String, ArrayList<DayNewModel>>()
+    private val refreshDayTagMap = TreeMap<String, ArrayList<DayNewModel>>(Comparator<String> { o1, o2 ->
+        return@Comparator o1.compareTo(o2)
+    })
+    private val loadMoreDayTagMap = TreeMap<String, ArrayList<DayNewModel>>(Comparator<String> { o1, o2 ->
+        return@Comparator o1.compareTo(o2)
+    })
+
+    private val newListTab = ResUtils.getString(R.string.day_new_list_tab)
 
     init {
         insetDayListFlow = Flowable.create<Any>({ e ->
@@ -127,8 +136,8 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
                             val dayNewList: List<DayNewModel> = mainGSon.fromJson(content,
                                     object : TypeToken<List<DayNewModel>>() {}.type)
                             if (refreshDayNewLiveData.value == null) {
-                                refreshDayNewLiveData.value = dayNewList
                                 refreshDayTagList(dayNewList)
+                                refreshDayNewLiveData.value = dayNewList
                             }
                         }
                     }
@@ -160,9 +169,10 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun handleDayTagList(list: List<DayNewModel>,
-                                 dayTagMap: HashMap<String, ArrayList<DayNewModel>>,
+                                 dayTagMap: TreeMap<String, ArrayList<DayNewModel>>,
                                  status: String) {
         dayTagMap.clear()
+        dayTagMap[newListTab] = ArrayList(list)
         for (item in list) {
             val tags = item.tags
             if (tags != null && tags.isNotEmpty()) {
@@ -172,7 +182,7 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
                     val tagNameList = tagName.split(" · ")
                     if (tagNameList.isNotEmpty()) {
                         val tagKey = tagNameList[tagNameList.size - 1]
-                        val tagValue =if (!dayTagMap.containsKey(tagKey))
+                        val tagValue = if (!dayTagMap.containsKey(tagKey))
                             ArrayList() else dayTagMap.getValue(tagKey)
                         if (!tagValue.contains(item)) {
                             tagValue.add(item)

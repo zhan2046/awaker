@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">day</string>
     <string name="day_common_title_name">iDaily</string>
+    <string name="day_new_list_tab">最新资讯</string>
 </resources>
