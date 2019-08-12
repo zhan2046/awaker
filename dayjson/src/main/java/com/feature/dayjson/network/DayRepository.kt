@@ -1,8 +1,8 @@
 package com.feature.dayjson.network
 
 import com.feature.dayjson.model.DayNewModel
+import com.feature.dayjson.model.HttpResult
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 
 class DayRepository {
 
@@ -22,7 +22,15 @@ class DayRepository {
         DayClient.get()
     }
 
+    private val dayBackupApi: DayBackupApi by lazy {
+        DayBackupClient.get()
+    }
+
     fun getDayNewList(page: Int, ver: String, appVer: String): Single<List<DayNewModel>> {
         return dayApi.getDayNewList(page, ver, appVer)
+    }
+
+    fun getBackupDayNewList(pageFileName: String): Single<HttpResult<List<DayNewModel>>> {
+        return dayBackupApi.getBackupDayNewList(pageFileName)
     }
 }
