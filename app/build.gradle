@@ -66,5 +66,5 @@ dependencies {
 
     implementation project(':common')
     implementation project(':day')
-    implementation('com.github.ruzhan123.Lion:movie:0.2.5')
+    implementation('com.github.ruzhan123.Lion:movie:0.2.6')
 }

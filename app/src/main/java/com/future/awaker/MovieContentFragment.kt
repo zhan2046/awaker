@@ -5,10 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.lion.font.FontHelper
-import com.ruzhan.common.TitleHelper
-import com.ruzhan.movie.home.MovieListFragment
-import kotlinx.android.synthetic.main.frag_movie_content.*
+import com.ruzhan.movie.MovieHomeFragment
 
 class MovieContentFragment : Fragment() {
 
@@ -25,20 +22,12 @@ class MovieContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initTitle()
         if (savedInstanceState == null) {
-            val movieListFragment = MovieListFragment.newInstance()
+            val movieListFragment = MovieHomeFragment.newInstance()
             childFragmentManager
                     .beginTransaction()
-                    .add(R.id.container, movieListFragment, "MovieListFragment")
+                    .add(R.id.container, movieListFragment, "MovieHomeFragment")
                     .commit()
         }
-    }
-
-    private fun initTitle() {
-        titleTv.typeface = FontHelper.get().getBoldTypeface()
-        titleTv.text = resources.getString(R.string.awaker_article_movie_title)
-        TitleHelper.setToolbar(toolbar, activity)
-        TitleHelper.setAlphaScaleAnimate(titleTv)
     }
 }
