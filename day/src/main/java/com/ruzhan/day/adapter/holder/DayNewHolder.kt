@@ -24,6 +24,7 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
 
     init {
         itemView.titleTv.typeface = FontHelper.get().getBoldTypeface()
+        itemView.firstTitleTv.typeface = FontHelper.get().getBoldTypeface()
         itemView.tagTv.typeface = FontHelper.get().getLightTypeface()
         itemView.contentTv.typeface = FontHelper.get().getLightTypeface()
 
@@ -42,8 +43,20 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
         if (tags != null && tags.isNotEmpty()) {
             tagStr = tags[0].name ?: ""
         }
-        val titleText = getCurrentTimeStr(bean)
-        itemView.titleTv.text = titleText
+        if (adapterPosition == 0) {
+            itemView.titleTv.visibility = View.GONE
+            itemView.firstTimeTv.visibility = View.VISIBLE
+            itemView.firstTitleTv.visibility = View.VISIBLE
+
+            val titleText = getCurrentTimeStr(bean)
+            itemView.firstTimeTv.text = titleText
+            itemView.firstTitleTv.text = bean.title
+        } else {
+            itemView.titleTv.visibility = View.VISIBLE
+            itemView.firstTimeTv.visibility = View.GONE
+            itemView.firstTitleTv.visibility = View.GONE
+            itemView.titleTv.text = bean.title
+        }
         itemView.tagTv.text = tagStr
         itemView.contentTv.text = bean.content
     }
