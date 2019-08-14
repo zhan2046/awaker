@@ -2,6 +2,9 @@ package com.ruzhan.common
 
 object NumberHelper {
 
+    private val CHINA_NUMBER_LIST = arrayOf("零", "一", "二", "三", "四", "五", "六",
+            "七", "八", "九")
+
     fun numberToCH(number: Int): String {
         var numberStr = number.toString()
         var contentText = ""
@@ -54,18 +57,6 @@ object NumberHelper {
     }
 
     fun getChinaNumber(number: Int): String {
-        return when (number) {
-            0 -> "零"
-            1 -> "一"
-            2 -> "二"
-            3 -> "三"
-            4 -> "四"
-            5 -> "五"
-            6 -> "六"
-            7 -> "七"
-            8 -> "八"
-            9 -> "九"
-            else -> ""
-        }
+        return if (number < CHINA_NUMBER_LIST.size) CHINA_NUMBER_LIST[number] else ""
     }
 }

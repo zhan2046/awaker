@@ -42,7 +42,14 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
         if (tags != null && tags.isNotEmpty()) {
             tagStr = tags[0].name ?: ""
         }
-        var titleText = bean.title
+        val titleText = getCurrentTimeStr(bean)
+        itemView.titleTv.text = titleText
+        itemView.tagTv.text = tagStr
+        itemView.contentTv.text = bean.content
+    }
+
+    private fun getCurrentTimeStr(bean: DayNewModel): String {
+        var titleText = bean.title ?: ""
         if (adapterPosition == 0) {
             val currentTime = simpleTime.format(Date(bean.pubdate_timestamp.toLong() * 1000))
             val timeList = currentTime.split("/")
@@ -60,8 +67,6 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
                 }
             }
         }
-        itemView.titleTv.text = titleText
-        itemView.tagTv.text = tagStr
-        itemView.contentTv.text = bean.content
+        return titleText
     }
 }
