@@ -50,8 +50,9 @@ object NumberHelper {
     fun getChinaNumber(number: String): String {
         var content = ""
         val numberList = number.map(Character::getNumericValue)
-        for (item in numberList) {
-            content += getChinaNumber(item)
+        for (index in numberList.indices) {
+            val item = numberList[index]
+            content += if (index == 0) getChinaNumber(item) else numberToCH(item)
         }
         return content
     }
