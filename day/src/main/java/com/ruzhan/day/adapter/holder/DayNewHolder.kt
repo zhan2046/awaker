@@ -17,6 +17,9 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
         androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     companion object {
+        private const val INDEX_YEAR = 0
+        private const val INDEX_MONTH = 1
+        private const val INDEX_DAY = 2
         private const val DATE_FORMAT = "yyyy/MM/dd/"
     }
 
@@ -72,9 +75,9 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
                 for (index in timeList.indices) {
                     var itemText = NumberHelper.getChinaNumber(timeList[index])
                     itemText += when (index) {
-                        0 -> itemView.resources.getString(R.string.day_year)
-                        1 -> itemView.resources.getString(R.string.day_month)
-                        2 -> itemView.resources.getString(R.string.day_day)
+                        INDEX_YEAR -> itemView.resources.getString(R.string.day_year)
+                        INDEX_MONTH -> itemView.resources.getString(R.string.day_month)
+                        INDEX_DAY -> itemView.resources.getString(R.string.day_day)
                         else -> ""
                     }
                     titleText += itemText
