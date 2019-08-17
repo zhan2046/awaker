@@ -2,4 +2,8 @@
     <string name="app_name">day</string>
     <string name="day_common_title_name">iDaily</string>
     <string name="day_new_list_tab">最新资讯</string>
+    <string name="day_tag_year">公元</string>
+    <string name="day_year">年</string>
+    <string name="day_month">月</string>
+    <string name="day_day">日</string>
 </resources>

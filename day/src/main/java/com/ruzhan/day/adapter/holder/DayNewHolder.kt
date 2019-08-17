@@ -6,11 +6,13 @@ import com.awaker.imageloader.ImageLoader
 import com.lion.font.FontHelper
 import com.ruzhan.common.NumberHelper
 import com.ruzhan.common.OnItemClickListener
+import com.ruzhan.day.R
 import com.ruzhan.day.model.DayNewModel
 import kotlinx.android.synthetic.main.day_item_day_new.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+@SuppressLint("SimpleDateFormat")
 class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) :
         androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
@@ -19,7 +21,6 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
     }
 
     private lateinit var dayNewModel: DayNewModel
-    @SuppressLint("SimpleDateFormat")
     private val simpleTime = SimpleDateFormat(DATE_FORMAT)
 
     init {
@@ -67,13 +68,13 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
             val currentTime = simpleTime.format(Date(bean.pubdate_timestamp.toLong() * 1000))
             val timeList = currentTime.split("/")
             if (timeList.isNotEmpty()) {
-                titleText = "公元"
+                titleText = itemView.resources.getString(R.string.day_tag_year)
                 for (index in timeList.indices) {
                     var itemText = NumberHelper.getChinaNumber(timeList[index])
                     itemText += when (index) {
-                        0 -> "年"
-                        1 -> "月"
-                        2 -> "日"
+                        0 -> itemView.resources.getString(R.string.day_year)
+                        1 -> itemView.resources.getString(R.string.day_month)
+                        2 -> itemView.resources.getString(R.string.day_day)
                         else -> ""
                     }
                     titleText += itemText
