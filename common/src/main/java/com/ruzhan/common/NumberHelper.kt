@@ -5,8 +5,8 @@ object NumberHelper {
     private val CHINA_NUMBER_LIST = arrayOf("零", "一", "二", "三", "四", "五", "六",
             "七", "八", "九")
 
-    fun numberToCH(number: Int): String {
-        var numberStr = number.toString()
+    private fun numberToCH(number: Int): String {
+        val numberStr = number.toString()
         var contentText = ""
         when {
             numberStr.length == 1 // 個
@@ -57,7 +57,7 @@ object NumberHelper {
         return content
     }
 
-    fun getChinaNumber(number: Int): String {
+    private fun getChinaNumber(number: Int): String {
         return if (number < CHINA_NUMBER_LIST.size) CHINA_NUMBER_LIST[number] else ""
     }
 }

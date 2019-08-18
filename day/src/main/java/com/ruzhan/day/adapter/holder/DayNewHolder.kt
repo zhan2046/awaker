@@ -17,6 +17,7 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
         androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     companion object {
+        private const val SHOW_TIME_POSITION = 0
         private const val INDEX_YEAR = 0
         private const val INDEX_MONTH = 1
         private const val INDEX_DAY = 2
@@ -47,7 +48,7 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
         if (tags != null && tags.isNotEmpty()) {
             tagStr = tags[0].name ?: ""
         }
-        if (adapterPosition == 0) {
+        if (adapterPosition == SHOW_TIME_POSITION) {
             itemView.titleTv.visibility = View.GONE
             itemView.firstTimeTv.visibility = View.VISIBLE
             itemView.firstTitleTv.visibility = View.VISIBLE
@@ -67,7 +68,7 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
 
     private fun getCurrentTimeStr(bean: DayNewModel): String {
         var titleText = bean.title ?: ""
-        if (adapterPosition == 0) {
+        if (adapterPosition == SHOW_TIME_POSITION) {
             val currentTime = simpleTime.format(Date(bean.pubdate_timestamp.toLong() * 1000))
             val timeList = currentTime.split("/")
             if (timeList.isNotEmpty()) {
