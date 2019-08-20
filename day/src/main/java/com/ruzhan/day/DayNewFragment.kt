@@ -63,11 +63,11 @@ class DayNewFragment : Fragment() {
         OnRefreshHelper.setOnRefreshStatusListener(swipeRefreshLayout, recyclerView,
                 object : OnRefreshHelper.OnRefreshStatusListener {
                     override fun onLoadMore() {
-                        dayViewModel?.refreshDayNewList()
+                        dayViewModel?.loadMoreDayNewList()
                     }
 
                     override fun onRefresh() {
-                        dayViewModel?.loadMoreDayNewList()
+                        dayViewModel?.refreshDayNewList()
                     }
                 })
     }

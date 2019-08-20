@@ -39,5 +39,5 @@ data class DayNewModel(
         var coordinate_sets: List<Any>? = null,
         var entry_imgs: List<Any>? = null,
         var tags: List<TagsModel>? = null,
-        var album: List<AlbumModel>? = null
+        var album: List<DayNewModel>? = null
 )
