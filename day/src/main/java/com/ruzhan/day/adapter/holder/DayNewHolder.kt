@@ -43,11 +43,21 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
     fun bind(bean: DayNewModel) {
         dayNewModel = bean
         ImageLoader.get().load(itemView.picIv, bean.cover_landscape ?: "")
+        handleContentText(bean)
+        handleTimeTitle(bean)
+    }
+
+    private fun handleContentText(bean: DayNewModel) {
         val tags = bean.tags
         var tagStr = ""
         if (tags != null && tags.isNotEmpty()) {
             tagStr = tags[0].name ?: ""
         }
+        itemView.tagTv.text = tagStr
+        itemView.contentTv.text = bean.content
+    }
+
+    private fun handleTimeTitle(bean: DayNewModel) {
         if (adapterPosition == SHOW_TIME_POSITION) {
             itemView.titleTv.visibility = View.GONE
             itemView.firstTimeTv.visibility = View.VISIBLE
@@ -62,8 +72,6 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
             itemView.firstTitleTv.visibility = View.GONE
             itemView.titleTv.text = bean.title
         }
-        itemView.tagTv.text = tagStr
-        itemView.contentTv.text = bean.content
     }
 
     private fun getCurrentTimeStr(bean: DayNewModel): String {
