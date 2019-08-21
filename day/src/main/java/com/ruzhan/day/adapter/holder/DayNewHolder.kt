@@ -2,6 +2,7 @@ package com.ruzhan.day.adapter.holder
 
 import android.annotation.SuppressLint
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.awaker.imageloader.ImageLoader
 import com.lion.font.FontHelper
 import com.ruzhan.common.NumberHelper
@@ -14,7 +15,7 @@ import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) :
-        androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+        RecyclerView.ViewHolder(itemView) {
 
     companion object {
         private const val SHOW_TIME_POSITION = 0
