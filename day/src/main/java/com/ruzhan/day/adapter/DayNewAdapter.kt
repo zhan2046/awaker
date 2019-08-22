@@ -1,5 +1,6 @@
 package com.ruzhan.day.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +8,7 @@ import com.ruzhan.common.EmptyHolder
 import com.ruzhan.common.OnItemClickListener
 import com.ruzhan.day.R
 import com.ruzhan.day.adapter.holder.DayNewHolder
+import com.ruzhan.day.adapter.holder.DayNewListHolder
 import com.ruzhan.day.adapter.holder.DayNewTopHolder
 import com.ruzhan.day.model.DayNewModel
 
@@ -17,6 +19,7 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private const val TYPE_DEFAULT = 10000
         private const val TYPE_DAY_NEW_TOP = 10001
         private const val TYPE_DAY_NEW = 10002
+        private const val TYPE_DAY_NEW_LIST = 10003
     }
 
     private val dataList = ArrayList<Any>()
@@ -40,10 +43,28 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         if (position == 0) {
-            return TYPE_DAY_NEW_TOP
+            return if (dataList[position] is DayNewModel) {
+                val dayNewModel = dataList[position] as DayNewModel
+                val album = dayNewModel.album
+                if (album != null && album.isNotEmpty()) {
+                    TYPE_DAY_NEW_LIST
+                } else {
+                    TYPE_DAY_NEW_TOP
+                }
+            } else {
+                TYPE_DAY_NEW_TOP
+            }
         }
         return when (dataList[position]) {
-            is DayNewModel -> TYPE_DAY_NEW
+            is DayNewModel -> {
+                val dayNewModel = dataList[position] as DayNewModel
+                val album = dayNewModel.album
+                if (album != null && album.isNotEmpty()) {
+                    TYPE_DAY_NEW_LIST
+                } else {
+                    TYPE_DAY_NEW
+                }
+            }
             else -> TYPE_DEFAULT
         }
     }
@@ -56,6 +77,10 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             TYPE_DAY_NEW -> DayNewHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.day_item_day_new, parent, false),
+                    onItemClickListener)
+
+            TYPE_DAY_NEW_LIST -> DayNewListHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.day_item_day_new_list, parent, false),
                     onItemClickListener)
 
             else -> EmptyHolder(LayoutInflater.from(parent.context)
@@ -75,6 +100,11 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             TYPE_DAY_NEW -> {
                 val bean = dataList[position] as DayNewModel
                 val viewHolder = holder as DayNewHolder
+                viewHolder.bind(bean)
+            }
+            TYPE_DAY_NEW_LIST -> {
+                val bean = dataList[position] as DayNewModel
+                val viewHolder = holder as DayNewListHolder
                 viewHolder.bind(bean)
             }
         }
