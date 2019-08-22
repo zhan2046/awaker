@@ -9,6 +9,7 @@ import com.ruzhan.common.OnItemClickListener
 import com.ruzhan.day.R
 import com.ruzhan.day.adapter.holder.DayNewHolder
 import com.ruzhan.day.adapter.holder.DayNewListHolder
+import com.ruzhan.day.adapter.holder.DayNewListTopHolder
 import com.ruzhan.day.adapter.holder.DayNewTopHolder
 import com.ruzhan.day.model.DayNewModel
 
@@ -19,7 +20,8 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private const val TYPE_DEFAULT = 10000
         private const val TYPE_DAY_NEW_TOP = 10001
         private const val TYPE_DAY_NEW = 10002
-        private const val TYPE_DAY_NEW_LIST = 10003
+        private const val TYPE_DAY_NEW_LIST_TOP = 10003
+        private const val TYPE_DAY_NEW_LIST = 10004
     }
 
     private val dataList = ArrayList<Any>()
@@ -47,12 +49,12 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val dayNewModel = dataList[position] as DayNewModel
                 val album = dayNewModel.album
                 if (album != null && album.isNotEmpty()) {
-                    TYPE_DAY_NEW_LIST
+                    TYPE_DAY_NEW_LIST_TOP
                 } else {
                     TYPE_DAY_NEW_TOP
                 }
             } else {
-                TYPE_DAY_NEW_TOP
+                TYPE_DEFAULT
             }
         }
         return when (dataList[position]) {
@@ -79,6 +81,10 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     .inflate(R.layout.day_item_day_new, parent, false),
                     onItemClickListener)
 
+            TYPE_DAY_NEW_LIST_TOP -> DayNewListTopHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.day_item_day_new_list_top, parent, false),
+                    onItemClickListener)
+
             TYPE_DAY_NEW_LIST -> DayNewListHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.day_item_day_new_list, parent, false),
                     onItemClickListener)
@@ -100,6 +106,11 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             TYPE_DAY_NEW -> {
                 val bean = dataList[position] as DayNewModel
                 val viewHolder = holder as DayNewHolder
+                viewHolder.bind(bean)
+            }
+            TYPE_DAY_NEW_LIST_TOP -> {
+                val bean = dataList[position] as DayNewModel
+                val viewHolder = holder as DayNewListTopHolder
                 viewHolder.bind(bean)
             }
             TYPE_DAY_NEW_LIST -> {
