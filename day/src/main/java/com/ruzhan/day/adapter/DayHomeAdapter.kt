@@ -14,9 +14,11 @@ class DayHomeAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     private var newListTabPosition = 0
 
     fun setData(list: List<String>) {
-        titleList.clear()
-        titleList.addAll(list)
-        notifyDataSetChanged()
+        if (titleList.isEmpty()) {
+            titleList.clear()
+            titleList.addAll(list)
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItem(position: Int): Fragment {
