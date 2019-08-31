@@ -6,6 +6,7 @@ import com.feature.dayjson.network.DayRepository
 import com.feature.dayjson.utils.JsonFileIOUtils
 import com.google.gson.Gson
 import java.io.File
+import kotlin.system.exitProcess
 
 object DayJsonMain {
 
@@ -21,6 +22,9 @@ object DayJsonMain {
     private var dayListFile = File("")
 
     private val backupList = ArrayList<DayNewModel>()
+
+    private var isHandleBackupDayNewListSuccess = false
+    private var isHandleAllDayNewListSuccess = false
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -60,6 +64,7 @@ object DayJsonMain {
                     println("=== Backup doOnSuccess called... ===" + "list:" + list.size)
                     backupList.clear()
                     backupList.addAll(list)
+                    isHandleBackupDayNewListSuccess = true
                 }
                 .subscribe({ }, { })
     }
@@ -74,7 +79,13 @@ object DayJsonMain {
                 .doOnSuccess { list ->
                     println("=== doOnSuccess called... ===" + "list:" + list.size)
                     val newList = handleAllDayNewList(list)
-                    dayNewModelListJsonFile(newList, dayListFile.absolutePath, mainGSon)
+                    isHandleAllDayNewListSuccess = true
+                    if (isHandleAllDayNewListSuccess && isHandleBackupDayNewListSuccess) {
+                        dayNewModelListJsonFile(newList, dayListFile.absolutePath, mainGSon)
+                    } else {
+                        println("isHandleAllDayNewListSuccess: " + isHandleAllDayNewListSuccess +
+                                " ,isHandleBackupDayNewListSuccess:" + isHandleBackupDayNewListSuccess)
+                    }
                 }
                 .subscribe({ }, { })
     }
