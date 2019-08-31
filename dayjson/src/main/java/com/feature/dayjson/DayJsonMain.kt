@@ -5,6 +5,7 @@ import com.feature.dayjson.model.HttpResult
 import com.feature.dayjson.network.DayRepository
 import com.feature.dayjson.utils.JsonFileIOUtils
 import com.google.gson.Gson
+import io.reactivex.disposables.CompositeDisposable
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -26,17 +27,20 @@ object DayJsonMain {
     private var isHandleBackupDayNewListSuccess = false
     private var isHandleAllDayNewListSuccess = false
 
+    private val compositeDisposable = CompositeDisposable()
+
     @JvmStatic
     fun main(args: Array<String>) {
         println("=== main init ===")
         initCreateJsonFile()
         handleBackupDayNewList()
         handleDayNewList()
+        compositeDisposable.clear()
         println("=== main end ===")
     }
 
     private fun handleAllDayNewList(list: List<DayNewModel>): ArrayList<DayNewModel> {
-        val newList = ArrayList<DayNewModel>(list)
+        val newList = ArrayList(list)
         for (oldItem in backupList) {
             var isExist = false
             for (item in list) {
@@ -67,6 +71,7 @@ object DayJsonMain {
                     isHandleBackupDayNewListSuccess = true
                 }
                 .subscribe({ }, { })
+        compositeDisposable.add(disposable)
     }
 
     private fun handleDayNewList() {
@@ -88,6 +93,7 @@ object DayJsonMain {
                     }
                 }
                 .subscribe({ }, { })
+        compositeDisposable.add(disposable)
     }
 
     private fun initCreateJsonFile() {
