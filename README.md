@@ -2,7 +2,7 @@
 Awaker
 ===============
 
-####    deprecated
+####    article app for Android
 
 Screenshots
 ===============
