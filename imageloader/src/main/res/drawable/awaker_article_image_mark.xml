@@ -2,5 +2,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="@color/awaker_article_image_mark" />
+    <solid android:color="#33eeeeee" />
 </shape>

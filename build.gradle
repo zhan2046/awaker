@@ -24,13 +24,6 @@ buildscript {
             'applicationId'   : 'com.future.awaker',
     ]
 
-    ext.config = [
-            'applicationId'   : 'com.future.awaker',
-            'keyAlias'        : 'awaker',
-            'keyPassword'     : 'awaker333333',
-            'storePassword'   : 'awaker333',
-    ]
-
     repositories {
         google()
         jcenter()
@@ -62,11 +55,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    // query git for the SHA, Tag and commit count. Use these to automate versioning.
-    gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
-    gitTag = 'git describe --tags'.execute([], project.rootDir).text.trim()
-    gitCommitCount = 100 + Integer.parseInt('git rev-list --count HEAD'.execute([], project.rootDir).text.trim() + "0")
 }

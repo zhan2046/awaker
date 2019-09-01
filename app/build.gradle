@@ -9,22 +9,22 @@ android {
 
     signingConfigs {
         config {
-            keyAlias config.keyAlias
-            keyPassword config.keyPassword
+            keyAlias versions.keyAlias
+            keyPassword versions.keyPassword
             storeFile file('keystore/awaker.jks')
-            storePassword config.storePassword
+            storePassword versions.storePassword
         }
     }
 
     compileSdkVersion versions.compileSdk
 
     defaultConfig {
-        applicationId config.applicationId
+        applicationId versions.applicationId
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
 
-        versionCode rootProject.gitCommitCount
-        versionName rootProject.gitTag
+        versionCode 333
+        versionName "0.9.12"
 
         multiDexEnabled true
     }
