@@ -7,7 +7,6 @@ import com.feature.dayjson.utils.JsonFileIOUtils
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
 import java.io.File
-import kotlin.system.exitProcess
 
 object DayJsonMain {
 
@@ -18,6 +17,7 @@ object DayJsonMain {
     private const val FILE_TYPE = ".json"
     private const val BACKUP_FILE_NAME = "1.json"
     private const val CODE_SUCCESS = 200
+    private const val MAX_FILE_SIZE = 100
 
     private val mainGSon = Gson()
     private var dayListFile = File("")
@@ -54,7 +54,7 @@ object DayJsonMain {
             }
         }
         val removeList = ArrayList<DayNewModel>()
-        for ( i in 0 until newList.size) {
+        for (i in 0 until newList.size) {
             val rootItem = newList[i]
             if (i != newList.size - 1) {
                 for (j in (i + 1) until newList.size) {
@@ -129,17 +129,38 @@ object DayJsonMain {
     }
 
     private fun dayNewModelListJsonFile(list: List<DayNewModel>,
-                                    rootPath: String, mainGSon: Gson) {
+                                        rootPath: String, mainGSon: Gson) {
         val dayNewModelList = handleNewModelList(list)
-        val filePath = File(File(rootPath),
-                "1".plus(FILE_TYPE)).absolutePath
-        val httpResult = HttpResult(CODE_SUCCESS,
-                "", dayNewModelList)
-        val fileJson = mainGSon.toJson(httpResult)
-        val isKeyPageSuccess = JsonFileIOUtils.writeFileFromString(filePath, fileJson)
-        println("isKeyPageSuccess:$isKeyPageSuccess, filePath:$filePath")
-        println("filePath: " + File(filePath).exists())
-        println("=== new list size... ===" + "list:" + list.size)
+        val totalList = splitList(dayNewModelList, MAX_FILE_SIZE)
+        for (i in totalList.indices) {
+            val childList = totalList[i]
+            val filePath = File(File(rootPath),
+                    (i + 1).toString().plus(FILE_TYPE)).absolutePath
+            val httpResult = HttpResult(CODE_SUCCESS,
+                    "", childList)
+            val fileJson = mainGSon.toJson(httpResult)
+            val isKeyPageSuccess = JsonFileIOUtils.writeFileFromString(filePath, fileJson)
+            println("isKeyPageSuccess:$isKeyPageSuccess, filePath:$filePath")
+            println("filePath: " + File(filePath).exists())
+        }
+        println("=== totalList size... ===" + "totalList: " + totalList.size + " count page")
+        println("=== new list size... ===" + "list:" + dayNewModelList.size)
+    }
+
+    private fun splitList(list: List<DayNewModel>, groupSize: Int): List<List<DayNewModel>> {
+        val length = list.size
+        // 计算可以分成多少组
+        val num = (length + groupSize - 1) / groupSize
+        val newList = ArrayList<List<DayNewModel>>(num)
+        for (i in 0 until num) {
+            // 开始位置
+            val fromIndex = i * groupSize
+            // 结束位置
+            val toIndex = if ((i + 1) * groupSize < length) (i + 1) * groupSize else length
+
+            newList.add(list.subList(fromIndex, toIndex))
+        }
+        return newList
     }
 
     private fun handleNewModelList(list: List<DayNewModel>): ArrayList<DayNewModel> {
