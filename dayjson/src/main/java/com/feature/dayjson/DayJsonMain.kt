@@ -53,6 +53,23 @@ object DayJsonMain {
                 newList.add(oldItem)
             }
         }
+        val removeList = ArrayList<DayNewModel>()
+        for ( i in 0 until newList.size) {
+            val rootItem = newList[i]
+            if (i != newList.size - 1) {
+                for (j in (i + 1) until newList.size) {
+                    val item = newList[j]
+                    if (rootItem.guid == item.guid || rootItem.content == item.content) {
+                        removeList.add(rootItem)
+                    }
+                }
+            }
+        }
+        if (removeList.isNotEmpty()) {
+            for (item in removeList) {
+                newList.remove(item)
+            }
+        }
         return newList
     }
 
