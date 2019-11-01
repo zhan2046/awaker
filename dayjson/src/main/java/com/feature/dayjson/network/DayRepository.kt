@@ -2,6 +2,7 @@ package com.feature.dayjson.network
 
 import com.feature.dayjson.model.DayNewModel
 import com.feature.dayjson.model.HttpResult
+import com.feature.dayjson.model.MainModel
 import io.reactivex.Single
 import okhttp3.ResponseBody
 
@@ -37,6 +38,10 @@ class DayRepository {
 
     fun getBackupDayNewList(pageFileName: String): Single<HttpResult<List<DayNewModel>>> {
         return dayBackupApi.getBackupDayNewList(pageFileName)
+    }
+
+    fun getMainModel(pageFileName: String): Single<HttpResult<MainModel>> {
+        return dayBackupApi.getMainModel(pageFileName)
     }
 
     fun requestFileDownload(url: String): Single<ResponseBody> {

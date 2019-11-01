@@ -2,6 +2,7 @@ package com.feature.dayjson
 
 import com.feature.dayjson.model.DayNewModel
 import com.feature.dayjson.model.HttpResult
+import com.feature.dayjson.model.MainModel
 import com.feature.dayjson.network.DayRepository
 import com.feature.dayjson.utils.JsonFileIOUtils
 import com.google.gson.Gson
@@ -18,7 +19,7 @@ object DayJsonMain {
     private const val API = "api"
     private const val DAY = "day"
     private const val FILE_TYPE = ".json"
-    private const val BACKUP_FILE_NAME = "1.json"
+    private const val MAIN_FILE_NAME = "main.json"
     private const val CODE_SUCCESS = 200
     private const val MAX_FILE_SIZE = 100
 
@@ -61,21 +62,30 @@ object DayJsonMain {
     }
 
     private fun handleBackupDayNewList() {
-        println("=== handleBackupDayNewList call... ===")
-        val disposable = DayRepository.get()
-                .getBackupDayNewList(BACKUP_FILE_NAME)
+        compositeDisposable.add(DayRepository.get().getMainModel(MAIN_FILE_NAME)
                 .map { result -> result.data }
                 .doOnError { e ->
-                    println("=== Backup doOnError called... ===$e")
+                    println("=== getMainModel doOnError called... ===$e")
                 }
-                .doOnSuccess { list ->
-                    println("=== Backup doOnSuccess called... ===" + "list:" + list.size)
+                .doOnSuccess { mainModel ->
+                    println("=== getMainModel doOnSuccess called... ===" + "mainModel:" + mainModel.pageSize)
+                    println("=== handleBackupDayNewList call... ===")
                     backupList.clear()
-                    backupList.addAll(list)
-                    isHandleBackupDayNewListSuccess = true
-                }
-                .subscribe({ }, { })
-        compositeDisposable.add(disposable)
+                    for (count in 1..mainModel.pageSize) {
+                        compositeDisposable.add(DayRepository.get()
+                                .getBackupDayNewList(count.toString().plus(FILE_TYPE))
+                                .map { result -> result.data }
+                                .doOnError { e ->
+                                    println("=== Backup doOnError called... ===$e")
+                                }
+                                .doOnSuccess { list ->
+                                    println("=== Backup doOnSuccess called... ===" + "list:" + list.size)
+                                    backupList.addAll(list)
+                                    isHandleBackupDayNewListSuccess = true
+                                }
+                                .subscribe({ }, { }))
+                    }
+                }.subscribe({ }, { }))
     }
 
     private fun handleDayNewList() {
@@ -133,6 +143,21 @@ object DayJsonMain {
             println("isKeyPageSuccess:$isKeyPageSuccess, filePath:$filePath")
             println("filePath: " + File(filePath).exists())
         }
+        println("======")
+        println("======")
+        println("=== handler  MainModel===")
+        val filePath = File(File(rootPath),
+                "main".plus(FILE_TYPE)).absolutePath
+        val httpResult = HttpResult(CODE_SUCCESS,
+                "", MainModel(totalList.size))
+        val fileJson = mainGSon.toJson(httpResult)
+        val isKeyPageSuccess = JsonFileIOUtils.writeFileFromString(filePath, fileJson)
+        println("MainModel isKeyPageSuccess:$isKeyPageSuccess, filePath:$filePath")
+        println("MainModel filePath: " + File(filePath).exists())
+        println("=== handler  MainModel finish ===")
+        println("======")
+        println("======")
+
         println("=== totalList size... ===" + "totalList: " + totalList.size + " count page")
         println("=== new list size... ===" + "list:" + dayNewModelList.size)
 
