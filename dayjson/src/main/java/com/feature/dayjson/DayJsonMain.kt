@@ -63,6 +63,7 @@ object DayJsonMain {
 
     private fun handleBackupDayNewList() {
         compositeDisposable.add(DayRepository.get().getMainModel(MAIN_FILE_NAME)
+                .map { result -> result.data }
                 .doOnError { e ->
                     println("=== getMainModel doOnError called... ===$e")
                 }

@@ -40,7 +40,7 @@ class DayRepository {
         return dayBackupApi.getBackupDayNewList(pageFileName)
     }
 
-    fun getMainModel(pageFileName: String): Single<MainModel> {
+    fun getMainModel(pageFileName: String): Single<HttpResult<MainModel>> {
         return dayBackupApi.getMainModel(pageFileName)
     }
 
