@@ -13,6 +13,8 @@ import java.io.*
 
 object DayJsonMain {
 
+    private const val DAY_JSON = "dayjson"
+    private const val HD = "HD"
     private const val USER_DIR = "user.dir"
     private const val JSON = "json"
     private const val IMAGE = "image"
@@ -68,18 +70,18 @@ object DayJsonMain {
                     println("=== getMainModel doOnError called... ===$e")
                 }
                 .doOnSuccess { mainModel ->
-                    println("=== getMainModel doOnSuccess called... ===" + "mainModel:" + mainModel.pageSize)
-                    println("=== handleBackupDayNewList call... ===")
+                    println("=== getMainModel doOnSuccess called... === " + "mainModel:" + mainModel.pageSize)
+                    println("=== handleBackupDayNewList ===")
                     backupList.clear()
-                    for (count in 1..mainModel.pageSize) {
+                    for (position in 1..mainModel.pageSize) {
                         compositeDisposable.add(DayRepository.get()
-                                .getBackupDayNewList(count.toString().plus(FILE_TYPE))
+                                .getBackupDayNewList(position.toString().plus(FILE_TYPE))
                                 .map { result -> result.data }
                                 .doOnError { e ->
-                                    println("=== Backup doOnError called... ===$e")
+                                    println("=== getBackupDayNewList doOnError=== $e")
                                 }
                                 .doOnSuccess { list ->
-                                    println("=== Backup doOnSuccess called... ===" + "list:" + list.size)
+                                    println("=== getBackupDayNewList doOnSuccess: " + "list:" + list.size + " position:" + position)
                                     backupList.addAll(list)
                                 }
                                 .subscribe({ }, { }))
@@ -91,14 +93,14 @@ object DayJsonMain {
     }
 
     private fun handleDayNewList() {
-        println("=== handleDayNewList call... ===")
-        val disposable = DayRepository.get()
+        println("=== handleDayNewList ===")
+        compositeDisposable.add(DayRepository.get()
                 .getDayNewList(1, "android", "36")
                 .doOnError { e ->
-                    println("=== doOnError called... ===$e")
+                    println("=== handleDayNewList doOnError === $e")
                 }
                 .doOnSuccess { list ->
-                    println("=== doOnSuccess called... ===" + "list:" + list.size)
+                    println("=== handleDayNewList doOnSuccess === " + "list:" + list.size)
                     val newList = handleAllDayNewList(list)
                     isHandleAllDayNewListSuccess = true
                     if (isHandleAllDayNewListSuccess && isHandleBackupDayNewListSuccess) {
@@ -108,14 +110,13 @@ object DayJsonMain {
                                 " ,isHandleBackupDayNewListSuccess:" + isHandleBackupDayNewListSuccess)
                     }
                 }
-                .subscribe({ }, { })
-        compositeDisposable.add(disposable)
+                .subscribe({ }, { }))
     }
 
     private fun initCreateJsonFile() {
         println("initCreateJsonFile call...")
         val dirFile = File(System.getProperty(USER_DIR))
-        val userDirFile = if (dirFile.absolutePath.contains("dayjson"))
+        val userDirFile = if (dirFile.absolutePath.contains(DAY_JSON))
             dirFile.parentFile else dirFile
         println("userDirFile:${userDirFile.absolutePath}")
 
@@ -127,7 +128,6 @@ object DayJsonMain {
 
         dayListFile = File(createJsonFile, DAY)
         println("movieListFile:${dayListFile.absolutePath}")
-        println("initCreateJsonFile end ... ")
     }
 
     private fun dayNewModelListJsonFile(list: List<DayNewModel>,
@@ -141,28 +141,20 @@ object DayJsonMain {
             val httpResult = HttpResult(CODE_SUCCESS,
                     "", childList)
             val fileJson = mainGSon.toJson(httpResult)
-            val isKeyPageSuccess = JsonFileIOUtils.writeFileFromString(filePath, fileJson)
-            println("isKeyPageSuccess:$isKeyPageSuccess, filePath:$filePath")
-            println("filePath: " + File(filePath).exists())
+            JsonFileIOUtils.writeFileFromString(filePath, fileJson)
+            println("filePath:$filePath")
         }
-        println("======")
-        println("======")
-        println("=== handler  MainModel===")
+        println("=== handler  MainModel ===")
         val filePath = File(File(rootPath),
                 "main".plus(FILE_TYPE)).absolutePath
         val httpResult = HttpResult(CODE_SUCCESS,
                 "", MainModel(totalList.size))
         val fileJson = mainGSon.toJson(httpResult)
-        val isKeyPageSuccess = JsonFileIOUtils.writeFileFromString(filePath, fileJson)
-        println("MainModel isKeyPageSuccess:$isKeyPageSuccess, filePath:$filePath")
-        println("MainModel filePath: " + File(filePath).exists())
+        JsonFileIOUtils.writeFileFromString(filePath, fileJson)
+        println("totalList: " + totalList.size + " count page")
+        println("dayNewModelList:" + dayNewModelList.size)
+        println("MainModel filePath:$filePath")
         println("=== handler  MainModel finish ===")
-        println("======")
-        println("======")
-
-        println("=== totalList size... ===" + "totalList: " + totalList.size + " count page")
-        println("=== new list size... ===" + "list:" + dayNewModelList.size)
-
         val imageAllList = ArrayList<DayNewModel>()
         for (i in totalList.indices) {
             val childList = totalList[i]
@@ -187,29 +179,25 @@ object DayJsonMain {
                 val coverLandscape = item.cover_landscape
                 requestFileDownload(coverLandscape, guid, dayDir, "")
                 val coverLandscapeHD = item.cover_landscape_hd
-                requestFileDownload(coverLandscapeHD, guid, dayDir, "HD")
-                println("handlerImageDownload current: ($index) finish")
+                requestFileDownload(coverLandscapeHD, guid, dayDir, HD)
             } else {
                 println("=== find title text is empty === $item" + " : " + item.title)
             }
         }
-        println("========================")
-        println("========================")
-        println("========================")
-        println("handlerImageDownload task finish, handler: (" + list.size + ") pic")
+        println("handlerImageDownload task finish, total handler: (" + list.size + ") image")
     }
 
-    private fun requestFileDownload(url: String) {
-        val disposable = DayRepository.get().requestFileDownload(url)
-                .doOnError { e ->
-                    println("=== doOnError called... ===$e")
-                }
-                .doOnSuccess { responseBody ->
-                    println("=== requestFileDownload doOnSuccess === $url")
-                }
-                .subscribe({ }, { })
-        compositeDisposable.add(disposable)
-    }
+//    private fun requestFileDownload(url: String) {
+//        val disposable = DayRepository.get().requestFileDownload(url)
+//                .doOnError { e ->
+//                    println("=== doOnError called... ===$e")
+//                }
+//                .doOnSuccess { responseBody ->
+//                    println("=== requestFileDownload doOnSuccess === $url" + "responseBody:" + responseBody.hashCode())
+//                }
+//                .subscribe({ }, { })
+//        compositeDisposable.add(disposable)
+//    }
 
     private fun createDownloadImageFile(url: String?, guid: Int?, dayDir: File?, tag: String): File? {
         if (url != null && url.isNotBlank() && dayDir != null && guid != null) {
@@ -240,10 +228,10 @@ object DayJsonMain {
     }
 
     private fun exeRequestFileDownload(url: String, imageFile: File) {
-        println("=== requestFileDownload start: $url")
+        println("=== exeRequestFileDownload start: $url")
         val disposable = DayRepository.get().requestFileDownload(url)
                 .doOnError { e ->
-                    println("=== doOnError called... ===$e")
+                    println("=== exeRequestFileDownload called... ===$e")
                 }
                 .doOnSuccess { responseBody ->
                     writeFile2Disk(responseBody, imageFile)
@@ -270,7 +258,7 @@ object DayJsonMain {
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
-            println("=== writeFile2Disk save finish: " + file.absolutePath)
+            println("=== image writeFile2Disk save finish: " + file.absolutePath)
             if (outputStream != null) {
                 try {
                     outputStream.close() //关闭输出流
