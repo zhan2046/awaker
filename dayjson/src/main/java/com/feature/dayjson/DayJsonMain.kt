@@ -6,12 +6,15 @@ import com.feature.dayjson.network.DayRepository
 import com.feature.dayjson.utils.JsonFileIOUtils
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
-import java.io.File
+import okhttp3.ResponseBody
+import java.io.*
+
 
 object DayJsonMain {
 
     private const val USER_DIR = "user.dir"
     private const val JSON = "json"
+    private const val IMAGE = "image"
     private const val API = "api"
     private const val DAY = "day"
     private const val FILE_TYPE = ".json"
@@ -21,6 +24,7 @@ object DayJsonMain {
 
     private val mainGSon = Gson()
     private var dayListFile = File("")
+    private var downloadImageFile = File("")
 
     private val backupList = ArrayList<DayNewModel>()
 
@@ -123,6 +127,9 @@ object DayJsonMain {
         val createJsonFile = File(File(userDirFile, JSON), API)
         println("createJsonFile:${createJsonFile.absolutePath}")
 
+        downloadImageFile = File(userDirFile, IMAGE)
+        println("downloadImageFile:${downloadImageFile.absolutePath}")
+
         dayListFile = File(createJsonFile, DAY)
         println("movieListFile:${dayListFile.absolutePath}")
         println("initCreateJsonFile end ... ")
@@ -145,6 +152,130 @@ object DayJsonMain {
         }
         println("=== totalList size... ===" + "totalList: " + totalList.size + " count page")
         println("=== new list size... ===" + "list:" + dayNewModelList.size)
+
+        val imageAllList = ArrayList<DayNewModel>()
+        for (i in totalList.indices) {
+            val childList = totalList[i]
+            imageAllList.addAll(childList)
+        }
+        handlerImageDownload(imageAllList)
+    }
+
+    private fun handlerImageDownload(list: List<DayNewModel>) {
+        for (index in list.indices) {
+            val item = list[index]
+            if (item.tags == null) {
+                continue
+            }
+            val title = item.title
+            if (title != null && title.isNotBlank()) {
+                val dayDir = File(downloadImageFile, title)
+                if (!dayDir.exists()) {
+                    dayDir.mkdirs()
+                }
+                val guid = item.guid
+                val coverLandscape = item.cover_landscape
+                requestFileDownload(coverLandscape, guid, dayDir, "")
+                val coverLandscapeHD = item.cover_landscape_hd
+                requestFileDownload(coverLandscapeHD, guid, dayDir, "HD")
+                println("handlerImageDownload current: ($index) finish")
+            } else {
+                println("=== find title text is empty === $item" + " : " + item.title)
+            }
+        }
+        println("========================")
+        println("========================")
+        println("========================")
+        println("handlerImageDownload task finish, handler: (" + list.size + ") pic")
+    }
+
+    private fun requestFileDownload(url: String) {
+        val disposable = DayRepository.get().requestFileDownload(url)
+                .doOnError { e ->
+                    println("=== doOnError called... ===$e")
+                }
+                .doOnSuccess { responseBody ->
+                    println("=== requestFileDownload doOnSuccess === $url")
+                }
+                .subscribe({ }, { })
+        compositeDisposable.add(disposable)
+    }
+
+    private fun createDownloadImageFile(url: String?, guid: Int?, dayDir: File?, tag: String): File? {
+        if (url != null && url.isNotBlank() && dayDir != null && guid != null) {
+            val tagIndex = url.lastIndexOf("/")
+            if (tagIndex != -1) {
+                val imageName = url.substring(tagIndex + 1, url.length)
+                val centerTag = if (tag.isBlank()) "-" else
+                    "-".plus(tag).plus("-")
+                return File(dayDir, guid.toString()
+                        .plus(centerTag).plus(imageName))
+            }
+        }
+        return null
+    }
+
+    private fun requestFileDownload(url: String?, guid: Int?, dayDir: File?, tag: String) {
+        val imageFile = createDownloadImageFile(url, guid, dayDir, tag)
+        if (imageFile != null && url != null) {
+            if (!imageFile.exists()) {
+                imageFile.createNewFile()
+                exeRequestFileDownload(url, imageFile)
+            } else if (imageFile.length() == 0L) {
+                imageFile.delete()
+                imageFile.createNewFile()
+                exeRequestFileDownload(url, imageFile)
+            }
+        }
+    }
+
+    private fun exeRequestFileDownload(url: String, imageFile: File) {
+        println("=== requestFileDownload start: $url")
+        val disposable = DayRepository.get().requestFileDownload(url)
+                .doOnError { e ->
+                    println("=== doOnError called... ===$e")
+                }
+                .doOnSuccess { responseBody ->
+                    writeFile2Disk(responseBody, imageFile)
+                }
+                .subscribe({ }, { })
+        compositeDisposable.add(disposable)
+    }
+
+    private fun writeFile2Disk(responseBody: ResponseBody, file: File) {
+        var currentLength = 0L
+        var outputStream: OutputStream? = null
+        val inputStream = responseBody.byteStream() //获取下载输入流
+        try {
+            outputStream = FileOutputStream(file) //输出流
+            var len = 0
+            val buff = ByteArray(1024)
+            while (len != -1) {
+                len = inputStream.read(buff)
+                outputStream.write(buff, 0, len)
+                currentLength += len
+            }
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            println("=== writeFile2Disk save finish: " + file.absolutePath)
+            if (outputStream != null) {
+                try {
+                    outputStream.close() //关闭输出流
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+            if (inputStream != null) {
+                try {
+                    inputStream.close() //关闭输入流
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 
     private fun splitList(list: List<DayNewModel>, groupSize: Int): List<List<DayNewModel>> {
