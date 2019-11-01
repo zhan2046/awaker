@@ -13,5 +13,5 @@ interface DayBackupApi {
     fun getBackupDayNewList(@Path("pageFileName") pageFileName: String): Single<HttpResult<List<DayNewModel>>>
 
     @GET("day/{pageFileName}")
-    fun getMainModel(@Path("pageFileName") pageFileName: String): Single<HttpResult<MainModel>>
+    fun getMainModel(@Path("pageFileName") pageFileName: String): Single<MainModel>
 }

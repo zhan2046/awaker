@@ -63,7 +63,6 @@ object DayJsonMain {
 
     private fun handleBackupDayNewList() {
         compositeDisposable.add(DayRepository.get().getMainModel(MAIN_FILE_NAME)
-                .map { result -> result.data }
                 .doOnError { e ->
                     println("=== getMainModel doOnError called... ===$e")
                 }
@@ -81,9 +80,11 @@ object DayJsonMain {
                                 .doOnSuccess { list ->
                                     println("=== Backup doOnSuccess called... ===" + "list:" + list.size)
                                     backupList.addAll(list)
-                                    isHandleBackupDayNewListSuccess = true
                                 }
                                 .subscribe({ }, { }))
+                    }
+                    if (backupList.isNotEmpty()) {
+                        isHandleBackupDayNewListSuccess = true
                     }
                 }.subscribe({ }, { }))
     }
