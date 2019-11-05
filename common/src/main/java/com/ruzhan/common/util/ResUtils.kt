@@ -47,14 +47,14 @@ object ResUtils {
     fun getColor(colorId: Int): Int {
         return if (colorId <= 0) {
             INVALID_COLOR
-        } else context.resources.getColor(colorId)
+        } else ContextCompat.getColor(context, colorId)
     }
 
     @JvmStatic
     fun getDrawable(drawableId: Int): Drawable? {
         return if (drawableId <= 0) {
             null
-        } else context.resources.getDrawable(drawableId)
+        } else ContextCompat.getDrawable(context, drawableId)
     }
 
     @JvmStatic
