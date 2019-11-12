@@ -1,8 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-
 apply from: '../core_dependencies.gradle'
 
 android {
@@ -16,16 +12,10 @@ android {
         }
     }
 
-    compileSdkVersion versions.compileSdk
-
     defaultConfig {
         applicationId versions.applicationId
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
-
         versionCode 333
         versionName "0.9.12"
-
         multiDexEnabled true
     }
 
@@ -44,11 +34,6 @@ android {
         abortOnError false
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def fileName = output.outputFile.name
@@ -63,7 +48,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     implementation project(':common')
     implementation project(':day')
     implementation('com.github.ruzhan123.Lion:movie:0.2.12')
