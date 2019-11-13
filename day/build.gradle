@@ -13,7 +13,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':common')
-    implementation('com.github.ruzhan123.Lion:font:0.2.3') {
+    implementation('com.github.ruzhan123.Lion:font:0.2.13') {
         exclude group: 'com.android.support'
     }
 }
