@@ -11,18 +11,7 @@ Screenshots
 <a href="gif/awaker05.png"><img src="gif/awaker05.png" width="30%"/></a>
 <a href="gif/awaker06.png"><img src="gif/awaker06.png" width="30%"/></a>
 
-Open Source :zap:
-------
-* [RxJava](https://github.com/ReactiveX/RxJava)
-* [RxAndroid](https://github.com/ReactiveX/RxAndroid)
-* [okhttp](https://github.com/square/okhttp)
-* [retrofit](https://github.com/square/retrofit)
-* [glide](https://github.com/bumptech/glide)
-* [material-dialogs](https://github.com/afollestad/material-dialogs)
-* [android-architecture-components](https://github.com/googlesamples/android-architecture-components)
-* [Lion](https://github.com/ruzhan123/Lion)
-
-Developed by
+Developed by:
 -------
 
  ruzhan - <a href='javascript:'>dev19921116@gmail.com</a>
