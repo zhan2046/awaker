@@ -3,15 +3,6 @@ apply from: '../core_dependencies.gradle'
 
 android {
 
-    signingConfigs {
-        config {
-            keyAlias versions.keyAlias
-            keyPassword versions.keyPassword
-            storeFile file('keystore/awaker.jks')
-            storePassword versions.storePassword
-        }
-    }
-
     defaultConfig {
         applicationId versions.applicationId
         versionCode 333
@@ -26,7 +17,6 @@ android {
             shrinkResources true
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
     }
 
