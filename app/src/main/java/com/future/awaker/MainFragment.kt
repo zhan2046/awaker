@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ruzhan.day.DayHomeFragment
+import com.ruzhan.movie.MovieHomeFragment
 import kotlinx.android.synthetic.main.frag_main.*
 
 class MainFragment : Fragment() {
@@ -19,7 +20,7 @@ class MainFragment : Fragment() {
     private val fragmentMap = HashMap<String, Fragment>()
 
     private var dayHomeFragment: DayHomeFragment? = null
-    private var movieContentFragment: MovieContentFragment? = null
+    private var movieHomeFragment: MovieHomeFragment? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.frag_main, container, false)
@@ -60,12 +61,12 @@ class MainFragment : Fragment() {
 
             }
             R.id.movie -> {
-                fragTag = "MovieContentFragment"
+                fragTag = "MovieHomeFragment"
                 frag = fragmentMap[fragTag]
 
                 if (frag == null) {
-                    frag = MovieContentFragment.newInstance()
-                    movieContentFragment = frag
+                    frag = MovieHomeFragment.newInstance()
+                    movieHomeFragment = frag
                     transaction.add(R.id.container, frag, fragTag)
 
                 } else {

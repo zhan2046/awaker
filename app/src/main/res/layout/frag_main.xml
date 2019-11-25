@@ -10,7 +10,7 @@
         android:layout_height="?attr/actionBarSize"
         app:labelVisibilityMode="unlabeled"
         android:layout_gravity="start|center_vertical"
-        android:background="@color/awaker_article_white_f5"
+        android:background="#FFF5F5F5"
         app:itemIconTint="@color/selector_bottom_item_tint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/home_navigation" />
@@ -26,7 +26,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/awaker_article_text_grey33"
+        android:background="#33757575"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintTop_toBottomOf="@+id/container" />
 </androidx.constraintlayout.widget.ConstraintLayout>
