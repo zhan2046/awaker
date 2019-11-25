@@ -11,20 +11,17 @@ object DayClient {
     private var api: DayApi? = null
 
     fun get(): DayApi {
-        var api = api
-        if (api == null) {
-            synchronized(DayClient::class) {
-                if (api == null) {
-                    val client = Retrofit.Builder().baseUrl(HOST)
-                            .client(OkHttpClient.Builder().build())
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                            .build()
-                    api = client.create(DayApi::class.java)
-                    DayClient.api = api
-                }
-            }
+        return api ?: synchronized(DayClient::class) {
+            api ?: create().also { api = it }
         }
-        return DayClient.api!!
+    }
+
+    private fun create(): DayApi {
+        val client = Retrofit.Builder().baseUrl(HOST)
+                .client(OkHttpClient.Builder().build())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+        return client.create(DayApi::class.java)
     }
 }
