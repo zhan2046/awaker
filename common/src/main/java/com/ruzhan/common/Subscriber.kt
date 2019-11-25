@@ -9,7 +9,8 @@ import io.reactivex.disposables.Disposable
 import org.reactivestreams.Subscription
 
 
-class Subscriber<T> internal constructor() : Observer<T>, SingleObserver<T>, MaybeObserver<T>,
+class Subscriber<T> internal constructor() : Observer<T>, SingleObserver<T>,
+        MaybeObserver<T>,
         CompletableObserver, org.reactivestreams.Subscriber<T> {
 
     override fun onSubscribe(d: Disposable) {}

@@ -13,7 +13,6 @@ object OnRefreshHelper {
         swipeRefresh.setOnRefreshListener { listener.onRefresh() }
         swipeRefresh.setColorSchemeColors(ContextCompat.getColor(recyclerView.context,
                 R.color.colorAccent))
-
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -24,7 +23,6 @@ object OnRefreshHelper {
             }
         })
     }
-
 
     fun isLoadMore(recyclerView: RecyclerView, newState: Int): Boolean {
         val adapter = recyclerView.adapter
