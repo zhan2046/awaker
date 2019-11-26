@@ -4,7 +4,7 @@ apply from: '../core_dependencies.gradle'
 android {
 
     defaultConfig {
-        applicationId versions.applicationId
+        applicationId "com.future.awaker"
         versionCode 333
         versionName "0.9.12"
         multiDexEnabled true
@@ -22,13 +22,6 @@ android {
 
     lintOptions {
         abortOnError false
-    }
-
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            def fileName = output.outputFile.name
-            outputFileName = fileName.replace("app", "awaker-${variant.versionName}-${variant.versionCode}")
-        }
     }
 
     sourceSets {

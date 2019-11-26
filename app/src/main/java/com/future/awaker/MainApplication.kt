@@ -1,5 +1,6 @@
 package com.future.awaker
 
+import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.Utils
@@ -7,7 +8,7 @@ import com.lion.font.FontHelper
 import com.ruzhan.common.util.ResUtils
 import com.ruzhan.movie.utils.X5Helper
 
-class MainApplication : android.app.Application() {
+class MainApplication : Application() {
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
