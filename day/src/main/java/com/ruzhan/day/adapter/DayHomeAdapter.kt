@@ -7,7 +7,8 @@ import com.ruzhan.common.util.ResUtils
 import com.ruzhan.day.DayNewFragment
 import com.ruzhan.day.R
 
-class DayHomeAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class DayHomeAdapter(fm: FragmentManager) :
+        FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private var titleList = ArrayList<String>()
     private val newListTab = ResUtils.getString(R.string.day_new_list_tab)
