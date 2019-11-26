@@ -30,7 +30,7 @@
 
 -keep class com.ruzhan.day.** { *; }
 -keep class com.ruzhan.lion.model.** { *; }
--keep class com.ruzhan.lion.db.entity.** { *; }
+-keep class com.ruzhan.lion.database.** { *; }
 
 
 -keep class com.ruzhan.awaker.article.model.** { *; }
