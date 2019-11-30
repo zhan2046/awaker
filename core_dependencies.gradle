@@ -54,4 +54,6 @@ dependencies {
         exclude group: 'com.android.support'
     }
     implementation "com.github.ruzhan123.Lion:font:0.2.13"
+    implementation "com.github.ruzhan123:MagicIndicator:1.6.1"
+
 }
