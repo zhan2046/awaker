@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#FFFFFFFF"
+            android:background="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <FrameLayout
@@ -35,17 +35,11 @@
             </FrameLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magicIndicator"
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#FFFFFFFF"
-            android:theme="@style/ThemeOverlay.ActionBar"
-            app:tabIndicatorColor="#FF2196F3"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="#FF2196F3"
-            app:tabTextAppearance="@style/TabLayout.TextSize"
-            app:tabTextColor="#99757575" />
+            android:layout_height="48dp" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
