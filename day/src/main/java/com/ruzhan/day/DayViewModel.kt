@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
+import com.google.gson.internal.LinkedTreeMap
 import com.google.gson.reflect.TypeToken
 import com.ruzhan.common.Subscriber
 import com.ruzhan.common.util.ResUtils
@@ -50,10 +51,10 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
     private var localDisposable: Disposable? = null
     private val compositeDisposable = CompositeDisposable()
 
-    private val refreshDayTagMap = TreeMap<String, ArrayList<DayNewModel>>(Comparator<String> { o1, o2 ->
+    private val refreshDayTagMap = LinkedTreeMap<String, ArrayList<DayNewModel>>(Comparator<String> { o1, o2 ->
         return@Comparator o1.compareTo(o2)
     })
-    private val loadMoreDayTagMap = TreeMap<String, ArrayList<DayNewModel>>(Comparator<String> { o1, o2 ->
+    private val loadMoreDayTagMap = LinkedTreeMap<String, ArrayList<DayNewModel>>(Comparator<String> { o1, o2 ->
         return@Comparator o1.compareTo(o2)
     })
 
@@ -169,7 +170,7 @@ class DayViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun handleDayTagList(list: List<DayNewModel>,
-                                 dayTagMap: TreeMap<String, ArrayList<DayNewModel>>,
+                                 dayTagMap: LinkedTreeMap<String, ArrayList<DayNewModel>>,
                                  status: String) {
         dayTagMap.clear()
         dayTagMap[newListTab] = ArrayList(list)
