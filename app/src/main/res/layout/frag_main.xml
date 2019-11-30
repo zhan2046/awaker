@@ -10,7 +10,7 @@
         android:layout_height="?attr/actionBarSize"
         app:labelVisibilityMode="unlabeled"
         android:layout_gravity="start|center_vertical"
-        android:background="#FFF5F5F5"
+        android:background="@color/colorPrimary"
         app:itemIconTint="@color/selector_bottom_item_tint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/home_navigation" />
