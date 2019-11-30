@@ -61,7 +61,7 @@ class DayHomeFragment : Fragment() {
     }
 
     private fun initData() {
-        titleTv.typeface = FontHelper.get().getBoldTypeface()
+        titleTv.typeface = FontHelper.get().boldFontTypeface
         titleTv.text = resources.getString(R.string.day_common_title_name)
         TitleHelper.setToolbar(toolbar, activity)
         TitleHelper.setAlphaScaleAnimate(titleTv)
@@ -80,7 +80,7 @@ class DayHomeFragment : Fragment() {
             override fun getTitleView(context: Context, index: Int):
                     IPagerTitleView {
                 val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
-                simplePagerTitleView.typeface = FontHelper.get().getBoldTypeface()
+                simplePagerTitleView.typeface = FontHelper.get().boldFontTypeface
                 simplePagerTitleView.text = titleList[index]
                 simplePagerTitleView.textSize = 15f
                 simplePagerTitleView.normalColor =

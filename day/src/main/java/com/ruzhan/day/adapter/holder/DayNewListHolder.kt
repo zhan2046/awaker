@@ -18,9 +18,9 @@ class DayNewListHolder(itemView: View, listener: OnItemClickListener<DayNewModel
     private val imageDayNewModelList = ArrayList<DayNewModel>()
 
     init {
-        itemView.titleTv.typeface = FontHelper.get().getBoldTypeface()
-        itemView.tagTv.typeface = FontHelper.get().getLightTypeface()
-        itemView.contentTv.typeface = FontHelper.get().getLightTypeface()
+        itemView.titleTv.typeface = FontHelper.get().boldFontTypeface
+        itemView.tagTv.typeface = FontHelper.get().lightFontTypeface
+        itemView.contentTv.typeface = FontHelper.get().lightFontTypeface
 
         if (listener != null) {
             itemView.setOnClickListener { view ->
