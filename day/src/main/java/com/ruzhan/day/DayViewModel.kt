@@ -1,13 +1,12 @@
 package com.ruzhan.day
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.awaker.common.Subscriber
+import com.awaker.common.util.ResUtils
 import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap
 import com.google.gson.reflect.TypeToken
-import com.awaker.common.Subscriber
-import com.awaker.common.util.ResUtils
 import com.ruzhan.database.CommonModel
 import com.ruzhan.day.model.DayNewModel
 import com.ruzhan.day.network.DayRepository
@@ -22,7 +21,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 
-class DayViewModel(app: Application) : AndroidViewModel(app) {
+class DayViewModel : ViewModel() {
 
     companion object {
         private const val START_PAGE = 1
