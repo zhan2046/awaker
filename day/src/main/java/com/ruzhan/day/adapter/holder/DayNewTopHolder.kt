@@ -9,13 +9,17 @@ import com.ruzhan.common.NumberHelper
 import com.ruzhan.common.OnItemClickListener
 import com.ruzhan.day.R
 import com.ruzhan.day.model.DayNewModel
-import kotlinx.android.synthetic.main.day_item_day_new_top.view.*
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.day_item_day_new_top.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) :
-        RecyclerView.ViewHolder(itemView) {
+        RecyclerView.ViewHolder(itemView), LayoutContainer {
+
+    override val containerView: View?
+        get() = itemView
 
     companion object {
         private const val INDEX_YEAR = 0
@@ -28,9 +32,9 @@ class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNewModel>
     private val simpleTime = SimpleDateFormat(DATE_FORMAT)
 
     init {
-        itemView.firstTitleTv.typeface = FontHelper.get().boldFontTypeface
-        itemView.tagTv.typeface = FontHelper.get().lightFontTypeface
-        itemView.contentTv.typeface = FontHelper.get().lightFontTypeface
+        firstTitleTv.typeface = FontHelper.get().boldFontTypeface
+        tagTv.typeface = FontHelper.get().lightFontTypeface
+        contentTv.typeface = FontHelper.get().lightFontTypeface
 
         if (listener != null) {
             itemView.setOnClickListener { listener.onItemClick(it, adapterPosition, dayNewModel) }
@@ -39,7 +43,7 @@ class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNewModel>
 
     fun bind(bean: DayNewModel) {
         dayNewModel = bean
-        ImageLoader.get().load(itemView.picIv, bean.cover_landscape ?: "")
+        ImageLoader.get().load(picIv, bean.cover_landscape ?: "")
         handleContentText(bean)
         handleTimeTitle(bean)
     }
@@ -50,14 +54,14 @@ class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNewModel>
         if (tags != null && tags.isNotEmpty()) {
             tagStr = tags[0].name ?: ""
         }
-        itemView.tagTv.text = tagStr
-        itemView.contentTv.text = bean.content
+        tagTv.text = tagStr
+        contentTv.text = bean.content
     }
 
     private fun handleTimeTitle(bean: DayNewModel) {
         val titleText = getCurrentTimeStr(bean)
-        itemView.firstTimeTv.text = titleText
-        itemView.firstTitleTv.text = bean.title
+        firstTimeTv.text = titleText
+        firstTitleTv.text = bean.title
     }
 
     private fun getCurrentTimeStr(bean: DayNewModel): String {

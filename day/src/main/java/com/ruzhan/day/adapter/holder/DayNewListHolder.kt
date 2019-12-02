@@ -8,19 +8,23 @@ import com.lion.font.FontHelper
 import com.ruzhan.common.OnItemClickListener
 import com.ruzhan.day.adapter.DayImageNewListAdapter
 import com.ruzhan.day.model.DayNewModel
-import kotlinx.android.synthetic.main.day_item_day_new_list.view.*
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.day_item_day_new_list.*
 
 class DayNewListHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) :
-        RecyclerView.ViewHolder(itemView) {
+        RecyclerView.ViewHolder(itemView), LayoutContainer {
+
+    override val containerView: View?
+        get() = itemView
 
     private lateinit var dayNewModel: DayNewModel
     private val dayImageNewListAdapter = DayImageNewListAdapter()
     private val imageDayNewModelList = ArrayList<DayNewModel>()
 
     init {
-        itemView.titleTv.typeface = FontHelper.get().boldFontTypeface
-        itemView.tagTv.typeface = FontHelper.get().lightFontTypeface
-        itemView.contentTv.typeface = FontHelper.get().lightFontTypeface
+        titleTv.typeface = FontHelper.get().boldFontTypeface
+        tagTv.typeface = FontHelper.get().lightFontTypeface
+        contentTv.typeface = FontHelper.get().lightFontTypeface
 
         if (listener != null) {
             itemView.setOnClickListener { view ->
@@ -29,13 +33,12 @@ class DayNewListHolder(itemView: View, listener: OnItemClickListener<DayNewModel
         }
         val layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL,
                 false)
-        itemView.newListRecyclerView.layoutManager = layoutManager
-        itemView.newListRecyclerView.adapter = dayImageNewListAdapter
+        newListRecyclerView.layoutManager = layoutManager
+        newListRecyclerView.adapter = dayImageNewListAdapter
         dayImageNewListAdapter.onItemClickListener = object : OnItemClickListener<DayNewModel> {
             override fun onItemClick(itemView: View, position: Int, bean: DayNewModel) {
-                val tagItemView = this@DayNewListHolder.itemView
-                ImageLoader.get().load(tagItemView.picIv, bean.cover_landscape ?: "")
-                tagItemView.contentTv.text = bean.content
+                ImageLoader.get().load(picIv, bean.cover_landscape ?: "")
+                contentTv.text = bean.content
                 dayImageNewListAdapter.notifyDataSetChanged()
             }
         }
@@ -43,8 +46,8 @@ class DayNewListHolder(itemView: View, listener: OnItemClickListener<DayNewModel
 
     fun bind(bean: DayNewModel) {
         dayNewModel = bean
-        ImageLoader.get().load(itemView.picIv, bean.cover_landscape ?: "")
-        itemView.titleTv.text = bean.title
+        ImageLoader.get().load(picIv, bean.cover_landscape ?: "")
+        titleTv.text = bean.title
         handleContentText(bean)
         handleImageNewList(bean)
     }
@@ -55,8 +58,8 @@ class DayNewListHolder(itemView: View, listener: OnItemClickListener<DayNewModel
         if (tags != null && tags.isNotEmpty()) {
             tagStr = tags[0].name ?: ""
         }
-        itemView.tagTv.text = tagStr
-        itemView.contentTv.text = bean.content
+        tagTv.text = tagStr
+        contentTv.text = bean.content
     }
 
     private fun handleImageNewList(bean: DayNewModel) {

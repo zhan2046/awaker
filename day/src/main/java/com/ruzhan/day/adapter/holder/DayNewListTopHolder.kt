@@ -11,14 +11,18 @@ import com.ruzhan.common.OnItemClickListener
 import com.ruzhan.day.R
 import com.ruzhan.day.adapter.DayImageNewListAdapter
 import com.ruzhan.day.model.DayNewModel
-import kotlinx.android.synthetic.main.day_item_day_new_list_top.view.*
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.day_item_day_new_list_top.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("SimpleDateFormat")
 class DayNewListTopHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) :
-        RecyclerView.ViewHolder(itemView) {
+        RecyclerView.ViewHolder(itemView), LayoutContainer {
+
+    override val containerView: View?
+        get() = itemView
 
     companion object {
         private const val INDEX_YEAR = 0
@@ -33,9 +37,9 @@ class DayNewListTopHolder(itemView: View, listener: OnItemClickListener<DayNewMo
     private val imageDayNewModelList = ArrayList<DayNewModel>()
 
     init {
-        itemView.firstTitleTv.typeface = FontHelper.get().boldFontTypeface
-        itemView.tagTv.typeface = FontHelper.get().lightFontTypeface
-        itemView.contentTv.typeface = FontHelper.get().lightFontTypeface
+        firstTitleTv.typeface = FontHelper.get().boldFontTypeface
+        tagTv.typeface = FontHelper.get().lightFontTypeface
+        contentTv.typeface = FontHelper.get().lightFontTypeface
 
         if (listener != null) {
             itemView.setOnClickListener { view ->
@@ -44,13 +48,12 @@ class DayNewListTopHolder(itemView: View, listener: OnItemClickListener<DayNewMo
         }
         val layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL,
                 false)
-        itemView.newListRecyclerView.layoutManager = layoutManager
-        itemView.newListRecyclerView.adapter = dayImageNewListAdapter
+        newListRecyclerView.layoutManager = layoutManager
+        newListRecyclerView.adapter = dayImageNewListAdapter
         dayImageNewListAdapter.onItemClickListener = object : OnItemClickListener<DayNewModel> {
             override fun onItemClick(itemView: View, position: Int, bean: DayNewModel) {
-                val tagItemView = this@DayNewListTopHolder.itemView
-                ImageLoader.get().load(tagItemView.picIv, bean.cover_landscape ?: "")
-                tagItemView.contentTv.text = bean.content
+                ImageLoader.get().load(picIv, bean.cover_landscape ?: "")
+                contentTv.text = bean.content
                 dayImageNewListAdapter.notifyDataSetChanged()
             }
         }
@@ -58,7 +61,7 @@ class DayNewListTopHolder(itemView: View, listener: OnItemClickListener<DayNewMo
 
     fun bind(bean: DayNewModel) {
         dayNewModel = bean
-        ImageLoader.get().load(itemView.picIv, bean.cover_landscape ?: "")
+        ImageLoader.get().load(picIv, bean.cover_landscape ?: "")
         handleContentText(bean)
         handleTimeTitle(bean)
         handleImageNewList(bean)
@@ -70,14 +73,14 @@ class DayNewListTopHolder(itemView: View, listener: OnItemClickListener<DayNewMo
         if (tags != null && tags.isNotEmpty()) {
             tagStr = tags[0].name ?: ""
         }
-        itemView.tagTv.text = tagStr
-        itemView.contentTv.text = bean.content
+        tagTv.text = tagStr
+        contentTv.text = bean.content
     }
 
     private fun handleTimeTitle(bean: DayNewModel) {
         val titleText = getCurrentTimeStr(bean)
-        itemView.firstTimeTv.text = titleText
-        itemView.firstTitleTv.text = bean.title
+        firstTimeTv.text = titleText
+        firstTitleTv.text = bean.title
     }
 
     private fun getCurrentTimeStr(bean: DayNewModel): String {

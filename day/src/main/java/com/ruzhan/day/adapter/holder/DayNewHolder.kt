@@ -6,17 +6,21 @@ import com.awaker.imageloader.ImageLoader
 import com.lion.font.FontHelper
 import com.ruzhan.common.OnItemClickListener
 import com.ruzhan.day.model.DayNewModel
-import kotlinx.android.synthetic.main.day_item_day_new.view.*
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.day_item_day_new.*
 
 class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) :
-        RecyclerView.ViewHolder(itemView) {
+        RecyclerView.ViewHolder(itemView), LayoutContainer {
+
+    override val containerView: View?
+        get() = itemView
 
     private lateinit var dayNewModel: DayNewModel
 
     init {
-        itemView.titleTv.typeface = FontHelper.get().boldFontTypeface
-        itemView.tagTv.typeface = FontHelper.get().lightFontTypeface
-        itemView.contentTv.typeface = FontHelper.get().lightFontTypeface
+        titleTv.typeface = FontHelper.get().boldFontTypeface
+        tagTv.typeface = FontHelper.get().lightFontTypeface
+        contentTv.typeface = FontHelper.get().lightFontTypeface
 
         if (listener != null) {
             itemView.setOnClickListener { view ->
@@ -27,8 +31,8 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
 
     fun bind(bean: DayNewModel) {
         dayNewModel = bean
-        ImageLoader.get().load(itemView.picIv, bean.cover_landscape ?: "")
-        itemView.titleTv.text = bean.title
+        ImageLoader.get().load(picIv, bean.cover_landscape ?: "")
+        titleTv.text = bean.title
         handleContentText(bean)
     }
 
@@ -38,7 +42,7 @@ class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) 
         if (tags != null && tags.isNotEmpty()) {
             tagStr = tags[0].name ?: ""
         }
-        itemView.tagTv.text = tagStr
-        itemView.contentTv.text = bean.content
+        tagTv.text = tagStr
+        contentTv.text = bean.content
     }
 }
