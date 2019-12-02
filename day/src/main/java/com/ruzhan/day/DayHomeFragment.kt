@@ -38,14 +38,16 @@ class DayHomeFragment : Fragment() {
         return inflater.inflate(R.layout.day_frag_home, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val dayViewModel = ViewModelProviders.of(activity!!)
-                .get(DayViewModel::class.java)
-        initData()
-        initLiveData(dayViewModel)
-        dayViewModel.getLocalDayList()
-        dayViewModel.refreshDayNewList()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity?.let { activity ->
+            val dayViewModel = ViewModelProviders.of(activity)
+                    .get(DayViewModel::class.java)
+            initData()
+            initLiveData(dayViewModel)
+            dayViewModel.getLocalDayList()
+            dayViewModel.refreshDayNewList()
+        }
     }
 
     private fun initLiveData(dayViewModel: DayViewModel) {
