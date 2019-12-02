@@ -33,6 +33,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':common')
     implementation project(':day')
-    implementation('com.github.ruzhan123.Lion:movie:0.2.14')
-    implementation "com.github.ruzhan123.Lion:common:0.2.14"
+    implementation("com.github.ruzhan123.Lion:movie:0.2.14") {
+        exclude group: 'com.android.support'
+    }
 }
