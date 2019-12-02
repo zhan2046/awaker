@@ -1,4 +1,4 @@
-package com.ruzhan.common
+package com.awaker.common
 
 import android.util.Log
 import io.reactivex.CompletableObserver

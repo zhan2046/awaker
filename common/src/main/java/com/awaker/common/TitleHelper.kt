@@ -1,4 +1,4 @@
-package com.ruzhan.common
+package com.awaker.common
 
 import android.app.Activity
 import android.content.Context
@@ -45,7 +45,7 @@ object TitleHelper {
         if (fastOutSlowIn == null) {
             fastOutSlowIn = AnimationUtils.loadInterpolator(context,
                     android.R.interpolator.fast_out_slow_in)
-            this.fastOutSlowIn = fastOutSlowIn
+            TitleHelper.fastOutSlowIn = fastOutSlowIn
         }
         return fastOutSlowIn
     }

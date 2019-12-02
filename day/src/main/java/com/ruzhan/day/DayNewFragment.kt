@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.ruzhan.common.OnRefreshHelper
+import com.awaker.common.OnRefreshHelper
 import com.ruzhan.day.adapter.DayNewAdapter
 import kotlinx.android.synthetic.main.day_frag_new.*
 
@@ -44,7 +44,7 @@ class DayNewFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
-            val dayViewModel = ViewModelProviders.of(activity!!)
+            val dayViewModel = ViewModelProviders.of(activity)
                     .get(DayViewModel::class.java)
             this.dayViewModel = dayViewModel
             initData()

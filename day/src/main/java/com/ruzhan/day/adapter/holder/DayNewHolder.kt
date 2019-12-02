@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.awaker.imageloader.ImageLoader
 import com.lion.font.FontHelper
-import com.ruzhan.common.OnItemClickListener
+import com.awaker.common.OnItemClickListener
 import com.ruzhan.day.model.DayNewModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.day_item_day_new.*

@@ -1,11 +1,7 @@
-package com.ruzhan.common.util
+package com.awaker.common.util
 
 import android.app.Application
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.widget.ImageView
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 
 object ResUtils {
 

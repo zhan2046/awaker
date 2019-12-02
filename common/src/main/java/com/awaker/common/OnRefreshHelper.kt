@@ -1,10 +1,11 @@
-package com.ruzhan.common
+package com.awaker.common
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.ruzhan.common.R
 
 object OnRefreshHelper {
 

@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap
 import com.google.gson.reflect.TypeToken
-import com.ruzhan.common.Subscriber
-import com.ruzhan.common.util.ResUtils
+import com.awaker.common.Subscriber
+import com.awaker.common.util.ResUtils
 import com.ruzhan.database.CommonModel
 import com.ruzhan.day.model.DayNewModel
 import com.ruzhan.day.network.DayRepository

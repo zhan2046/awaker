@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.awaker.imageloader.ImageLoader
 import com.lion.font.FontHelper
-import com.ruzhan.common.NumberHelper
-import com.ruzhan.common.OnItemClickListener
+import com.awaker.common.NumberHelper
+import com.awaker.common.OnItemClickListener
 import com.ruzhan.day.R
 import com.ruzhan.day.adapter.DayImageNewListAdapter
 import com.ruzhan.day.model.DayNewModel

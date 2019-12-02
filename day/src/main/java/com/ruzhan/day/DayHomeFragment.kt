@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.lion.font.FontHelper
-import com.ruzhan.common.TitleHelper
+import com.awaker.common.TitleHelper
 import com.ruzhan.day.adapter.DayHomeAdapter
 import com.ruzhan.day.widget.ScaleTransitionPagerTitleView
 import kotlinx.android.synthetic.main.day_frag_home.*
