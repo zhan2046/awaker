@@ -50,6 +50,12 @@ class DayNewFragment : Fragment() {
         initData()
         initListener()
         initLiveData()
+//        val dayList = dayViewModel.refreshDayNewLiveData.value
+//        if (dayList != null && dayList.isNotEmpty()) {
+//            progressBar.visibility = View.GONE
+//            val tagDayNewList = dayViewModel.getRefreshTagDayModelList(dayTag)
+//            dayNewAdapter.setRefreshData(tagDayNewList)
+//        }
     }
 
     private fun initData() {
@@ -64,11 +70,11 @@ class DayNewFragment : Fragment() {
         OnRefreshHelper.setOnRefreshStatusListener(swipeRefreshLayout, recyclerView,
                 object : OnRefreshHelper.OnRefreshStatusListener {
                     override fun onLoadMore() {
-                        dayViewModel.loadMoreDayNewList()
+                        // do nothing
                     }
 
                     override fun onRefresh() {
-                        dayViewModel.refreshDayNewList()
+                        dayViewModel.getDayNewList()
                     }
                 })
     }
@@ -79,13 +85,6 @@ class DayNewFragment : Fragment() {
                 progressBar.visibility = View.GONE
                 val tagDayNewList = dayViewModel.getRefreshTagDayModelList(dayTag)
                 dayNewAdapter.setRefreshData(tagDayNewList)
-            }
-        })
-        dayViewModel.loadMoreDayNewLiveData.observe(this, Observer { dayNewList ->
-            if (dayNewList != null) {
-                progressBar.visibility = View.GONE
-                val tagDayNewList = dayViewModel.getLoadMoreTagDayModelList(dayTag)
-                dayNewAdapter.setLoadMoreData(tagDayNewList)
             }
         })
         dayViewModel.loadStatusLiveData.observe(this, Observer { isLoadStatus ->

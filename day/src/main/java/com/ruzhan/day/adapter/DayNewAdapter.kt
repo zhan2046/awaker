@@ -10,7 +10,7 @@ import com.ruzhan.day.adapter.holder.DayNewHolder
 import com.ruzhan.day.adapter.holder.DayNewListHolder
 import com.ruzhan.day.adapter.holder.DayNewListTopHolder
 import com.ruzhan.day.adapter.holder.DayNewTopHolder
-import com.ruzhan.day.model.DayNewModel
+import com.ruzhan.day.db.entity.DayNew
 
 class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -25,9 +25,9 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val dataList = ArrayList<Any>()
 
-    var onItemClickListener: OnItemClickListener<DayNewModel>? = null
+    var onItemClickListener: OnItemClickListener<DayNew>? = null
 
-    fun setRefreshData(list: List<DayNewModel>?) {
+    fun setRefreshData(list: List<DayNew>?) {
         if (list != null) {
             dataList.clear()
             dataList.addAll(list)
@@ -35,19 +35,12 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    fun setLoadMoreData(list: List<DayNewModel>?) {
-        if (list != null) {
-            dataList.addAll(list)
-            notifyDataSetChanged()
-        }
-    }
-
     override fun getItemViewType(position: Int): Int {
         if (position == 0) {
-            return if (dataList[position] is DayNewModel) {
-                val dayNewModel = dataList[position] as DayNewModel
-                val album = dayNewModel.album
-                if (album != null && album.isNotEmpty()) {
+            return if (dataList[position] is DayNew) {
+                val dayNew = dataList[position] as DayNew
+                val album = dayNew.album
+                if (album.isNotEmpty()) {
                     TYPE_DAY_NEW_LIST_TOP
                 } else {
                     TYPE_DAY_NEW_TOP
@@ -57,10 +50,10 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
         return when (dataList[position]) {
-            is DayNewModel -> {
-                val dayNewModel = dataList[position] as DayNewModel
-                val album = dayNewModel.album
-                if (album != null && album.isNotEmpty()) {
+            is DayNew -> {
+                val dayNew = dataList[position] as DayNew
+                val album = dayNew.album
+                if (album.isNotEmpty()) {
                     TYPE_DAY_NEW_LIST
                 } else {
                     TYPE_DAY_NEW
@@ -98,22 +91,22 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             TYPE_DAY_NEW_TOP -> {
-                val bean = dataList[position] as DayNewModel
+                val bean = dataList[position] as DayNew
                 val viewHolder = holder as DayNewTopHolder
                 viewHolder.bind(bean)
             }
             TYPE_DAY_NEW -> {
-                val bean = dataList[position] as DayNewModel
+                val bean = dataList[position] as DayNew
                 val viewHolder = holder as DayNewHolder
                 viewHolder.bind(bean)
             }
             TYPE_DAY_NEW_LIST_TOP -> {
-                val bean = dataList[position] as DayNewModel
+                val bean = dataList[position] as DayNew
                 val viewHolder = holder as DayNewListTopHolder
                 viewHolder.bind(bean)
             }
             TYPE_DAY_NEW_LIST -> {
-                val bean = dataList[position] as DayNewModel
+                val bean = dataList[position] as DayNew
                 val viewHolder = holder as DayNewListHolder
                 viewHolder.bind(bean)
             }

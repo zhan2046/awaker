@@ -3,19 +3,19 @@ package com.ruzhan.day.adapter.holder
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.awaker.imageloader.ImageLoader
-import com.lion.font.FontHelper
 import com.awaker.common.NumberHelper
 import com.awaker.common.OnItemClickListener
+import com.awaker.imageloader.ImageLoader
+import com.lion.font.FontHelper
 import com.ruzhan.day.R
-import com.ruzhan.day.model.DayNewModel
+import com.ruzhan.day.db.entity.DayNew
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.day_item_day_new_top.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 @SuppressLint("SimpleDateFormat")
-class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNewModel>?) :
+class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNew>?) :
         RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     override val containerView: View?
@@ -28,7 +28,7 @@ class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNewModel>
         private const val DATE_FORMAT = "yyyy/MM/dd/"
     }
 
-    private lateinit var dayNewModel: DayNewModel
+    private lateinit var dayNew: DayNew
     private val simpleTime = SimpleDateFormat(DATE_FORMAT)
 
     init {
@@ -37,35 +37,35 @@ class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNewModel>
         contentTv.typeface = FontHelper.get().lightFontTypeface
 
         if (listener != null) {
-            itemView.setOnClickListener { listener.onItemClick(it, adapterPosition, dayNewModel) }
+            itemView.setOnClickListener { listener.onItemClick(it, adapterPosition, dayNew) }
         }
     }
 
-    fun bind(bean: DayNewModel) {
-        dayNewModel = bean
+    fun bind(bean: DayNew) {
+        dayNew = bean
         ImageLoader.get().load(picIv, bean.cover_landscape ?: "")
         handleContentText(bean)
         handleTimeTitle(bean)
     }
 
-    private fun handleContentText(bean: DayNewModel) {
+    private fun handleContentText(bean: DayNew) {
         val tags = bean.tags
         var tagStr = ""
-        if (tags != null && tags.isNotEmpty()) {
-            tagStr = tags[0].name ?: ""
+        if (tags.isNotEmpty()) {
+            tagStr = tags[0].name
         }
         tagTv.text = tagStr
         contentTv.text = bean.content
     }
 
-    private fun handleTimeTitle(bean: DayNewModel) {
+    private fun handleTimeTitle(bean: DayNew) {
         val titleText = getCurrentTimeStr(bean)
         firstTimeTv.text = titleText
         firstTitleTv.text = bean.title
     }
 
-    private fun getCurrentTimeStr(bean: DayNewModel): String {
-        var titleText = bean.title ?: ""
+    private fun getCurrentTimeStr(bean: DayNew): String {
+        var titleText = bean.title
         val currentTime = simpleTime.format(Date(bean.pubdate_timestamp.toLong() * 1000))
         val timeList = currentTime.split("/")
         if (timeList.isNotEmpty()) {

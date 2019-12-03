@@ -6,14 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.awaker.common.OnItemClickListener
 import com.ruzhan.day.R
 import com.ruzhan.day.adapter.holder.DayImageNewListHolder
-import com.ruzhan.day.model.DayNewModel
 
 class DayImageNewListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val dataList = ArrayList<Any>()
-    var onItemClickListener: OnItemClickListener<DayNewModel>? = null
+    var onItemClickListener: OnItemClickListener<Any>? = null
 
-    fun setData(list: List<DayNewModel>) {
+    fun setData(list: List<Any>) {
         dataList.clear()
         dataList.addAll(list)
         notifyDataSetChanged()
@@ -28,6 +27,6 @@ class DayImageNewListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as DayImageNewListHolder).bind(dataList[position] as DayNewModel)
+        (holder as DayImageNewListHolder).bind(dataList[position])
     }
 }

@@ -49,8 +49,7 @@ class DayHomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         initData()
         initLiveData()
-        dayViewModel.getLocalDayList()
-        dayViewModel.refreshDayNewList()
+        dayViewModel.getDayNewList()
     }
 
     private fun initLiveData() {
