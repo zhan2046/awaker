@@ -28,8 +28,12 @@ class DayNewFragment : Fragment() {
     }
 
     private var dayTag = ""
-    private var dayViewModel: DayViewModel? = null
-    private val dayNewAdapter = DayNewAdapter()
+    private val dayViewModel: DayViewModel by lazy {
+        ViewModelProviders.of(activity!!).get(DayViewModel::class.java)
+    }
+    private val dayNewAdapter: DayNewAdapter by lazy {
+        DayNewAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,19 +47,14 @@ class DayNewFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.let { activity ->
-            val dayViewModel = ViewModelProviders.of(activity)
-                    .get(DayViewModel::class.java)
-            this.dayViewModel = dayViewModel
-            initData()
-            initListener()
-            initLiveData(dayViewModel)
-        }
+        initData()
+        initListener()
+        initLiveData()
     }
 
     private fun initData() {
         recyclerView.adapter = dayNewAdapter
-        val tagDayNewList = dayViewModel?.getRefreshTagDayModelList(dayTag)
+        val tagDayNewList = dayViewModel.getRefreshTagDayModelList(dayTag)
         progressBar.visibility = if (tagDayNewList != null && tagDayNewList.isNotEmpty())
             View.GONE else View.VISIBLE
         dayNewAdapter.setRefreshData(tagDayNewList)
@@ -65,16 +64,16 @@ class DayNewFragment : Fragment() {
         OnRefreshHelper.setOnRefreshStatusListener(swipeRefreshLayout, recyclerView,
                 object : OnRefreshHelper.OnRefreshStatusListener {
                     override fun onLoadMore() {
-                        dayViewModel?.loadMoreDayNewList()
+                        dayViewModel.loadMoreDayNewList()
                     }
 
                     override fun onRefresh() {
-                        dayViewModel?.refreshDayNewList()
+                        dayViewModel.refreshDayNewList()
                     }
                 })
     }
 
-    private fun initLiveData(dayViewModel: DayViewModel) {
+    private fun initLiveData() {
         dayViewModel.refreshDayNewLiveData.observe(this, Observer { dayNewList ->
             if (dayNewList != null) {
                 progressBar.visibility = View.GONE
