@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.awaker.common.TitleHelper
+import com.ruzhan.day.helper.TitleHelper
 import com.google.gson.internal.LinkedTreeMap
 import com.lion.font.FontHelper
 import com.ruzhan.day.adapter.DayHomeAdapter

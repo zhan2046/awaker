@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.Utils
 import com.lion.font.FontHelper
-import com.awaker.common.util.ResUtils
+import com.ruzhan.day.util.ResUtils
 import com.ruzhan.movie.utils.X5Helper
 
 class MainApplication : Application() {

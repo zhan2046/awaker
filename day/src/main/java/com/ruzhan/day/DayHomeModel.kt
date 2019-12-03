@@ -3,7 +3,7 @@ package com.ruzhan.day
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.awaker.common.util.ResUtils
+import com.ruzhan.day.util.ResUtils
 import com.google.gson.internal.LinkedTreeMap
 import com.ruzhan.day.db.entity.DayNew
 import com.ruzhan.day.network.DayRepository
@@ -59,22 +59,24 @@ class DayHomeModel : ViewModel() {
         }
     }
 
-    private fun updateDayTagList(list: List<DayNew>) {
-        dayTagMap.clear()
-        dayTagMap[firstTab] = ""
-        for (item in list) {
-            val tags = item.tags
-            if (tags.isNotEmpty()) {
-                val tagsModel = tags[0]
-                val tagName = tagsModel.name
-                val tagNameList = tagName.split(" · ")
-                if (tagNameList.isNotEmpty()) {
-                    val key = tagNameList[tagNameList.size - 1]
-                    dayTagMap[key] = tagsModel.id
+    private fun updateDayTagList(dayNewList: List<DayNew>) {
+        if (dayNewList.isNotEmpty()) {
+            dayTagMap.clear()
+            dayTagMap[firstTab] = ""
+            for (item in dayNewList) {
+                val tags = item.tags
+                if (tags.isNotEmpty()) {
+                    val tagsModel = tags[0]
+                    val tagName = tagsModel.name
+                    val tagNameList = tagName.split(" · ")
+                    if (tagNameList.isNotEmpty()) {
+                        val key = tagNameList[tagNameList.size - 1]
+                        dayTagMap[key] = tagsModel.id
+                    }
                 }
             }
+            Log.i("DayHomeModel", "dayTagMap:$dayTagMap")
+            tagMapLiveData.value = dayTagMap
         }
-        Log.i("DayHomeModel", "dayTagMap:$dayTagMap")
-        tagMapLiveData.value = dayTagMap
     }
 }

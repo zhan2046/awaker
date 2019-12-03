@@ -1,4 +1,4 @@
-package com.awaker.common
+package com.ruzhan.day.base
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

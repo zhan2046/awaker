@@ -2,7 +2,7 @@ package com.ruzhan.day.adapter.holder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.awaker.common.OnItemClickListener
+import com.ruzhan.day.base.OnItemClickListener
 import com.awaker.imageloader.ImageLoader
 import com.lion.font.FontHelper
 import com.ruzhan.day.db.entity.DayNew

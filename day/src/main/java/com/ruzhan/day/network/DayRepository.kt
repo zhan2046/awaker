@@ -1,6 +1,6 @@
 package com.ruzhan.day.network
 
-import com.awaker.common.util.ResUtils
+import com.ruzhan.day.util.ResUtils
 import com.ruzhan.day.db.DayDatabase
 import com.ruzhan.day.db.entity.DayNew
 import com.ruzhan.day.helper.DayNewHelper

@@ -1,4 +1,4 @@
-package com.awaker.common
+package com.ruzhan.day.helper
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager

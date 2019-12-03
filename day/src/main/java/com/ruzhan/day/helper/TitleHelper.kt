@@ -1,4 +1,4 @@
-package com.awaker.common
+package com.ruzhan.day.helper
 
 import android.app.Activity
 import android.content.Context

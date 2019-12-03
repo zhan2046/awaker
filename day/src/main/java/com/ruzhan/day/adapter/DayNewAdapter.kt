@@ -3,8 +3,8 @@ package com.ruzhan.day.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.awaker.common.EmptyHolder
-import com.awaker.common.OnItemClickListener
+import com.ruzhan.day.base.EmptyHolder
+import com.ruzhan.day.base.OnItemClickListener
 import com.ruzhan.day.R
 import com.ruzhan.day.adapter.holder.DayNewHolder
 import com.ruzhan.day.adapter.holder.DayNewListHolder
