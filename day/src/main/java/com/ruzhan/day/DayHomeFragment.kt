@@ -69,7 +69,6 @@ class DayHomeFragment : Fragment() {
         titleTv.text = resources.getString(R.string.day_common_title_name)
         TitleHelper.setToolbar(toolbar, activity)
         TitleHelper.setAlphaScaleAnimate(titleTv)
-
         viewPager.adapter = dayHomeAdapter
         initIndicator()
     }

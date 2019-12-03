@@ -10,7 +10,7 @@ import io.reactivex.Flowable
 @Dao
 interface DayNewDao {
 
-    @Query("SELECT * FROM day_new")
+    @Query("SELECT * FROM day_new ORDER BY pubdate_timestamp DESC")
     fun loadDayNewList(): Flowable<List<DayNew>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
