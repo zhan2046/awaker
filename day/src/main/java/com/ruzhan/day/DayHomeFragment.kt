@@ -9,8 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.lion.font.FontHelper
 import com.awaker.common.TitleHelper
+import com.lion.font.FontHelper
 import com.ruzhan.day.adapter.DayHomeAdapter
 import com.ruzhan.day.widget.ScaleTransitionPagerTitleView
 import kotlinx.android.synthetic.main.day_frag_home.*
@@ -29,9 +29,16 @@ class DayHomeFragment : Fragment() {
         fun newInstance() = DayHomeFragment()
     }
 
-    private var dayHomeAdapter: DayHomeAdapter? = null
-    private var commonNavigator: CommonNavigator? = null
     private val titleList = ArrayList<String>()
+    private val dayHomeAdapter: DayHomeAdapter by lazy {
+        DayHomeAdapter(childFragmentManager)
+    }
+    private val commonNavigator: CommonNavigator by lazy {
+        CommonNavigator(activity)
+    }
+    private val dayViewModel: DayViewModel by lazy {
+        ViewModelProviders.of(activity!!).get(DayViewModel::class.java)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -40,24 +47,20 @@ class DayHomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.let { activity ->
-            val dayViewModel = ViewModelProviders.of(activity)
-                    .get(DayViewModel::class.java)
-            initData()
-            initLiveData(dayViewModel)
-            dayViewModel.getLocalDayList()
-            dayViewModel.refreshDayNewList()
-        }
+        initData()
+        initLiveData()
+        dayViewModel.getLocalDayList()
+        dayViewModel.refreshDayNewList()
     }
 
-    private fun initLiveData(dayViewModel: DayViewModel) {
+    private fun initLiveData() {
         dayViewModel.tagListLiveData.observe(this,
                 Observer<List<String>> { tagList ->
                     if (tagList != null) {
                         titleList.clear()
                         titleList.addAll(tagList)
-                        dayHomeAdapter?.setData(titleList)
-                        commonNavigator?.notifyDataSetChanged()
+                        dayHomeAdapter.setData(titleList)
+                        commonNavigator.notifyDataSetChanged()
                     }
                 })
     }
@@ -68,15 +71,11 @@ class DayHomeFragment : Fragment() {
         TitleHelper.setToolbar(toolbar, activity)
         TitleHelper.setAlphaScaleAnimate(titleTv)
 
-        val dayHomeAdapter = DayHomeAdapter(childFragmentManager)
-        this.dayHomeAdapter = dayHomeAdapter
         viewPager.adapter = dayHomeAdapter
         initIndicator()
     }
 
     private fun initIndicator() {
-        val commonNavigator = CommonNavigator(activity)
-        this.commonNavigator = commonNavigator
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
 
             override fun getTitleView(context: Context, index: Int):
