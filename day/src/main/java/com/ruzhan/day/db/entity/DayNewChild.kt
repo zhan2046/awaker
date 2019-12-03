@@ -18,5 +18,6 @@ data class DayNewChild(
         var longitude: Double,
         var location: String,
         var content: String,
-        var tags: ArrayList<Tags> = ArrayList()
+        var tags: ArrayList<Tags> = ArrayList(),
+        var tagKey: String = ""
 )

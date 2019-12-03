@@ -27,7 +27,7 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var onItemClickListener: OnItemClickListener<DayNew>? = null
 
-    fun setRefreshData(list: List<DayNew>?) {
+    fun setData(list: List<DayNew>?) {
         if (list != null) {
             dataList.clear()
             dataList.addAll(list)

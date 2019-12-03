@@ -1,6 +1,7 @@
 package com.ruzhan.day.helper
 
 import com.ruzhan.day.db.entity.DayNew
+import com.ruzhan.day.db.entity.DayNewChild
 import com.ruzhan.day.db.entity.Tags
 import com.ruzhan.day.model.DayNewModel
 import com.ruzhan.day.model.TagsModel
@@ -21,11 +22,14 @@ object DayNewHelper {
     }
 
     private fun toDayNew(bean: DayNewModel): DayNew {
+        val tagList = getTagList(bean.tags)
+        val tagKey = if (tagList.isNotEmpty()) tagList[0].id else ""
         return DayNew(bean.guid, bean.type, bean.cat, bean.title, bean.cover_thumb,
                 bean.cover_landscape, bean.cover_landscape_hd, bean.pubdate,
                 bean.archive_timestamp, bean.pubdate_timestamp, bean.lastupdate_timestamp,
                 bean.ui_sets?.caption_subtitle ?: "", bean.title_wechat_tml,
-                bean.latitude, bean.longitude, bean.location, bean.content, getTagList(bean.tags))
+                bean.latitude, bean.longitude, bean.location, bean.content, tagList,
+                getDayNewChildList(bean.album), tagKey)
     }
 
     private fun getTagList(list: List<TagsModel>?): ArrayList<Tags> {
@@ -36,5 +40,21 @@ object DayNewHelper {
             }
         }
         return tagList
+    }
+
+    private fun getDayNewChildList(list: List<DayNewModel>?): ArrayList<DayNewChild> {
+        val newList = ArrayList<DayNewChild>()
+        if (list != null) {
+            for (bean in list) {
+                val tagList = getTagList(bean.tags)
+                val tagKey = if (tagList.isNotEmpty()) tagList[0].id else ""
+                newList.add(DayNewChild(bean.guid, bean.type, bean.cat, bean.title, bean.cover_thumb,
+                        bean.cover_landscape, bean.cover_landscape_hd, bean.pubdate,
+                        bean.archive_timestamp, bean.pubdate_timestamp, bean.lastupdate_timestamp,
+                        bean.ui_sets?.caption_subtitle ?: "", bean.title_wechat_tml,
+                        bean.latitude, bean.longitude, bean.location, bean.content, tagList, tagKey))
+            }
+        }
+        return newList
     }
 }

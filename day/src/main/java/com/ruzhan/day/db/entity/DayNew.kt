@@ -43,5 +43,7 @@ data class DayNew(
         @ColumnInfo(name = "tags")
         var tags: ArrayList<Tags> = ArrayList(),
         @ColumnInfo(name = "album")
-        var album: ArrayList<DayNewChild> = ArrayList()
+        var album: ArrayList<DayNewChild> = ArrayList(),
+        @ColumnInfo(name = "tag_key")
+        var tagKey: String = ""
 )

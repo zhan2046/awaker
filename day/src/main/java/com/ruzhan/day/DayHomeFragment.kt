@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.awaker.common.TitleHelper
+import com.google.gson.internal.LinkedTreeMap
 import com.lion.font.FontHelper
 import com.ruzhan.day.adapter.DayHomeAdapter
 import com.ruzhan.day.widget.ScaleTransitionPagerTitleView
@@ -36,8 +37,8 @@ class DayHomeFragment : Fragment() {
     private val commonNavigator: CommonNavigator by lazy {
         CommonNavigator(activity)
     }
-    private val dayViewModel: DayViewModel by lazy {
-        ViewModelProviders.of(activity!!).get(DayViewModel::class.java)
+    private val dayHomeModel: DayHomeModel by lazy {
+        ViewModelProviders.of(activity!!).get(DayHomeModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -49,19 +50,24 @@ class DayHomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         initData()
         initLiveData()
-        dayViewModel.getDayNewList()
+        dayHomeModel.getDayNewList()
     }
 
     private fun initLiveData() {
-        dayViewModel.tagListLiveData.observe(this,
-                Observer<List<String>> { tagList ->
-                    if (tagList != null) {
+        dayHomeModel.tagMapLiveData.observe(this,
+                Observer<LinkedTreeMap<String, String>> { tagMap ->
+                    if (tagMap != null && tagMap.isNotEmpty()) {
                         titleList.clear()
-                        titleList.addAll(tagList)
-                        dayHomeAdapter.setData(titleList)
+                        titleList.addAll(tagMap.keys)
+                        dayHomeAdapter.setData(tagMap)
                         commonNavigator.notifyDataSetChanged()
                     }
                 })
+        dayHomeModel.loadStatusLiveData.observe(this, Observer { isLoadStatus ->
+            if (isLoadStatus != null && !isLoadStatus) {
+                // do nothing
+            }
+        })
     }
 
     private fun initData() {

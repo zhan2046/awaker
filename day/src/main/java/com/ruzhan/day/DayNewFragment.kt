@@ -15,21 +15,24 @@ class DayNewFragment : Fragment() {
 
     companion object {
 
-        private const val DAY_TAG = "DAY_TAG"
+        private const val TAG_KEY = "TAG_KEY"
 
         @JvmStatic
-        fun newInstance(dayTag: String): DayNewFragment {
+        fun newInstance(tagKey: String): DayNewFragment {
             val args = Bundle()
-            args.putString(DAY_TAG, dayTag)
+            args.putString(TAG_KEY, tagKey)
             val frag = DayNewFragment()
             frag.arguments = args
             return frag
         }
     }
 
-    private var dayTag = ""
+    private var tagKey = ""
+    private val dayHomeModel: DayHomeModel by lazy {
+        ViewModelProviders.of(activity!!).get(DayHomeModel::class.java)
+    }
     private val dayViewModel: DayViewModel by lazy {
-        ViewModelProviders.of(activity!!).get(DayViewModel::class.java)
+        ViewModelProviders.of(this).get(DayViewModel::class.java)
     }
     private val dayNewAdapter: DayNewAdapter by lazy {
         DayNewAdapter()
@@ -37,7 +40,7 @@ class DayNewFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dayTag = arguments?.getString(DAY_TAG, "") ?: ""
+        tagKey = arguments?.getString(TAG_KEY, "") ?: ""
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -50,31 +53,23 @@ class DayNewFragment : Fragment() {
         initData()
         initListener()
         initLiveData()
-//        val dayList = dayViewModel.refreshDayNewLiveData.value
-//        if (dayList != null && dayList.isNotEmpty()) {
-//            progressBar.visibility = View.GONE
-//            val tagDayNewList = dayViewModel.getRefreshTagDayModelList(dayTag)
-//            dayNewAdapter.setRefreshData(tagDayNewList)
-//        }
+        dayViewModel.loadDayNewList(tagKey)
     }
 
     private fun initData() {
         recyclerView.adapter = dayNewAdapter
-        val tagDayNewList = dayViewModel.getRefreshTagDayModelList(dayTag)
-        progressBar.visibility = if (tagDayNewList != null && tagDayNewList.isNotEmpty())
-            View.GONE else View.VISIBLE
-        dayNewAdapter.setRefreshData(tagDayNewList)
     }
 
     private fun initListener() {
         OnRefreshHelper.setOnRefreshStatusListener(swipeRefreshLayout, recyclerView,
                 object : OnRefreshHelper.OnRefreshStatusListener {
-                    override fun onLoadMore() {
-                        // do nothing
-                    }
 
                     override fun onRefresh() {
-                        dayViewModel.getDayNewList()
+                        dayHomeModel.getDayNewList()
+                    }
+
+                    override fun onLoadMore() {
+                        // do nothing
                     }
                 })
     }
@@ -83,11 +78,10 @@ class DayNewFragment : Fragment() {
         dayViewModel.refreshDayNewLiveData.observe(this, Observer { dayNewList ->
             if (dayNewList != null) {
                 progressBar.visibility = View.GONE
-                val tagDayNewList = dayViewModel.getRefreshTagDayModelList(dayTag)
-                dayNewAdapter.setRefreshData(tagDayNewList)
+                dayNewAdapter.setData(dayNewList)
             }
         })
-        dayViewModel.loadStatusLiveData.observe(this, Observer { isLoadStatus ->
+        dayHomeModel.loadStatusLiveData.observe(this, Observer { isLoadStatus ->
             if (isLoadStatus != null && !isLoadStatus) {
                 swipeRefreshLayout.isRefreshing = isLoadStatus
             }

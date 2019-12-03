@@ -43,6 +43,10 @@ class DayRepository {
         return dayDatabase.dayNewDao().loadDayNewList()
     }
 
+    fun loadDayNewList(tagKey: String): Flowable<List<DayNew>> {
+        return dayDatabase.dayNewDao().loadDayNewList(tagKey)
+    }
+
     private fun insertDayNewList(dayNewList: List<DayNew>) {
         return dayDatabase.dayNewDao().insertDayNewList(dayNewList)
     }
