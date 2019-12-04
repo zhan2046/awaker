@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ruzhan.day.helper.NumberHelper
 import com.ruzhan.day.base.OnItemClickListener
-import com.awaker.imageloader.ImageLoader
-import com.lion.font.FontHelper
 import com.ruzhan.day.R
 import com.ruzhan.day.adapter.DayImageNewListAdapter
 import com.ruzhan.day.db.entity.DayNew
 import com.ruzhan.day.db.entity.DayNewChild
+import com.ruzhan.font.FontHelper
+import com.ruzhan.imageloader.glide.ImageLoader
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.day_item_day_new_list_top.*
 import java.text.SimpleDateFormat

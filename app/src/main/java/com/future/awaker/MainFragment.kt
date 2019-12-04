@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ruzhan.day.DayHomeFragment
-import com.ruzhan.movie.MovieHomeFragment
+import com.ruzhan.movie.home.MovieHomeFragment
 import kotlinx.android.synthetic.main.frag_main.*
 
 class MainFragment : Fragment() {

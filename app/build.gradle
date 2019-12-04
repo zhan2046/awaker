@@ -9,18 +9,10 @@ android {
         versionName "0.9.12"
         multiDexEnabled true
     }
-
-    packagingOptions {
-        exclude 'META-INF/common_release.kotlin_module'
-        exclude 'META-INF/database_release.kotlin_module'
-        exclude 'META-INF/imageloader_release.kotlin_module'
-    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':day')
-    implementation("com.github.ruzhan123.Lion:movie:0.2.14") {
-        exclude group: 'com.android.support'
-    }
+    implementation 'com.github.ruzhan123:Lion:0.2.15'
 }

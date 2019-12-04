@@ -57,9 +57,8 @@ dependencies {
     implementation('com.github.chrisbanes:PhotoView:2.3.0') {
         exclude group: 'com.android.support'
     }
-    implementation("com.github.ruzhan123.Lion:common:0.2.14") {
-        exclude group: 'com.android.support'
-    }
     implementation "com.github.ruzhan123:MagicIndicator:1.6.1"
 
+    implementation 'com.github.ruzhan123.freelancer:font:0.1'
+    implementation 'com.github.ruzhan123.freelancer:imageloader:0.1'
 }

@@ -11,9 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.ruzhan.day.helper.TitleHelper
 import com.google.gson.internal.LinkedTreeMap
-import com.lion.font.FontHelper
 import com.ruzhan.day.adapter.DayHomeAdapter
 import com.ruzhan.day.widget.ScaleTransitionPagerTitleView
+import com.ruzhan.font.FontHelper
 import kotlinx.android.synthetic.main.day_frag_home.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator

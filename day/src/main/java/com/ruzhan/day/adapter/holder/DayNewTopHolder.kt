@@ -5,10 +5,10 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.ruzhan.day.helper.NumberHelper
 import com.ruzhan.day.base.OnItemClickListener
-import com.awaker.imageloader.ImageLoader
-import com.lion.font.FontHelper
 import com.ruzhan.day.R
 import com.ruzhan.day.db.entity.DayNew
+import com.ruzhan.font.FontHelper
+import com.ruzhan.imageloader.glide.ImageLoader
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.day_item_day_new_top.*
 import java.text.SimpleDateFormat
@@ -43,7 +43,7 @@ class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNew>?) :
 
     fun bind(bean: DayNew) {
         dayNew = bean
-        ImageLoader.get().load(picIv, bean.cover_landscape ?: "")
+        ImageLoader.get().load(picIv, bean.cover_landscape)
         handleContentText(bean)
         handleTimeTitle(bean)
     }
@@ -66,7 +66,7 @@ class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNew>?) :
 
     private fun getCurrentTimeStr(bean: DayNew): String {
         var titleText = bean.title
-        val currentTime = simpleTime.format(Date(bean.pubdate_timestamp.toLong() * 1000))
+        val currentTime = simpleTime.format(Date(bean.pubdate_timestamp * 1000))
         val timeList = currentTime.split("/")
         if (timeList.isNotEmpty()) {
             titleText = itemView.resources.getString(R.string.day_tag_year)

@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF1E88E5</color>
 
     <color name="text_secondary_dark">#8a000000</color> <!-- 54% -->
+    <color name="loading_placeholders_grey">#FFBDBDBD</color>
 </resources>
