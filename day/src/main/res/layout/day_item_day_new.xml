@@ -70,6 +70,7 @@
         android:lineSpacingExtra="4dp"
         android:textColor="#222222"
         android:textSize="14sp"
+        android:textIsSelectable="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tagTv" />

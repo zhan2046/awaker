@@ -43,7 +43,7 @@ class DayNewListTopHolder(itemView: View, listener: OnItemClickListener<DayNew>?
         contentTv.typeface = FontHelper.get().lightFontTypeface
 
         if (listener != null) {
-            itemView.setOnClickListener { view ->
+            picIv.setOnClickListener { view ->
                 listener.onItemClick(view, adapterPosition, dayNew)
             }
         }

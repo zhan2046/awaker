@@ -19,7 +19,7 @@ class DayImageNewListHolder(itemView: View, listener: OnItemClickListener<Any>?)
 
     init {
         if (listener != null) {
-            itemView.setOnClickListener {
+            imagePicIv.setOnClickListener {
                 listener.onItemClick(it, adapterPosition, dayNewModel)
             }
         }
