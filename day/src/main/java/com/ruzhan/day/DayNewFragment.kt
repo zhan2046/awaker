@@ -78,7 +78,7 @@ class DayNewFragment : Fragment() {
                 })
         dayNewAdapter.onItemClickListener = object : OnItemClickListener<DayNew> {
             override fun onItemClick(itemView: View, position: Int, bean: DayNew) {
-                DayImageDetailActivity.launch(requireActivity(), bean.cover_landscape_hd)
+                DayImageDetailActivity.launch(requireActivity(), bean.cover_thumb)
             }
         }
     }

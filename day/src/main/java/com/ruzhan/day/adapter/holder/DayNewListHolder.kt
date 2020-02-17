@@ -39,10 +39,12 @@ class DayNewListHolder(itemView: View, listener: OnItemClickListener<DayNew>?) :
         dayImageNewListAdapter.onItemClickListener = object : OnItemClickListener<Any> {
             override fun onItemClick(itemView: View, position: Int, bean: Any) {
                 if (bean is DayNew) {
+                    dayNewModel.cover_thumb = bean.cover_landscape_hd
                     ImageLoader.get().load(picIv, bean.cover_landscape)
                     contentTv.text = bean.content
                     dayImageNewListAdapter.notifyDataSetChanged()
                 } else if (bean is DayNewChild) {
+                    dayNewModel.cover_thumb = bean.cover_landscape_hd
                     ImageLoader.get().load(picIv, bean.cover_landscape)
                     contentTv.text = bean.content
                     dayImageNewListAdapter.notifyDataSetChanged()
@@ -53,6 +55,7 @@ class DayNewListHolder(itemView: View, listener: OnItemClickListener<DayNew>?) :
 
     fun bind(bean: DayNew) {
         dayNewModel = bean
+        dayNewModel.cover_thumb = bean.cover_landscape_hd
         ImageLoader.get().load(picIv, bean.cover_landscape)
         titleTv.text = bean.title
         handleContentText(bean)

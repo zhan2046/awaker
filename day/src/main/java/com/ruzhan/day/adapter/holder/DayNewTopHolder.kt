@@ -43,6 +43,7 @@ class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNew>?) :
 
     fun bind(bean: DayNew) {
         dayNew = bean
+        dayNew.cover_thumb = bean.cover_landscape_hd
         ImageLoader.get().load(picIv, bean.cover_landscape)
         handleContentText(bean)
         handleTimeTitle(bean)
