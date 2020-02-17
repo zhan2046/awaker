@@ -56,7 +56,16 @@ class DayNewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 if (album.isNotEmpty()) {
                     TYPE_DAY_NEW_LIST
                 } else {
-                    TYPE_DAY_NEW
+                    val lastBean = dataList[1.coerceAtLeast(position - 1)]
+                    if (lastBean is DayNew) {
+                        if (lastBean.title == dayNew.title) {
+                            TYPE_DAY_NEW
+                        } else {
+                            TYPE_DAY_NEW_TOP
+                        }
+                    } else {
+                        TYPE_DAY_NEW
+                    }
                 }
             }
             else -> TYPE_DEFAULT
