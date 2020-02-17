@@ -73,5 +73,8 @@ class DayImageDetailFragment : Fragment() {
                 }
             })
             .into(photoView)
+        photoView.attacher.setOnClickListener {
+            requireActivity().finish()
+        }
     }
 }
