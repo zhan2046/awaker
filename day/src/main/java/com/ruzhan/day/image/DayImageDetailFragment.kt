@@ -53,10 +53,16 @@ class DayImageDetailFragment : Fragment() {
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                     e?.printStackTrace()
+                    if (progressBar != null) {
+                        progressBar.visibility = View.INVISIBLE
+                    }
                     return true
                 }
 
                 override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                    if (progressBar != null) {
+                        progressBar.visibility = View.INVISIBLE
+                    }
                     photoView.setImageDrawable(resource)
                     photoView.alpha = 0.0f
                     photoView.postDelayed({
