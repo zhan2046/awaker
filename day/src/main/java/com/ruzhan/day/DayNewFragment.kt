@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.ruzhan.day.helper.OnRefreshHelper
 import com.ruzhan.day.adapter.DayNewAdapter
 import com.ruzhan.day.base.OnItemClickListener
 import com.ruzhan.day.db.entity.DayNew
-import com.ruzhan.day.image.DayImageDetailActivity
+import com.ruzhan.day.helper.OnRefreshHelper
 import com.ruzhan.day.image.DayImageDetailFragment
 import kotlinx.android.synthetic.main.day_frag_new.*
 
@@ -66,19 +65,20 @@ class DayNewFragment : Fragment() {
 
     private fun initListener() {
         OnRefreshHelper.setOnRefreshStatusListener(swipeRefreshLayout, recyclerView,
-                object : OnRefreshHelper.OnRefreshStatusListener {
+            object : OnRefreshHelper.OnRefreshStatusListener {
 
-                    override fun onRefresh() {
-                        dayHomeModel.getDayNewList()
-                    }
+                override fun onRefresh() {
+                    dayHomeModel.getDayNewList()
+                }
 
-                    override fun onLoadMore() {
-                        // do nothing
-                    }
-                })
+                override fun onLoadMore() {
+                    // do nothing
+                }
+            })
         dayNewAdapter.onItemClickListener = object : OnItemClickListener<DayNew> {
             override fun onItemClick(itemView: View, position: Int, bean: DayNew) {
-                DayImageDetailActivity.launch(requireActivity(), bean.cover_thumb)
+                val frag = DayImageDetailFragment.newInstance(bean.cover_thumb)
+                frag.show(childFragmentManager, "DayImageDetailFragment")
             }
         }
     }

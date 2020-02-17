@@ -1,11 +1,13 @@
 package com.ruzhan.day.image
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -15,14 +17,14 @@ import com.bumptech.glide.request.target.Target
 import com.ruzhan.day.R
 import kotlinx.android.synthetic.main.day_frag_image_detail.*
 
-class DayImageDetailFragment : Fragment() {
+class DayImageDetailFragment : DialogFragment() {
 
     companion object {
 
         private const val IMAGE_URL = "IMAGE_URL"
 
         private const val DEFAULT_SCALE = 3.0f
-        private const val PHOTO_VIEW_DURATION = 500L
+        private const val PHOTO_VIEW_DURATION = 350L
         private const val IMAGE_WIDTH = 1920
         private const val IMAGE_HEIGHT = 1280
 
@@ -40,6 +42,8 @@ class DayImageDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL,
+            android.R.style.Theme_Translucent_NoTitleBar)
         imageUrl = arguments?.getString(IMAGE_URL) ?: ""
     }
 
@@ -50,6 +54,9 @@ class DayImageDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        progressBar.alpha = 0.0f
+        progressBar.animate().alpha(1.0f).setDuration(PHOTO_VIEW_DURATION)
+            .setStartDelay(50).start()
         photoView.attacher.setScaleLevels(DEFAULT_SCALE, DEFAULT_SCALE + 1.0f,
             DEFAULT_SCALE + 2.0f)
         Glide.with(photoView.context)
@@ -84,7 +91,24 @@ class DayImageDetailFragment : Fragment() {
             })
             .into(photoView)
         photoView.attacher.setOnClickListener {
-            requireActivity().finish()
+            handlerDismiss()
         }
+    }
+
+    private fun handlerDismiss() {
+        photoView.alpha = 1.0f
+        photoView.animate().alpha(0.0f)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    dismiss()
+                }
+
+                override fun onAnimationCancel(animation: Animator?) {
+                    super.onAnimationCancel(animation)
+                    dismiss()
+                }
+            })
+            .setDuration(PHOTO_VIEW_DURATION).start()
     }
 }
