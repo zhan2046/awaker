@@ -21,6 +21,11 @@ class DayImageDetailFragment : Fragment() {
 
         private const val IMAGE_URL = "IMAGE_URL"
 
+        private const val DEFAULT_SCALE = 3.0f
+        private const val PHOTO_VIEW_DURATION = 500L
+        private const val IMAGE_WIDTH = 1920
+        private const val IMAGE_HEIGHT = 1280
+
         @JvmStatic
         fun newInstance(imageUrl: String): DayImageDetailFragment {
             val args = Bundle()
@@ -45,13 +50,16 @@ class DayImageDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        photoView.attacher.setScaleLevels(3.0f, 4.0f, 6.0f)
+        photoView.attacher.setScaleLevels(DEFAULT_SCALE, DEFAULT_SCALE + 1.0f,
+            DEFAULT_SCALE + 2.0f)
         Glide.with(photoView.context)
             .load(imageUrl)
-            .override(1920, 1280)
+            .override(IMAGE_WIDTH, IMAGE_HEIGHT)
             .transition(DrawableTransitionOptions.withCrossFade())
             .listener(object : RequestListener<Drawable> {
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                override fun onLoadFailed(e: GlideException?, model: Any?,
+                                          target: Target<Drawable>?,
+                                          isFirstResource: Boolean): Boolean {
                     e?.printStackTrace()
                     if (progressBar != null) {
                         progressBar.visibility = View.INVISIBLE
@@ -59,15 +67,17 @@ class DayImageDetailFragment : Fragment() {
                     return true
                 }
 
-                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                override fun onResourceReady(resource: Drawable?, model: Any?,
+                                             target: Target<Drawable>?, dataSource: DataSource?,
+                                             isFirstResource: Boolean): Boolean {
                     if (progressBar != null) {
                         progressBar.visibility = View.INVISIBLE
                     }
                     photoView.setImageDrawable(resource)
                     photoView.alpha = 0.0f
                     photoView.postDelayed({
-                        photoView.attacher.setScale(3.0f, true)
-                        photoView.animate().alpha(1.0f).setDuration(500).start()
+                        photoView.attacher.setScale(DEFAULT_SCALE, true)
+                        photoView.animate().alpha(1.0f).setDuration(PHOTO_VIEW_DURATION).start()
                     }, 50)
                     return true
                 }
