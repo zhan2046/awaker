@@ -9,6 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.ruzhan.day.helper.OnRefreshHelper
 import com.ruzhan.day.adapter.DayNewAdapter
+import com.ruzhan.day.base.OnItemClickListener
+import com.ruzhan.day.db.entity.DayNew
+import com.ruzhan.day.image.DayImageDetailActivity
+import com.ruzhan.day.image.DayImageDetailFragment
 import kotlinx.android.synthetic.main.day_frag_new.*
 
 class DayNewFragment : Fragment() {
@@ -29,7 +33,7 @@ class DayNewFragment : Fragment() {
 
     private var tagKey = ""
     private val dayHomeModel: DayHomeModel by lazy {
-        ViewModelProviders.of(activity!!).get(DayHomeModel::class.java)
+        ViewModelProviders.of(requireActivity()).get(DayHomeModel::class.java)
     }
     private val dayViewModel: DayViewModel by lazy {
         ViewModelProviders.of(this).get(DayViewModel::class.java)
@@ -72,6 +76,11 @@ class DayNewFragment : Fragment() {
                         // do nothing
                     }
                 })
+        dayNewAdapter.onItemClickListener = object : OnItemClickListener<DayNew> {
+            override fun onItemClick(itemView: View, position: Int, bean: DayNew) {
+                DayImageDetailActivity.launch(requireActivity(), bean.cover_landscape_hd)
+            }
+        }
     }
 
     private fun initLiveData() {

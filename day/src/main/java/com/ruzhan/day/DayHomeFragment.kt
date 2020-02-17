@@ -38,7 +38,7 @@ class DayHomeFragment : Fragment() {
         CommonNavigator(activity)
     }
     private val dayHomeModel: DayHomeModel by lazy {
-        ViewModelProviders.of(activity!!).get(DayHomeModel::class.java)
+        ViewModelProviders.of(requireActivity()).get(DayHomeModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
