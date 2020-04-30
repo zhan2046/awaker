@@ -45,9 +45,8 @@
 
 #---------------------------------2.第三方包-------------------------------
 
-# tencent x5
--dontwarn com.tencent.smtt.**
--keep class com.tencent.smtt.** { *; }
+#exoplayer
+-keep class com.google.android.exoplayer2.** { *; }
 
 #jsoup
 -keep class org.jsoup.** { *; }
@@ -59,12 +58,6 @@
 -dontwarn com.just.library.**
 
 -keepclassmembers class com.just.library.agentweb.AndroidInterface{ *; }
-
-
-#utilcode
--keep class com.blankj.utilcode.** { *; }
--keepclassmembers class com.blankj.utilcode.** { *; }
--dontwarn com.blankj.utilcode.**
 
 
 #gradle-retrolambda

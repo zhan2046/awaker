@@ -1,18 +1,44 @@
 apply plugin: 'com.android.application'
-apply from: '../core_dependencies.gradle'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+//apply from: '../core_release.gradle'
 
 android {
+    compileSdkVersion rootProject.compileSdkVersion
 
     defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+
         applicationId "com.future.awaker"
         versionCode 333
         versionName "0.9.12"
         multiDexEnabled true
     }
+
+    buildTypes {
+        debug {}
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.core:core-ktx:$core_ktx_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.multidex:multidex:$multidex_version"
+    implementation "com.github.nahzur-h.base-tool:font:$base_imageloader_version"
+    implementation "com.github.nahzur-h:Lion:$lion_version"
     implementation project(':day')
-    implementation 'com.github.ruzhan123:Lion:0.2.15'
 }

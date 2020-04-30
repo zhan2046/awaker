@@ -9,9 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.ruzhan.day.helper.TitleHelper
 import com.google.gson.internal.LinkedTreeMap
 import com.ruzhan.day.adapter.DayHomeAdapter
+import com.ruzhan.day.helper.TitleHelper
 import com.ruzhan.day.widget.ScaleTransitionPagerTitleView
 import com.ruzhan.font.FontHelper
 import kotlinx.android.synthetic.main.day_frag_home.*
@@ -54,16 +54,16 @@ class DayHomeFragment : Fragment() {
     }
 
     private fun initLiveData() {
-        dayHomeModel.tagMapLiveData.observe(this,
-                Observer<LinkedTreeMap<String, String>> { tagMap ->
-                    if (tagMap != null && tagMap.isNotEmpty()) {
-                        titleList.clear()
-                        titleList.addAll(tagMap.keys)
-                        dayHomeAdapter.setData(tagMap)
-                        commonNavigator.notifyDataSetChanged()
-                    }
-                })
-        dayHomeModel.loadStatusLiveData.observe(this, Observer { isLoadStatus ->
+        dayHomeModel.tagMapLiveData.observe(viewLifecycleOwner,
+            Observer<LinkedTreeMap<String, String>> { tagMap ->
+                if (tagMap != null && tagMap.isNotEmpty()) {
+                    titleList.clear()
+                    titleList.addAll(tagMap.keys)
+                    dayHomeAdapter.setData(tagMap)
+                    commonNavigator.notifyDataSetChanged()
+                }
+            })
+        dayHomeModel.loadStatusLiveData.observe(viewLifecycleOwner, Observer { isLoadStatus ->
             if (isLoadStatus != null && !isLoadStatus) {
                 // do nothing
             }
@@ -73,7 +73,6 @@ class DayHomeFragment : Fragment() {
     private fun initData() {
         titleTv.typeface = FontHelper.get().boldFontTypeface
         titleTv.text = resources.getString(R.string.day_common_title_name)
-        TitleHelper.setToolbar(toolbar, activity)
         TitleHelper.setAlphaScaleAnimate(titleTv)
         viewPager.adapter = dayHomeAdapter
         initIndicator()
@@ -83,15 +82,15 @@ class DayHomeFragment : Fragment() {
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
 
             override fun getTitleView(context: Context, index: Int):
-                    IPagerTitleView {
+                IPagerTitleView {
                 val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
                 simplePagerTitleView.typeface = FontHelper.get().boldFontTypeface
                 simplePagerTitleView.text = titleList[index]
                 simplePagerTitleView.textSize = 15f
                 simplePagerTitleView.normalColor =
-                        ContextCompat.getColor(context, R.color.text_secondary_dark)
+                    ContextCompat.getColor(context, R.color.text_secondary_dark)
                 simplePagerTitleView.selectedColor =
-                        ContextCompat.getColor(context, R.color.colorAccent)
+                    ContextCompat.getColor(context, R.color.colorAccent)
                 simplePagerTitleView.setOnClickListener {
                     viewPager.currentItem = index
                 }
