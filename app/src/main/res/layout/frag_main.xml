@@ -7,7 +7,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="52dp"
         app:labelVisibilityMode="unlabeled"
         android:layout_gravity="start|center_vertical"
         android:background="@color/colorPrimary"
@@ -15,18 +15,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/home_navigation" />
 
+    <View
+        android:id="@+id/lineView"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#66B0B0B0"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView" />
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_above="@+id/bottomNavigationView"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@+id/lineView"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#33757575"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintTop_toBottomOf="@+id/container" />
 </androidx.constraintlayout.widget.ConstraintLayout>
