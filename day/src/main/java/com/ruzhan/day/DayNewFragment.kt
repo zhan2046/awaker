@@ -13,6 +13,7 @@ import com.ruzhan.day.db.entity.DayNew
 import com.ruzhan.day.helper.OnRefreshHelper
 import com.ruzhan.day.image.DayImageDetailFragment
 import kotlinx.android.synthetic.main.day_frag_new.*
+import kotlin.random.Random
 
 class DayNewFragment : Fragment() {
 
@@ -77,20 +78,21 @@ class DayNewFragment : Fragment() {
             })
         dayNewAdapter.onItemClickListener = object : OnItemClickListener<DayNew> {
             override fun onItemClick(itemView: View, position: Int, bean: DayNew) {
-                val frag = DayImageDetailFragment.newInstance(bean.cover_thumb)
-                frag.show(childFragmentManager, "DayImageDetailFragment")
+                val frag =
+                    DayImageDetailFragment.newInstance(bean.cover_landscape, bean.cover_thumb)
+                frag.show(childFragmentManager, "DayImageDetailFragment" + Random.nextInt(1000))
             }
         }
     }
 
     private fun initLiveData() {
-        dayViewModel.refreshDayNewLiveData.observe(this, Observer { dayNewList ->
+        dayViewModel.refreshDayNewLiveData.observe(viewLifecycleOwner, Observer { dayNewList ->
             if (dayNewList != null) {
                 progressBar.visibility = View.GONE
                 dayNewAdapter.setData(dayNewList)
             }
         })
-        dayHomeModel.loadStatusLiveData.observe(this, Observer { isLoadStatus ->
+        dayHomeModel.loadStatusLiveData.observe(viewLifecycleOwner, Observer { isLoadStatus ->
             if (isLoadStatus != null && !isLoadStatus) {
                 swipeRefreshLayout.isRefreshing = isLoadStatus
             }

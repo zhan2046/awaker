@@ -39,6 +39,7 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.multidex:multidex:$multidex_version"
     implementation "com.github.nahzur-h.base-tool:font:$base_imageloader_version"
-    implementation "com.github.nahzur-h:Lion:$lion_version"
+    implementation "com.github.nahzur-h.Lion:media:$lion_version"
+    implementation "com.github.nahzur-h.Lion:movie:$lion_version"
     implementation project(':day')
 }
