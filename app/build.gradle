@@ -11,9 +11,9 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
 
-        applicationId "com.future.awaker"
-        versionCode 333
-        versionName "0.9.12"
+        applicationId rootProject.applicationId
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
         multiDexEnabled true
     }
 
