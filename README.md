@@ -6,6 +6,9 @@ Screenshots
 <a href="gif/awaker03.png"><img src="gif/awaker03.png" width="30%"/></a>
 <a href="gif/awaker04.png"><img src="gif/awaker04.png" width="30%"/></a>
 
+Download
+------
+[fir - (app download)](http://d.7short.com/ywtq)
 
 Developed by
 -------
