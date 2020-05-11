@@ -8,7 +8,7 @@ Screenshots
 
 Download
 ------
-[fir - (app download)](http://d.7short.com/ywtq)
+[download - (app download)](http://d.7short.com/ywtq)
 
 Developed by
 -------
