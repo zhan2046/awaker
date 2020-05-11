@@ -29,8 +29,8 @@
 #---------------------------------1.实体类---------------------------------
 
 -keep class com.ruzhan.day.** { *; }
--keep class com.ruzhan.lion.model.** { *; }
--keep class com.ruzhan.lion.database.** { *; }
+-keep class com.ruzhan.movie.** { *; }
+-keep class com.future.media.** { *; }
 
 
 -keep class com.ruzhan.awaker.article.model.** { *; }

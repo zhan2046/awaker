@@ -39,3 +39,4 @@ local.properties
 readme.txt
 
 /keystore
+proguardMapping.txt

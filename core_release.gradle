@@ -1,0 +1,22 @@
+
+android {
+
+    signingConfigs {
+        config {
+            keyAlias rootProject.keyAlias
+            keyPassword rootProject.keyPassword
+            storeFile file('keystore/awaker.jks')
+            storePassword rootProject.storePassword
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+}
