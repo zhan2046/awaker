@@ -8,7 +8,7 @@ Screenshots
 
 Download
 ------
-[download - (app download)](http://d.7short.com/ywtq) 中国网络看视频，你可能需要翻墙
+[download - (app download)](http://d.7short.com/ywtq)
 
 Developed by
 -------
