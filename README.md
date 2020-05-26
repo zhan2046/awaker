@@ -2,9 +2,16 @@
 Screenshots
 ===============
 
+<a href="gif/image01.png"><img src="gif/image01.png" width="30%"/></a>
+<a href="gif/image02.png"><img src="gif/image02.png" width="30%"/></a>
+<a href="gif/image03.png"><img src="gif/image03.png" width="30%"/></a>
 
-<a href="gif/awaker03.png"><img src="gif/awaker03.png" width="30%"/></a>
-<a href="gif/awaker04.png"><img src="gif/awaker04.png" width="30%"/></a>
+<a href="gif/image04.png"><img src="gif/image04.png" width="30%"/></a>
+<a href="gif/image05.png"><img src="gif/image05.png" width="30%"/></a>
+<a href="gif/image06.png"><img src="gif/image06.png" width="30%"/></a>
+
+<a href="gif/image07.png"><img src="gif/image07.png" width="30%"/></a>
+<a href="gif/image08.png"><img src="gif/image08.png" width="30%"/></a>
 
 Download
 ------
