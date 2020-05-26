@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_small_4"
+    android:layout_marginTop="@dimen/space_small_4"
+    android:layout_marginEnd="@dimen/space_small_4"
+    android:layout_marginBottom="@dimen/space_small_4"
+    android:foreground="?attr/selectableItemBackground"
+    card_view:cardBackgroundColor="@color/colorPrimary"
+    card_view:cardCornerRadius="@dimen/space_small_4"
+    card_view:cardElevation="@dimen/space_small_1">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/picIv"
+            app:layout_constraintDimensionRatio="H,16:9"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/titleTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_normal_16"
+            android:layout_marginTop="@dimen/space_normal_16"
+            android:layout_marginEnd="@dimen/space_normal_16"
+            android:ellipsize="end"
+            android:letterSpacing="0.08"
+            android:maxLines="1"
+            android:textColor="@color/text_primary_dark"
+            android:textSize="@dimen/text_large_20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/picIv" />
+
+        <TextView
+            android:id="@+id/contentTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_normal_16"
+            android:layout_marginTop="@dimen/space_small_8"
+            android:layout_marginEnd="@dimen/space_normal_16"
+            android:layout_marginBottom="16dp"
+            android:ellipsize="end"
+            android:letterSpacing="0.08"
+            android:lineSpacingExtra="@dimen/space_small_2"
+            android:maxLines="3"
+            android:textColor="@color/text_primary_dark"
+            android:textSize="@dimen/text_small_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTv" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

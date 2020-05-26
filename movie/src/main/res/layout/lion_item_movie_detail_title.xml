@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tag_tv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_normal_16"
+        android:background="@drawable/shape_line_bg"
+        android:gravity="center"
+        android:letterSpacing="0.08"
+        android:paddingBottom="@dimen/space_small_4"
+        android:paddingEnd="@dimen/space_small_12"
+        android:paddingStart="@dimen/space_small_12"
+        android:paddingTop="@dimen/space_small_4"
+        android:textColor="@color/text_primary_dark"
+        android:textSize="11sp"
+        tools:ignore="SmallSp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title_tv"
+        android:textIsSelectable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tag_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_normal_16"
+        android:ellipsize="end"
+        android:letterSpacing="0.08"
+        android:maxLines="2"
+        android:textColor="@color/text_primary_dark"
+        android:textSize="@dimen/text_large_20" />
+
+
+
+    <Space
+        app:layout_constraintTop_toBottomOf="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_small_8" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FAFAFA</color>
+    <color name="colorPrimaryDark">#C7C7C7</color>
+    <color name="colorAccent">#FF1E88E5</color>
+
+    <color name="lion_movie_colorPrimary">#FAFAFA</color>
+    <color name="lion_movie_colorPrimaryDark">#C7C7C7</color>
+    <color name="lion_movie_colorAccent">#FF1E88E5</color>
+
+    <color name="light_grey">#FFF5F5F5</color>
+
+    <color name="text_primary_dark">#de000000</color> <!-- 87% -->
+    <color name="text_secondary_dark">#8a000000</color> <!-- 54% -->
+
+    <array name="loading_placeholders_grey">
+        <item>#FFE0E0E0</item>
+        <item>#FFBDBDBD</item>
+        <item>#FF9E9E9E</item>
+    </array>
+</resources>

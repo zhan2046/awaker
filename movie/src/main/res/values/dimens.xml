@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space_small_1">1dp</dimen>
+    <dimen name="space_small_2">2dp</dimen>
+    <dimen name="space_small_4">4dp</dimen>
+    <dimen name="space_small_6">6dp</dimen>
+    <dimen name="space_small_8">8dp</dimen>
+    <dimen name="space_small_12">12dp</dimen>
+    <dimen name="space_normal_16">16dp</dimen>
+    <dimen name="space_large_32">32dp</dimen>
+    <dimen name="space_large_48">48dp</dimen>
+    <dimen name="space_large_64">64dp</dimen>
+
+    <dimen name="text_small_14">14sp</dimen>
+    <dimen name="text_normal_16">16sp</dimen>
+    <dimen name="text_large_18">18sp</dimen>
+    <dimen name="text_large_20">20sp</dimen>
+    <dimen name="text_large_26">26sp</dimen>
+
+    <dimen name="drag_dismiss_distance">180dp</dimen>
+    <dimen name="shot_collapsed_app_bar_height">168dp</dimen> <!-- 3 * ?android:actionBarSize -->
+
+    <dimen name="z_app_bar">4dp</dimen>
+    <dimen name="touch_raise">6dp</dimen>
+
+    <dimen name="z_fab_over_touchable_app_bar">9dp</dimen>
+    <dimen name="indicator_height">2dp</dimen>
+</resources>

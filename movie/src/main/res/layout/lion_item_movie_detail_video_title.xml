@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/titleTv"
+        android:text="@string/lion_video_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_small_8"
+        android:layout_marginEnd="@dimen/space_normal_16"
+        android:layout_marginStart="@dimen/space_normal_16"
+        android:layout_marginTop="20dp"
+        android:ellipsize="end"
+        android:letterSpacing="0.08"
+        android:maxLines="1"
+        android:textColor="@color/text_primary_dark"
+        android:textSize="@dimen/text_large_20" />
+</FrameLayout>

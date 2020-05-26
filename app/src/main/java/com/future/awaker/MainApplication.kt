@@ -17,7 +17,7 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         ResUtils.init(this)
-        com.ruzhan.movie.utils.ResUtils.init(this)
+        com.future.movie.utils.ResUtils.init(this)
         FontHelper.init(this)
         MediaControllerManager.init(this)
     }

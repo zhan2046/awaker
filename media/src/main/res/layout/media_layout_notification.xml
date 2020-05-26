@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/notificationMediaIconIv"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:background="#eeeeee"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/notificationMediaTitleTv"
+        style="@style/TextAppearance.Compat.Notification.Title.Media"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/notificationMediaPreviousIv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:src="@drawable/ic_android_player_back" />
+
+        <ImageView
+            android:id="@+id/notificationMediaPlayIv"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:src="@drawable/ic_android_player_suspended" />
+
+        <ImageView
+            android:id="@+id/notificationMediaNextIv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            android:src="@drawable/ic_android_player_forward" />
+
+        <ImageView
+            android:id="@+id/notificationMediaCloseIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="6dp"
+            android:paddingTop="6dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="6dp"
+            android:src="@drawable/ic_android_player_delete" />
+    </LinearLayout>
+</LinearLayout>

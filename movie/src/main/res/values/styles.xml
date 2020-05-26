@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Lion" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/lion_movie_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/lion_movie_colorPrimaryDark</item>
+        <item name="colorAccent">@color/lion_movie_colorAccent</item>
+    </style>
+
+    <style name="Lion.MovieDetail">
+        <item name="colorPrimaryDark">#000000</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textTv"
+        android:textIsSelectable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_small_8"
+        android:letterSpacing="0.08"
+        android:lineSpacingExtra="@dimen/space_small_2"
+        android:paddingEnd="@dimen/space_normal_16"
+        android:paddingStart="@dimen/space_normal_16"
+        android:textColor="@color/text_primary_dark"
+        android:textSize="@dimen/text_normal_16" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_small_8" />
+</LinearLayout>
