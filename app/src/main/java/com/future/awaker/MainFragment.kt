@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ruzhan.day.DayHomeFragment
+import com.future.day.DayHomeFragment
 import com.ruzhan.movie.home.MovieHomeFragment
 import kotlinx.android.synthetic.main.frag_main.*
 

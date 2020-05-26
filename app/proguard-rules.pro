@@ -28,13 +28,9 @@
 #-------------------------------------------定制化区域----------------------------------------------
 #---------------------------------1.实体类---------------------------------
 
--keep class com.ruzhan.day.** { *; }
--keep class com.ruzhan.movie.** { *; }
+-keep class com.future.day.** { *; }
+-keep class com.future.movie.** { *; }
 -keep class com.future.media.** { *; }
-
-
--keep class com.ruzhan.awaker.article.model.** { *; }
--keep class com.ruzhan.awaker.article.db.** { *; }
 
 -keep public class android.support.design.widget.BottomNavigationView { *; }
 -keep public class android.support.design.internal.BottomNavigationMenuView { *; }
