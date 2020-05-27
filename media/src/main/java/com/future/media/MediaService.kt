@@ -45,12 +45,17 @@ class MediaService : MediaBrowserServiceCompat() {
     private val mediaPlaybackPreparer: MediaPlaybackPreparer by lazy {
         MediaPlaybackPreparer(this, exoPlayer, getCacheDataSourceFactory())
     }
+    private val becomingNoisyReceiver: BecomingNoisyReceiver by lazy {
+        BecomingNoisyReceiver(this, mediaSession.sessionToken)
+    }
 
-    override fun onLoadChildren(parentId: String, result: Result<MutableList<MediaBrowserCompat.MediaItem>>) {
+    override fun onLoadChildren(parentId: String,
+                                result: Result<MutableList<MediaBrowserCompat.MediaItem>>) {
         result.sendResult(ArrayList())
     }
 
-    override fun onGetRoot(clientPackageName: String, clientUid: Int, rootHints: Bundle?): BrowserRoot? {
+    override fun onGetRoot(clientPackageName: String, clientUid: Int,
+                           rootHints: Bundle?): BrowserRoot? {
         return BrowserRoot(BROWSE_ROOT, null)
     }
 
@@ -61,6 +66,7 @@ class MediaService : MediaBrowserServiceCompat() {
         mediaSession.setSessionActivity(sessionActivityPendingIntent)
         mediaSession.isActive = true
         sessionToken = mediaSession.sessionToken
+        becomingNoisyReceiver.register()
     }
 
     override fun onCreate() {
@@ -71,7 +77,8 @@ class MediaService : MediaBrowserServiceCompat() {
     }
 
     private fun getCacheDataSourceFactory(): CacheDataSourceFactory {
-        val defaultHttpDataSourceFactory = DefaultHttpDataSourceFactory(Util.getUserAgent(this, USER_AGENT),
+        val defaultHttpDataSourceFactory =
+            DefaultHttpDataSourceFactory(Util.getUserAgent(this, USER_AGENT),
             null, DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
             DefaultHttpDataSource.DEFAULT_READ_TIMEOUT_MILLIS, true)
         val dataSourceFactory = DefaultDataSourceFactory(this, defaultHttpDataSourceFactory)
@@ -100,5 +107,6 @@ class MediaService : MediaBrowserServiceCompat() {
     override fun onDestroy() {
         mediaSession.isActive = false
         mediaSession.release()
+        becomingNoisyReceiver.unregister()
     }
 }
