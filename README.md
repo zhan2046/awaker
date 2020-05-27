@@ -15,7 +15,7 @@ Screenshots
 
 Download
 ------
-[download - (app download)](http://d.7short.com/ywtq)
+[app-download - (chinese network maybe need vpn)](http://d.7short.com/ywtq)
 
 Developed by
 -------
