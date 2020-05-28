@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.future.media.MediaControllerManager
 import com.future.day.util.ResUtils
-import com.ruzhan.font.FontHelper
+import com.future.font.FontHelper
 
 class MainApplication : Application() {
 

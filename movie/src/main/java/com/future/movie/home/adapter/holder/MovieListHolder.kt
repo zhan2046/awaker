@@ -2,8 +2,8 @@ package com.future.movie.home.adapter.holder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.ruzhan.font.FontHelper
-import com.ruzhan.imageloader.glide.ImageLoader
+import com.future.font.FontHelper
+import com.future.imageloader.glide.ImageLoader
 import com.future.movie.listener.OnItemClickListener
 import com.future.movie.utils.ViewUtils
 import com.future.movie.db.entity.MovieEntity

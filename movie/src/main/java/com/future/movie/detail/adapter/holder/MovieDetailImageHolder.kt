@@ -2,7 +2,7 @@ package com.future.movie.detail.adapter.holder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.ruzhan.imageloader.glide.ImageLoader
+import com.future.imageloader.glide.ImageLoader
 import com.future.movie.db.entity.IntroduceItem
 import com.future.movie.db.entity.MovieDetailEntity
 import com.future.movie.listener.OnItemClickListener

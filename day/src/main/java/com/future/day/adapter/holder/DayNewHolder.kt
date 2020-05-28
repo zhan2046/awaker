@@ -4,8 +4,8 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.future.day.base.OnItemClickListener
 import com.future.day.db.entity.DayNew
-import com.ruzhan.font.FontHelper
-import com.ruzhan.imageloader.glide.ImageLoader
+import com.future.font.FontHelper
+import com.future.imageloader.glide.ImageLoader
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.day_item_day_new.*
 

@@ -35,8 +35,6 @@ buildscript {
         photoView_version = '2.3.0'
         magic_indicator_version = '1.6.1'
         ratiolayout_version = '2.1.0'
-        base_font_version = '0.0.1'
-        base_imageloader_version = '0.1'
         lion_version = '0.3.2'
         junit_version = '4.12'
         androidx_junit_version = '1.1.1'

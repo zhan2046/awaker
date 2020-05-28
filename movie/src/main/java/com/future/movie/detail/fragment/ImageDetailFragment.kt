@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.ruzhan.font.FontHelper
+import com.future.font.FontHelper
 import com.future.movie.R
 import com.future.movie.detail.adapter.ImageDetailAdapter
 import com.future.movie.model.ImageListModel

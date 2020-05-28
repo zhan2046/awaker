@@ -2,7 +2,7 @@ package com.future.movie.base
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.ruzhan.font.FontHelper
+import com.future.font.FontHelper
 import com.future.movie.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.lion_item_load_more.*

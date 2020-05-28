@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.ruzhan.font.FontHelper
+import com.future.font.FontHelper
 import com.future.movie.R
 import com.future.movie.home.adapter.MovieHomeAdapter
 import com.future.movie.home.viewmodel.MovieHomeViewModel

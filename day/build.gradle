@@ -67,6 +67,6 @@ dependencies {
         exclude group: 'com.android.support'
     }
     implementation "com.github.nahzur-h:MagicIndicator:$magic_indicator_version"
-    implementation "com.github.nahzur-h.base-tool:font:$base_imageloader_version"
-    implementation "com.github.nahzur-h.base-tool:imageloader:$base_imageloader_version"
+    implementation project(':imageloader')
+    implementation project(':font')
 }

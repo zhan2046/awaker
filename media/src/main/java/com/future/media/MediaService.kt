@@ -46,7 +46,7 @@ class MediaService : MediaBrowserServiceCompat() {
         MediaPlaybackPreparer(this, exoPlayer, getCacheDataSourceFactory())
     }
     private val becomingNoisyReceiver: BecomingNoisyReceiver by lazy {
-        BecomingNoisyReceiver(this, mediaSession.sessionToken)
+        BecomingNoisyReceiver(this, sessionToken!!)
     }
 
     override fun onLoadChildren(parentId: String,

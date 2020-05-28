@@ -20,13 +20,13 @@ Download
 Developed by
 -------
 
- ruzhan - <a href='javascript:'>dev19921116@gmail.com</a>
+ nahzur-h - <a href='javascript:'>dev19921116@gmail.com</a>
 
 
 License
 -------
 
-    Copyright 2017 ruzhan
+    Copyright 2020 nahzur-h
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

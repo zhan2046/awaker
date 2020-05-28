@@ -63,8 +63,8 @@ dependencies {
     implementation("com.github.chrisbanes:PhotoView:$photoView_version") {
         exclude group: 'com.android.support'
     }
-    implementation project(':media')
     implementation "com.github.nahzur-h:MagicIndicator:$magic_indicator_version"
-    implementation "com.github.nahzur-h.base-tool:font:$base_imageloader_version"
-    implementation "com.github.nahzur-h.base-tool:imageloader:$base_imageloader_version"
+    implementation project(':imageloader')
+    implementation project(':media')
+    implementation project(':font')
 }

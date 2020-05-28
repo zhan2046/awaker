@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.future.day.base.OnItemClickListener
 import com.future.day.db.entity.DayNew
 import com.future.day.db.entity.DayNewChild
-import com.ruzhan.imageloader.glide.ImageLoader
+import com.future.imageloader.glide.ImageLoader
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.day_item_image_day_new_list.*
 

@@ -13,7 +13,7 @@ import com.google.gson.internal.LinkedTreeMap
 import com.future.day.adapter.DayHomeAdapter
 import com.future.day.helper.TitleHelper
 import com.future.day.widget.ScaleTransitionPagerTitleView
-import com.ruzhan.font.FontHelper
+import com.future.font.FontHelper
 import kotlinx.android.synthetic.main.day_frag_home.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator

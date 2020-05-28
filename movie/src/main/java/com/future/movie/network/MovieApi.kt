@@ -17,6 +17,6 @@ interface MovieApi {
 
     companion object {
 
-        const val HOST = "https://raw.githubusercontent.com/ruzhan123/Movie/master/json/api/"
+        const val HOST = "https://raw.githubusercontent.com/nahzur-h/Movie/master/json/api/"
     }
 }

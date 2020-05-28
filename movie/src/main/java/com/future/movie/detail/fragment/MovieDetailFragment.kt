@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import com.future.imageloader.glide.ImageLoader
 import com.future.media.MediaControllerManager
 import com.google.android.material.appbar.AppBarLayout
-import com.ruzhan.imageloader.glide.ImageLoader
 import com.future.movie.R
 import com.future.movie.db.entity.MovieEntity
 import com.future.movie.db.entity.VideoItem
