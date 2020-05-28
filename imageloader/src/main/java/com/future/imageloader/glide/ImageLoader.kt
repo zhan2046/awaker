@@ -4,6 +4,7 @@ class ImageLoader {
 
     companion object {
 
+        @Volatile
         private var INSTANCE: IImageLoader? = null
 
         @JvmStatic

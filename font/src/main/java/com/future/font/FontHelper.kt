@@ -16,8 +16,9 @@ class FontHelper private constructor() {
         const val TEXT_BOLD = "fonts/text_bold.ttf"
         const val TEXT_LIGHT = "fonts/text_light.ttf"
 
-        private var INSTANCE: FontHelper? = null
         private var application: Application? = null
+        @Volatile
+        private var INSTANCE: FontHelper? = null
 
         @JvmStatic
         fun get(): FontHelper = INSTANCE ?: synchronized(FontHelper::class) {
