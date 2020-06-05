@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.gson.internal.LinkedTreeMap
 import com.future.day.adapter.DayHomeAdapter
 import com.future.day.helper.TitleHelper
@@ -38,7 +38,7 @@ class DayHomeFragment : Fragment() {
         CommonNavigator(activity)
     }
     private val dayHomeModel: DayHomeModel by lazy {
-        ViewModelProviders.of(requireActivity()).get(DayHomeModel::class.java)
+        ViewModelProvider(requireActivity()).get(DayHomeModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.future.day.adapter.DayNewAdapter
 import com.future.day.base.OnItemClickListener
 import com.future.day.db.entity.DayNew
@@ -33,10 +33,10 @@ class DayNewFragment : Fragment() {
 
     private var tagKey = ""
     private val dayHomeModel: DayHomeModel by lazy {
-        ViewModelProviders.of(requireActivity()).get(DayHomeModel::class.java)
+        ViewModelProvider(requireActivity()).get(DayHomeModel::class.java)
     }
     private val dayViewModel: DayViewModel by lazy {
-        ViewModelProviders.of(this).get(DayViewModel::class.java)
+        ViewModelProvider(this).get(DayViewModel::class.java)
     }
     private val dayNewAdapter: DayNewAdapter by lazy {
         DayNewAdapter()

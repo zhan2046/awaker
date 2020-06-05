@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.future.movie.R
 import com.future.movie.db.entity.MovieEntity
 import com.future.movie.detail.MovieDetailActivity
@@ -43,10 +43,10 @@ class MovieListFragment : Fragment() {
     }
 
     private val movieHomeViewModel: MovieHomeViewModel by lazy {
-        ViewModelProviders.of(requireActivity()).get(MovieHomeViewModel::class.java)
+        ViewModelProvider(requireActivity()).get(MovieHomeViewModel::class.java)
     }
     private val movieListViewModel: MovieListViewModel by lazy {
-        ViewModelProviders.of(this).get(MovieListViewModel::class.java)
+        ViewModelProvider(this).get(MovieListViewModel::class.java)
     }
     private val movieListAdapter = MovieListAdapter()
     private var tagKey = ""

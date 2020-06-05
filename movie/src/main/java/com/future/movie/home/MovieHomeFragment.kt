@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.future.font.FontHelper
 import com.future.movie.R
 import com.future.movie.home.adapter.MovieHomeAdapter
@@ -39,7 +39,7 @@ class MovieHomeFragment : Fragment() {
         CommonNavigator(activity)
     }
     private val movieHomeViewModel: MovieHomeViewModel by lazy {
-        ViewModelProviders.of(requireActivity()).get(MovieHomeViewModel::class.java)
+        ViewModelProvider(requireActivity()).get(MovieHomeViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

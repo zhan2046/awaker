@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.future.imageloader.glide.ImageLoader
 import com.future.media.MediaControllerManager
-import com.google.android.material.appbar.AppBarLayout
 import com.future.movie.R
 import com.future.movie.db.entity.MovieEntity
 import com.future.movie.db.entity.VideoItem
@@ -25,6 +24,7 @@ import com.future.movie.listener.OnItemClickListener
 import com.future.movie.model.ImageListModel
 import com.future.movie.utils.ViewUtils
 import com.future.movie.video.VideoActivity
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.lion_frag_movie_detail.*
 
 
@@ -48,7 +48,7 @@ class MovieDetailFragment : Fragment() {
     private lateinit var movie: MovieEntity
     private val movieDetailAdapter = MovieDetailAdapter()
     private val movieDetailViewModel: MovieDetailViewModel by lazy {
-        ViewModelProviders.of(this).get(MovieDetailViewModel::class.java)
+        ViewModelProvider(this).get(MovieDetailViewModel::class.java)
     }
     private val videoItemDecoration: VideoItemDecoration by lazy {
         VideoItemDecoration(requireActivity())
