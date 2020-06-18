@@ -1,9 +1,9 @@
 package com.future.movie.network
 
+import com.future.common.CommonUtils
 import com.future.movie.db.MovieDatabase
 import com.future.movie.db.entity.MovieDetailEntity
 import com.future.movie.db.entity.MovieEntity
-import com.future.movie.utils.ResUtils
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -20,7 +20,7 @@ class MovieRepository private constructor() {
         MovieClient.get()
     }
     private val movieDatabase: MovieDatabase by lazy {
-        MovieDatabase.get(ResUtils.getApp())
+        MovieDatabase.get(CommonUtils.get().getContext())
     }
 
     fun getMovieList(pageFileName: String): Single<List<MovieEntity>> {

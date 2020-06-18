@@ -1,10 +1,10 @@
 package com.future.day.db.converters
 
 import androidx.room.TypeConverter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.future.day.db.entity.DayNewChild
 import com.future.day.db.entity.Tags
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class DayConverters {
 

@@ -17,6 +17,7 @@ class FontHelper private constructor() {
         const val TEXT_LIGHT = "fonts/text_light.ttf"
 
         private var application: Application? = null
+
         @Volatile
         private var INSTANCE: FontHelper? = null
 

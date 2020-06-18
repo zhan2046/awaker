@@ -26,23 +26,23 @@ class MovieDetailViewModel : ViewModel() {
 
     private fun loadMovieDetailEntity(id: String) {
         compositeDisposable.add(MovieRepository.get().loadMovieDetailEntity(id)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError { throwable -> throwable.printStackTrace() }
-                .doOnNext { movieDetail ->
-                    Log.i("MovieDetailViewModel", "loadMovieDetailEntity called...")
-                    movieDetailLiveData.value = movieDetail
-                }
-                .subscribe({}, {}))
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError { throwable -> throwable.printStackTrace() }
+            .doOnNext { movieDetail ->
+                Log.i("MovieDetailViewModel", "loadMovieDetailEntity called...")
+                movieDetailLiveData.value = movieDetail
+            }
+            .subscribe({}, {}))
     }
 
     private fun updateMovieDetail(id: String) {
         val detailFile = id.plus(LionUtils.JSON_FILE)
         compositeDisposable.add(MovieRepository.get().getMovieDetail(detailFile)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError { throwable -> throwable.printStackTrace() }
-                .doOnSubscribe {}
-                .doFinally {}
-                .doOnSuccess {}
-                .subscribe({}, {}))
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError { throwable -> throwable.printStackTrace() }
+            .doOnSubscribe {}
+            .doFinally {}
+            .doOnSuccess {}
+            .subscribe({}, {}))
     }
 }

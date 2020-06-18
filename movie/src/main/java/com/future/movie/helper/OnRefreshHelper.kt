@@ -30,8 +30,8 @@ object OnRefreshHelper {
             val adapterCount = adapter.itemCount
             val refreshPosition = adapterCount - 1
             return lastPosition > 0 && lastPosition >= refreshPosition &&
-                    (newState == RecyclerView.SCROLL_STATE_IDLE ||
-                            newState == RecyclerView.SCROLL_STATE_SETTLING)
+                (newState == RecyclerView.SCROLL_STATE_IDLE ||
+                    newState == RecyclerView.SCROLL_STATE_SETTLING)
         }
         return false
     }

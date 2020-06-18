@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.lion_item_movie_detail_image.*
 
 class MovieDetailImageHolder(itemView: View, private var movieDetail: MovieDetailEntity,
                              listener: OnItemClickListener<ImageListModel>?) :
-        RecyclerView.ViewHolder(itemView), LayoutContainer {
+    RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     override val containerView: View?
         get() = itemView
@@ -34,7 +34,7 @@ class MovieDetailImageHolder(itemView: View, private var movieDetail: MovieDetai
     fun bind(bean: IntroduceItem) {
         url = bean.image
         ImageLoader.get().load(picIv, url,
-                ViewUtils.getPlaceholder(itemView.context, adapterPosition))
+            ViewUtils.getPlaceholder(itemView.context, adapterPosition))
     }
 
     private fun resetImageListModel(url: String) {

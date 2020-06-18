@@ -10,7 +10,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.day_item_day_new.*
 
 class DayNewHolder(itemView: View, listener: OnItemClickListener<DayNew>?) :
-        RecyclerView.ViewHolder(itemView), LayoutContainer {
+    RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     override val containerView: View?
         get() = itemView

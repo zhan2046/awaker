@@ -58,36 +58,36 @@ class ItemImageDetailFragment : Fragment() {
         imageView.visibility = if (isGif) View.VISIBLE else View.GONE
         if (isGif) {
             Glide.with(imageView.context)
-                    .load(imageUrl)
-                    .placeholder(ViewUtils.getPlaceholder(activity, 0))
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(imageView)
+                .load(imageUrl)
+                .placeholder(ViewUtils.getPlaceholder(activity, 0))
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView)
             progressBar.visibility = View.INVISIBLE
         } else {
             Glide.with(photoView.context)
-                    .load(imageUrl)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .listener(object : RequestListener<Drawable> {
+                .load(imageUrl)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .listener(object : RequestListener<Drawable> {
 
-                        override fun onResourceReady(resource: Drawable?, model: Any?,
-                                                     target: Target<Drawable>?, dataSource: DataSource?,
-                                                     isFirstResource: Boolean): Boolean {
-                            if (photoView != null) {
-                                photoView.setImageDrawable(resource)
-                                progressBar.visibility = View.INVISIBLE
-                            }
-                            return true
+                    override fun onResourceReady(resource: Drawable?, model: Any?,
+                                                 target: Target<Drawable>?, dataSource: DataSource?,
+                                                 isFirstResource: Boolean): Boolean {
+                        if (photoView != null) {
+                            photoView.setImageDrawable(resource)
+                            progressBar.visibility = View.INVISIBLE
                         }
+                        return true
+                    }
 
-                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?,
-                                                  isFirstResource: Boolean): Boolean {
-                            if (progressBar != null) {
-                                progressBar.visibility = View.INVISIBLE
-                            }
-                            return true
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?,
+                                              isFirstResource: Boolean): Boolean {
+                        if (progressBar != null) {
+                            progressBar.visibility = View.INVISIBLE
                         }
-                    })
-                    .into(photoView)
+                        return true
+                    }
+                })
+                .into(photoView)
         }
 
         photoView.setOnClickListener {

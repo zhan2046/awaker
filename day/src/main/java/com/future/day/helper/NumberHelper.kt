@@ -3,7 +3,7 @@ package com.future.day.helper
 object NumberHelper {
 
     private val CHINA_NUMBER_LIST = arrayOf("零", "一", "二", "三", "四", "五", "六",
-            "七", "八", "九")
+        "七", "八", "九")
 
     private fun numberToCH(number: Int): String {
         val numberStr = number.toString()

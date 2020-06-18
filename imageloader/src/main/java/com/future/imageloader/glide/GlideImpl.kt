@@ -14,105 +14,105 @@ class GlideImpl : IImageLoader {
 
     override fun load(imageView: ImageView, url: String) {
         Glide.with(imageView.context)
-                .load(url)
-                .apply(requestOptions)
-                .transition(transitionOptions)
-                .into(imageView)
+            .load(url)
+            .apply(requestOptions)
+            .transition(transitionOptions)
+            .into(imageView)
     }
 
     override fun load(imageView: ImageView, resId: Int) {
         Glide.with(imageView.context)
-                .load(resId)
-                .apply(requestOptions)
-                .transition(transitionOptions)
-                .into(imageView)
+            .load(resId)
+            .apply(requestOptions)
+            .transition(transitionOptions)
+            .into(imageView)
     }
 
     override fun load(imageView: ImageView, url: String, listener: RequestListener<Drawable>) {
         Glide.with(imageView.context)
-                .load(url)
-                .apply(requestOptions)
-                .transition(transitionOptions)
-                .listener(listener)
-                .into(imageView)
+            .load(url)
+            .apply(requestOptions)
+            .transition(transitionOptions)
+            .listener(listener)
+            .into(imageView)
     }
 
     override fun load(imageView: ImageView, resId: Int, listener: RequestListener<Drawable>) {
         Glide.with(imageView.context)
-                .load(resId)
-                .apply(requestOptions)
-                .transition(transitionOptions)
-                .listener(listener)
-                .into(imageView)
+            .load(resId)
+            .apply(requestOptions)
+            .transition(transitionOptions)
+            .listener(listener)
+            .into(imageView)
     }
 
     override fun load(imageView: ImageView, url: String, placeholder: Drawable?) {
         Glide.with(imageView.context)
-                .load(url)
-                .placeholder(placeholder)
-                .apply(requestOptions)
-                .transition(transitionOptions)
-                .into(imageView)
+            .load(url)
+            .placeholder(placeholder)
+            .apply(requestOptions)
+            .transition(transitionOptions)
+            .into(imageView)
     }
 
     override fun load(imageView: ImageView, resId: Int, placeholder: Drawable?) {
         Glide.with(imageView.context)
-                .load(resId)
-                .placeholder(placeholder)
-                .apply(requestOptions)
-                .transition(transitionOptions)
-                .into(imageView)
+            .load(resId)
+            .placeholder(placeholder)
+            .apply(requestOptions)
+            .transition(transitionOptions)
+            .into(imageView)
     }
 
     override fun load(imageView: ImageView, url: String, placeholder: Drawable?,
                       listener: RequestListener<Drawable>) {
         Glide.with(imageView.context)
-                .load(url)
-                .placeholder(placeholder)
-                .apply(requestOptions)
-                .transition(transitionOptions)
-                .listener(listener)
-                .into(imageView)
+            .load(url)
+            .placeholder(placeholder)
+            .apply(requestOptions)
+            .transition(transitionOptions)
+            .listener(listener)
+            .into(imageView)
     }
 
     override fun load(imageView: ImageView, resId: Int, placeholder: Drawable?,
                       listener: RequestListener<Drawable>) {
         Glide.with(imageView.context)
-                .load(resId)
-                .placeholder(placeholder)
-                .apply(requestOptions)
-                .transition(transitionOptions)
-                .listener(listener)
-                .into(imageView)
+            .load(resId)
+            .placeholder(placeholder)
+            .apply(requestOptions)
+            .transition(transitionOptions)
+            .listener(listener)
+            .into(imageView)
     }
 
     override fun loadNoCrossFade(imageView: ImageView, url: String) {
         Glide.with(imageView.context)
-                .load(url)
-                .apply(requestOptions)
-                .into(imageView)
+            .load(url)
+            .apply(requestOptions)
+            .into(imageView)
     }
 
     override fun loadNoCrossFade(imageView: ImageView, resId: Int) {
         Glide.with(imageView.context)
-                .load(resId)
-                .apply(requestOptions)
-                .into(imageView)
+            .load(resId)
+            .apply(requestOptions)
+            .into(imageView)
     }
 
     override fun loadNoCrossFade(imageView: ImageView, url: String, placeholder: Drawable) {
         Glide.with(imageView.context)
-                .load(url)
-                .placeholder(placeholder)
-                .apply(requestOptions)
-                .into(imageView)
+            .load(url)
+            .placeholder(placeholder)
+            .apply(requestOptions)
+            .into(imageView)
     }
 
     override fun loadNoCrossFade(imageView: ImageView, resId: Int, placeholder: Drawable) {
         Glide.with(imageView.context)
-                .load(resId)
-                .placeholder(placeholder)
-                .apply(requestOptions)
-                .into(imageView)
+            .load(resId)
+            .placeholder(placeholder)
+            .apply(requestOptions)
+            .into(imageView)
     }
 }

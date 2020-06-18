@@ -3,10 +3,10 @@ package com.future.day
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.internal.LinkedTreeMap
+import com.future.common.CommonUtils
 import com.future.day.db.entity.DayNew
 import com.future.day.network.DayRepository
-import com.future.day.util.ResUtils
+import com.google.gson.internal.LinkedTreeMap
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
@@ -24,7 +24,7 @@ class DayHomeModel : ViewModel() {
     val tagMapLiveData = MutableLiveData<LinkedTreeMap<String, String>>()
 
     private val dayTagMap = LinkedTreeMap<String, String>()
-    private val firstTab = ResUtils.getString(R.string.day_new_list_tab)
+    private val firstTab = CommonUtils.get().getString(R.string.day_new_list_tab)
 
     private val compositeDisposable = CompositeDisposable()
 

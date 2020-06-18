@@ -11,7 +11,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.lion_item_movie_detail_video.*
 
 class MovieDetailVideoHolder(itemView: View, listener: OnItemClickListener<VideoItem>?) :
-        RecyclerView.ViewHolder(itemView), LayoutContainer {
+    RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     override val containerView: View?
         get() = itemView
@@ -30,6 +30,6 @@ class MovieDetailVideoHolder(itemView: View, listener: OnItemClickListener<Video
         videoItem = bean
         titleTv.text = bean.title
         ImageLoader.get().load(imageIv, bean.image,
-                ViewUtils.getPlaceholder(itemView.context, adapterPosition))
+            ViewUtils.getPlaceholder(itemView.context, adapterPosition))
     }
 }

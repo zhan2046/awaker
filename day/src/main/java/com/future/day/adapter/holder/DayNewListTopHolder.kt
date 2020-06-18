@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.future.day.helper.NumberHelper
-import com.future.day.base.OnItemClickListener
 import com.future.day.R
 import com.future.day.adapter.DayImageNewListAdapter
+import com.future.day.base.OnItemClickListener
 import com.future.day.db.entity.DayNew
 import com.future.day.db.entity.DayNewChild
+import com.future.day.helper.NumberHelper
 import com.future.font.FontHelper
 import com.future.imageloader.glide.ImageLoader
 import kotlinx.android.extensions.LayoutContainer
@@ -20,7 +20,7 @@ import kotlin.collections.ArrayList
 
 @SuppressLint("SimpleDateFormat")
 class DayNewListTopHolder(itemView: View, listener: OnItemClickListener<DayNew>?) :
-        RecyclerView.ViewHolder(itemView), LayoutContainer {
+    RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     override val containerView: View?
         get() = itemView
@@ -48,7 +48,7 @@ class DayNewListTopHolder(itemView: View, listener: OnItemClickListener<DayNew>?
             }
         }
         val layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL,
-                false)
+            false)
         newListRecyclerView.layoutManager = layoutManager
         newListRecyclerView.adapter = dayImageNewListAdapter
         dayImageNewListAdapter.onItemClickListener = object : OnItemClickListener<Any> {

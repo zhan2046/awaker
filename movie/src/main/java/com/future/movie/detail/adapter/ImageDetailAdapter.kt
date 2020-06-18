@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.future.movie.detail.fragment.ItemImageDetailFragment
 
 class ImageDetailAdapter(fm: FragmentManager, imageList: ArrayList<String>) :
-        FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private var imageList: List<String> = imageList
 

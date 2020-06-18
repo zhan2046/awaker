@@ -18,10 +18,10 @@ object DayClient {
 
     private fun create(): DayApi {
         val client = Retrofit.Builder().baseUrl(HOST)
-                .client(OkHttpClient.Builder().build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
+            .client(OkHttpClient.Builder().build())
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
         return client.create(DayApi::class.java)
     }
 }

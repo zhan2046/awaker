@@ -19,14 +19,14 @@ class MovieListViewModel : ViewModel() {
             MovieRepository.get().loadMovieEntityList() else
             MovieRepository.get().loadMovieEntityList(tag)
         compositeDisposable.add(flowAble
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError { throwable -> throwable.printStackTrace() }
-                .doOnNext { movieList ->
-                    Log.i("MovieListViewModel", "loadMovieEntityList tag:" +
-                            tag + " size: " + movieList.size)
-                    movieListLiveData.value = movieList.shuffled()
-                }
-                .subscribe({}, {}))
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError { throwable -> throwable.printStackTrace() }
+            .doOnNext { movieList ->
+                Log.i("MovieListViewModel", "loadMovieEntityList tag:" +
+                    tag + " size: " + movieList.size)
+                movieListLiveData.value = movieList.shuffled()
+            }
+            .subscribe({}, {}))
     }
 
     override fun onCleared() {

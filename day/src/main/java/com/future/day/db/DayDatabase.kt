@@ -16,18 +16,19 @@ abstract class DayDatabase : RoomDatabase() {
     companion object {
 
         private const val DB_NAME = "day_new.db"
+
         @Volatile
         private var INSTANCE: DayDatabase? = null
 
         fun get(context: Context): DayDatabase =
-                INSTANCE ?: synchronized(this) {
-                    INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
-                }
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
+            }
 
         private fun buildDatabase(context: Context) =
-                Room.databaseBuilder(context.applicationContext,
-                        DayDatabase::class.java, DB_NAME)
-                        .build()
+            Room.databaseBuilder(context.applicationContext,
+                DayDatabase::class.java, DB_NAME)
+                .build()
     }
 
     abstract fun dayNewDao(): DayNewDao

@@ -28,15 +28,15 @@ object LionTitleHelper {
 
     fun setAlphaScaleAnimate(tagView: View) {
         tagView.viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 tagView.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 tagView.alpha = START_ALPHA
                 tagView.scaleX = START_SCALE_X
                 tagView.animate()
-                        .alpha(END_ALPHA)
-                        .scaleX(END_SCALE_X)
-                        .setDuration(DURATION).interpolator = getFastOutSlowInInterpolator(tagView.context)
+                    .alpha(END_ALPHA)
+                    .scaleX(END_SCALE_X)
+                    .setDuration(DURATION).interpolator = getFastOutSlowInInterpolator(tagView.context)
             }
         })
     }
@@ -45,7 +45,7 @@ object LionTitleHelper {
         var fastOutSlowIn = fastOutSlowIn
         if (fastOutSlowIn == null) {
             fastOutSlowIn = AnimationUtils.loadInterpolator(context,
-                    android.R.interpolator.fast_out_slow_in)
+                android.R.interpolator.fast_out_slow_in)
             LionTitleHelper.fastOutSlowIn = fastOutSlowIn
         }
         return fastOutSlowIn

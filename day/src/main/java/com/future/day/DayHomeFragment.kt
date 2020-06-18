@@ -9,11 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.gson.internal.LinkedTreeMap
 import com.future.day.adapter.DayHomeAdapter
 import com.future.day.helper.TitleHelper
 import com.future.day.widget.ScaleTransitionPagerTitleView
 import com.future.font.FontHelper
+import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.day_frag_home.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator

@@ -3,9 +3,9 @@ package com.future.day.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.future.day.base.OnItemClickListener
 import com.future.day.R
 import com.future.day.adapter.holder.DayImageNewListHolder
+import com.future.day.base.OnItemClickListener
 
 class DayImageNewListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -20,8 +20,8 @@ class DayImageNewListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return DayImageNewListHolder(LayoutInflater.from(parent.context)
-                .inflate(R.layout.day_item_image_day_new_list, parent, false),
-                onItemClickListener)
+            .inflate(R.layout.day_item_image_day_new_list, parent, false),
+            onItemClickListener)
     }
 
     override fun getItemCount(): Int = dataList.size

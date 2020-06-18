@@ -1,10 +1,10 @@
 package com.future.movie.db.converters
 
 import androidx.room.TypeConverter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.future.movie.db.entity.IntroduceItem
 import com.future.movie.db.entity.VideoItem
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class MovieConverters {
 

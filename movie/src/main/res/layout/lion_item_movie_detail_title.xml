@@ -39,7 +39,6 @@
         android:textSize="@dimen/text_large_20" />
 
 
-
     <Space
         app:layout_constraintTop_toBottomOf="@+id/title_tv"
         android:layout_width="match_parent"

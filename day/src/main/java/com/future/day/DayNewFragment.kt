@@ -14,7 +14,6 @@ import com.future.day.db.entity.DayNew
 import com.future.day.helper.OnRefreshHelper
 import com.future.day.image.DayImageDetailFragment
 import kotlinx.android.synthetic.main.day_frag_new.*
-import kotlin.random.Random
 
 class DayNewFragment : Fragment() {
 

@@ -3,8 +3,8 @@ package com.future.day.adapter.holder
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.future.day.base.OnItemClickListener
 import com.future.day.adapter.DayImageNewListAdapter
+import com.future.day.base.OnItemClickListener
 import com.future.day.db.entity.DayNew
 import com.future.day.db.entity.DayNewChild
 import com.future.font.FontHelper
@@ -13,7 +13,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.day_item_day_new_list.*
 
 class DayNewListHolder(itemView: View, listener: OnItemClickListener<DayNew>?) :
-        RecyclerView.ViewHolder(itemView), LayoutContainer {
+    RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     override val containerView: View?
         get() = itemView
@@ -33,7 +33,7 @@ class DayNewListHolder(itemView: View, listener: OnItemClickListener<DayNew>?) :
             }
         }
         val layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL,
-                false)
+            false)
         newListRecyclerView.layoutManager = layoutManager
         newListRecyclerView.adapter = dayImageNewListAdapter
         dayImageNewListAdapter.onItemClickListener = object : OnItemClickListener<Any> {

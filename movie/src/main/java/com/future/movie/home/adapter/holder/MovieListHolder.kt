@@ -4,14 +4,14 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.future.font.FontHelper
 import com.future.imageloader.glide.ImageLoader
+import com.future.movie.db.entity.MovieEntity
 import com.future.movie.listener.OnItemClickListener
 import com.future.movie.utils.ViewUtils
-import com.future.movie.db.entity.MovieEntity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.lion_item_movie_list.*
 
 class MovieListHolder(itemView: View, listener: OnItemClickListener<MovieEntity>?) :
-        RecyclerView.ViewHolder(itemView), LayoutContainer {
+    RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     private lateinit var movie: MovieEntity
 
@@ -34,6 +34,6 @@ class MovieListHolder(itemView: View, listener: OnItemClickListener<MovieEntity>
         titleTv.text = movie.title
         contentTv.text = movie.content
         ImageLoader.get().load(picIv, movie.image,
-                ViewUtils.getPlaceholder(itemView.context, adapterPosition))
+            ViewUtils.getPlaceholder(itemView.context, adapterPosition))
     }
 }

@@ -18,19 +18,20 @@ abstract class MovieDatabase : RoomDatabase() {
     companion object {
 
         private const val DB_NAME = "base_movie.db"
+
         @Volatile
         private var INSTANCE: MovieDatabase? = null
 
         fun get(context: Context): MovieDatabase =
-                INSTANCE ?: synchronized(this) {
-                    INSTANCE
-                        ?: buildDatabase(context).also { INSTANCE = it }
-                }
+            INSTANCE ?: synchronized(this) {
+                INSTANCE
+                    ?: buildDatabase(context).also { INSTANCE = it }
+            }
 
         private fun buildDatabase(context: Context) =
-                Room.databaseBuilder(context.applicationContext,
-                        MovieDatabase::class.java, DB_NAME)
-                        .build()
+            Room.databaseBuilder(context.applicationContext,
+                MovieDatabase::class.java, DB_NAME)
+                .build()
     }
 
     abstract fun movieDao(): MovieDao

@@ -12,7 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 class DayViewModel : ViewModel() {
 
     val refreshDayNewLiveData = MutableLiveData<List<DayNew>>()
-            .also { it.value = null }
+        .also { it.value = null }
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCleared() {
@@ -24,13 +24,13 @@ class DayViewModel : ViewModel() {
         val flowAble = if (tagKey.isNotBlank())
             DayRepository.get().loadDayNewList(tagKey) else DayRepository.get().loadDayNewList()
         compositeDisposable.add(flowAble
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError { throwable -> throwable.printStackTrace() }
-                .doOnNext { dayNewList ->
-                    Log.i("ViewModel", "loadDayNewList tagKey:" + tagKey +
-                            " size:" + dayNewList.size)
-                    refreshDayNewLiveData.value = dayNewList
-                }
-                .subscribe({}, {}))
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError { throwable -> throwable.printStackTrace() }
+            .doOnNext { dayNewList ->
+                Log.i("ViewModel", "loadDayNewList tagKey:" + tagKey +
+                    " size:" + dayNewList.size)
+                refreshDayNewLiveData.value = dayNewList
+            }
+            .subscribe({}, {}))
     }
 }

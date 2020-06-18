@@ -79,8 +79,8 @@ class MediaService : MediaBrowserServiceCompat() {
     private fun getCacheDataSourceFactory(): CacheDataSourceFactory {
         val defaultHttpDataSourceFactory =
             DefaultHttpDataSourceFactory(Util.getUserAgent(this, USER_AGENT),
-            null, DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
-            DefaultHttpDataSource.DEFAULT_READ_TIMEOUT_MILLIS, true)
+                null, DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
+                DefaultHttpDataSource.DEFAULT_READ_TIMEOUT_MILLIS, true)
         val dataSourceFactory = DefaultDataSourceFactory(this, defaultHttpDataSourceFactory)
         if (SIMPLE_CACHE == null) {
             SIMPLE_CACHE = getSimpleCache()

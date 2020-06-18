@@ -1,6 +1,6 @@
 package com.future.day.network
 
-import com.future.day.util.ResUtils
+import com.future.common.CommonUtils
 import com.future.day.db.DayDatabase
 import com.future.day.db.entity.DayNew
 import com.future.day.helper.DayNewHelper
@@ -23,7 +23,7 @@ class DayRepository {
     }
 
     private val dayDatabase: DayDatabase by lazy {
-        DayDatabase.get(ResUtils.context)
+        DayDatabase.get(CommonUtils.get().getContext())
     }
     private val dayApi: DayApi by lazy {
         DayClient.get()
@@ -31,12 +31,12 @@ class DayRepository {
 
     fun getDayNewList(page: Int, ver: String, appVer: String): Single<List<DayNew>> {
         return dayApi.getDayNewList(page, ver, appVer)
-                .subscribeOn(Schedulers.io())
-                .map { list ->
-                    val dayNewList = DayNewHelper.toDayNewList(list)
-                    insertDayNewList(dayNewList)
-                    dayNewList
-                }
+            .subscribeOn(Schedulers.io())
+            .map { list ->
+                val dayNewList = DayNewHelper.toDayNewList(list)
+                insertDayNewList(dayNewList)
+                dayNewList
+            }
     }
 
     fun loadDayNewList(): Flowable<List<DayNew>> {

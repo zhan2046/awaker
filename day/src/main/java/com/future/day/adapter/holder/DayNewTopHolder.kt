@@ -3,10 +3,10 @@ package com.future.day.adapter.holder
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.future.day.helper.NumberHelper
-import com.future.day.base.OnItemClickListener
 import com.future.day.R
+import com.future.day.base.OnItemClickListener
 import com.future.day.db.entity.DayNew
+import com.future.day.helper.NumberHelper
 import com.future.font.FontHelper
 import com.future.imageloader.glide.ImageLoader
 import kotlinx.android.extensions.LayoutContainer
@@ -16,7 +16,7 @@ import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 class DayNewTopHolder(itemView: View, listener: OnItemClickListener<DayNew>?) :
-        RecyclerView.ViewHolder(itemView), LayoutContainer {
+    RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     override val containerView: View?
         get() = itemView
