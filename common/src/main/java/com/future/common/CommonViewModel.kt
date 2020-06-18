@@ -12,6 +12,7 @@ class CommonViewModel : ViewModel() {
 
         const val FRAG_MOVIE_DETAIL = "FRAG_MOVIE_DETAIL"
         const val FRAG_MOVIE_IMAGE_DETAIL = "FRAG_MOVIE_IMAGE_DETAIL"
+        const val FRAG_MOVIE_VIDEO = "FRAG_MOVIE_VIDEO"
 
         const val POP_BACK_STACK = "POP_BACK_STACK"
 

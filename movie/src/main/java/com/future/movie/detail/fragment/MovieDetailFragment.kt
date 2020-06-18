@@ -23,7 +23,7 @@ import com.future.movie.listener.AppBarStateChangeListener
 import com.future.movie.listener.OnItemClickListener
 import com.future.movie.model.ImageListModel
 import com.future.movie.utils.ViewUtils
-import com.future.movie.video.VideoActivity
+import com.future.movie.video.VideoFragment
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.lion_frag_movie_detail.*
 
@@ -112,14 +112,14 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun initListener() {
-        val activity = requireActivity()
         toolbar.setNavigationOnClickListener {
             commonViewModel.popBackStack()
         }
         movieDetailAdapter.onItemVideoClickListener = object : OnItemClickListener<VideoItem> {
 
             override fun onItemClick(position: Int, bean: VideoItem, itemView: View) {
-                VideoActivity.launch(activity, bean.m3u8Url)
+                val bundle = VideoFragment.createBundle(bean.m3u8Url)
+                commonViewModel.addFragment(CommonViewModel.FRAG_MOVIE_VIDEO, bundle)
             }
         }
         movieDetailAdapter.onItemImageClickListener =
