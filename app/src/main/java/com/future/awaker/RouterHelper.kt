@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import com.future.common.CommonModel
 import com.future.common.CommonViewModel
 import com.future.day.image.DayImageDetailFragment
+import com.future.movie.detail.fragment.ImageDetailFragment
 import com.future.movie.detail.fragment.MovieDetailFragment
 
 object RouterHelper {
@@ -23,6 +24,12 @@ object RouterHelper {
                     val movieDetailFragment =
                         MovieDetailFragment.newInstance(commonModel.bundle)
                     addFragment(movieDetailFragment, "MovieDetailFragment",
+                        supportFragmentManager)
+                }
+                CommonViewModel.FRAG_MOVIE_IMAGE_DETAIL -> {
+                    val imageDetailFragment =
+                        ImageDetailFragment.newInstance(commonModel.bundle)
+                    addFragment(imageDetailFragment, "ImageDetailFragment",
                         supportFragmentManager)
                 }
                 CommonViewModel.POP_BACK_STACK -> {

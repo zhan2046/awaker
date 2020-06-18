@@ -17,7 +17,6 @@ import com.future.movie.R
 import com.future.movie.db.entity.MovieEntity
 import com.future.movie.db.entity.VideoItem
 import com.future.movie.decoration.VideoItemDecoration
-import com.future.movie.detail.activity.ImageDetailActivity
 import com.future.movie.detail.adapter.MovieDetailAdapter
 import com.future.movie.detail.viewmodel.MovieDetailViewModel
 import com.future.movie.listener.AppBarStateChangeListener
@@ -127,7 +126,8 @@ class MovieDetailFragment : Fragment() {
             object : OnItemClickListener<ImageListModel> {
 
                 override fun onItemClick(position: Int, bean: ImageListModel, itemView: View) {
-                    ImageDetailActivity.launch(activity, bean)
+                    val bundle = ImageDetailFragment.createBundle(bean)
+                    commonViewModel.addFragment(CommonViewModel.FRAG_MOVIE_IMAGE_DETAIL, bundle)
                 }
             }
         movieDetailViewModel.movieDetailLiveData.observe(viewLifecycleOwner,

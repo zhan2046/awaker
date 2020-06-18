@@ -26,16 +26,21 @@ class ImageDetailFragment : Fragment() {
         private const val IMAGE_LIST_MODEL: String = "IMAGE_LIST_MODEL"
 
         @JvmStatic
-        fun newInstance(imageListModel: ImageListModel): ImageDetailFragment {
-            val args = Bundle()
-            args.putSerializable(IMAGE_LIST_MODEL, imageListModel)
+        fun createBundle(imageListModel: ImageListModel): Bundle {
+            val bundle = Bundle()
+            bundle.putSerializable(IMAGE_LIST_MODEL, imageListModel)
+            return bundle
+        }
+
+        @JvmStatic
+        fun newInstance(bundle: Bundle?): ImageDetailFragment {
             val frag = ImageDetailFragment()
-            frag.arguments = args
+            frag.arguments = bundle
             return frag
         }
     }
 
-    private lateinit var imageListModel: ImageListModel
+    private var imageListModel: ImageListModel = ImageListModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,22 +94,22 @@ class ImageDetailFragment : Fragment() {
         val centerText = " / "
         val totalPositionText = imageListModel.imageList.size.toString()
         val imageBottomText = currentPositionText
-                .plus(centerText)
-                .plus(totalPositionText)
+            .plus(centerText)
+            .plus(totalPositionText)
         val spannableString = SpannableString(imageBottomText)
         val currentColorSpan = ForegroundColorSpan(ContextCompat.getColor(activity!!,
-                R.color.colorAccent))
+            R.color.colorAccent))
         spannableString.setSpan(currentColorSpan, 0, currentPositionText.length,
-                Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+            Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
         val totalColorSpan = ForegroundColorSpan(ContextCompat.getColor(activity!!,
-                R.color.light_grey))
+            R.color.light_grey))
         spannableString.setSpan(totalColorSpan, currentPositionText.length, imageBottomText.length,
-                Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+            Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(AbsoluteSizeSpan(18, true),
-                0, currentPositionText.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+            0, currentPositionText.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
         spannableString.setSpan(AbsoluteSizeSpan(22, true),
-                currentPositionText.length, imageBottomText.length,
-                Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+            currentPositionText.length, imageBottomText.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE)
         bottomContentTv.text = spannableString
     }
 }

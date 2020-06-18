@@ -10,10 +10,6 @@
     <application>
 
         <activity
-            android:name="com.future.movie.detail.activity.ImageDetailActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name="com.future.movie.video.VideoActivity"
             android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden|screenSize"

@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.future.common.CommonViewModel
 import com.future.movie.R
 import com.future.movie.utils.LionUtils
 import com.future.movie.utils.ViewUtils
@@ -33,6 +35,9 @@ class ItemImageDetailFragment : Fragment() {
         }
     }
 
+    private val commonViewModel: CommonViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(CommonViewModel::class.java)
+    }
     private var imageUrl = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +88,13 @@ class ItemImageDetailFragment : Fragment() {
                         }
                     })
                     .into(photoView)
+        }
+
+        photoView.setOnClickListener {
+            commonViewModel.popBackStack()
+        }
+        imageView.setOnClickListener {
+            commonViewModel.popBackStack()
         }
     }
 }
