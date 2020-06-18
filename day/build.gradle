@@ -69,4 +69,5 @@ dependencies {
     implementation "com.github.nahzur-h:MagicIndicator:$magic_indicator_version"
     implementation project(':imageloader')
     implementation project(':font')
+    implementation project(':common')
 }

@@ -7,18 +7,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.github.chrisbanes.photoview.PhotoView
+import com.future.common.CommonViewModel
 import com.future.day.R
+import com.github.chrisbanes.photoview.PhotoView
 import kotlinx.android.synthetic.main.day_frag_image_detail.*
 
-class DayImageDetailFragment : DialogFragment() {
+class DayImageDetailFragment : Fragment() {
 
     companion object {
 
@@ -31,24 +33,30 @@ class DayImageDetailFragment : DialogFragment() {
         private const val IMAGE_HEIGHT = 1280
 
         @JvmStatic
-        fun newInstance(oldImageUrl: String, imageUrl: String): DayImageDetailFragment {
-            val args = Bundle()
-            args.putString(OLD_IMAGE_URL, oldImageUrl)
-            args.putString(IMAGE_URL, imageUrl)
+        fun createBundle(oldImageUrl: String, imageUrl: String): Bundle {
+            val bundle = Bundle()
+            bundle.putString(OLD_IMAGE_URL, oldImageUrl)
+            bundle.putString(IMAGE_URL, imageUrl)
+            return bundle
+        }
+
+        @JvmStatic
+        fun newInstance(bundle: Bundle?): DayImageDetailFragment {
             val frag = DayImageDetailFragment()
-            frag.arguments = args
+            frag.arguments = bundle
             return frag
         }
     }
 
+    private val commonViewModel: CommonViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(CommonViewModel::class.java)
+    }
     private var oldImageUrl = ""
     private var imageUrl = ""
     private var isHandlerDismiss = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL,
-            android.R.style.Theme_Translucent_NoTitleBar)
         oldImageUrl = arguments?.getString(OLD_IMAGE_URL) ?: ""
         imageUrl = arguments?.getString(IMAGE_URL) ?: ""
     }
@@ -107,12 +115,12 @@ class DayImageDetailFragment : DialogFragment() {
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator?) {
                         super.onAnimationEnd(animation)
-                        dismiss()
+                        commonViewModel.popBackStack()
                     }
 
                     override fun onAnimationCancel(animation: Animator?) {
                         super.onAnimationCancel(animation)
-                        dismiss()
+                        commonViewModel.popBackStack()
                     }
                 })
                 .setDuration(PHOTO_VIEW_DURATION).start()

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.future.common.CommonViewModel
 import com.future.day.adapter.DayNewAdapter
 import com.future.day.base.OnItemClickListener
 import com.future.day.db.entity.DayNew
@@ -31,6 +32,9 @@ class DayNewFragment : Fragment() {
         }
     }
 
+    private val commonViewModel: CommonViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(CommonViewModel::class.java)
+    }
     private var tagKey = ""
     private val dayHomeModel: DayHomeModel by lazy {
         ViewModelProvider(requireActivity()).get(DayHomeModel::class.java)
@@ -78,9 +82,9 @@ class DayNewFragment : Fragment() {
             })
         dayNewAdapter.onItemClickListener = object : OnItemClickListener<DayNew> {
             override fun onItemClick(itemView: View, position: Int, bean: DayNew) {
-                val frag =
-                    DayImageDetailFragment.newInstance(bean.cover_landscape, bean.cover_thumb)
-                frag.show(childFragmentManager, "DayImageDetailFragment" + Random.nextInt(1000))
+                val bundle = DayImageDetailFragment.createBundle(bean.cover_landscape,
+                    bean.cover_thumb)
+                commonViewModel.addFragment(CommonViewModel.FRAG_IMAGE_DETAIL, bundle)
             }
         }
     }
