@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.future.common.CommonViewModel
 import com.future.movie.R
 import com.future.movie.db.entity.MovieEntity
-import com.future.movie.detail.MovieDetailActivity
+import com.future.movie.detail.fragment.MovieDetailFragment
 import com.future.movie.helper.OnRefreshHelper
 import com.future.movie.home.adapter.MovieListAdapter
 import com.future.movie.home.viewmodel.MovieHomeViewModel
@@ -42,6 +43,9 @@ class MovieListFragment : Fragment() {
         }
     }
 
+    private val commonViewModel: CommonViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(CommonViewModel::class.java)
+    }
     private val movieHomeViewModel: MovieHomeViewModel by lazy {
         ViewModelProvider(requireActivity()).get(MovieHomeViewModel::class.java)
     }
@@ -87,7 +91,8 @@ class MovieListFragment : Fragment() {
         }, R.color.colorAccent)
         movieListAdapter.onItemClickListener = object : OnItemClickListener<MovieEntity> {
             override fun onItemClick(position: Int, bean: MovieEntity, itemView: View) {
-                MovieDetailActivity.launch(requireActivity(), bean)
+                val bundle = MovieDetailFragment.createBundle(bean)
+                commonViewModel.addFragment(CommonViewModel.FRAG_MOVIE_DETAIL, bundle)
             }
         }
     }

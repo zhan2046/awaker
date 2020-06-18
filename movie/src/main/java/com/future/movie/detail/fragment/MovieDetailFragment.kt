@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.future.common.CommonViewModel
 import com.future.imageloader.glide.ImageLoader
 import com.future.media.MediaControllerManager
 import com.future.movie.R
@@ -36,15 +37,23 @@ class MovieDetailFragment : Fragment() {
         private const val HEADER_OFFSET = 9.0f / 16.0f
 
         @JvmStatic
-        fun newInstance(movie: MovieEntity): MovieDetailFragment {
-            val args = Bundle()
-            args.putParcelable(MOVIE, movie)
+        fun createBundle(movie: MovieEntity): Bundle {
+            val bundle = Bundle()
+            bundle.putParcelable(MOVIE, movie)
+            return bundle
+        }
+
+        @JvmStatic
+        fun newInstance(bundle: Bundle?): MovieDetailFragment {
             val frag = MovieDetailFragment()
-            frag.arguments = args
+            frag.arguments = bundle
             return frag
         }
     }
 
+    private val commonViewModel: CommonViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(CommonViewModel::class.java)
+    }
     private lateinit var movie: MovieEntity
     private val movieDetailAdapter = MovieDetailAdapter()
     private val movieDetailViewModel: MovieDetailViewModel by lazy {
@@ -106,7 +115,7 @@ class MovieDetailFragment : Fragment() {
     private fun initListener() {
         val activity = requireActivity()
         toolbar.setNavigationOnClickListener {
-            activity.finish()
+            commonViewModel.popBackStack()
         }
         movieDetailAdapter.onItemVideoClickListener = object : OnItemClickListener<VideoItem> {
 

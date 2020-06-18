@@ -10,11 +10,6 @@
     <application>
 
         <activity
-            android:name="com.future.movie.detail.MovieDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Lion.MovieDetail" />
-
-        <activity
             android:name="com.future.movie.detail.activity.ImageDetailActivity"
             android:screenOrientation="portrait" />
 

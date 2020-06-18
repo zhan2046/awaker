@@ -9,18 +9,18 @@ object MovieClient {
     @Volatile
     private var api: MovieApi? = null
 
-    fun get(): MovieApi = api
-        ?: synchronized(MovieClient::class) {
-        api
-            ?: getMovieApi().also { api = it }
+    fun get(): MovieApi = api ?: synchronized(MovieClient::class) {
+        api ?: getMovieApi().also {
+            api = it
+        }
     }
 
     private fun getMovieApi(): MovieApi {
         val client = Retrofit.Builder().baseUrl(MovieApi.HOST)
-                .client(MovieHttpClient.getCommonHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
+            .client(MovieHttpClient.getCommonHttpClient())
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
         return client.create(MovieApi::class.java)
     }
 }

@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
             val mainFragment = MainFragment.newInstance()
             supportFragmentManager
                 .beginTransaction()
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
+                    R.anim.fade_in, R.anim.fade_out)
                 .add(R.id.container, mainFragment, "MainFragment")
                 .commitAllowingStateLoss()
         }

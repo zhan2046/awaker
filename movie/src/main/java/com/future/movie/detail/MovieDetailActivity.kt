@@ -29,12 +29,6 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(R.layout.lion_container)
         val movie = intent.getParcelableExtra(MOVIE) as MovieEntity
         if (savedInstanceState == null) {
-            val movieDetailFragment = MovieDetailFragment.newInstance(movie)
-            this.movieDetailFragment = movieDetailFragment
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.container, movieDetailFragment, "MovieDetailFragment2")
-                .commit()
         }
     }
 }

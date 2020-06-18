@@ -10,13 +10,11 @@ class MovieHttpClient private constructor() {
 
         private var INSTANCE: MovieHttpClient? = null
 
-        fun get(): MovieHttpClient = INSTANCE
-                ?: synchronized(MovieHttpClient::class) {
-                    INSTANCE
-                        ?: MovieHttpClient().also {
-                        INSTANCE = it
-                    }
-                }
+        fun get(): MovieHttpClient = INSTANCE ?: synchronized(MovieHttpClient::class) {
+            INSTANCE ?: MovieHttpClient().also {
+                INSTANCE = it
+            }
+        }
 
         @JvmStatic
         fun getCommonHttpClient(): OkHttpClient = get().okHttpClient

@@ -67,4 +67,5 @@ dependencies {
     implementation project(':imageloader')
     implementation project(':media')
     implementation project(':font')
+    implementation project(':common')
 }
