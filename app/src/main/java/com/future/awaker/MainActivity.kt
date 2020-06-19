@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.container)
         if (savedInstanceState == null) {
-            CommonUtils.get().setCommonViewModel(commonViewModel)
             initLiveData()
             val mainFragment = MainFragment.newInstance()
             supportFragmentManager

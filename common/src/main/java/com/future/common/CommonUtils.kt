@@ -18,7 +18,6 @@ class CommonUtils {
     }
 
     private var application: Application? = null
-    private var commonViewModel: CommonViewModel? = null
 
     fun init(application: Application) {
         this.application = application
@@ -31,10 +30,4 @@ class CommonUtils {
             ""
         } else application!!.resources.getString(strId) ?: ""
     }
-
-    fun setCommonViewModel(commonViewModel: CommonViewModel) {
-        this.commonViewModel = commonViewModel
-    }
-
-    fun getCommonViewModel() = commonViewModel!!
 }
