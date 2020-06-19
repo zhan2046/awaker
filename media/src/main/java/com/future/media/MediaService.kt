@@ -26,7 +26,7 @@ class MediaService : MediaBrowserServiceCompat() {
         const val USER_AGENT = "media.user"
         const val BROWSE_ROOT = "/"
         const val CACHE_DIR_NAME = "media"
-        const val CACHE_MEDIA_MAX_BYTES = 100 * 1024 * 1024L
+        const val CACHE_MEDIA_MAX_BYTES = 300 * 1024 * 1024L
 
         private var SIMPLE_CACHE: SimpleCache? = null
     }
@@ -91,7 +91,8 @@ class MediaService : MediaBrowserServiceCompat() {
     private fun getSimpleCache(): SimpleCache {
         val cacheFolder = File(cacheDir, CACHE_DIR_NAME)
         val leastRecentlyUsedCache = LeastRecentlyUsedCacheEvictor(CACHE_MEDIA_MAX_BYTES)
-        return SimpleCache(cacheFolder, leastRecentlyUsedCache)
+        return SimpleCache(cacheFolder, leastRecentlyUsedCache,
+            null, null, false, true)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

@@ -12,5 +12,5 @@ class MediaQueueNavigator(
     private val window = Timeline.Window()
     override fun getMediaDescription(player: Player, windowIndex: Int): MediaDescriptionCompat =
         player.currentTimeline
-            .getWindow(windowIndex, window, true).tag as MediaDescriptionCompat
+            .getWindow(windowIndex, window, 0).tag as MediaDescriptionCompat
 }
