@@ -1,14 +1,10 @@
 package com.future.movie.utils
 
-import android.app.Activity
 import android.content.Context
-import android.content.res.Resources
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
 import android.view.animation.Interpolator
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 
 object LionTitleHelper {
 
@@ -19,12 +15,6 @@ object LionTitleHelper {
     private const val END_SCALE_X = 1f
 
     private var fastOutSlowIn: Interpolator? = null
-
-    fun setToolbar(toolbar: Toolbar, activity: Activity?) {
-        if (activity is AppCompatActivity) {
-            activity.setSupportActionBar(toolbar)
-        }
-    }
 
     fun setAlphaScaleAnimate(tagView: View) {
         tagView.viewTreeObserver.addOnGlobalLayoutListener(object :
@@ -49,15 +39,5 @@ object LionTitleHelper {
             LionTitleHelper.fastOutSlowIn = fastOutSlowIn
         }
         return fastOutSlowIn
-    }
-
-    fun getStatusBarHeight(resources: Resources): Int {
-        var result = 0
-        val resourceId = resources.getIdentifier("status_bar_height",
-            "dimen", "android")
-        if (resourceId > 0) {
-            result = resources.getDimensionPixelSize(resourceId)
-        }
-        return result
     }
 }

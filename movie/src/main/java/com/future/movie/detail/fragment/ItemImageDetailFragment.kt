@@ -52,49 +52,55 @@ class ItemImageDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val activity = requireActivity()
         val isGif = imageUrl.contains(LionUtils.GIF_FILE)
         photoView.visibility = if (isGif) View.GONE else View.VISIBLE
         imageView.visibility = if (isGif) View.VISIBLE else View.GONE
         if (isGif) {
-            Glide.with(imageView.context)
-                .load(imageUrl)
-                .placeholder(ViewUtils.getPlaceholder(activity, 0))
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView)
-            progressBar.visibility = View.INVISIBLE
+            handleGif()
         } else {
-            Glide.with(photoView.context)
-                .load(imageUrl)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .listener(object : RequestListener<Drawable> {
-
-                    override fun onResourceReady(resource: Drawable?, model: Any?,
-                                                 target: Target<Drawable>?, dataSource: DataSource?,
-                                                 isFirstResource: Boolean): Boolean {
-                        if (photoView != null) {
-                            photoView.setImageDrawable(resource)
-                            progressBar.visibility = View.INVISIBLE
-                        }
-                        return true
-                    }
-
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?,
-                                              isFirstResource: Boolean): Boolean {
-                        if (progressBar != null) {
-                            progressBar.visibility = View.INVISIBLE
-                        }
-                        return true
-                    }
-                })
-                .into(photoView)
+            handleImage()
         }
-
         photoView.setOnClickListener {
             commonViewModel.popBackStack()
         }
         imageView.setOnClickListener {
             commonViewModel.popBackStack()
         }
+    }
+
+    private fun handleGif() {
+        Glide.with(imageView.context)
+            .load(imageUrl)
+            .placeholder(ViewUtils.getPlaceholder(requireActivity(), 0))
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(imageView)
+        progressBar.visibility = View.INVISIBLE
+    }
+
+    private fun handleImage() {
+        Glide.with(photoView.context)
+            .load(imageUrl)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .listener(object : RequestListener<Drawable> {
+
+                override fun onResourceReady(resource: Drawable?, model: Any?,
+                                             target: Target<Drawable>?, dataSource: DataSource?,
+                                             isFirstResource: Boolean): Boolean {
+                    if (photoView != null) {
+                        photoView.setImageDrawable(resource)
+                        progressBar.visibility = View.INVISIBLE
+                    }
+                    return true
+                }
+
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?,
+                                          isFirstResource: Boolean): Boolean {
+                    if (progressBar != null) {
+                        progressBar.visibility = View.INVISIBLE
+                    }
+                    return true
+                }
+            })
+            .into(photoView)
     }
 }

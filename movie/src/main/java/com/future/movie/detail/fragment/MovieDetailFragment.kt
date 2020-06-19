@@ -53,7 +53,6 @@ class MovieDetailFragment : Fragment() {
     private val commonViewModel: CommonViewModel by lazy {
         ViewModelProvider(requireActivity()).get(CommonViewModel::class.java)
     }
-    private lateinit var movie: MovieEntity
     private val movieDetailAdapter = MovieDetailAdapter()
     private val movieDetailViewModel: MovieDetailViewModel by lazy {
         ViewModelProvider(this).get(MovieDetailViewModel::class.java)
@@ -61,6 +60,7 @@ class MovieDetailFragment : Fragment() {
     private val videoItemDecoration: VideoItemDecoration by lazy {
         VideoItemDecoration(requireActivity())
     }
+    private lateinit var movie: MovieEntity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

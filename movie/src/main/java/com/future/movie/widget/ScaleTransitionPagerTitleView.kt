@@ -9,7 +9,7 @@ class ScaleTransitionPagerTitleView(context: Context) : ColorTransitionPagerTitl
         private const val DEFAULT_SCALE = 0.85f
     }
 
-    var minScale = DEFAULT_SCALE
+    private var minScale = DEFAULT_SCALE
 
     override fun onEnter(index: Int, totalCount: Int, enterPercent: Float, leftToRight: Boolean) {
         super.onEnter(index, totalCount, enterPercent, leftToRight)
