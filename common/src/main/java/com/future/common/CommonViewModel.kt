@@ -22,18 +22,26 @@ class CommonViewModel : ViewModel() {
     val addFragmentLiveData = MutableLiveData<CommonModel>()
 
     fun popBackStack() {
+        resetCommonModel()
         DEFAULT_COMMON_MODEL.key = POP_BACK_STACK
         addFragmentLiveData.value = DEFAULT_COMMON_MODEL
     }
 
     fun addFragment(fragKey: String) {
+        resetCommonModel()
         DEFAULT_COMMON_MODEL.key = fragKey
         addFragmentLiveData.value = DEFAULT_COMMON_MODEL
     }
 
     fun addFragment(fragKey: String, bundle: Bundle) {
+        resetCommonModel()
         DEFAULT_COMMON_MODEL.key = fragKey
         DEFAULT_COMMON_MODEL.bundle = bundle
         addFragmentLiveData.value = DEFAULT_COMMON_MODEL
+    }
+
+    private fun resetCommonModel() {
+        DEFAULT_COMMON_MODEL.key = ""
+        DEFAULT_COMMON_MODEL.bundle = null
     }
 }
