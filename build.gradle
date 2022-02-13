@@ -1,9 +1,9 @@
 buildscript {
 
     ext {
-        compileSdkVersion = 28
+        compileSdkVersion = 30
         minSdkVersion = 21
-        targetSdkVersion = 28
+        targetSdkVersion = 30
 
         keyAlias = 'awaker'
         keyPassword = 'awaker333333'
@@ -48,7 +48,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0'
+        classpath 'com.android.tools.build:gradle:7.0.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }

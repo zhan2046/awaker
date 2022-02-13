@@ -20,15 +20,15 @@ data class MovieDetailEntity(
     var videoList: ArrayList<VideoItem>
 ) : Parcelable {
     constructor(source: Parcel) : this(
-        source.readString(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
         source.readLong(),
-        source.createTypedArrayList(IntroduceItem.CREATOR),
-        source.createTypedArrayList(VideoItem.CREATOR)
+        source.createTypedArrayList(IntroduceItem.CREATOR) ?: ArrayList(),
+        source.createTypedArrayList(VideoItem.CREATOR) ?: ArrayList()
     )
 
     override fun describeContents() = 0

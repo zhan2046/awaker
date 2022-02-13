@@ -19,12 +19,12 @@ data class MovieEntity(
     var timestamp: Long
 ) : Parcelable {
     constructor(source: Parcel) : this(
-        source.readString(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
         source.readLong()
     )
 
