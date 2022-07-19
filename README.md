@@ -13,10 +13,6 @@ Screenshots
 <a href="gif/image07.png"><img src="gif/image07.png" width="30%"/></a>
 <a href="gif/image08.png"><img src="gif/image08.png" width="30%"/></a>
 
-Download
-------
-[app-download - (chinese network maybe need vpn)](http://d.7short.com/ywtq)
-
 Developed by
 -------
 
