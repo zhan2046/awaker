@@ -113,12 +113,12 @@ class DayImageDetailFragment : Fragment() {
             constraintLayout.alpha = 1.0f
             constraintLayout.animate().alpha(0.0f)
                 .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator?) {
+                    override fun onAnimationEnd(animation: Animator) {
                         super.onAnimationEnd(animation)
                         commonViewModel.popBackStack()
                     }
 
-                    override fun onAnimationCancel(animation: Animator?) {
+                    override fun onAnimationCancel(animation: Animator) {
                         super.onAnimationCancel(animation)
                         commonViewModel.popBackStack()
                     }
